@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public GameObject prefabSoldier;
 
     public Dictionary<string, List<Soldier>> hasSoldierDic = new Dictionary<string, List<Soldier>>();
-    public Dictionary<string, List<Build>> hasBuildingDic = new Dictionary<string, List<Build>>();
+    
     
     protected RoundManager roundManager;
 

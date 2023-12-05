@@ -14,6 +14,7 @@ namespace sihyeon
             Building catSawmill = new Building();
             catSawmill.type = Building_TYPE.CAT_SAWMILL;
             //추후 자원과 관련된 코스트 까지 넣을예정.
+            //임시
             Building catBarracks = new Building();
             catBarracks.type = Building_TYPE.CAT_BARRACKS;
 
