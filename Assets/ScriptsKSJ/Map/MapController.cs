@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,6 +14,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     List<string> nodeStrings = new List<string>();
     MapExtra mapExtra;
     Coroutine moveCo;
+    public RectTransform tileTextObj;
 
     [Header("[¸Ê Ä«¸Þ¶ó]")]
     public Camera miniMapCam;
@@ -26,15 +28,15 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     }
     public void CursorCal(PointerEventData eventData)
     {
-        Vector2 curosr = new Vector2(0, 0);
+        Vector2 cursor = new Vector2(0, 0);
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(GetComponent<RawImage>().rectTransform,
-            eventData.pressPosition, eventData.pressEventCamera, out curosr))
+            eventData.pressPosition, eventData.pressEventCamera, out cursor))
         {
             Texture texture = GetComponent<RawImage>().texture;
             Rect rect = GetComponent<RawImage>().rectTransform.rect;
 
-            float coordX = Mathf.Clamp(0.0f, (((curosr.x - rect.x) * texture.width) / rect.width), texture.width);
-            float coordY = Mathf.Clamp(0.0f, (((curosr.y - rect.y) * texture.height) / rect.height), texture.height);
+            float coordX = Mathf.Clamp(0.0f, (((cursor.x - rect.x) * texture.width) / rect.width), texture.width);
+            float coordY = Mathf.Clamp(0.0f, (((cursor.y - rect.y) * texture.height) / rect.height), texture.height);
             //Debug.Log(coordX + ", " + coordY);
             //Debug.Log(curosr.x + ", " + curosr.y);
             //Debug.Log(rect.x + ", " + rect.y);
@@ -43,12 +45,23 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             float calX = coordX / texture.width;
             float calY = coordY / texture.height;
 
-            curosr = new Vector2(calX, calY);
-
-            CastRayToWorld(curosr);
+            cursor = new Vector2(calX, calY);
+            CastRayToWorld(cursor);
+            if (RoundManager.Instance.testType == RoundManager.SoldierTestType.Select)
+            {
+                tileTextObj.gameObject.SetActive(true);
+                tileTextObj.position = cursor;
+            }
+            
         }
     }
-
+    private void Update()
+    {
+        if(tileTextObj !=null && nowTile == null)
+        {
+            tileTextObj.gameObject.SetActive(false);
+        }
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         CursorCal(eventData);
@@ -85,7 +98,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     Debug.Log(tempMem.nodeName);
                     nowTile = tempMem;
                     soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempMem.nodeName];
-
                 }
                 else
                 {

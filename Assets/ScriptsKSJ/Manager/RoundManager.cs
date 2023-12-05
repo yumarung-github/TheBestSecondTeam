@@ -21,14 +21,17 @@ public class RoundManager : SingleTon<RoundManager>
     public List<Soldier> nowSoldier = new List<Soldier>();
     [Header("스폰 테스트")]
     public Button spawnButton;
+    public Button selectButton;
     public Button moveBtn;
+    public Button nextBtn;
     public MapExtra mapExtra;
     public TextMeshProUGUI turnText;
     public enum SoldierTestType
     {
         None,
         Move,
-        Select
+        Select,
+        Spawn
     }
     public SoldierTestType testType;
 
@@ -58,13 +61,13 @@ public class RoundManager : SingleTon<RoundManager>
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_MORNING, new WoodMorningState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_AFTERNOON, new WoodAfternoonState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_DINNER, new WoodDinnerState());
-
+        
     }
     private void Update()
     {
         roundSM.Update();
     }
-    public void SetSpawnBtn()
+    public void SetSpawnBtn()//소환버튼 설정
     {
         spawnButton.onClick.RemoveAllListeners();
         string tempName = nowPlayer.hasNodeNames[0];
@@ -72,6 +75,32 @@ public class RoundManager : SingleTon<RoundManager>
             nowPlayer.SpawnSoldier(tempName,
             mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
         });
+    }
+    public void SetMoveBtn()
+    {
+        moveBtn.onClick.RemoveAllListeners();
+        moveBtn.onClick.AddListener(() =>
+        {
+            testType = SoldierTestType.Move;
+        });
+    }
+    public void SetSelectBtn()
+    {
+        selectButton.onClick.RemoveAllListeners();
+        selectButton.onClick.AddListener(() =>
+        {
+            testType = SoldierTestType.Select;
+        });
+    }
+    public void SetNext(MASTATE_TYPE curState)
+    {
+        nextBtn.onClick.RemoveAllListeners();
+        nextBtn.onClick.AddListener(() =>
+        {
+            roundSM.SetState(curState);
+
+        });
+
     }
 }
 

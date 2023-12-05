@@ -17,25 +17,21 @@ public class CatWaitState : RmState
             Debug.Log("dd");
         }
         rm.turnText.text = "현재 턴 : 고양이 후작";
-
+        rm.nowPlayer = cat;
+        rm.SetNext(MASTATE_TYPE.CAT_MORNING);
     }
     public override void Update()
     {
         if (cat.isOver == false)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
 
-                sm.SetState(MASTATE_TYPE.CAT_MORNING);
-                rm.nowPlayer = cat;
-                rm.testType = RoundManager.SoldierTestType.Select;
-                rm.SetSpawnBtn();
-            }
         }
     }
     public override void Exit()
     {
-
+        rm.SetSpawnBtn();
+        rm.SetMoveBtn();
+        rm.SetSelectBtn();
     }
 }
 public class CatMorningState : RmState
@@ -47,15 +43,11 @@ public class CatMorningState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 고양이 후작/ 아침 / 선택";
+        rm.SetNext(MASTATE_TYPE.CAT_AFTERNOON);
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.CAT_AFTERNOON);
-            Debug.Log("이동가능");
-            rm.testType = RoundManager.SoldierTestType.Move;
-        }
+
     }
     public override void Exit()
     {
@@ -71,20 +63,15 @@ public class CatAfternoonState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 고양이 후작/ 점심 / 이동";
+        rm.SetNext(MASTATE_TYPE.CAT_DINNER);
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.CAT_DINNER);
-            Debug.Log("이동불가");
-            rm.mapController.nowTile = null;
-            rm.testType = RoundManager.SoldierTestType.None;
-        }
+
     }
     public override void Exit()
     {
-
+        
     }
 }
 public class CatDinnerState : RmState
@@ -96,19 +83,18 @@ public class CatDinnerState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 고양이 후작/ 저녁";
+        rm.SetNext(MASTATE_TYPE.BIRD_WAIT);
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.BIRD_WAIT);
-        }
     }
     public override void Exit()
     {
+        rm.mapController.nowTile = null;
         cat.isOver = true;
         bird.isOver = false;
         rm.nowPlayer = null;
+        
     }
 }
 
