@@ -263,6 +263,7 @@ public class AsAlgo
     {
         roadCostDic.Clear();
         visited.Clear();
+
         List<string> returnList = new List<string>();
 
         PriorityQueue<Node, int> visitPQ = new PriorityQueue<Node, int>();
