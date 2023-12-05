@@ -262,6 +262,7 @@ public class AsAlgo
     public List<string> FindAs(Graph graph, string startNodeName, string endNodeName)
     {
         roadCostDic.Clear();
+        visited.Clear();
         List<string> returnList = new List<string>();
 
         PriorityQueue<Node, int> visitPQ = new PriorityQueue<Node, int>();
