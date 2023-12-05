@@ -20,6 +20,7 @@ public class BirdWaitState : RmState
             rm.nowPlayer = bird;
             rm.SetSpawnBtn();
             sm.SetState(MASTATE_TYPE.BIRD_MORNING);
+            rm.testType = RoundManager.SoldierTestType.Select;
         }
     }
     public override void Exit()
@@ -43,6 +44,7 @@ public class BirdMorningState : RmState
         {
             sm.SetState(MASTATE_TYPE.BIRD_AFTERNOON);
             Debug.Log("이동가능");
+            rm.testType = RoundManager.SoldierTestType.Move;
         }
     }
     public override void Exit()
@@ -66,6 +68,7 @@ public class BirdAfternoonState : RmState
         {
             sm.SetState(MASTATE_TYPE.BIRD_DINNER);
             Debug.Log("이동불가");
+            rm.testType = RoundManager.SoldierTestType.None;
         }
     }
     public override void Exit()

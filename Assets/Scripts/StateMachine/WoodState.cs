@@ -22,6 +22,7 @@ public class WoodWaitState : RmState
                 sm.SetState(MASTATE_TYPE.WOOD_MORNING);
                 rm.nowPlayer = wood;
                 rm.SetSpawnBtn();
+                rm.testType = RoundManager.SoldierTestType.Select;
             }
         }
     }
@@ -46,6 +47,7 @@ public class WoodMorningState : RmState
         {
             sm.SetState(MASTATE_TYPE.WOOD_AFTERNOON);
             Debug.Log("이동가능");
+            rm.testType = RoundManager.SoldierTestType.Move;
         }
     }
     public override void Exit()
@@ -69,6 +71,7 @@ public class WoodAfternoonState : RmState
         {
             sm.SetState(MASTATE_TYPE.WOOD_DINNER);
             Debug.Log("이동불가");
+            rm.testType = RoundManager.SoldierTestType.None;
         }
     }
     public override void Exit()
