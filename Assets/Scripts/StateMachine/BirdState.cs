@@ -18,7 +18,7 @@ public class BirdWaitState : RmState
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rm.nowPlayer = bird;
-            rm.SetBtn();
+            rm.SetSpawnBtn();
             sm.SetState(MASTATE_TYPE.BIRD_MORNING);
         }
     }
@@ -43,7 +43,6 @@ public class BirdMorningState : RmState
         {
             sm.SetState(MASTATE_TYPE.BIRD_AFTERNOON);
             Debug.Log("이동가능");
-            rm.isMove = true;
         }
     }
     public override void Exit()
@@ -67,7 +66,6 @@ public class BirdAfternoonState : RmState
         {
             sm.SetState(MASTATE_TYPE.BIRD_DINNER);
             Debug.Log("이동불가");
-            rm.isMove = false;
         }
     }
     public override void Exit()

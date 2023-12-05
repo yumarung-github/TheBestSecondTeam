@@ -5,17 +5,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MapController : MonoBehaviour,IPointerDownHandler
+public class MapController : MonoBehaviour, IPointerDownHandler
 {
     [Header("[움직일 애]")]
     public List<Soldier> soldiers = new List<Soldier>();
     public NodeMember nowTile;
+    List<string> nodeStrings = new List<string>();
+    MapExtra mapExtra;
+    Coroutine moveCo;
+
     [Header("[맵 카메라]")]
     public Camera miniMapCam;
-    public GameObject prefaba;    
+    public GameObject prefaba;
 
     [SerializeField]
     LayerMask layerMask;
+    private void Start()
+    {
+        mapExtra = RoundManager.Instance.mapExtra;
+    }
     public void CursorCal(PointerEventData eventData)
     {
         Vector2 curosr = new Vector2(0, 0);
@@ -57,43 +65,78 @@ public class MapController : MonoBehaviour,IPointerDownHandler
         if (Physics.Raycast(MapRay, out miniMapHit, Mathf.Infinity, layerMask))
         {
             Instantiate(prefaba, miniMapHit.point, Quaternion.identity);
-            //Debug.Log(miniMapHit.transform.name);
 
             if (RoundManager.Instance.nowPlayer != null)
             {
-                if (RoundManager.Instance.isMove)
+                SetSoldier(miniMapHit);
+            }
+        }
+    }
+    void SetSoldier(RaycastHit miniMapHit)
+    {
+        switch (RoundManager.Instance.testType)
+        {
+            case RoundManager.SoldierTestType.None:
+
+                break;
+            case RoundManager.SoldierTestType.Select:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem))
                 {
-                    if(!RoundManager.Instance.isSelected)//이동할 타일 선택할 때
-                    {
-                        if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem))
-                        {
-                            Debug.Log(tempMem.nodeName);
-                            soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempMem.nodeName];
+                    Debug.Log(tempMem.nodeName);
+                    nowTile = tempMem;
+                    soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempMem.nodeName];
 
-                            foreach (Soldier tempSoldier in soldiers)
-                            {
-                                tempSoldier.MoveAuto(miniMapHit.transform.position);
-                            }
-                        }
-                        else
-                        {
-                            //soldiers.Clear();
-                        }
-                    }
-                    else//선택중일때
-                    {
-
-                    }              
                 }
                 else
                 {
-                    if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem2))
-                    {
-                        Debug.Log(tempMem2.nodeName);
-                    }
+                    soldiers.Clear();
                 }
-                              
-            }
+                break;
+            case RoundManager.SoldierTestType.Move:
+                NodeMember finNode = null;
+                if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
+                {
+                    finNode = mem;
+                    Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
+                    nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
+                    // mapExtra.asAlgo.FindAs(mapExtra.graph, nowTile.nodeName, finNode.nodeName);
+                }
+                //mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                moveCo = StartCoroutine("MoveCoroutine");
+                break;
+            default: break;
         }
+    }
+    IEnumerator MoveCoroutine()
+    {
+        int count = nodeStrings.Count;
+        int num = 1;
+        while (count > 0)
+        {
+            //Debug.Log(num);
+            Vector3 tempPostion = mapExtra.mapTiles.Find(node => node.nodeName == nodeStrings[num]).transform.position;
+
+            Soldier checkSoldier = soldiers[0];
+
+            if (RoundManager.Instance.moveOver)
+            {
+                foreach (Soldier tempSoldier in soldiers)
+                {
+                    tempSoldier.MoveAuto(tempPostion);
+                }
+                count--;
+                num++;
+                RoundManager.Instance.moveOver = false;
+            }
+            if (checkSoldier.agent.remainingDistance < 0.5f)
+            {
+                //Debug.Log("dda");
+                RoundManager.Instance.moveOver = true;
+            }
+            if (num >= nodeStrings.Count)
+                break;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        yield return null;
     }
 }

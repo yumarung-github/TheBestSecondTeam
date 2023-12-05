@@ -5,26 +5,32 @@ using CustomInterface;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using Unity.VisualScripting;
 
 public class RoundManager : SingleTon<RoundManager>
 {
+
     [Header("[플레이어들]")]
     public Cat cat;
     public Bird bird;
     public Wood wood;
     public ManagerStateMahchine<RoundManager> roundSM;
     public Player nowPlayer;
+    public bool moveOver;
     [Header("현재 선택된 병사")]
     public List<Soldier> nowSoldier = new List<Soldier>();
     [Header("스폰 테스트")]
     public Button spawnButton;
-    public MapExtra mapExtra;
-    public bool isMove;
-    public bool isSelected;
     public Button moveBtn;
-
+    public MapExtra mapExtra;
     public TextMeshProUGUI turnText;
-    //public Action spawnSoldierDel;
+    public enum SoldierTestType
+    {
+        None,
+        Move,
+        Select
+    }
+    public SoldierTestType testType;
 
     [Header("[맵]")]
     public MapController mapController;
@@ -33,12 +39,12 @@ public class RoundManager : SingleTon<RoundManager>
     {
         base.Awake();
         roundSM = new ManagerStateMahchine<RoundManager>(this);
-        isMove = false;
-        isSelected = false;        
     }
     // Start is called before the first frame update
     void Start()
     {
+        moveOver = true;
+        testType = SoldierTestType.None;
         roundSM.AddStateDic(MASTATE_TYPE.CAT_WAIT, new CatWaitState());
         roundSM.AddStateDic(MASTATE_TYPE.CAT_MORNING, new CatMorningState());
         roundSM.AddStateDic(MASTATE_TYPE.CAT_AFTERNOON, new CatAfternoonState());
@@ -52,20 +58,20 @@ public class RoundManager : SingleTon<RoundManager>
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_MORNING, new WoodMorningState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_AFTERNOON, new WoodAfternoonState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_DINNER, new WoodDinnerState());
-                
+
     }
     private void Update()
     {
         roundSM.Update();
-        //Debug.Log(roundSM.curState.name);
     }
-    public void SetBtn()
+    public void SetSpawnBtn()
     {
         spawnButton.onClick.RemoveAllListeners();
         string tempName = nowPlayer.hasNodeNames[0];
         spawnButton.onClick.AddListener(() => {
             nowPlayer.SpawnSoldier(tempName,
             mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
-            });        
+        });
     }
 }
+

@@ -180,7 +180,7 @@ public class Node
 {
     public string name;
     public Node parent;
-    
+
     public List<Edge> edgesInNode;
     public Node(string name)
     {
@@ -231,6 +231,7 @@ public class Graph
         Edge temp = new Edge(sNode, eNode, cost);
         edges.Add(temp);
         sNode.edgesInNode.Add(temp);
+        eNode.edgesInNode.Add(temp);
     }
 
     bool TryAddNode(Node node)
@@ -260,8 +261,9 @@ public class AsAlgo
     }
     public List<string> FindAs(Graph graph, string startNodeName, string endNodeName)
     {
+        roadCostDic.Clear();
         List<string> returnList = new List<string>();
-        
+
         PriorityQueue<Node, int> visitPQ = new PriorityQueue<Node, int>();
 
         Node startNode = graph.nodeList.Find(node => node.name == startNodeName);
@@ -281,11 +283,11 @@ public class AsAlgo
             Node curVisitNode = visitPQ.Dequeue();
 
             visited[curVisitNode.name] = true;
-            if(curVisitNode.name == endNodeName)
+            if (curVisitNode.name == endNodeName)
             {
                 string tempName = endNodeName;
                 Debug.Log(tempName);
-                while(tempName!= startNodeName)
+                while (tempName != startNodeName)
                 {
                     returnList.Add(tempName);
                     Debug.Log("ºÎ¸ðÀÌ¸§" + tempName);
@@ -295,10 +297,21 @@ public class AsAlgo
                 returnList.Reverse();
                 return returnList;
             }
-            for(int i = 0; i< curVisitNode.edgesInNode.Count; i++)
+            Debug.Log(curVisitNode.edgesInNode.Count);
+            for (int i = 0; i < curVisitNode.edgesInNode.Count; i++)
             {
                 Edge nowEdge = curVisitNode.edgesInNode[i];
-                Node nowNode = curVisitNode.edgesInNode[i].eNode;
+                Node nowNode;
+                //Debug.Log(curVisitNode.edgesInNode[i].sNode + "/¸Ó/" + curVisitNode.edgesInNode[i].eNode);
+                if (curVisitNode.edgesInNode[i].sNode != curVisitNode)
+                {
+                    Node tempNode = curVisitNode.edgesInNode[i].sNode;
+                    curVisitNode.edgesInNode[i].sNode = curVisitNode.edgesInNode[i].eNode;
+                    curVisitNode.edgesInNode[i].eNode = tempNode;
+
+                }
+                nowNode = curVisitNode.edgesInNode[i].eNode;
+
                 if (visited[nowNode.name])
                 {
                     continue;
@@ -311,7 +324,7 @@ public class AsAlgo
                     roadCostDic[nowNode.name] = cost;
                     visitPQ.Enqueue(nowNode, roadCostDic[nowNode.name]);
                 }
-            }            
+            }
         }
 
         return returnList;
@@ -327,8 +340,8 @@ public class MapExtra : MonoBehaviour
     public Dictionary<string, Node> nodeDic;
     public List<string> nodeNameList = new List<string>();
 
-    Graph graph;
-    AsAlgo asAlgo;
+    public Graph graph;
+    public AsAlgo asAlgo;
     void Start()
     {
         graph = new Graph();
@@ -338,8 +351,8 @@ public class MapExtra : MonoBehaviour
         nodeDic = new Dictionary<string, Node>();
 
         int temp = 0;
-        
-        foreach(NodeMember nodeMem in mapTiles)
+
+        foreach (NodeMember nodeMem in mapTiles)
         {
             temp++;
             nodeDic.Add(nodeMem.nodeName, nodeMem.node);
@@ -349,41 +362,37 @@ public class MapExtra : MonoBehaviour
         graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[3]], 1);//¿©¿ì2
         graph.AddEdge(nodeDic[nodeNameList[3]], nodeDic[nodeNameList[6]], 1);
         graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[4]], 1);//»ýÁã2
-
         graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[2]], 1);//»ýÁã1
         graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[3]], 1);//¿©¿ì2
-
         graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[3]], 1);//¿©¿ì2
         graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[7]], 1);//Åä³¢3
-
         graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[5]], 1);//Åä³¢2
         graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[8]], 1);
-
         graph.AddEdge(nodeDic[nodeNameList[5]], nodeDic[nodeNameList[6]], 1);
         graph.AddEdge(nodeDic[nodeNameList[5]], nodeDic[nodeNameList[8]], 1);
-        
         graph.AddEdge(nodeDic[nodeNameList[6]], nodeDic[nodeNameList[7]], 1);
         graph.AddEdge(nodeDic[nodeNameList[6]], nodeDic[nodeNameList[9]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[6]], nodeDic[nodeNameList[11]], 1);
-
         graph.AddEdge(nodeDic[nodeNameList[8]], nodeDic[nodeNameList[9]], 1);
-
         graph.AddEdge(nodeDic[nodeNameList[9]], nodeDic[nodeNameList[10]], 1);
-
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[7]], 1);
+        graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[6]], 1);
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[10]], 1);//19
-        
+
+
+    }
+    public List<string> SetAl(string a, string b)
+    {
         List<string> tempStrings = new List<string>();
-        tempStrings = asAlgo.FindAs(graph, "¿©¿ì1", "»ýÁã3");
+        tempStrings = asAlgo.FindAs(graph, a, b);
         Debug.Log("ÀÌµ¿ È½¼ö" + (int)(tempStrings.Count - 1));
         foreach (string tempString in tempStrings)
         {
             Debug.Log(tempString);
         }
+        return tempStrings;
     }
-
     void Update()
     {
-        
+
     }
 }

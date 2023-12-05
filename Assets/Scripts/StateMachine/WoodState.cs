@@ -21,7 +21,7 @@ public class WoodWaitState : RmState
             {
                 sm.SetState(MASTATE_TYPE.WOOD_MORNING);
                 rm.nowPlayer = wood;
-                rm.SetBtn();
+                rm.SetSpawnBtn();
             }
         }
     }
@@ -46,7 +46,6 @@ public class WoodMorningState : RmState
         {
             sm.SetState(MASTATE_TYPE.WOOD_AFTERNOON);
             Debug.Log("이동가능");
-            rm.isMove = true;
         }
     }
     public override void Exit()
@@ -70,7 +69,6 @@ public class WoodAfternoonState : RmState
         {
             sm.SetState(MASTATE_TYPE.WOOD_DINNER);
             Debug.Log("이동불가");
-            rm.isMove = false;
         }
     }
     public override void Exit()

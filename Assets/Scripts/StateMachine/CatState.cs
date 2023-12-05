@@ -12,7 +12,7 @@ public class CatWaitState : RmState
     public override void Enter()
     {
         Debug.Log("캣대기중");
-        if(cat !=null && wood != null && bird != null)
+        if (cat != null && wood != null && bird != null)
         {
             Debug.Log("dd");
         }
@@ -28,7 +28,8 @@ public class CatWaitState : RmState
 
                 sm.SetState(MASTATE_TYPE.CAT_MORNING);
                 rm.nowPlayer = cat;
-                rm.SetBtn();
+                rm.testType = RoundManager.SoldierTestType.Select;
+                rm.SetSpawnBtn();
             }
         }
     }
@@ -45,7 +46,7 @@ public class CatMorningState : RmState
     }
     public override void Enter()
     {
-        rm.turnText.text = "현재 턴 : 고양이 후작/ 아침";
+        rm.turnText.text = "현재 턴 : 고양이 후작/ 아침 / 선택";
     }
     public override void Update()
     {
@@ -53,7 +54,7 @@ public class CatMorningState : RmState
         {
             sm.SetState(MASTATE_TYPE.CAT_AFTERNOON);
             Debug.Log("이동가능");
-            rm.isMove = true;
+            rm.testType = RoundManager.SoldierTestType.Move;
         }
     }
     public override void Exit()
@@ -69,7 +70,7 @@ public class CatAfternoonState : RmState
     }
     public override void Enter()
     {
-        rm.turnText.text = "현재 턴 : 고양이 후작/ 점심";
+        rm.turnText.text = "현재 턴 : 고양이 후작/ 점심 / 이동";
     }
     public override void Update()
     {
@@ -78,7 +79,7 @@ public class CatAfternoonState : RmState
             sm.SetState(MASTATE_TYPE.CAT_DINNER);
             Debug.Log("이동불가");
             rm.mapController.nowTile = null;
-            rm.isMove = false;
+            rm.testType = RoundManager.SoldierTestType.None;
         }
     }
     public override void Exit()
