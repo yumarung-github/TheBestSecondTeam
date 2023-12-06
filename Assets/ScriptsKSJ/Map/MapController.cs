@@ -106,6 +106,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;
+                if(moveCo != null)
+                {
+                    StopCoroutine(moveCo);
+                }
                 if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
                 {
                     finNode = mem;
@@ -134,17 +138,22 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             {
                 foreach (Soldier tempSoldier in soldiers)
                 {
+                    Debug.Log(nodeStrings[num]);
                     tempSoldier.MoveAuto(tempPostion);
+                    
                 }
                 count--;
                 num++;
                 RoundManager.Instance.moveOver = false;
             }
-            if (checkSoldier.agent.remainingDistance < 0.5f)
+            if(checkSoldier != null)
             {
-                //Debug.Log("dda");
-                RoundManager.Instance.moveOver = true;
-            }
+                if (checkSoldier.agent.remainingDistance < 1f)
+                {
+                    //Debug.Log("dda");
+                    RoundManager.Instance.moveOver = true;
+                }
+            }            
             if (num >= nodeStrings.Count)
                 break;
             yield return new WaitForSeconds(Time.deltaTime);
