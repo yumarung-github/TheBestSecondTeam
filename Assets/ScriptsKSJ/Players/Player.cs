@@ -5,17 +5,18 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-    public bool isOver;//ÇöÀç ÀÚ±âÅÏÀÌ ¾Æ´Ï¸é false»óÅÂ
-    public int score;//Å×½ºÆ®¿ë ¾ø¾ÖµµµÊ
-    public List<string> hasNodeNames = new List<string>();//¾î¶² Å¸ÀÏÀ» Áö¹èÇÏ°í ÀÖ´ÂÁö Ã¼Å©ÇÏ´Â ¿ëµµ
+    
+    public bool isOver;//í˜„ì¬ ìê¸°í„´ì´ ì•„ë‹ˆë©´ falseìƒíƒœ
+    public int score;//í…ŒìŠ¤íŠ¸ìš© ì—†ì• ë„ë¨
+    public List<string> hasNodeNames = new List<string>();//ì–´ë–¤ íƒ€ì¼ì„ ì§€ë°°í•˜ê³  ìˆëŠ”ì§€ ì²´í¬í•˜ëŠ” ìš©ë„
     public GameObject prefabSoldier;
 
     public Dictionary<string, List<Soldier>> hasSoldierDic = new Dictionary<string, List<Soldier>>();
-    //º´»ç¸¦ °¡Áö°íÀÖ´Â Å¸ÀÏ¿¡ º´»ç ¸®½ºÆ®¸¦ ÀúÀå
-    //º´»ç¸í¼ö¸¦ Á¤ÇØ¼­ ¸®½ºÆ®ÀÇ ³¡ºÎÅÍ ÇÏ³ª¾¿ ²¨³»¼­ ¾²°Ô ÇÏ¸éµÊ.
+    //ë³‘ì‚¬ë¥¼ ê°€ì§€ê³ ìˆëŠ” íƒ€ì¼ì— ë³‘ì‚¬ ë¦¬ìŠ¤íŠ¸ë¥¼ ì €ì¥
+    //ë³‘ì‚¬ëª…ìˆ˜ë¥¼ ì •í•´ì„œ ë¦¬ìŠ¤íŠ¸ì˜ ëë¶€í„° í•˜ë‚˜ì”© êº¼ë‚´ì„œ ì“°ê²Œ í•˜ë©´ë¨.
     
     
-    protected RoundManager roundManager;//¸¹ÀÌ ¾µ°Å°°¾Æ¼­ ³Ö¾î³ùÀ½.
+    protected RoundManager roundManager;//ë§ì´ ì“¸ê±°ê°™ì•„ì„œ ë„£ì–´ë†¨ìŒ.
 
     protected void Start()
     {
@@ -29,21 +30,21 @@ public class Player : MonoBehaviour
     public GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
         Vector3 tempVec = Vector3.zero;
-        if (hasSoldierDic.ContainsKey(tileName))//º´»ç°¡ Á¸ÀçÇÏ´ÂÁö Ã¼Å©
+        if (hasSoldierDic.ContainsKey(tileName))//ë³‘ì‚¬ê°€ ì¡´ì¬í•˜ëŠ”ì§€ ì²´í¬
         {
-            tempVec = new Vector3(hasSoldierDic[tileName].Count, 0,0);//¸í¼ö¿¡ µû¶ó ¼ÒÈ¯ÇÏ´Â À§Ä¡¸¦ ¹Ù²ã¾ßÇØ¼­
+            tempVec = new Vector3(hasSoldierDic[tileName].Count, 0,0);//ëª…ìˆ˜ì— ë”°ë¼ ì†Œí™˜í•˜ëŠ” ìœ„ì¹˜ë¥¼ ë°”ê¿”ì•¼í•´ì„œ
         }
         GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
-        //´õÇØÁÙ º´»ç¸¦ ÀÓÀÇ·Î ÀúÀåÇØÁÖ°í
-        SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//±×Å¸ÀÏ¿¡ ¹æ±İ ¸¸µç º´»ç¸¦ ÀúÀåÇØÁÜ.
-        return addedSoldier;//»ı¼ºÇÑ º´»ç¸¦ return½ÃÅ´
+        //ë”í•´ì¤„ ë³‘ì‚¬ë¥¼ ì„ì˜ë¡œ ì €ì¥í•´ì£¼ê³ 
+        SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//ê·¸íƒ€ì¼ì— ë°©ê¸ˆ ë§Œë“  ë³‘ì‚¬ë¥¼ ì €ì¥í•´ì¤Œ.
+        return addedSoldier;//ìƒì„±í•œ ë³‘ì‚¬ë¥¼ returnì‹œí‚´
     }
-    public void SetHasNode(string tempName,Soldier tempSoldier)//¸®½ºÆ®¸¦ »ı¼ºÇÏ°í ´õÇØÁÖ±âÀ§ÇÔ.
+    public void SetHasNode(string tempName,Soldier tempSoldier)//ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•˜ê³  ë”í•´ì£¼ê¸°ìœ„í•¨.
     {
-        if(hasSoldierDic.ContainsKey(tempName)==false) {//º´»çµñ¼Å³Ê¸®¿¡ ÀÌ°Ô ÀÖ´ÂÁö Ã¼Å©ÇÏ°í 
-            //¾øÀ¸¸é list¸¦ »õ·Î »ı¼ºÇØÁØ´Ù.
+        if(hasSoldierDic.ContainsKey(tempName)==false) {//ë³‘ì‚¬ë”•ì…”ë„ˆë¦¬ì— ì´ê²Œ ìˆëŠ”ì§€ ì²´í¬í•˜ê³  
+            //ì—†ìœ¼ë©´ listë¥¼ ìƒˆë¡œ ìƒì„±í•´ì¤€ë‹¤.
             hasSoldierDic.Add(tempName, new List<Soldier>());
         }
-        hasSoldierDic[tempName].Add(tempSoldier);//µñ¼Å³Ê¸®¿¡ Ãß°¡ÇØÁÜ.
+        hasSoldierDic[tempName].Add(tempSoldier);//ë”•ì…”ë„ˆë¦¬ì— ì¶”ê°€í•´ì¤Œ.
     }
 }

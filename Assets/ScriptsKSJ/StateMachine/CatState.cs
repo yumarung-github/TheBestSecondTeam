@@ -7,18 +7,18 @@ public class CatWaitState : RmState
 {
     public CatWaitState()
     {
-        name = "Ä¹´ë±â";
+        name = "ìº£ëŒ€ê¸°";
     }
     public override void Enter()
     {
-        //Debug.Log("Ä¹´ë±âÁß");
-        if (cat != null && wood != null && bird != null)//µğ¹ö±ë¿ë
+        //Debug.Log("ìº£ëŒ€ê¸°ì¤‘");
+        if (cat != null && wood != null && bird != null)//ë””ë²„ê¹…ìš©
         {
             //Debug.Log("dd");
         }
-        rm.turnText.text = "ÇöÀç ÅÏ : °í¾çÀÌ ÈÄÀÛ";
+        rm.turnText.text = "í˜„ì¬ í„´ : ê³ ì–‘ì´ í›„ì‘";
         rm.nowPlayer = cat;
-        rm.SetNext(MASTATE_TYPE.CAT_MORNING);//´ÙÀ½¹öÆ°¿¡ ´ÙÀ½À¸·Î ³Ñ¾î°¥¼öÀÖ°Ô ³Ö¾îÁÜ
+        rm.SetNext(MASTATE_TYPE.CAT_MORNING);//ë‹¤ìŒë²„íŠ¼ì— ë‹¤ìŒìœ¼ë¡œ ë„˜ì–´ê°ˆìˆ˜ìˆê²Œ ë„£ì–´ì¤Œ
     }
     public override void Update()
     {
@@ -38,11 +38,11 @@ public class CatMorningState : RmState
 {
     public CatMorningState()
     {
-        name = "Ä¹¾ÆÄ§";
+        name = "ìº£ì•„ì¹¨";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : °í¾çÀÌ ÈÄÀÛ/ ¾ÆÄ§ / ¼±ÅÃ";
+        rm.turnText.text = "í˜„ì¬ í„´ : ê³ ì–‘ì´ í›„ì‘/ ì•„ì¹¨ / ì„ íƒ";
         rm.SetNext(MASTATE_TYPE.CAT_AFTERNOON);
     }
     public override void Update()
@@ -58,11 +58,11 @@ public class CatAfternoonState : RmState
 {
     public CatAfternoonState()
     {
-        name = "Ä¹Á¡½É";
+        name = "ìº£ì ì‹¬";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : °í¾çÀÌ ÈÄÀÛ/ Á¡½É / ÀÌµ¿";
+        rm.turnText.text = "í˜„ì¬ í„´ : ê³ ì–‘ì´ í›„ì‘/ ì ì‹¬ / ì´ë™";
         rm.SetNext(MASTATE_TYPE.CAT_DINNER);
     }
     public override void Update()
@@ -78,11 +78,11 @@ public class CatDinnerState : RmState
 {
     public CatDinnerState()
     {
-        name = "Ä¹Àú³á";
+        name = "ìº£ì €ë…";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : °í¾çÀÌ ÈÄÀÛ/ Àú³á";
+        rm.turnText.text = "í˜„ì¬ í„´ : ê³ ì–‘ì´ í›„ì‘/ ì €ë…";
         rm.SetNext(MASTATE_TYPE.BIRD_WAIT);
     }
     public override void Update()

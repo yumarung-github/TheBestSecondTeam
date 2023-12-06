@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Uimanager : SingleTon<Uimanager>
 {
-    [Header("[Ä«µå Á¤º¸Ã¢]")]
+    [Header("[ì¹´ë“œ ì •ë³´ì°½]")]
     
     public GameObject cardWindow;
 

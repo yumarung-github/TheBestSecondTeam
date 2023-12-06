@@ -11,7 +11,7 @@ public class NodeMember : MonoBehaviour
     void Awake()
     {
         node = new Node(nodeName);
-        //Debug.Log(nodeName + "»ı¼º");
+        //Debug.Log(nodeName + "ìƒì„±");
     }
     void tempdd()
     {

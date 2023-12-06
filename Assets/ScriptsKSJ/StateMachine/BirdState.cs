@@ -7,11 +7,11 @@ public class BirdWaitState : RmState
 {
     public BirdWaitState()
     {
-        name = "»õ´ë±â";
+        name = "ìƒˆëŒ€ê¸°";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ÀÌ¾î¸® ¿ÕÁ¶";
+        rm.turnText.text = "í˜„ì¬ í„´ : ì´ì–´ë¦¬ ì™•ì¡°";
         rm.SetNext(MASTATE_TYPE.BIRD_MORNING);
     }
     public override void Update()
@@ -27,11 +27,11 @@ public class BirdMorningState : RmState
 {
     public BirdMorningState()
     {
-        name = "»õ¾ÆÄ§";
+        name = "ìƒˆì•„ì¹¨";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ÀÌ¾î¸® ¿ÕÁ¶ / ¾ÆÄ§";
+        rm.turnText.text = "í˜„ì¬ í„´ : ì´ì–´ë¦¬ ì™•ì¡° / ì•„ì¹¨";
         rm.SetNext(MASTATE_TYPE.BIRD_AFTERNOON);
     }
     public override void Update()
@@ -46,11 +46,11 @@ public class BirdAfternoonState : RmState
 {
     public BirdAfternoonState()
     {
-        name = "»õÁ¡½É";
+        name = "ìƒˆì ì‹¬";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ÀÌ¾î¸® ¿ÕÁ¶ / Á¡½É";
+        rm.turnText.text = "í˜„ì¬ í„´ : ì´ì–´ë¦¬ ì™•ì¡° / ì ì‹¬";
         rm.SetNext(MASTATE_TYPE.BIRD_DINNER);
     }
     public override void Update()
@@ -65,11 +65,11 @@ public class BirdDinnerState : RmState
 {
     public BirdDinnerState()
     {
-        name = "»õÀú³á";
+        name = "ìƒˆì €ë…";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ÀÌ¾î¸® ¿ÕÁ¶ / Àú³á";
+        rm.turnText.text = "í˜„ì¬ í„´ : ì´ì–´ë¦¬ ì™•ì¡° / ì €ë…";
         rm.SetNext(MASTATE_TYPE.WOOD_WAIT);
     }
     public override void Update()

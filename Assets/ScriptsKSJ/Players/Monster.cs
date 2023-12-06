@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -14,6 +14,6 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

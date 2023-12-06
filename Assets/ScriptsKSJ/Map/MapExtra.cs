@@ -249,8 +249,8 @@ public class Graph
 }
 public class AsAlgo
 {
-    Dictionary<string, int> roadCostDic;//ÄÚ½ºÆ® ÀúÀåÇØ¼­ °è»êÇÏ´Â°÷
-    Dictionary<string, bool> visited;//¹æ¹®Çß´ÂÁö Ã¼Å©ÇÏ´Â°Å
+    Dictionary<string, int> roadCostDic;//ì½”ìŠ¤íŠ¸ ì €ì¥í•´ì„œ ê³„ì‚°í•˜ëŠ”ê³³
+    Dictionary<string, bool> visited;//ë°©ë¬¸í–ˆëŠ”ì§€ ì²´í¬í•˜ëŠ”ê±°
 
     public AsAlgo()
     {
@@ -279,7 +279,7 @@ public class AsAlgo
         visitPQ.Enqueue(startNode, roadCostDic[startNodeName]);
         while (visitPQ.Count > 0)
         {
-            //¹æ¹®ÇÒ Á¤Á¡(³ëµå)¸¦ ²¨³¿, ¿ì¼±¼øÀ§ Å¥ÀÌ¹Ç·Î ´ç¿¬È÷ ºñ¿ëÀÌ ³·Àº°ÅºÎÅÍ ²¨³¿
+            //ë°©ë¬¸í•  ì •ì (ë…¸ë“œ)ë¥¼ êº¼ëƒ„, ìš°ì„ ìˆœìœ„ íì´ë¯€ë¡œ ë‹¹ì—°íˆ ë¹„ìš©ì´ ë‚®ì€ê±°ë¶€í„° êº¼ëƒ„
             Node curVisitNode = visitPQ.Dequeue();
 
             visited[curVisitNode.name] = true;
@@ -290,7 +290,7 @@ public class AsAlgo
                 while (tempName != startNodeName)
                 {
                     returnList.Add(tempName);
-                    Debug.Log("ºÎ¸ğÀÌ¸§" + tempName);
+                    Debug.Log("ë¶€ëª¨ì´ë¦„" + tempName);
                     tempName = graph.nodeList.Find(node => node.name == tempName).parent.name;
                 }
                 returnList.Add(startNodeName);
@@ -302,7 +302,7 @@ public class AsAlgo
             {
                 Edge nowEdge = curVisitNode.edgesInNode[i];
                 Node nowNode;
-                //Debug.Log(curVisitNode.edgesInNode[i].sNode + "/¸Ó/" + curVisitNode.edgesInNode[i].eNode);
+                //Debug.Log(curVisitNode.edgesInNode[i].sNode + "/ë¨¸/" + curVisitNode.edgesInNode[i].eNode);
                 if (curVisitNode.edgesInNode[i].sNode != curVisitNode)
                 {
                     Node tempNode = curVisitNode.edgesInNode[i].sNode;
@@ -334,7 +334,7 @@ public class AsAlgo
 public class MapExtra : MonoBehaviour
 {
     [SerializeField]
-    GameObject tileParent;//Å¸ÀÏµé ºÎ¸ğ
+    GameObject tileParent;//íƒ€ì¼ë“¤ ë¶€ëª¨
 
     public List<NodeMember> mapTiles = new List<NodeMember>();
     public Dictionary<string, Node> nodeDic;
@@ -366,16 +366,16 @@ public class MapExtra : MonoBehaviour
         graph.AddEdge(nodeDic[nodeNameList[3]], nodeDic[nodeNameList[4]], 1);
         graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[5]], 1);
         graph.AddEdge(nodeDic[nodeNameList[5]], nodeDic[nodeNameList[6]], 1);*/
-        //µğ¹ö±ë¿ë
+        //ë””ë²„ê¹…ìš©
         graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[1]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[3]], 1);//¿©¿ì2
+        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[3]], 1);//ì—¬ìš°2
         graph.AddEdge(nodeDic[nodeNameList[3]], nodeDic[nodeNameList[6]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[4]], 1);//»ıÁã2
-        graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[2]], 1);//»ıÁã1
-        graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[3]], 1);//¿©¿ì2
-        graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[3]], 1);//¿©¿ì2
-        graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[7]], 1);//Åä³¢3
-        graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[5]], 1);//Åä³¢2
+        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[4]], 1);//ìƒì¥2
+        graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[2]], 1);//ìƒì¥1
+        graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[3]], 1);//ì—¬ìš°2
+        graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[3]], 1);//ì—¬ìš°2
+        graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[7]], 1);//í† ë¼3
+        graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[5]], 1);//í† ë¼2
         graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[8]], 1);
         graph.AddEdge(nodeDic[nodeNameList[5]], nodeDic[nodeNameList[6]], 1);
         graph.AddEdge(nodeDic[nodeNameList[5]], nodeDic[nodeNameList[8]], 1);
@@ -386,14 +386,14 @@ public class MapExtra : MonoBehaviour
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[7]], 1);
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[6]], 1);
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[10]], 1);//19
-        //±æµé ÀúÀåÇÑ°Å
+        //ê¸¸ë“¤ ì €ì¥í•œê±°
 
     }
-    public List<string> SetAl(string a, string b)//a->bÀÇ ÃÖ´Ü°Å¸® °è»êÇÏ°í ³Ö´Â ÇÔ¼ö(È£Ãâ¿ë)
+    public List<string> SetAl(string a, string b)//a->bì˜ ìµœë‹¨ê±°ë¦¬ ê³„ì‚°í•˜ê³  ë„£ëŠ” í•¨ìˆ˜(í˜¸ì¶œìš©)
     {
         List<string> tempStrings = new List<string>();
         tempStrings = asAlgo.FindAs(graph, a, b);
-        Debug.Log("ÀÌµ¿ È½¼ö" + (int)(tempStrings.Count - 1));
+        Debug.Log("ì´ë™ íšŸìˆ˜" + (int)(tempStrings.Count - 1));
         foreach (string tempString in tempStrings)
         {
             Debug.Log(tempString);

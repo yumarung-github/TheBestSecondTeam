@@ -10,32 +10,32 @@ using Unity.VisualScripting;
 public class RoundManager : SingleTon<RoundManager>
 {
 
-    [Header("[ÇÃ·¹ÀÌ¾îµé]")]
-    public Cat cat;//ÇÃ·¹ÀÌ¾îÁß¿¡ °í¾çÀÌ 
-    public Bird bird;//ÇÃ·¹ÀÌ¾îÁß¿¡ ÀÌ¾î¸®
-    public Wood wood;//ÇÃ·¹ÀÌ¾îÁß¿¡ ¿ìµå·£µå
-    public ManagerStateMahchine<RoundManager> roundSM;//¶ó¿îµå »óÅÂ¸Ó½Å
-    public Player nowPlayer;// ÇöÀç ÅÏÀÎ ÇÃ·¹ÀÌ¾î (¶ó¿îµå »óÅÂ¸Ó½Å¿¡¼­ ÀÚµ¿À¸·Î ¹Ù²ñ)
-    public bool moveOver; // mapcontroller¿¡¼­ ÃÖÁ¾ µµÂøÁö±îÁö °¡±âÀ§ÇØ ÀÌµ¿ÀÌ ³¡³ª¸é ´ÙÀ½ Å¸ÀÏ·Î ÀÌµ¿ÇÏ±â À§ÇØ ¼±¾ğÇØµĞ °Í
-    [Header("½ºÆù Å×½ºÆ®")]
-    public Button spawnButton;//¸ğº´(¼ÒÈ¯) ¹öÆ°
-    public Button selectButton;//¼±ÅÃ ¹öÆ°
-    public Button moveBtn;//Çà±º(ÀÌµ¿) ¹öÆ°
-    public Button nextBtn;//´ÙÀ½ÅÏ ¹öÆ°
-    public MapExtra mapExtra;// ÃÖ´Ü°Å¸® ÀÌµ¿ °è»êÇÏ±âÀ§ÇØ ½ºÅ©¸³Æ® ³Ö¾î³õÀº°Í
-    public TextMeshProUGUI turnText;//ÇöÀç ÅÏ¿¡ ´ëÇÑ ÅØ½ºÆ®
-    public enum SoldierTestType//¹öÆ°À¸·Î ¸ğº´ÀÌ³ª ¼±ÅÃÀÌ³ª ÀÌ·±°Å Å¬¸¯ÇÒ¶§ÀÇ ±â´ÉÀÌ ¹Ù²î°ÔµÊ
+    [Header("[í”Œë ˆì´ì–´ë“¤]")]
+    public Cat cat;//í”Œë ˆì´ì–´ì¤‘ì— ê³ ì–‘ì´ 
+    public Bird bird;//í”Œë ˆì´ì–´ì¤‘ì— ì´ì–´ë¦¬
+    public Wood wood;//í”Œë ˆì´ì–´ì¤‘ì— ìš°ë“œëœë“œ
+    public ManagerStateMahchine<RoundManager> roundSM;//ë¼ìš´ë“œ ìƒíƒœë¨¸ì‹ 
+    public Player nowPlayer;// í˜„ì¬ í„´ì¸ í”Œë ˆì´ì–´ (ë¼ìš´ë“œ ìƒíƒœë¨¸ì‹ ì—ì„œ ìë™ìœ¼ë¡œ ë°”ë€œ)
+    public bool moveOver; // mapcontrollerì—ì„œ ìµœì¢… ë„ì°©ì§€ê¹Œì§€ ê°€ê¸°ìœ„í•´ ì´ë™ì´ ëë‚˜ë©´ ë‹¤ìŒ íƒ€ì¼ë¡œ ì´ë™í•˜ê¸° ìœ„í•´ ì„ ì–¸í•´ë‘” ê²ƒ
+    [Header("ìŠ¤í° í…ŒìŠ¤íŠ¸")]
+    public Button spawnButton;//ëª¨ë³‘(ì†Œí™˜) ë²„íŠ¼
+    public Button selectButton;//ì„ íƒ ë²„íŠ¼
+    public Button moveBtn;//í–‰êµ°(ì´ë™) ë²„íŠ¼
+    public Button nextBtn;//ë‹¤ìŒí„´ ë²„íŠ¼
+    public MapExtra mapExtra;// ìµœë‹¨ê±°ë¦¬ ì´ë™ ê³„ì‚°í•˜ê¸°ìœ„í•´ ìŠ¤í¬ë¦½íŠ¸ ë„£ì–´ë†“ì€ê²ƒ
+    public TextMeshProUGUI turnText;//í˜„ì¬ í„´ì— ëŒ€í•œ í…ìŠ¤íŠ¸
+    public enum SoldierTestType//ë²„íŠ¼ìœ¼ë¡œ ëª¨ë³‘ì´ë‚˜ ì„ íƒì´ë‚˜ ì´ëŸ°ê±° í´ë¦­í• ë•Œì˜ ê¸°ëŠ¥ì´ ë°”ë€Œê²Œë¨
     {
         None,
         Move,
         Select,
         Spawn
     }
-    //¿¹¿ÜÃ³¸® °ÅÀÇ ¾ÈµÇ¾îÀÖÀ½.
+    //ì˜ˆì™¸ì²˜ë¦¬ ê±°ì˜ ì•ˆë˜ì–´ìˆìŒ.
     public SoldierTestType testType;
 
-    [Header("[¸Ê]")]
-    public MapController mapController;//¸Ê ÀÌµ¿ÇÏ´Â°Å³ª ¼±ÅÃÇÏ°Å³ª Å¬¸¯ÇÏ´Â ¸ğµç°Íµé ½ºÅ©¸³Æ®
+    [Header("[ë§µ]")]
+    public MapController mapController;//ë§µ ì´ë™í•˜ëŠ”ê±°ë‚˜ ì„ íƒí•˜ê±°ë‚˜ í´ë¦­í•˜ëŠ” ëª¨ë“ ê²ƒë“¤ ìŠ¤í¬ë¦½íŠ¸
 
     private new void Awake()
     {
@@ -60,14 +60,14 @@ public class RoundManager : SingleTon<RoundManager>
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_MORNING, new WoodMorningState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_AFTERNOON, new WoodAfternoonState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_DINNER, new WoodDinnerState());
-        //»óÅÂ¸Ó½Å¿¡ »óÅÂµé Ãß°¡ÇÑ°Í
+        //ìƒíƒœë¨¸ì‹ ì— ìƒíƒœë“¤ ì¶”ê°€í•œê²ƒ
     }
     private void Update()
     {
-        roundSM.Update();//»óÅÂ°¡ º¯È­µÇ¸é »óÅÂ¸Ó½ÅÀÇ update°¡ ½ÇÇàµÈ »óÅÂ.
+        roundSM.Update();//ìƒíƒœê°€ ë³€í™”ë˜ë©´ ìƒíƒœë¨¸ì‹ ì˜ updateê°€ ì‹¤í–‰ëœ ìƒíƒœ.
     }
-    //¹öÆ°µéÀº ÇöÀç ¶ó¿îµå»óÅÂ¸Ó½ÅÀÇ °í¾çÀÌ ´ë±â»óÅÂ¿¡¼­ ÃÊ±âÈ­ÁßÀÓ.
-    public void SetSpawnBtn()//¼ÒÈ¯ ¹öÆ° ¼³Á¤
+    //ë²„íŠ¼ë“¤ì€ í˜„ì¬ ë¼ìš´ë“œìƒíƒœë¨¸ì‹ ì˜ ê³ ì–‘ì´ ëŒ€ê¸°ìƒíƒœì—ì„œ ì´ˆê¸°í™”ì¤‘ì„.
+    public void SetSpawnBtn()//ì†Œí™˜ ë²„íŠ¼ ì„¤ì •
     {
         spawnButton.onClick.RemoveAllListeners();
         string tempName = nowPlayer.hasNodeNames[0];
@@ -76,7 +76,7 @@ public class RoundManager : SingleTon<RoundManager>
             mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
         });
     }
-    public void SetMoveBtn()//ÀÌµ¿ ¹öÆ° ¼³Á¤
+    public void SetMoveBtn()//ì´ë™ ë²„íŠ¼ ì„¤ì •
     {
         moveBtn.onClick.RemoveAllListeners();
         moveBtn.onClick.AddListener(() =>
@@ -84,7 +84,7 @@ public class RoundManager : SingleTon<RoundManager>
             testType = SoldierTestType.Move;
         });
     }
-    public void SetSelectBtn()//ÀÌµ¿ ¹öÆ° ¼³Á¤
+    public void SetSelectBtn()//ì´ë™ ë²„íŠ¼ ì„¤ì •
     {
         selectButton.onClick.RemoveAllListeners();
         selectButton.onClick.AddListener(() =>
@@ -92,7 +92,7 @@ public class RoundManager : SingleTon<RoundManager>
             testType = SoldierTestType.Select;
         });
     }
-    public void SetNext(MASTATE_TYPE curState)//ÀÌµ¿ ¹öÆ° ¼³Á¤
+    public void SetNext(MASTATE_TYPE curState)//ì´ë™ ë²„íŠ¼ ì„¤ì •
     {
         nextBtn.onClick.RemoveAllListeners();
         nextBtn.onClick.AddListener(() =>

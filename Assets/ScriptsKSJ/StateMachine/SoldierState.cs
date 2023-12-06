@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class SoldierState
 {
-    public SoldierStateMachine sm; //ÀÌ »óÅÂÀÇ ¼ÒÀ¯ÀÚ
+    public SoldierStateMachine sm; //ì´ ìƒíƒœì˜ ì†Œìœ ì
     public string testString;
     public SoldierState()
     {
@@ -23,22 +23,22 @@ public class IdleState : SoldierState
     }
     public override void Enter()
     {
-        //Debug.Log(sm.curState.testString + "ÁøÀÔ");
+        //Debug.Log(sm.curState.testString + "ì§„ì…");
         sm.soldier.animator.SetFloat("speed", 0);
     }
     public override void Update()
     {
         if (sm.soldier.agentSpeed > 0)
         {
-            //Debug.Log("ÁøÀÔÇÒ°Å¾ß");
+            //Debug.Log("ì§„ì…í• ê±°ì•¼");
             sm.SetState(STATE_TYPE.MOVE);
         }
         
-        //Debug.Log("´ë±â»óÅÂ");
+        //Debug.Log("ëŒ€ê¸°ìƒíƒœ");
     }
     public override void Exit()
     {
-        //Debug.Log(sm.curState.testString + "³ª°¨");
+        //Debug.Log(sm.curState.testString + "ë‚˜ê°");
     }
 }
 public class MoveState : SoldierState
@@ -49,11 +49,11 @@ public class MoveState : SoldierState
     }
     public override void Enter()
     {
-        //Debug.Log(sm.curState.testString + "ÁøÀÔ");
+        //Debug.Log(sm.curState.testString + "ì§„ì…");
     }
     public override void Update()
     {
-        //Debug.Log("ÃßÀûÁß");
+        //Debug.Log("ì¶”ì ì¤‘");
         if (sm.soldier.agentSpeed == 0)
         {
             sm.SetState(STATE_TYPE.IDLE);
@@ -62,7 +62,7 @@ public class MoveState : SoldierState
     }
     public override void Exit()
     {
-        Debug.Log(sm.curState.testString + "³ª°¨");
+        Debug.Log(sm.curState.testString + "ë‚˜ê°");
         sm.soldier.agent.enabled = false;
     }
 }

@@ -7,12 +7,12 @@ public class WoodWaitState : RmState
 {
     public WoodWaitState()
     {
-        name = "¿ìµå´ë±â";
+        name = "ìš°ë“œëŒ€ê¸°";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ¿ìµå·£µå";
-        rm.SetNext(MASTATE_TYPE.WOOD_MORNING);//´ÙÀ½ ¹öÆ° »õ·Î ¼³Á¤ÇØÁÜ.
+        rm.turnText.text = "í˜„ì¬ í„´ : ìš°ë“œëœë“œ";
+        rm.SetNext(MASTATE_TYPE.WOOD_MORNING);//ë‹¤ìŒ ë²„íŠ¼ ìƒˆë¡œ ì„¤ì •í•´ì¤Œ.
     }
     public override void Update()
     {
@@ -30,12 +30,12 @@ public class WoodMorningState : RmState
 {
     public WoodMorningState()
     {
-        name = "¿ìµå¾ÆÄ§";
+        name = "ìš°ë“œì•„ì¹¨";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ¿ìµå·£µå / ¾ÆÄ§";
-        rm.SetNext(MASTATE_TYPE.WOOD_AFTERNOON);//´ÙÀ½ ¹öÆ° »õ·Î ¼³Á¤ÇØÁÜ.
+        rm.turnText.text = "í˜„ì¬ í„´ : ìš°ë“œëœë“œ / ì•„ì¹¨";
+        rm.SetNext(MASTATE_TYPE.WOOD_AFTERNOON);//ë‹¤ìŒ ë²„íŠ¼ ìƒˆë¡œ ì„¤ì •í•´ì¤Œ.
     }
     public override void Update()
     {
@@ -50,12 +50,12 @@ public class WoodAfternoonState : RmState
 {
     public WoodAfternoonState()
     {
-        name = "¿ìµåÁ¡½É";
+        name = "ìš°ë“œì ì‹¬";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ¿ìµå·£µå / Á¡½É";
-        rm.SetNext(MASTATE_TYPE.WOOD_DINNER);//´ÙÀ½ ¹öÆ° »õ·Î ¼³Á¤ÇØÁÜ.
+        rm.turnText.text = "í˜„ì¬ í„´ : ìš°ë“œëœë“œ / ì ì‹¬";
+        rm.SetNext(MASTATE_TYPE.WOOD_DINNER);//ë‹¤ìŒ ë²„íŠ¼ ìƒˆë¡œ ì„¤ì •í•´ì¤Œ.
     }
     public override void Update()
     {
@@ -69,12 +69,12 @@ public class WoodDinnerState : RmState
 {
     public WoodDinnerState()
     {
-        name = "¿ìµåÀú³á";
+        name = "ìš°ë“œì €ë…";
     }
     public override void Enter()
     {
-        rm.turnText.text = "ÇöÀç ÅÏ : ¿ìµå·£µå / Àú³á";
-        rm.SetNext(MASTATE_TYPE.CAT_WAIT);//´ÙÀ½ ¹öÆ° »õ·Î ¼³Á¤ÇØÁÜ.
+        rm.turnText.text = "í˜„ì¬ í„´ : ìš°ë“œëœë“œ / ì €ë…";
+        rm.SetNext(MASTATE_TYPE.CAT_WAIT);//ë‹¤ìŒ ë²„íŠ¼ ìƒˆë¡œ ì„¤ì •í•´ì¤Œ.
     }
     public override void Update()
     {

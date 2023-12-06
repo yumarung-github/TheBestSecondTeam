@@ -15,7 +15,7 @@ public class SoldierStateMachine
         this.soldier = soldier;
     }
 
-    public void AddStateDic(STATE_TYPE type, SoldierState state)//»óÅÂµé
+    public void AddStateDic(STATE_TYPE type, SoldierState state)//ìƒíƒœë“¤
     {
         if (stateDic.ContainsKey(type) == true)
         {
@@ -31,10 +31,10 @@ public class SoldierStateMachine
         {
             if (curState != null)
             {
-                curState.Exit();//ÇöÀç »óÅÂ°¡ ³¡³²
+                curState.Exit();//í˜„ì¬ ìƒíƒœê°€ ëë‚¨
             }
             curState = stateDic[type];
-            curState.Enter(); // ´ÙÀ½»óÅÂ
+            curState.Enter(); // ë‹¤ìŒìƒíƒœ
         }
 
     }
