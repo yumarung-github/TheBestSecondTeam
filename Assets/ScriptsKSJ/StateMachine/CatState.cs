@@ -12,13 +12,13 @@ public class CatWaitState : RmState
     public override void Enter()
     {
         //Debug.Log("캣대기중");
-        if (cat != null && wood != null && bird != null)
+        if (cat != null && wood != null && bird != null)//디버깅용
         {
             //Debug.Log("dd");
         }
         rm.turnText.text = "현재 턴 : 고양이 후작";
         rm.nowPlayer = cat;
-        rm.SetNext(MASTATE_TYPE.CAT_MORNING);
+        rm.SetNext(MASTATE_TYPE.CAT_MORNING);//다음버튼에 다음으로 넘어갈수있게 넣어줌
     }
     public override void Update()
     {

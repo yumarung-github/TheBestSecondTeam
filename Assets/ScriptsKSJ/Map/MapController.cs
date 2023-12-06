@@ -9,20 +9,21 @@ using UnityEngine.UI;
 public class MapController : MonoBehaviour, IPointerDownHandler
 {
     [Header("[움직일 애]")]
-    public List<Soldier> soldiers = new List<Soldier>();
-    public NodeMember nowTile;
-    List<string> nodeStrings = new List<string>();
-    MapExtra mapExtra;
-    Coroutine moveCo;
-    public RectTransform tileTextObj;
-    Soldier checkSoldier;
+    public List<Soldier> soldiers = new List<Soldier>();//현재 선택된 움직일 병사들 turntext가 select일때 타일을 누르면
+    //그곳이 자신의 땅에 포함되어 있으면 병사들을 모두 가져옴 (명수 버튼 생기면 함수 수정예정)
+    public NodeMember nowTile;//현재 선택한 타일
+    List<string> nodeStrings = new List<string>(); //움직일 노드의 순서를 저장한 리스트 (계산한 것)
+    MapExtra mapExtra;//계산을 위해 스크립트 저장해놓은것
+    Coroutine moveCo;//이동할 때 코루틴 시작하는 거 저장
+    public RectTransform tileTextObj; // 선택된 타일위에 텍스트 띄우려고 넣어놓은거 없애도됨.
+    Soldier checkSoldier;//코루틴 돌릴때 이동 끝난거 체크하려고 병사하나 넣어 놓은 것
 
     [Header("[맵 카메라]")]
-    public Camera miniMapCam;
-    public GameObject prefaba;
+    public Camera miniMapCam; // 클릭을 위해 있는 렌더러 카메라
+    public GameObject prefaba; // 클릭했을때 클릭한 곳에 생성되는 박스(클릭포인트)
 
     [SerializeField]
-    LayerMask layerMask;
+    LayerMask layerMask;//타일만 선택할 수 있게 레이어마스크 설정
     private void Start()
     {
         mapExtra = RoundManager.Instance.mapExtra;
@@ -45,23 +46,26 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             //Debug.Log(texture.width + ", " + texture.height);//맵 rawimage에 들어가는  rawimage텍스쳐의 크기
             float calX = coordX / texture.width;
             float calY = coordY / texture.height;
-
+            
             cursor = new Vector2(calX, calY);
+            //여기까지 클릭되는 곳 계산한 것
             CastRayToWorld(cursor);
-            if (RoundManager.Instance.testType == RoundManager.SoldierTestType.Select)
+            /*
+            if (RoundManager.Instance.testType == RoundManager.SoldierTestType.Select)//선택될떄마다
             {
                 tileTextObj.gameObject.SetActive(true);
                 tileTextObj.position = cursor;
-            }
+            }*/
             
         }
     }
     private void Update()
     {
+        /*
         if(tileTextObj !=null && nowTile == null)
         {
             tileTextObj.gameObject.SetActive(false);
-        }
+        }*/
     }
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -73,9 +77,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
         Ray MapRay = miniMapCam.ScreenPointToRay(new Vector2(vec.x * miniMapCam.pixelWidth,
             vec.y * miniMapCam.pixelHeight));
-
+        //캔버스에서 계산한 값을 레이캐스터를 렌더러카메라에서 바닥으로 쏴서 
+        //클릭한 곳을 찾는 것
         RaycastHit miniMapHit;
-
+        //minimapHit.point를 하면 클릭한 위치 찾을 수 있음.
         if (Physics.Raycast(MapRay, out miniMapHit, Mathf.Infinity, layerMask))
         {
             Instantiate(prefaba, miniMapHit.point, Quaternion.identity);
@@ -86,6 +91,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             }
         }
     }
+    //클릭할 떄 enum변수에 따라서 이벤트가 달라짐.
     void SetSoldier(RaycastHit miniMapHit)
     {
         switch (RoundManager.Instance.testType)
@@ -94,11 +100,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
                 break;
             case RoundManager.SoldierTestType.Select:
-                if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem))
+                if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem))//nodemember를 찾음.
                 {
                     Debug.Log(tempMem.nodeName);
                     nowTile = tempMem;
                     soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempMem.nodeName];
+                    //선택된 애들을 리스트에 넣어줌.
                 }
                 else
                 {
@@ -117,16 +124,14 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     finNode = mem;
                     Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
-                    
-                    // mapExtra.asAlgo.FindAs(mapExtra.graph, nowTile.nodeName, finNode.nodeName);
+                    //최단거리 계산하는 부분.
                 }
-                //mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
                 moveCo = StartCoroutine("MoveCoroutine");
                 break;
             default: break;
         }
     }
-    IEnumerator MoveCoroutine()
+    IEnumerator MoveCoroutine()//병사 이동하는 코루틴 
     {
         int count = nodeStrings.Count;
         int num = 1;
@@ -153,7 +158,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             {
                 if (checkSoldier.agent.remainingDistance < 1.5f)
                 {
-                    //Debug.Log("dda");
                     RoundManager.Instance.moveOver = true;
                 }
             }            

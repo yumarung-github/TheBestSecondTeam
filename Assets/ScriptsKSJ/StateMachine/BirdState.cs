@@ -12,19 +12,15 @@ public class BirdWaitState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 이어리 왕조";
+        rm.SetNext(MASTATE_TYPE.BIRD_MORNING);
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rm.nowPlayer = bird;
-            rm.SetSpawnBtn();
-            sm.SetState(MASTATE_TYPE.BIRD_MORNING);
-        }
     }
     public override void Exit()
     {
-
+        rm.nowPlayer = bird;
+        rm.SetSpawnBtn();
     }
 }
 public class BirdMorningState : RmState
@@ -36,14 +32,10 @@ public class BirdMorningState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 이어리 왕조 / 아침";
+        rm.SetNext(MASTATE_TYPE.BIRD_AFTERNOON);
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.BIRD_AFTERNOON);
-            Debug.Log("이동가능");
-        }
     }
     public override void Exit()
     {
@@ -59,14 +51,10 @@ public class BirdAfternoonState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 이어리 왕조 / 점심";
+        rm.SetNext(MASTATE_TYPE.BIRD_DINNER);
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.BIRD_DINNER);
-            Debug.Log("이동불가");
-        }
     }
     public override void Exit()
     {
@@ -82,13 +70,10 @@ public class BirdDinnerState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 이어리 왕조 / 저녁";
+        rm.SetNext(MASTATE_TYPE.WOOD_WAIT);
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.WOOD_WAIT);
-        }
     }
     public override void Exit()
     {

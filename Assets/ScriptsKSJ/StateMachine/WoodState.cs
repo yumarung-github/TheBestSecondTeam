@@ -12,22 +12,18 @@ public class WoodWaitState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 우드랜드";
+        rm.SetNext(MASTATE_TYPE.WOOD_MORNING);//다음 버튼 새로 설정해줌.
     }
     public override void Update()
     {
         if (wood.isOver == false)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                sm.SetState(MASTATE_TYPE.WOOD_MORNING);
-                rm.nowPlayer = wood;
-                rm.SetSpawnBtn();
-            }
         }
     }
     public override void Exit()
     {
-
+        rm.nowPlayer = wood;
+        rm.SetSpawnBtn();
     }
 }
 public class WoodMorningState : RmState
@@ -39,14 +35,11 @@ public class WoodMorningState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 우드랜드 / 아침";
+        rm.SetNext(MASTATE_TYPE.WOOD_AFTERNOON);//다음 버튼 새로 설정해줌.
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.WOOD_AFTERNOON);
-            Debug.Log("이동가능");
-        }
+
     }
     public override void Exit()
     {
@@ -62,14 +55,10 @@ public class WoodAfternoonState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 우드랜드 / 점심";
+        rm.SetNext(MASTATE_TYPE.WOOD_DINNER);//다음 버튼 새로 설정해줌.
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.WOOD_DINNER);
-            Debug.Log("이동불가");
-        }
     }
     public override void Exit()
     {
@@ -85,13 +74,11 @@ public class WoodDinnerState : RmState
     public override void Enter()
     {
         rm.turnText.text = "현재 턴 : 우드랜드 / 저녁";
+        rm.SetNext(MASTATE_TYPE.CAT_WAIT);//다음 버튼 새로 설정해줌.
     }
     public override void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            sm.SetState(MASTATE_TYPE.CAT_WAIT);
-        }
+
     }
     public override void Exit()
     {

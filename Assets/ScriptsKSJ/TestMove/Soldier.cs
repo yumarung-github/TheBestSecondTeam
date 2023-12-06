@@ -30,7 +30,7 @@ public class Soldier : MonoBehaviour
         agentSpeed = Mathf.Sqrt(agent.velocity.x * agent.velocity.x + agent.velocity.z * agent.velocity.z);
         sm.Update();
     }
-    public void MoveAuto(Vector3 pos)
+    public void MoveAuto(Vector3 pos)//행군에서 호출하는 함수
     {
         agent.enabled = true;
         agent.SetDestination(pos);

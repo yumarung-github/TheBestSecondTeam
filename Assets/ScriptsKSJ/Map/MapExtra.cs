@@ -249,13 +249,11 @@ public class Graph
 }
 public class AsAlgo
 {
-    Dictionary<string, List<string>> roadListDic;
-    Dictionary<string, int> roadCostDic;
-    Dictionary<string, bool> visited;
+    Dictionary<string, int> roadCostDic;//코스트 저장해서 계산하는곳
+    Dictionary<string, bool> visited;//방문했는지 체크하는거
 
     public AsAlgo()
     {
-        roadListDic = new Dictionary<string, List<string>>();
         roadCostDic = new Dictionary<string, int>();
         visited = new Dictionary<string, bool>();
     }
@@ -388,10 +386,10 @@ public class MapExtra : MonoBehaviour
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[7]], 1);
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[6]], 1);
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[10]], 1);//19
-        
+        //길들 저장한거
 
     }
-    public List<string> SetAl(string a, string b)
+    public List<string> SetAl(string a, string b)//a->b의 최단거리 계산하고 넣는 함수(호출용)
     {
         List<string> tempStrings = new List<string>();
         tempStrings = asAlgo.FindAs(graph, a, b);
