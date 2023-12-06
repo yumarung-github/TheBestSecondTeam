@@ -11,7 +11,11 @@ namespace sihyeon
         public void Destroy();
     }
 
-
+    public enum Building_STATE
+    {
+        DESTROY,
+        NONE
+    }
     public enum Building_TYPE
     {
         CAT_SAWMILL,
@@ -34,23 +38,16 @@ namespace sihyeon
         public playerState state;
         public Building_TYPE type;
         public int cost;
-
-
-
-        public void BuildBuilding(Building_TYPE buildingName)
+        public void Build()
         {
-            Debug.Log(buildingName + "건설");
+            Debug.Log("건설test1");
         }
-
-
     }
 
 
     public class Build : MonoBehaviour, IDestroyAble
     {
         public Dictionary<string, Building> BuildingDics;
-
-
         public BuildingManager BuildMgr;
 
         private void Start()
@@ -61,17 +58,11 @@ namespace sihyeon
         }
 
 
-        public void BuildToBuilding(string buildingName)
+
+        public void BuildBuildng(string buildingName)
         {
-            if (BuildingDics.ContainsKey(buildingName))
-            {
-                BuildingDics[buildingName].BuildBuilding(BuildingDics[buildingName].type);
-            }
-
-
+            BuildingDics[buildingName].Build();
         }
-
-
 
 
         public void Destroy()
@@ -80,17 +71,6 @@ namespace sihyeon
         }
 
 
-        private void Update()
-        {
-            if (Input.GetKeyUp(KeyCode.Q))
-            {
-                //테스트용 
-            }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-
-            }
-        }
 
 
 
