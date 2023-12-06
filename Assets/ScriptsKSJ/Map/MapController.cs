@@ -15,6 +15,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     MapExtra mapExtra;
     Coroutine moveCo;
     public RectTransform tileTextObj;
+    Soldier checkSoldier;
 
     [Header("[¸Ê Ä«¸Þ¶ó]")]
     public Camera miniMapCam;
@@ -110,11 +111,13 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 {
                     StopCoroutine(moveCo);
                 }
+                RoundManager.Instance.moveOver = true;
                 if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
                 {
                     finNode = mem;
                     Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
+                    
                     // mapExtra.asAlgo.FindAs(mapExtra.graph, nowTile.nodeName, finNode.nodeName);
                 }
                 //mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
@@ -129,10 +132,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         int num = 1;
         while (count > 0)
         {
-            //Debug.Log(num);
             Vector3 tempPostion = mapExtra.mapTiles.Find(node => node.nodeName == nodeStrings[num]).transform.position;
 
-            Soldier checkSoldier = soldiers[0];
+            checkSoldier = soldiers[0];
 
             if (RoundManager.Instance.moveOver)
             {
@@ -140,15 +142,16 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 {
                     Debug.Log(nodeStrings[num]);
                     tempSoldier.MoveAuto(tempPostion);
-                    
+                    nowTile.nodeName = nodeStrings[num];
                 }
                 count--;
                 num++;
                 RoundManager.Instance.moveOver = false;
+                yield return new WaitForSeconds(Time.deltaTime);
             }
             if(checkSoldier != null)
             {
-                if (checkSoldier.agent.remainingDistance < 1f)
+                if (checkSoldier.agent.remainingDistance < 1.5f)
                 {
                     //Debug.Log("dda");
                     RoundManager.Instance.moveOver = true;

@@ -11,10 +11,10 @@ public class CatWaitState : RmState
     }
     public override void Enter()
     {
-        Debug.Log("캣대기중");
+        //Debug.Log("캣대기중");
         if (cat != null && wood != null && bird != null)
         {
-            Debug.Log("dd");
+            //Debug.Log("dd");
         }
         rm.turnText.text = "현재 턴 : 고양이 후작";
         rm.nowPlayer = cat;

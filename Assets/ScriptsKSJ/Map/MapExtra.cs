@@ -299,7 +299,7 @@ public class AsAlgo
                 returnList.Reverse();
                 return returnList;
             }
-            Debug.Log(curVisitNode.edgesInNode.Count);
+            //Debug.Log(curVisitNode.edgesInNode.Count);
             for (int i = 0; i < curVisitNode.edgesInNode.Count; i++)
             {
                 Edge nowEdge = curVisitNode.edgesInNode[i];
@@ -321,7 +321,7 @@ public class AsAlgo
                 int cost = roadCostDic[curVisitNode.name] + nowEdge.cost;
                 if (roadCostDic[nowNode.name] > cost)
                 {
-                    Debug.Log(curVisitNode.name + " " + nowNode.name);
+                    //Debug.Log(curVisitNode.name + " " + nowNode.name);
                     nowNode.parent = curVisitNode;
                     roadCostDic[nowNode.name] = cost;
                     visitPQ.Enqueue(nowNode, roadCostDic[nowNode.name]);
@@ -360,6 +360,15 @@ public class MapExtra : MonoBehaviour
             nodeDic.Add(nodeMem.nodeName, nodeMem.node);
             nodeNameList.Add(nodeMem.nodeName);
         }
+        /*
+        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[1]], 1);
+        graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[2]], 1);
+        graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[6]], 1);
+        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[3]], 1);
+        graph.AddEdge(nodeDic[nodeNameList[3]], nodeDic[nodeNameList[4]], 1);
+        graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[5]], 1);
+        graph.AddEdge(nodeDic[nodeNameList[5]], nodeDic[nodeNameList[6]], 1);*/
+        //디버깅용
         graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[1]], 1);
         graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[3]], 1);//여우2
         graph.AddEdge(nodeDic[nodeNameList[3]], nodeDic[nodeNameList[6]], 1);
@@ -379,7 +388,7 @@ public class MapExtra : MonoBehaviour
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[7]], 1);
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[6]], 1);
         graph.AddEdge(nodeDic[nodeNameList[11]], nodeDic[nodeNameList[10]], 1);//19
-
+        
 
     }
     public List<string> SetAl(string a, string b)

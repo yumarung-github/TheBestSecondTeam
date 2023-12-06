@@ -14,7 +14,7 @@ public class Cat : Player
         isOver = false;
         roundManager.cat = this;
         roundManager.nowPlayer = this;
-        hasNodeNames.Add("»ıÁã4");
+        hasNodeNames.Add("»ıÁã3");
     }
 
 }

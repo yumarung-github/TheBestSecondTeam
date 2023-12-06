@@ -23,14 +23,14 @@ public class IdleState : SoldierState
     }
     public override void Enter()
     {
-        Debug.Log(sm.curState.testString + "진입");
+        //Debug.Log(sm.curState.testString + "진입");
         sm.soldier.animator.SetFloat("speed", 0);
     }
     public override void Update()
     {
         if (sm.soldier.agentSpeed > 0)
         {
-            Debug.Log("진입할거야");
+            //Debug.Log("진입할거야");
             sm.SetState(STATE_TYPE.MOVE);
         }
         
@@ -38,7 +38,7 @@ public class IdleState : SoldierState
     }
     public override void Exit()
     {
-        Debug.Log(sm.curState.testString + "나감");
+        //Debug.Log(sm.curState.testString + "나감");
     }
 }
 public class MoveState : SoldierState
@@ -49,7 +49,7 @@ public class MoveState : SoldierState
     }
     public override void Enter()
     {
-        Debug.Log(sm.curState.testString + "진입");
+        //Debug.Log(sm.curState.testString + "진입");
     }
     public override void Update()
     {
