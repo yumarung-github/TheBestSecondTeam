@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -8,22 +8,22 @@ using UnityEngine.UI;
 
 public class MapController : MonoBehaviour, IPointerDownHandler
 {
-    [Header("[¿òÁ÷ÀÏ ¾Ö]")]
-    public List<Soldier> soldiers = new List<Soldier>();//ÇöÀç ¼±ÅÃµÈ ¿òÁ÷ÀÏ º´»çµé turntext°¡ selectÀÏ¶§ Å¸ÀÏÀ» ´©¸£¸é
-    //±×°÷ÀÌ ÀÚ½ÅÀÇ ¶¥¿¡ Æ÷ÇÔµÇ¾î ÀÖÀ¸¸é º´»çµéÀ» ¸ğµÎ °¡Á®¿È (¸í¼ö ¹öÆ° »ı±â¸é ÇÔ¼ö ¼öÁ¤¿¹Á¤)
-    public NodeMember nowTile;//ÇöÀç ¼±ÅÃÇÑ Å¸ÀÏ
-    List<string> nodeStrings = new List<string>(); //¿òÁ÷ÀÏ ³ëµåÀÇ ¼ø¼­¸¦ ÀúÀåÇÑ ¸®½ºÆ® (°è»êÇÑ °Í)
-    MapExtra mapExtra;//°è»êÀ» À§ÇØ ½ºÅ©¸³Æ® ÀúÀåÇØ³õÀº°Í
-    Coroutine moveCo;//ÀÌµ¿ÇÒ ¶§ ÄÚ·çÆ¾ ½ÃÀÛÇÏ´Â °Å ÀúÀå
-    public RectTransform tileTextObj; // ¼±ÅÃµÈ Å¸ÀÏÀ§¿¡ ÅØ½ºÆ® ¶ç¿ì·Á°í ³Ö¾î³õÀº°Å ¾ø¾ÖµµµÊ.
-    Soldier checkSoldier;//ÄÚ·çÆ¾ µ¹¸±¶§ ÀÌµ¿ ³¡³­°Å Ã¼Å©ÇÏ·Á°í º´»çÇÏ³ª ³Ö¾î ³õÀº °Í
+    [Header("[ì›€ì§ì¼ ì• ]")]
+    public List<Soldier> soldiers = new List<Soldier>();//í˜„ì¬ ì„ íƒëœ ì›€ì§ì¼ ë³‘ì‚¬ë“¤ turntextê°€ selectì¼ë•Œ íƒ€ì¼ì„ ëˆ„ë¥´ë©´
+    //ê·¸ê³³ì´ ìì‹ ì˜ ë•…ì— í¬í•¨ë˜ì–´ ìˆìœ¼ë©´ ë³‘ì‚¬ë“¤ì„ ëª¨ë‘ ê°€ì ¸ì˜´ (ëª…ìˆ˜ ë²„íŠ¼ ìƒê¸°ë©´ í•¨ìˆ˜ ìˆ˜ì •ì˜ˆì •)
+    public NodeMember nowTile;//í˜„ì¬ ì„ íƒí•œ íƒ€ì¼
+    List<string> nodeStrings = new List<string>(); //ì›€ì§ì¼ ë…¸ë“œì˜ ìˆœì„œë¥¼ ì €ì¥í•œ ë¦¬ìŠ¤íŠ¸ (ê³„ì‚°í•œ ê²ƒ)
+    MapExtra mapExtra;//ê³„ì‚°ì„ ìœ„í•´ ìŠ¤í¬ë¦½íŠ¸ ì €ì¥í•´ë†“ì€ê²ƒ
+    Coroutine moveCo;//ì´ë™í•  ë•Œ ì½”ë£¨í‹´ ì‹œì‘í•˜ëŠ” ê±° ì €ì¥
+    public RectTransform tileTextObj; // ì„ íƒëœ íƒ€ì¼ìœ„ì— í…ìŠ¤íŠ¸ ë„ìš°ë ¤ê³  ë„£ì–´ë†“ì€ê±° ì—†ì• ë„ë¨.
+    Soldier checkSoldier;//ì½”ë£¨í‹´ ëŒë¦´ë•Œ ì´ë™ ëë‚œê±° ì²´í¬í•˜ë ¤ê³  ë³‘ì‚¬í•˜ë‚˜ ë„£ì–´ ë†“ì€ ê²ƒ
 
-    [Header("[¸Ê Ä«¸Ş¶ó]")]
-    public Camera miniMapCam; // Å¬¸¯À» À§ÇØ ÀÖ´Â ·»´õ·¯ Ä«¸Ş¶ó
-    public GameObject prefaba; // Å¬¸¯ÇßÀ»¶§ Å¬¸¯ÇÑ °÷¿¡ »ı¼ºµÇ´Â ¹Ú½º(Å¬¸¯Æ÷ÀÎÆ®)
+    [Header("[ë§µ ì¹´ë©”ë¼]")]
+    public Camera miniMapCam; // í´ë¦­ì„ ìœ„í•´ ìˆëŠ” ë Œë”ëŸ¬ ì¹´ë©”ë¼
+    public GameObject prefaba; // í´ë¦­í–ˆì„ë•Œ í´ë¦­í•œ ê³³ì— ìƒì„±ë˜ëŠ” ë°•ìŠ¤(í´ë¦­í¬ì¸íŠ¸)
 
     [SerializeField]
-    LayerMask layerMask;//Å¸ÀÏ¸¸ ¼±ÅÃÇÒ ¼ö ÀÖ°Ô ·¹ÀÌ¾î¸¶½ºÅ© ¼³Á¤
+    LayerMask layerMask;//íƒ€ì¼ë§Œ ì„ íƒí•  ìˆ˜ ìˆê²Œ ë ˆì´ì–´ë§ˆìŠ¤í¬ ì„¤ì •
     private void Start()
     {
         mapExtra = RoundManager.Instance.mapExtra;
@@ -42,16 +42,16 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             //Debug.Log(coordX + ", " + coordY);
             //Debug.Log(curosr.x + ", " + curosr.y);
             //Debug.Log(rect.x + ", " + rect.y);
-            //Debug.Log(rect.width + ", " + rect.height);//Å¬¸¯ÇÏ´Â Äµ¹ö½ºÀÇ Å©±â
-            //Debug.Log(texture.width + ", " + texture.height);//¸Ê rawimage¿¡ µé¾î°¡´Â  rawimageÅØ½ºÃÄÀÇ Å©±â
+            //Debug.Log(rect.width + ", " + rect.height);//í´ë¦­í•˜ëŠ” ìº”ë²„ìŠ¤ì˜ í¬ê¸°
+            //Debug.Log(texture.width + ", " + texture.height);//ë§µ rawimageì— ë“¤ì–´ê°€ëŠ”  rawimageí…ìŠ¤ì³ì˜ í¬ê¸°
             float calX = coordX / texture.width;
             float calY = coordY / texture.height;
             
             cursor = new Vector2(calX, calY);
-            //¿©±â±îÁö Å¬¸¯µÇ´Â °÷ °è»êÇÑ °Í
+            //ì—¬ê¸°ê¹Œì§€ í´ë¦­ë˜ëŠ” ê³³ ê³„ì‚°í•œ ê²ƒ
             CastRayToWorld(cursor);
             /*
-            if (RoundManager.Instance.testType == RoundManager.SoldierTestType.Select)//¼±ÅÃµÉ‹š¸¶´Ù
+            if (RoundManager.Instance.testType == RoundManager.SoldierTestType.Select)//ì„ íƒë ë–„ë§ˆë‹¤
             {
                 tileTextObj.gameObject.SetActive(true);
                 tileTextObj.position = cursor;
@@ -72,15 +72,15 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         CursorCal(eventData);
     }
 
-    private void CastRayToWorld(Vector2 vec)//¸Ê¸¸ ½ò¼öÀÖ°Ô ¹Ù¤Ì²¨¾ßÇÔ
+    private void CastRayToWorld(Vector2 vec)//ë§µë§Œ ì ìˆ˜ìˆê²Œ ë°”ã…œêº¼ì•¼í•¨
     {
 
         Ray MapRay = miniMapCam.ScreenPointToRay(new Vector2(vec.x * miniMapCam.pixelWidth,
             vec.y * miniMapCam.pixelHeight));
-        //Äµ¹ö½º¿¡¼­ °è»êÇÑ °ªÀ» ·¹ÀÌÄ³½ºÅÍ¸¦ ·»´õ·¯Ä«¸Ş¶ó¿¡¼­ ¹Ù´ÚÀ¸·Î ½÷¼­ 
-        //Å¬¸¯ÇÑ °÷À» Ã£´Â °Í
+        //ìº”ë²„ìŠ¤ì—ì„œ ê³„ì‚°í•œ ê°’ì„ ë ˆì´ìºìŠ¤í„°ë¥¼ ë Œë”ëŸ¬ì¹´ë©”ë¼ì—ì„œ ë°”ë‹¥ìœ¼ë¡œ ì´ì„œ 
+        //í´ë¦­í•œ ê³³ì„ ì°¾ëŠ” ê²ƒ
         RaycastHit miniMapHit;
-        //minimapHit.point¸¦ ÇÏ¸é Å¬¸¯ÇÑ À§Ä¡ Ã£À» ¼ö ÀÖÀ½.
+        //minimapHit.pointë¥¼ í•˜ë©´ í´ë¦­í•œ ìœ„ì¹˜ ì°¾ì„ ìˆ˜ ìˆìŒ.
         if (Physics.Raycast(MapRay, out miniMapHit, Mathf.Infinity, layerMask))
         {
             Instantiate(prefaba, miniMapHit.point, Quaternion.identity);
@@ -91,7 +91,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             }
         }
     }
-    //Å¬¸¯ÇÒ ‹š enumº¯¼ö¿¡ µû¶ó¼­ ÀÌº¥Æ®°¡ ´Ş¶óÁü.
+    //í´ë¦­í•  ë–„ enumë³€ìˆ˜ì— ë”°ë¼ì„œ ì´ë²¤íŠ¸ê°€ ë‹¬ë¼ì§.
     void SetSoldier(RaycastHit miniMapHit)
     {
         switch (RoundManager.Instance.testType)
@@ -100,12 +100,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
                 break;
             case RoundManager.SoldierTestType.Select:
-                if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem))//nodemember¸¦ Ã£À½.
+                if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem))//nodememberë¥¼ ì°¾ìŒ.
                 {
                     Debug.Log(tempMem.nodeName);
                     nowTile = tempMem;
                     soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempMem.nodeName];
-                    //¼±ÅÃµÈ ¾ÖµéÀ» ¸®½ºÆ®¿¡ ³Ö¾îÁÜ.
+                    //ì„ íƒëœ ì• ë“¤ì„ ë¦¬ìŠ¤íŠ¸ì— ë„£ì–´ì¤Œ.
                 }
                 else
                 {
@@ -118,20 +118,20 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 {
                     StopCoroutine(moveCo);
                 }
-                RoundManager.Instance.moveOver = true;
+                RoundManager.Instance.moveOver = true;                
                 if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
                 {
                     finNode = mem;
                     Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
-                    //ÃÖ´Ü°Å¸® °è»êÇÏ´Â ºÎºĞ.
+                    //ìµœë‹¨ê±°ë¦¬ ê³„ì‚°í•˜ëŠ” ë¶€ë¶„.
                 }
                 moveCo = StartCoroutine("MoveCoroutine");
                 break;
             default: break;
         }
     }
-    IEnumerator MoveCoroutine()//º´»ç ÀÌµ¿ÇÏ´Â ÄÚ·çÆ¾ 
+    IEnumerator MoveCoroutine()//ë³‘ì‚¬ ì´ë™í•˜ëŠ” ì½”ë£¨í‹´ 
     {
         int count = nodeStrings.Count;
         int num = 1;
@@ -147,8 +147,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 {
                     Debug.Log(nodeStrings[num]);
                     tempSoldier.MoveAuto(tempPostion);
-                    nowTile.nodeName = nodeStrings[num];
+                    
                 }
+                nowTile.nodeName = nodeStrings[num];
                 count--;
                 num++;
                 RoundManager.Instance.moveOver = false;
