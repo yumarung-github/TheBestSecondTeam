@@ -41,6 +41,7 @@ public class RoundManager : SingleTon<RoundManager>
     {
         base.Awake();
         roundSM = new ManagerStateMahchine<RoundManager>(this);
+        mapExtra = transform.GetComponent<MapExtra>();
     }
     // Start is called before the first frame update
     void Start()
