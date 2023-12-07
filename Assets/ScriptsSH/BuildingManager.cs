@@ -17,6 +17,17 @@ namespace sihyeon
         public Button buildWoodBaseBtn;
         public Button buildBirdNestBtn;
 
+
+        [Header("테스트용 게임오브젝트aka 건물")]
+        public GameObject TestBuildingA;
+
+
+
+
+
+
+
+
         private void Start()
         {
             setBuilding();
@@ -40,12 +51,11 @@ namespace sihyeon
         {
             Building catSawmill = new Building();
             catSawmill.type = Building_TYPE.CAT_SAWMILL;
-
+            catSawmill.cost = 1;
             //추후 자원과 관련된 코스트 까지 넣을예정.
             //임시
             Building catBarracks = new Building();
             catBarracks.type = Building_TYPE.CAT_BARRACKS;
-
             Building catWorkShop = new Building();
             catWorkShop.type = Building_TYPE.CAT_WORKSHOP;
 
@@ -66,8 +76,10 @@ namespace sihyeon
 
         public void SetBtnTest()
         {
+            buildCatABtn.onClick.RemoveAllListeners();
             buildCatABtn.onClick.AddListener(() => {
                 buildBuilding(BuildingDics["catSawmill"]);
+                GameObject TestspawnBuilding = Instantiate(TestBuildingA);
             });
         }
 

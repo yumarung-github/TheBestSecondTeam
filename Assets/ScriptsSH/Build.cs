@@ -48,16 +48,24 @@ namespace sihyeon
     public class Build : MonoBehaviour, IDestroyAble
     {
         public Dictionary<string, Building> BuildingDics;
-        public BuildingManager BuildMgr;
+        private BuildingManager BuildMgr;
+        public Building_TYPE types;
+        public int cost;
 
         private void Start()
         {
             BuildMgr = BuildingManager.Instance;
             BuildingDics = BuildMgr.BuildingDics;
-            BuildMgr.setBuilding();
+            // BuildMgr.setBuilding();
         }
 
-
+        public void SetBuilding(string keyValue, Building_TYPE _TYPE, int _cost)
+        {
+            _TYPE = types;
+            _cost = cost;
+            BuildingDics[keyValue].cost = _cost;
+            BuildingDics[keyValue].type = _TYPE;
+        }
 
         public void BuildBuildng(string buildingName)
         {
