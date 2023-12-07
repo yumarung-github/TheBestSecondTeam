@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 {
     [Header("[움직일 애]")]
     public List<Soldier> soldiers = new List<Soldier>();//현재 선택된 움직일 병사들 turntext가 select일때 타일을 누르면
+    public int soldierNum;
     //그곳이 자신의 땅에 포함되어 있으면 병사들을 모두 가져옴 (명수 버튼 생기면 함수 수정예정)
     public NodeMember nowTile;//현재 선택한 타일
     List<string> nodeStrings = new List<string>(); //움직일 노드의 순서를 저장한 리스트 (계산한 것)
@@ -27,6 +29,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     private void Start()
     {
         mapExtra = RoundManager.Instance.mapExtra;
+        soldierNum = 2;
     }
     public void CursorCal(PointerEventData eventData)
     {
@@ -137,21 +140,36 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         int num = 1;
         while (count > 0)
         {
-            Vector3 tempPostion = mapExtra.mapTiles.Find(node => node.nodeName == nodeStrings[num]).transform.position;
-
+            NodeMember foundNode = mapExtra.mapTiles.Find(node => node.nodeName == nodeStrings[num]);
+            Vector3 tempPostion = foundNode.transform.position;
+            
             checkSoldier = soldiers[0];
-
             if (RoundManager.Instance.moveOver)
             {
-                foreach (Soldier tempSoldier in soldiers)
+                for (int i = 1; i <= soldierNum; i++)
                 {
+                    Debug.Log(soldiers.Count - 1);
+                    Soldier tempSoldier = soldiers[soldiers.Count - 1];
                     Debug.Log(nodeStrings[num]);
-                    tempSoldier.MoveAuto(tempPostion);
-                    
+                    tempSoldier.MoveAuto(tempPostion);//움직이게하고  
+                    RoundManager.Instance.nowPlayer.SetHasNode(foundNode.nodeName, tempSoldier);//옮겨갈 땅으로 병사정보
+                    RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName].RemoveAt(soldiers.Count - 1);
+                    //원래있던 곳에서 없애줌
                 }
-                nowTile.nodeName = nodeStrings[num];
-                count--;
-                num++;
+                foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName])
+                {
+                    Debug.Log(debuging.name + "현재병사");
+                }
+                foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[foundNode.nodeName])
+                {
+                    Debug.Log(debuging.name + "바뀐병사");
+                }
+
+                nowTile = foundNode;
+                soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[foundNode.nodeName];
+                //RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName] = 
+                count--;//다움직일때까지
+                num++;//시작점을 제외하고 움직이기
                 RoundManager.Instance.moveOver = false;
                 yield return new WaitForSeconds(Time.deltaTime);
             }
