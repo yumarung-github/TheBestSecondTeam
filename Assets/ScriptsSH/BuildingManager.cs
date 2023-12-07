@@ -18,18 +18,23 @@ namespace sihyeon
         public Button buildBirdNestBtn;
 
 
+
+        [Header("리스트")]
+        [SerializeField]
+        public List<Building> TestbuildingList;
+
+
+
+
         [Header("테스트용 게임오브젝트aka 건물")]
         public GameObject TestBuildingA;
 
 
 
 
-
-
-
-
         private void Start()
         {
+            TestbuildingList = new List<Building>();
             setBuilding();
 
         }
@@ -80,9 +85,28 @@ namespace sihyeon
             buildCatABtn.onClick.AddListener(() => {
                 buildBuilding(BuildingDics["catSawmill"]);
                 GameObject TestspawnBuilding = Instantiate(TestBuildingA);
+                TestbuildingList.Add(BuildingDics["catSawmill"]);
             });
         }
 
+
+        /* private void Update()
+         {
+             if(Input.GetKeyDown(KeyCode.W))
+             {
+                 for (int i = 0; i < TestbuildingList.Count; i++)
+                 {
+                     Debug.Log(TestbuildingList[i] +""+ i);                    
+                 }
+                 foreach(Building building in TestbuildingList)
+                 {
+                     Debug.Log(building.type);
+                 }
+
+
+
+             }
+         }*/
 
 
 
