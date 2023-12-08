@@ -11,8 +11,8 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조";
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
     }
     public override void Update()
     {
@@ -21,7 +21,7 @@ public class BirdWaitState : RmState
     public override void Exit()
     {
         rm.nowPlayer = bird;
-        Uimanager.Instance.SetSpawnBtn();
+        Uimanager.Instance.playerUI.SpawnSoldier();
     }
 }
 public class BirdMorningState : RmState
@@ -32,8 +32,8 @@ public class BirdMorningState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조 / 아침";
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 아침";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
     }
     public override void Update()
     {
@@ -51,17 +51,17 @@ public class BirdAfternoonState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조 / 점심";
-        Uimanager.Instance.SetSpawnBtn();
-        Uimanager.Instance.ResetBtn(true);
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.BIRD_DINNER);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 점심";
+        Uimanager.Instance.playerUI.SpawnSoldier();
+        Uimanager.Instance.playerUI.ResetBtn(true);
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_DINNER);
     }
     public override void Update()
     {
     }
     public override void Exit()
     {
-        Uimanager.Instance.ResetBtn(false);
+        Uimanager.Instance.playerUI.ResetBtn(false);
     }
 }
 public class BirdDinnerState : RmState
@@ -72,8 +72,8 @@ public class BirdDinnerState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조 / 저녁";
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 저녁";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
     }
     public override void Update()
     {

@@ -11,8 +11,8 @@ public class WoodWaitState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 우드랜드";
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.WOOD_MORNING);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING);
     }
     public override void Update()
     {
@@ -23,7 +23,7 @@ public class WoodWaitState : RmState
     public override void Exit()
     {
         rm.nowPlayer = wood;
-        Uimanager.Instance.SetSpawnBtn();
+        Uimanager.Instance.playerUI.SpawnSoldier();
     }
 }
 public class WoodMorningState : RmState
@@ -34,8 +34,8 @@ public class WoodMorningState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 우드랜드 / 아침";
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.WOOD_AFTERNOON);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 아침";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_AFTERNOON);
     }
     public override void Update()
     {
@@ -54,8 +54,8 @@ public class WoodAfternoonState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 우드랜드 / 점심";
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.WOOD_DINNER);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 점심";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_DINNER);
     }
     public override void Update()
     {
@@ -74,9 +74,9 @@ public class WoodDinnerState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.turnText.text = "현재 턴 : 우드랜드 / 저녁";
-        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.CAT_WAIT);
-        Uimanager.Instance.ResetBtn(true);
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 저녁";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_WAIT);
+        Uimanager.Instance.playerUI.ResetBtn(true);
     }
     public override void Update()
     {
@@ -87,6 +87,6 @@ public class WoodDinnerState : RmState
         RoundManager.Instance.wood.isOver = true;
         RoundManager.Instance.cat.isOver = false;
         rm.nowPlayer = null;
-        Uimanager.Instance.ResetBtn(false);
+        Uimanager.Instance.playerUI.ResetBtn(false);
     }
 }
