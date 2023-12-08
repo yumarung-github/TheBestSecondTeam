@@ -16,21 +16,22 @@ using UnityEngine.UI;
         int maxSoldier;
         int curSoldier;
 
-        int  CurSoldier
-        { 
-            get { return curSoldier; } 
-            set 
-            { 
-                curSoldier = value;
-                if (curSoldier <= 0)
-                    curSoldier = 0;
-                if (curSoldier > maxSoldier)
-                    curSoldier = maxSoldier;
-        
-            }
-        }
+    int CurSoldier
+    {
+        get { return curSoldier; }
+        set
+        {
+            curSoldier = value;
+            if (curSoldier <= 0)
+                curSoldier = 0;
+            if (curSoldier > maxSoldier)
+                curSoldier = maxSoldier;
+            curSol.text = CurSoldier.ToString();
 
-        private void Start()
+        }
+    }
+
+    private void Start()
         {
             curSoldier = RoundManager.Instance.mapController.soldierNum;
             maxSoldier =RoundManager.Instance.mapController.soldiers.Count;

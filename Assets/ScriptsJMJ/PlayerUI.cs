@@ -11,7 +11,7 @@ using UnityEngine.UI;
 public class PlayerUI : MonoBehaviour
 {
     public GameObject choiceTarget;
-    public GameObject slodierMove; //모병시 UI
+    public GameObject soldierMove; //모병시 UI
     public TextMeshProUGUI turnText;    // 현재 플레이어 턴 텍스트
 
 
@@ -40,14 +40,16 @@ public class PlayerUI : MonoBehaviour
 
         if (moveCheck)
         {
-            isOn = !isOn;
+            
             if (isOn)
             {
-                slodierMove.SetActive(true);
+                soldierMove.SetActive(true);
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
+
             }
             else
-                slodierMove.SetActive(false);
+                soldierMove.SetActive(false);
+            isOn = !isOn;
         }
 
     }
@@ -91,13 +93,14 @@ public class PlayerUI : MonoBehaviour
         battleBtn.onClick.AddListener(() => { Debug.Log("전투 !"); });
         battleBtn.onClick.AddListener(() => 
         {
-            isOn = !isOn;
+            
             if (isOn)
             {
                 choiceTarget.gameObject.SetActive(true);
             }
             else
                 choiceTarget.gameObject.SetActive(false);
+            isOn = !isOn;
         }        );
 
 
