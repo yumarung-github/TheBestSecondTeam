@@ -22,6 +22,7 @@ public class BirdWaitState : RmState
     {
         rm.nowPlayer = bird;
         Uimanager.Instance.playerUI.SpawnSoldier();
+        BattleManager.Instance.InitBattle();
     }
 }
 public class BirdMorningState : RmState

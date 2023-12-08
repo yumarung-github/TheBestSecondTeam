@@ -177,7 +177,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 count--;//다움직일때까지
                 num++;//시작점을 제외하고 움직이기
                 RoundManager.Instance.moveOver = false;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForSeconds(Time.deltaTime * 10f);
             }
             if(checkSoldier != null)
             {
@@ -188,7 +188,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             }            
             if (num >= nodeStrings.Count)
                 break;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSeconds(Time.deltaTime * 10f);
         }
         yield return null;
     }

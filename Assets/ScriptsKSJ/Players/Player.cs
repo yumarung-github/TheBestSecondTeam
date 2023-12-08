@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public int score;//테스트용 없애도됨
     public List<string> hasNodeNames = new List<string>();//어떤 타일을 지배하고 있는지 체크하는 용도
     public GameObject prefabSoldier;
+    public int battleSoldierNum;
 
     public Dictionary<string, List<Soldier>> hasSoldierDic = new Dictionary<string, List<Soldier>>();
     //병사를 가지고있는 타일에 병사 리스트를 저장

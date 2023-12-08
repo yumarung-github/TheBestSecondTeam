@@ -10,7 +10,8 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
-    public GameObject choiceTarget;
+    public GameObject battleWindow;
+    public Button[] buttons = new Button[2];
     public GameObject soldierMove; //모병시 UI
     public TextMeshProUGUI turnText;    // 현재 플레이어 턴 텍스트
 
@@ -31,6 +32,7 @@ public class PlayerUI : MonoBehaviour
         player = RoundManager.Instance.nowPlayer;
         moveBtn.onClick.AddListener(MoveSoldier);
         isOn = true;
+        //buttons = battleWindow.transform.GetComponentsInChildren<Button>();
     }
 
     public void MoveSoldier()
@@ -96,10 +98,10 @@ public class PlayerUI : MonoBehaviour
             
             if (isOn)
             {
-                choiceTarget.gameObject.SetActive(true);
+                battleWindow.gameObject.SetActive(true);
             }
             else
-                choiceTarget.gameObject.SetActive(false);
+                battleWindow.gameObject.SetActive(false);
             isOn = !isOn;
         }        );
 

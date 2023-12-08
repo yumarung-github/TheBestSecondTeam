@@ -24,6 +24,7 @@ public class WoodWaitState : RmState
     {
         rm.nowPlayer = wood;
         Uimanager.Instance.playerUI.SpawnSoldier();
+        BattleManager.Instance.InitBattle();
     }
 }
 public class WoodMorningState : RmState
