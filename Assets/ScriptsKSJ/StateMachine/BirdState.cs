@@ -11,16 +11,17 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
-        rm.turnText.text = "현재 턴 : 이어리 왕조";
-        rm.SetNext(MASTATE_TYPE.BIRD_MORNING);
+        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조";
+        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
     }
     public override void Update()
     {
+
     }
     public override void Exit()
     {
         rm.nowPlayer = bird;
-        rm.SetSpawnBtn();
+        Uimanager.Instance.SetSpawnBtn();
     }
 }
 public class BirdMorningState : RmState
@@ -31,8 +32,8 @@ public class BirdMorningState : RmState
     }
     public override void Enter()
     {
-        rm.turnText.text = "현재 턴 : 이어리 왕조 / 아침";
-        rm.SetNext(MASTATE_TYPE.BIRD_AFTERNOON);
+        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조 / 아침";
+        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
     }
     public override void Update()
     {
@@ -50,15 +51,17 @@ public class BirdAfternoonState : RmState
     }
     public override void Enter()
     {
-        rm.turnText.text = "현재 턴 : 이어리 왕조 / 점심";
-        rm.SetNext(MASTATE_TYPE.BIRD_DINNER);
+        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조 / 점심";
+        Uimanager.Instance.SetSpawnBtn();
+        Uimanager.Instance.ResetBtn(true);
+        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.BIRD_DINNER);
     }
     public override void Update()
     {
     }
     public override void Exit()
     {
-
+        Uimanager.Instance.ResetBtn(false);
     }
 }
 public class BirdDinnerState : RmState
@@ -69,8 +72,8 @@ public class BirdDinnerState : RmState
     }
     public override void Enter()
     {
-        rm.turnText.text = "현재 턴 : 이어리 왕조 / 저녁";
-        rm.SetNext(MASTATE_TYPE.WOOD_WAIT);
+        Uimanager.Instance.turnText.text = "현재 턴 : 이어리 왕조 / 저녁";
+        Uimanager.Instance.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
     }
     public override void Update()
     {
