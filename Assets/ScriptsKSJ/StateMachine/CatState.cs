@@ -33,7 +33,6 @@ public class CatWaitState : RmState
     {
         Uimanager.Instance.playerUI.SetBuildBtn();
         Uimanager.Instance.playerUI.SpawnSoldier();
-        Uimanager.Instance.playerUI.MoveSoldier();
         Uimanager.Instance.playerUI.SetBattleBtn();
         
         Uimanager.Instance.playerUI.ResetBtn(false);

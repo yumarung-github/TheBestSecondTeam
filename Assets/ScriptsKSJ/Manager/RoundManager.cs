@@ -22,6 +22,7 @@ public class RoundManager : SingleTon<RoundManager>
     public enum SoldierTestType//버튼으로 모병이나 선택이나 이런거 클릭할때의 기능이 바뀌게됨
     {
         None,
+        MoveSelect,
         Move,
         Select,
         Spawn

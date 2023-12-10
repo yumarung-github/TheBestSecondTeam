@@ -25,35 +25,25 @@ public class PlayerUI : MonoBehaviour
 
     Player player;
     public bool isOn;
-    public bool moveCheck;
 
     private void Start()
     {
         player = RoundManager.Instance.nowPlayer;
-        moveBtn.onClick.AddListener(MoveSoldier);
+        moveBtn.onClick.AddListener(() => { RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect; });
         isOn = true;
         //buttons = battleWindow.transform.GetComponentsInChildren<Button>();
     }
-
     public void MoveSoldier()
     {
-        Debug.Log("이동할 병사를 선택 하세요");
-        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-
-        if (moveCheck)
+        if (isOn)
         {
-            
-            if (isOn)
-            {
-                soldierMove.SetActive(true);
-                RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
+            soldierMove.SetActive(true);
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
 
-            }
-            else
-                soldierMove.SetActive(false);
-            isOn = !isOn;
         }
-
+        else
+            soldierMove.SetActive(false);
+        isOn = !isOn;
     }
 
 

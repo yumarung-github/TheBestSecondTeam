@@ -107,8 +107,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 {
                     Debug.Log(tempMem.nodeName);
                     nowTile = tempMem;
-                    soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempMem.nodeName];
-                    Uimanager.Instance.playerUI.moveCheck = true;
                     //선택된 애들을 리스트에 넣어줌.
                 }
                 else
@@ -116,6 +114,24 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     soldiers.Clear();
                 }
                 break;
+            case RoundManager.SoldierTestType.MoveSelect:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember tempTile))//nodemember를 찾음.
+                {
+                    if (RoundManager.Instance.nowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
+                        RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName].Count > 0)
+                    {
+                        nowTile = tempTile;
+                        soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
+                        Uimanager.Instance.playerUI.MoveSoldier();
+                        //선택된 애들을 리스트에 넣어줌.
+                    }
+                }
+                else
+                {
+                    soldiers.Clear();
+                }
+                break;
+
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;
                 if(moveCo != null)
@@ -134,7 +150,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
                 Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                 Uimanager.Instance.playerUI.isOn = true;
-                Uimanager.Instance.playerUI.moveCheck = false;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
             default: break;
