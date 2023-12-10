@@ -13,6 +13,7 @@ public class WoodWaitState : RmState
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING1);
+        Uimanager.Instance.woodUi.profileWindow.SetActive(true);
     }
     public override void Update()
     {
@@ -112,5 +113,6 @@ public class WoodDinnerState : RmState
         RoundManager.Instance.cat.isOver = false;
         rm.nowPlayer = null;
         Uimanager.Instance.playerUI.ResetBtn(false);
+        Uimanager.Instance.woodUi.profileWindow.SetActive(false);
     }
 }

@@ -15,8 +15,9 @@ public class Player : MonoBehaviour
     public Dictionary<string, List<Soldier>> hasSoldierDic = new Dictionary<string, List<Soldier>>();
     //병사를 가지고있는 타일에 병사 리스트를 저장
     //병사명수를 정해서 리스트의 끝부터 하나씩 꺼내서 쓰게 하면됨.
-    
-    
+
+    public Card selectedCard;
+
     protected RoundManager roundManager;//많이 쓸거같아서 넣어놨음.
 
     protected void Start()
@@ -28,8 +29,9 @@ public class Player : MonoBehaviour
     {
         RoundManager.Instance.nowPlayer = this;
     }
-    public GameObject SpawnSoldier(string tileName, Transform targetTransform)
+    public virtual GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
+        
         Vector3 tempVec = Vector3.zero;
         if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
         {

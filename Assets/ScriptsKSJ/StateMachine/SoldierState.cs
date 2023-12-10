@@ -62,7 +62,7 @@ public class MoveState : SoldierState
     }
     public override void Exit()
     {
-        Debug.Log(sm.curState.testString + "나감");
+        //Debug.Log(sm.curState.testString + "나감");
         sm.soldier.agent.enabled = false;
     }
 }

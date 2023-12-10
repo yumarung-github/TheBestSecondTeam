@@ -25,14 +25,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     LayerMask layerMask;//타일만 선택할 수 있게 레이어마스크 설정
 
-    [Header("[카드 체크]")]
-    public Card card;
     
     
     private void Start()
     {
         mapExtra = RoundManager.Instance.mapExtra;
-        soldierNum = 2;
+        soldierNum = 0;
     }
     public void CursorCal(PointerEventData eventData)
     {
@@ -155,15 +153,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 Uimanager.Instance.playerUI.isOn = true;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
-            case RoundManager.SoldierTestType.AttackSelect:
-                if (miniMapHit.transform.TryGetComponent(out NodeMember selectTile))//nodemember를 찾음.
-                {
-                    nowTile = selectTile;
-                    Debug.Log(card.skill.SkillInfo);
-                    Destroy(card.gameObject);
-                }
-                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-                break;
             default: break;
         }
     }
@@ -175,41 +164,42 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         {
             NodeMember foundNode = mapExtra.mapTiles.Find(node => node.nodeName == nodeStrings[num]);
             Vector3 tempPostion = foundNode.transform.position;
-            
-            checkSoldier = soldiers[0];
+                        
             if (RoundManager.Instance.moveOver)
             {
+                checkSoldier = soldiers[soldierNum - 1];
                 for (int i = 1; i <= soldierNum; i++)
-                {
-                    Debug.Log(soldiers.Count - 1);
+                {                    
+                    //Debug.Log(soldiers.Count - 1);
                     Soldier tempSoldier = soldiers[soldiers.Count - 1];
-                    Debug.Log(nodeStrings[num]);
+                    //Debug.Log(nodeStrings[num]);
                     tempSoldier.MoveAuto(tempPostion);//움직이게하고  
                     RoundManager.Instance.nowPlayer.SetHasNode(foundNode.nodeName, tempSoldier);//옮겨갈 땅으로 병사정보
                     RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName].RemoveAt(soldiers.Count - 1);
                     //원래있던 곳에서 없애줌
                 }
-                foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName])
-                {
-                    Debug.Log(debuging.name + "현재병사");
-                }
-                foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[foundNode.nodeName])
-                {
-                    Debug.Log(debuging.name + "바뀐병사");
-                }
+                //foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName])
+                //{
+                //    Debug.Log(debuging.name + "현재병사");
+                //}
+                //foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[foundNode.nodeName])
+                //{
+                //    Debug.Log(debuging.name + "바뀐병사");
+                //}
 
                 nowTile = foundNode;
                 soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[foundNode.nodeName];
                 //RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName] = 
                 count--;//다움직일때까지
                 num++;//시작점을 제외하고 움직이기
-                RoundManager.Instance.moveOver = false;
-                yield return new WaitForSeconds(Time.deltaTime * 10f);
+                RoundManager.Instance.moveOver = false;                
             }
-            if(checkSoldier != null)
-            {
-                if (checkSoldier.agent.remainingDistance < 1.5f)
+            yield return new WaitForSeconds(Time.deltaTime * 20f);
+            if (RoundManager.Instance.moveOver == false)
+            {                
+                if (checkSoldier.agent.remainingDistance < 1f)
                 {
+                    Debug.Log("들어옴");
                     RoundManager.Instance.moveOver = true;
                 }
             }            

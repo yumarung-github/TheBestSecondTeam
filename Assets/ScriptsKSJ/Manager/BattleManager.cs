@@ -105,6 +105,10 @@ public class BattleManager : SingleTon<BattleManager>
             battleP1Soldiers.RemoveAt(battleP1.battleSoldierNum - 1);
             Destroy(tempObj);
             battleP1.battleSoldierNum--;
+            if(battleP1 is Wood wood)
+            {
+                wood.RemainSoldierNum++;
+            }
         }
         diceP2Num = (diceP2Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP2Num;
         for (int i = 0; i < diceP2Num; i++)
@@ -113,6 +117,10 @@ public class BattleManager : SingleTon<BattleManager>
             battleP2Soldiers.RemoveAt(battleP2.battleSoldierNum - 1);
             Destroy(tempObj);
             battleP2.battleSoldierNum--;
+            if (battleP2 is Wood wood)
+            {
+                wood.RemainSoldierNum++;
+            }
         }
         Debug.Log(diceP1Num);
         Debug.Log(diceP2Num);

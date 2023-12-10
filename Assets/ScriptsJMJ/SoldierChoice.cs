@@ -27,14 +27,14 @@ using UnityEngine.UI;
             if (curSoldier > maxSoldier)
                 curSoldier = maxSoldier;
             curSol.text = CurSoldier.ToString();
-
+            RoundManager.Instance.mapController.soldierNum = curSoldier;
         }
     }
 
     private void Start()
         {
-            curSoldier = RoundManager.Instance.mapController.soldierNum;
-            maxSoldier =RoundManager.Instance.mapController.soldiers.Count;
+            curSoldier = 0;
+            maxSoldier = RoundManager.Instance.mapController.soldiers.Count;
             plusButton.onClick.AddListener(() => { CurSoldier++; });
             minusButton.onClick.AddListener(() => { CurSoldier--; });
             curSol.text = CurSoldier.ToString();
