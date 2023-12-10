@@ -31,8 +31,6 @@ public class ScoreBoard : MonoBehaviour
 
     private void Update()
     {
-             SetScore(cat.Score - 1, catCode);
-        if(bird.Score > 0)
         if (cat.Score > 0)
             SetScore(cat.Score - 1, catCode);
         if (bird.Score > 0)
