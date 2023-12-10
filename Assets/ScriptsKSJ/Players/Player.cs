@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
 
     public bool isOver;//현재 자기턴이 아니면 false상태
-    public int score;//테스트용 없애도됨
+    int score;//테스트용 없애도됨
     public List<string> hasNodeNames = new List<string>();//어떤 타일을 지배하고 있는지 체크하는 용도
     public GameObject prefabSoldier;
     public int battleSoldierNum;
@@ -29,6 +29,9 @@ public class Player : MonoBehaviour
     public Card selectedCard;
 
     protected RoundManager roundManager;//많이 쓸거같아서 넣어놨음.
+
+    public int Score
+    { get { return score; } }
 
     public Dictionary<ANIMAL_COST_TYPE, int> HaveAnimalMoney
     {
