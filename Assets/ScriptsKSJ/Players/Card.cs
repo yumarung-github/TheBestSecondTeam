@@ -8,7 +8,10 @@ public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPo
     public Skill skill;
     public void OnPointerDown(PointerEventData eventData)
     {
-        
+        //스킬 사용하는 곳 
+        //임시로 디버깅로그로 정보만 띄움
+        RoundManager.Instance.mapController.card = this;
+        RoundManager.Instance.testType = RoundManager.SoldierTestType.AttackSelect;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -22,9 +22,13 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     [Header("[맵 카메라]")]
     public Camera miniMapCam; // 클릭을 위해 있는 렌더러 카메라
     public GameObject prefaba; // 클릭했을때 클릭한 곳에 생성되는 박스(클릭포인트)
-
     [SerializeField]
     LayerMask layerMask;//타일만 선택할 수 있게 레이어마스크 설정
+
+    [Header("[카드 체크]")]
+    public Card card;
+    
+    
     private void Start()
     {
         mapExtra = RoundManager.Instance.mapExtra;
@@ -96,7 +100,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     //클릭할 떄 enum변수에 따라서 이벤트가 달라짐.
     void SetSoldier(RaycastHit miniMapHit)
     {
-        switch (RoundManager.Instance.testType)
+        switch (RoundManager.Instance.testType)//나중에 스위치문 전체를 nodemember있는지 체크하는거로 바꾸고 통일함
         {
             case RoundManager.SoldierTestType.None:
 
@@ -149,6 +153,15 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
                 Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                 Uimanager.Instance.playerUI.isOn = true;
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                break;
+            case RoundManager.SoldierTestType.AttackSelect:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember selectTile))//nodemember를 찾음.
+                {
+                    nowTile = selectTile;
+                    Debug.Log(card.skill.SkillInfo);
+                    Destroy(card.gameObject);
+                }
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
             default: break;
