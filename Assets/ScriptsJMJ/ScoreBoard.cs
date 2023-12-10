@@ -29,11 +29,11 @@ public class ScoreBoard : MonoBehaviour
 
     private void Update()
     {
-        if(cat.Score >= 0)
+        if(cat.Score > 0)
              SetScore(cat.Score - 1, catCode);
-        if(bird.Score >= 0)
+        if(bird.Score > 0)
              SetScore(bird.Score - 1, birdCode);
-        if (wood.Score >=0)
+        if (wood.Score >0)
              SetScore(wood.Score - 1, woodCode);
     }
 
