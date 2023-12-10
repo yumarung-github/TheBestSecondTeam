@@ -12,8 +12,10 @@ public class ScoreBoard : MonoBehaviour
     public Player cat;
     public GameObject[] scoreOBJs = new GameObject[30];
 
-    Dictionary<Player,int> playerDic = new Dictionary<Player,int>();
 
+
+    Dictionary<Player, int> playerDic = new Dictionary<Player, int>();
+    int score = 1;
     int catCode = 0;
     int birdCode = 1;
     int woodCode = 2;
@@ -29,21 +31,28 @@ public class ScoreBoard : MonoBehaviour
 
     private void Update()
     {
-        if(cat.Score > 0)
              SetScore(cat.Score - 1, catCode);
         if(bird.Score > 0)
-             SetScore(bird.Score - 1, birdCode);
-        if (wood.Score >0)
-             SetScore(wood.Score - 1, woodCode);
+        if (cat.Score > 0)
+            SetScore(cat.Score - 1, catCode);
+        if (bird.Score > 0)
+            SetScore(bird.Score - 1, birdCode);
+        if (wood.Score > 0)
+            SetScore(wood.Score - 1, woodCode);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SetScore(score, catCode);
+            score++;
+        }
     }
 
-    void SetScore(int score,int playerCode)
+    void SetScore(int score, int playerCode)
     {
-       for(int i = 0; i < scoreOBJs.Length -1; i++)
+        for (int i = 0; i <= scoreOBJs.Length - 1; i++)
         {
             transform.GetChild(i).GetChild(playerCode).gameObject.SetActive(false);
         }
-       transform.GetChild(score).GetChild(playerCode).gameObject.SetActive(true);
-        
+        transform.GetChild(scoreOBJs.Length - score).GetChild(playerCode).gameObject.SetActive(true);
+
     }
 }
