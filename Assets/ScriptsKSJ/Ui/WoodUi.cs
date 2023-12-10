@@ -30,11 +30,11 @@ public class WoodUi : MonoBehaviour
         revoitBtn.gameObject.SetActive(false);
         agreeBtn.gameObject.SetActive(true);
     }
-    public void SetAfternoon()
+    public void SetAfternoon(bool onOff)
     {
         agreeBtn.gameObject.SetActive(false);
-        craftBtn.gameObject.SetActive(true);
-        officerBtn.gameObject.SetActive(true);
-        supporterBtn.gameObject.SetActive(true);
+        craftBtn.gameObject.SetActive(onOff);
+        officerBtn.gameObject.SetActive(onOff);
+        supporterBtn.gameObject.SetActive(onOff);
     }
 }
