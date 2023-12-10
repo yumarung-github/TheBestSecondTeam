@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CustomInterface;
 
 public class NodeMember : MonoBehaviour
 {
     public Node node;
     public string nodeName;
+    public TRIBE_TYPE nodeType;
     
 
     void Awake()

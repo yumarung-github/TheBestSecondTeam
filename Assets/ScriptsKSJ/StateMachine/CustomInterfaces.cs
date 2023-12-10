@@ -31,5 +31,12 @@ namespace CustomInterface {
         public void SetState(MASTATE_TYPE type);
         public object GetOwner();
     }
+    public enum TRIBE_TYPE
+    {
+        FOX,
+        RABBIT,
+        RAT,
+        BIRD
+    }
 }
 

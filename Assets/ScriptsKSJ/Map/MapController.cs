@@ -17,7 +17,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     List<string> nodeStrings = new List<string>(); //움직일 노드의 순서를 저장한 리스트 (계산한 것)
     MapExtra mapExtra;//계산을 위해 스크립트 저장해놓은것
     Coroutine moveCo;//이동할 때 코루틴 시작하는 거 저장
-    public RectTransform tileTextObj; // 선택된 타일위에 텍스트 띄우려고 넣어놓은거 없애도됨.
     Soldier checkSoldier;//코루틴 돌릴때 이동 끝난거 체크하려고 병사하나 넣어 놓은 것
 
     [Header("[맵 카메라]")]

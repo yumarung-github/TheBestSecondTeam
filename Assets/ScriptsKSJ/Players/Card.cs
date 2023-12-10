@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler
+public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public Skill skill;
     public void OnPointerDown(PointerEventData eventData)
     {
         
@@ -12,17 +13,13 @@ public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Uimanager.Instance.cardName.text = "Ä«µå ÀÌ¸§ : " + skill.SkillName;
-        Uimanager.Instance.cardInfo.text = "Ä«µå Á¤º¸ \n" + skill.SkillInfo;
+        Uimanager.Instance.cardWindow.SetActive(true);
+        Uimanager.Instance.cardName.text = "ì¹´ë“œ ì´ë¦„ : " + skill.SkillName;
+        Uimanager.Instance.cardInfo.text = "ì¹´ë“œ ì •ë³´ \n" + skill.SkillInfo;
     }
-    public Skill skill;
-    void Start()
+    
+    public void OnPointerExit(PointerEventData eventData)
     {
-
-    }
-
-    void Update()
-    {
-        
+        Uimanager.Instance.cardWindow.SetActive(false);
     }
 }
