@@ -2,6 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace CustomInterface {
+
+    public enum ANIMAL_TYPE
+    {
+        FOX,
+        RAT,
+        RABBIT,
+        BIRD,
+    }
+    public enum ANIMAL_COST_TYPE
+    {
+        FOX,
+        RAT,
+        RABBIT,
+        BIRD,
+    }
+    public enum CARD_SKILL_TYPE
+    {
+        BATTLE,
+        PRODUCE,
+    }
     public enum MASTATE_TYPE
     {
         ////////////////

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class GameManager : SingleTon<GameManager>
 {
-    void Start()
+    public Player player;
+    private new void Awake()
     {
-        
+        base.Awake();
     }
-
 }

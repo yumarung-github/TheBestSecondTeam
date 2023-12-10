@@ -12,8 +12,6 @@ namespace sihyeon
         Dictionary<string,GameObject> cardInventory = new Dictionary<string, GameObject>();
         Dictionary<string , GameObject> popInventory = new Dictionary<string , GameObject>();
         Dictionary<string, GameObject> resourceInventory = new Dictionary<string , GameObject>();
-
-       
         public void UseCard()
         {
             Debug.Log("카드 사용했음");
@@ -28,34 +26,35 @@ namespace sihyeon
 
             cardInventory.Remove(card.name);
         }
-
-
-
-
-
-
-
     }
-
-
-
-
 }
 
 
 
-
-public class PlayerInventory : MonoBehaviour
+namespace SJ
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerInventory : MonoBehaviour
     {
-        
+        public Slot[] slot = new Slot[1];
+        public void Use()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+                slot[0].UseCard();
+        }
+        public void AddCard(Card card)
+        {
+            for (int i = 0; i < slot.Length; i++)
+            {
+                if (slot[i].card == null)
+                {
+                    slot[i].SetItem(card);
+                    return;
+                }
+            }
+        }
+    private void Update()
+    {
+        Use();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
