@@ -12,7 +12,7 @@ public class WoodWaitState : RmState
     public override void Enter()
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드";
-        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING);
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING1);
     }
     public override void Update()
     {
@@ -27,16 +27,38 @@ public class WoodWaitState : RmState
         BattleManager.Instance.InitBattle();
     }
 }
-public class WoodMorningState : RmState
+public class WoodMorning1State : RmState
 {
-    public WoodMorningState()
+    public WoodMorning1State()
     {
         name = "우드아침";
     }
     public override void Enter()
     {
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 아침";
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 아침1";
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING2);
+        Uimanager.Instance.woodUi.SetWoodMorning1();
+    }
+    public override void Update()
+    {
+
+    }
+    public override void Exit()
+    {
+
+    }
+}
+public class WoodMorning2State : RmState
+{
+    public WoodMorning2State()
+    {
+        name = "우드아침";
+    }
+    public override void Enter()
+    {
+        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 아침2";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_AFTERNOON);
+        Uimanager.Instance.woodUi.SetWoodMorning2();
     }
     public override void Update()
     {
@@ -57,6 +79,7 @@ public class WoodAfternoonState : RmState
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 점심";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_DINNER);
+        Uimanager.Instance.woodUi.SetAfternoon();
     }
     public override void Update()
     {

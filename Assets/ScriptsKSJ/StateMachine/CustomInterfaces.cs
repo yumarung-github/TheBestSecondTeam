@@ -16,7 +16,8 @@ namespace CustomInterface {
         BIRD_DINNER,
         ////////////////
         WOOD_WAIT,
-        WOOD_MORNING,
+        WOOD_MORNING1,
+        WOOD_MORNING2,
         WOOD_AFTERNOON,
         WOOD_DINNER
         ////////////////

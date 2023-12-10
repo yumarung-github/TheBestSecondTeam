@@ -14,6 +14,7 @@ public class Uimanager : SingleTon<Uimanager>
     // 현재 플레이어 턴 텍스트
     
     public PlayerUI playerUI;
+    public WoodUi woodUi;
 
     [Header("[카드 정보창]")]
 

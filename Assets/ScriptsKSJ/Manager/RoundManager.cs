@@ -58,7 +58,8 @@ public class RoundManager : SingleTon<RoundManager>
         roundSM.AddStateDic(MASTATE_TYPE.BIRD_DINNER, new BirdDinnerState());
 
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_WAIT, new WoodWaitState());
-        roundSM.AddStateDic(MASTATE_TYPE.WOOD_MORNING, new WoodMorningState());
+        roundSM.AddStateDic(MASTATE_TYPE.WOOD_MORNING1, new WoodMorning1State());
+        roundSM.AddStateDic(MASTATE_TYPE.WOOD_MORNING2, new WoodMorning2State());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_AFTERNOON, new WoodAfternoonState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_DINNER, new WoodDinnerState());
 
