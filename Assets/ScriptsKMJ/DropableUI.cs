@@ -25,7 +25,7 @@ public class DropableUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (eventData.pointerDrag != null)
         {
-            Debug.Log("드롭");
+            //Debug.Log("드롭");
             eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
         }
     }

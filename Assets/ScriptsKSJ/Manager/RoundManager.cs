@@ -44,7 +44,7 @@ public class RoundManager : SingleTon<RoundManager>
     {
         //상태머신에 상태들 추가한것
         moveOver = true;
-        testType = SoldierTestType.None;
+        testType = SoldierTestType.Select;
         roundSM.AddStateDic(MASTATE_TYPE.CAT_WAIT, new CatWaitState());
         roundSM.AddStateDic(MASTATE_TYPE.CAT_MORNING, new CatMorningState());
         roundSM.AddStateDic(MASTATE_TYPE.CAT_AFTERNOON, new CatAfternoonState());

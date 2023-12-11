@@ -4,17 +4,18 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CardManager : MonoBehaviour
+public class CardManager : SingleTon<CardManager>
 {
-    public static CardManager instance;
     public PlayerInventory playerInventory;
-    public List<Card> cards = new List<Card>();
-    private int randomCard;
+    public List<Card> cards = new List<Card>();//카드의 저장소
+    public List<Card> cardDeck = new List<Card>();//카드들 덱
+    [SerializeField]
+    private Transform deckParent;
 
-    private void Awake()
+    private new void Awake()
     {
+        base.Awake();
         cards = Resources.LoadAll<Card>("CardPrefabs").ToList();
-        instance = this;
         //Debug.Log(cards[0].damage);
     }
     private void Start()
@@ -22,8 +23,10 @@ public class CardManager : MonoBehaviour
         //randomCard = Random.Range(0, 1);
         foreach(Card cardTemp in cards)
         {
-            Card card = Instantiate(cardTemp);
-            RoundManager.Instance.nowPlayer.AddCard(card, card.costType);
+            Card card = Instantiate(cardTemp, deckParent);
+            RoundManager.Instance.cat.AddCard(card, card.costType);
+            RoundManager.Instance.bird.AddCard(card, card.costType);
+            RoundManager.Instance.wood.AddCard(card, card.costType);
         }
         
     }

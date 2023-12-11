@@ -21,13 +21,11 @@ public class CatWaitState : RmState
         // 다음버튼에 다음으로 넘어갈수있게 넣어줌
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
+        
     }
     public override void Update()
     {
-        if (cat.isOver == false)
-        {
 
-        }
     }
     public override void Exit()
     {
@@ -50,6 +48,7 @@ public class CatMorningState : RmState
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작/ 아침 / 선택";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_AFTERNOON);
+        Uimanager.Instance.catInven.SetActive(true);
     }
     public override void Update()
     {
@@ -101,7 +100,7 @@ public class CatDinnerState : RmState
         bird.isOver = false;
         rm.nowPlayer = null;
         Uimanager.Instance.playerUI.ResetBtn(false);
-
+        Uimanager.Instance.catInven.SetActive(false);
     }
 }
 

@@ -23,6 +23,10 @@ public class Uimanager : SingleTon<Uimanager>
     public TextMeshProUGUI cardName;
 
     public TextMeshProUGUI cardInfo;
+    [Header("[인벤토리 UI]")]
+    public GameObject catInven;
+    public GameObject birdInven;
+    public GameObject woodInven;
     private new void Awake()
     {
         base.Awake();

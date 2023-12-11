@@ -28,7 +28,7 @@ public class BattleCard : CardStrategy
     }
     public override void UseCard()
     {
-        Debug.Log(costType);
+        //Debug.Log(costType);
         if (RoundManager.Instance.nowPlayer.CardDecks.ContainsKey(costType))
         {
             Debug.Log("내용채우기");
@@ -64,10 +64,12 @@ public class ProduceCard : CardStrategy
     }
 }
 
-public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class Card : MonoBehaviour
 {
-    public List<CardStrategy> strategyList = new List<CardStrategy>();
+    public CardStrategy cardStrategy;
     public Sprite sprite;
+    public string cardName;
+    public string cardInfo;
     public int damage;
     public int defense;
     public int cost;
@@ -81,38 +83,18 @@ public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPo
         switch (skillType)
         {
             case CARD_SKILL_TYPE.BATTLE:
-                strategyList.Add(new BattleCard(this));
+                cardStrategy = new BattleCard(this);
                 break;
             case CARD_SKILL_TYPE.PRODUCE:
-                strategyList.Add(new ProduceCard(this));
+                cardStrategy = new ProduceCard(this);
                 break;
         }
     }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //스킬 사용하는 곳 
-        //임시로 디버깅로그로 정보만 띄움
-        RoundManager.Instance.nowPlayer.selectedCard = this;
-    }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        Uimanager.Instance.cardWindow.SetActive(true);
-        //Uimanager.Instance.cardName.text = "카드 이름 : " + skill.SkillName;
-        //Uimanager.Instance.cardInfo.text = "카드 정보 \n" + skill.SkillInfo;
-    }
-    
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        Uimanager.Instance.cardWindow.SetActive(false);
-    }
     public void Active()
     {
-        foreach (CardStrategy strategy in strategyList)
-        {
-            strategy.UseCard();
-            Debug.Log("카드 액티브");
-        }
+            cardStrategy.UseCard();
+            //Debug.Log("카드 액티브");
     }
     public void DestroyObj()
     {

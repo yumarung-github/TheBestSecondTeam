@@ -39,6 +39,7 @@ public class WoodMorning1State : RmState
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 아침1";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING2);
         Uimanager.Instance.woodUi.SetWoodMorning1();
+        Uimanager.Instance.woodInven.SetActive(true);
     }
     public override void Update()
     {
@@ -114,5 +115,6 @@ public class WoodDinnerState : RmState
         rm.nowPlayer = null;
         Uimanager.Instance.playerUI.ResetBtn(false);
         Uimanager.Instance.woodUi.profileWindow.SetActive(false);
+        Uimanager.Instance.woodInven.SetActive(false);
     }
 }

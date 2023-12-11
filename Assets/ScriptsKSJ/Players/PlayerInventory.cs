@@ -20,7 +20,7 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < slot.Count; i++)
         {
-            Debug.Log(slot[i].card);
+            //Debug.Log(slot[i].card);
             if (slot[i].card == null)
             {
                 slot[i].SetItem(card);
