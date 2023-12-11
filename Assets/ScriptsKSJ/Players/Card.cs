@@ -1,4 +1,5 @@
 using CustomInterface;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,6 @@ using UnityEngine.EventSystems;
 public abstract class CardStrategy
 {
     public Card card;
-
     public CardStrategy(Card card)
     {
         this.card = card;
@@ -37,12 +37,10 @@ public class ProduceCard : CardStrategy
 {
     private int cost;
     private ANIMAL_COST_TYPE costType;
-    private Card owner;
     public ProduceCard(Card card) : base(card)
     {
         this.cost = card.cost;
         this.costType = card.costType;
-        this.owner = card.owner;
     }
 
     public override void UseCard()
@@ -54,15 +52,14 @@ public class ProduceCard : CardStrategy
         else
         {
             Debug.Log("사용 쌉가능");
-            owner.DestroyObj();
+            card.DestroyObj();
         }
     }
 }
 
 public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public Card owner;
-    public List<CardStrategy> strategyList;
+    public List<CardStrategy> strategyList = new List<CardStrategy>();
     public Sprite sprite;
     public int damage;
     public int defense;
@@ -71,7 +68,20 @@ public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPo
     public ANIMAL_TYPE animalType;
 
     public CARD_SKILL_TYPE skillType;
-    public Skill skill;
+    //public Skill skill;
+
+    private void Start()
+    {
+        switch (skillType)
+        {
+            case CARD_SKILL_TYPE.BATTLE:
+                strategyList.Add(new BattleCard(this));
+                break;
+            case CARD_SKILL_TYPE.PRODUCE:
+                strategyList.Add(new ProduceCard(this));
+                break;
+        }
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         //스킬 사용하는 곳 
@@ -82,8 +92,8 @@ public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPo
     public void OnPointerEnter(PointerEventData eventData)
     {
         Uimanager.Instance.cardWindow.SetActive(true);
-        Uimanager.Instance.cardName.text = "카드 이름 : " + skill.SkillName;
-        Uimanager.Instance.cardInfo.text = "카드 정보 \n" + skill.SkillInfo;
+        //Uimanager.Instance.cardName.text = "카드 이름 : " + skill.SkillName;
+        //Uimanager.Instance.cardInfo.text = "카드 정보 \n" + skill.SkillInfo;
     }
     
     public void OnPointerExit(PointerEventData eventData)
@@ -95,6 +105,7 @@ public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPo
         foreach (CardStrategy strategy in strategyList)
         {
             strategy.UseCard();
+            Debug.Log("카드 액티브");
         }
     }
     public void DestroyObj()

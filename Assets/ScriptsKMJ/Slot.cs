@@ -7,9 +7,10 @@ public class Slot : MonoBehaviour
     public Image image;
     public Card card;
 
-    public void SetItem(Card card)
+    public void SetItem(Card cardTemp)
     {
-        this.card = card;
+        card = cardTemp;
+        image.sprite = card.sprite;
         if (card == null)
             image.sprite = null;
         else
@@ -19,6 +20,7 @@ public class Slot : MonoBehaviour
     }
     public void UseCard()
     {
+        Debug.Log("들어옴");
         if (card != null)
         {
             card.Active();
