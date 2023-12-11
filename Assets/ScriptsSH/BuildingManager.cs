@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 namespace sihyeon
 {
     public class BuildingManager : SingleTon<BuildingManager>
@@ -37,6 +38,7 @@ namespace sihyeon
         {
             buildingList = new List<Building>();
             setBuilding();
+
         }
         private new void Awake()
         {
@@ -83,16 +85,20 @@ namespace sihyeon
             buildCatABtn.onClick.RemoveAllListeners();
             buildCatABtn.onClick.AddListener(() => {
                 buildBuilding(BuildingDics["catSawmill"]);
-                GameObject spawnBuilding = Instantiate(catSawMillPrefab);
+                TestSpawnBuilding(BuildingDics["catSawmill"]);
                 buildingList.Add(BuildingDics["catSawmill"]);
             });
         }
 
 
-        public Building SpawnBuilding(Building _building)
+        public void TestSpawnBuilding(Building building)
         {
-            GameObject spawnBuilding = Instantiate(_building.buildingPrefabs);
-            return _building;
+
+            NodeMember node = RoundManager.Instance.mapController.nowTile;
+
+            GameObject buildingPrefab = Instantiate(building.buildingPrefabs, node.transform.position, Quaternion.identity);
+
+
         }
 
     }
