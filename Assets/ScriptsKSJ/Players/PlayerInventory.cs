@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-
-
-
 public class PlayerInventory : MonoBehaviour
 {
     public List<Slot> slot = new List<Slot>();
