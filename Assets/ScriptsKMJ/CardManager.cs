@@ -7,8 +7,6 @@ using UnityEngine;
 public class CardManager : MonoBehaviour
 {
     public static CardManager instance;
-    public Card card;
-    public Player player;
     public PlayerInventory playerInventory;
     public List<Card> cards = new List<Card>();
     private int randomCard;
@@ -21,8 +19,12 @@ public class CardManager : MonoBehaviour
     }
     private void Start()
     {
-        randomCard = Random.Range(0, 1);
-        Card card = Instantiate(cards[randomCard]);
-        player.AddCard(card, card.animalType, card.skillType);
+        //randomCard = Random.Range(0, 1);
+        foreach(Card cardTemp in cards)
+        {
+            Card card = Instantiate(cardTemp);
+            RoundManager.Instance.nowPlayer.AddCard(card, card.costType);
+        }
+        
     }
 }

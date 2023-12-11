@@ -10,12 +10,9 @@ public class Player : MonoBehaviour
     /// <summary>
     /// 선진
     /// </summary>
-    public Card card;
     public PlayerInventory inven;
-    public GameObject gk;
-    private Dictionary<ANIMAL_TYPE, CARD_SKILL_TYPE> cardDeck = new Dictionary<ANIMAL_TYPE, CARD_SKILL_TYPE>();
+    private Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
     private Dictionary<ANIMAL_COST_TYPE, int> haveAnimalMoney = new Dictionary<ANIMAL_COST_TYPE, int>();
-
 
     public bool isOver;//현재 자기턴이 아니면 false상태
     int score;//테스트용 없애도됨
@@ -38,15 +35,21 @@ public class Player : MonoBehaviour
         get => haveAnimalMoney;
         set { haveAnimalMoney = value; }
     }
-    public Dictionary<ANIMAL_TYPE, CARD_SKILL_TYPE> CardDeck
+    public Dictionary<ANIMAL_COST_TYPE, List<Card>> CardDecks
     {
-        get => cardDeck;
-        set { cardDeck = value; }
+        get => cardDecks;
+        set { cardDecks = value; }
     }
-    public void AddCard(Card card, ANIMAL_TYPE cardType, CARD_SKILL_TYPE cardSkillType)
+    public void AddCard(Card card, ANIMAL_COST_TYPE cardType)
     {
-        CardDeck.Add(cardType, cardSkillType);
+        Debug.Log(card.gameObject.name);
+        if (!cardDecks.ContainsKey(cardType))
+        {
+            cardDecks[cardType] = new List<Card>();
+        }
+        CardDecks[cardType].Add(card);
         inven.AddCard(card);
+        Debug.Log(cardDecks.ContainsKey(cardType));
     }
     public void SetMoney(ANIMAL_COST_TYPE ACT, int money)
     {

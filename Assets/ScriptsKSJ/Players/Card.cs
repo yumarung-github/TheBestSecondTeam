@@ -18,18 +18,24 @@ public class BattleCard : CardStrategy
 {
     private int damage;
     private int defense;
-    private ANIMAL_TYPE animalType;
+    private ANIMAL_COST_TYPE costType;
     public BattleCard(Card card) : base(card)
     {
         this.damage = card.damage;
         this.defense = card.defense;
-        this.animalType = card.animalType;
+        this.costType = card.costType;
+        Debug.Log(costType);
     }
     public override void UseCard()
     {
-        if (GameManager.Instance.player.CardDeck.ContainsKey(animalType))
+        Debug.Log(costType);
+        if (RoundManager.Instance.nowPlayer.CardDecks.ContainsKey(costType))
         {
             Debug.Log("내용채우기");
+        }
+        else
+        {
+            Debug.Log("없음");
         }
     }
 }
@@ -41,11 +47,12 @@ public class ProduceCard : CardStrategy
     {
         this.cost = card.cost;
         this.costType = card.costType;
+        Debug.Log(costType);
     }
 
     public override void UseCard()
     {
-        if (cost > GameManager.Instance.player.HaveAnimalMoney[costType])
+        if (cost > RoundManager.Instance.nowPlayer.HaveAnimalMoney[costType])
         {
             Debug.Log("사용못함");
         }
@@ -65,7 +72,6 @@ public class Card : MonoBehaviour,IPointerDownHandler, IPointerEnterHandler, IPo
     public int defense;
     public int cost;
     public ANIMAL_COST_TYPE costType;
-    public ANIMAL_TYPE animalType;
 
     public CARD_SKILL_TYPE skillType;
     //public Skill skill;

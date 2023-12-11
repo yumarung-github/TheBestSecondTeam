@@ -7459,6 +7459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slot:
   - {fileID: 6572862575211356334}
+  parentTransfom: {fileID: 574093500}
 --- !u!4 &1626735025
 Transform:
   m_ObjectHideFlags: 0
@@ -10011,11 +10012,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634230700132160039, guid: d814fa2c571402d4b9e492824fe7c0ef, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 4634230700132160039, guid: d814fa2c571402d4b9e492824fe7c0ef, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 4634230700132160039, guid: d814fa2c571402d4b9e492824fe7c0ef, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11059,11 +11060,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 545508272056772959, guid: 0ac59cb364f7d654b9d4030f715ab940, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 545508272056772959, guid: 0ac59cb364f7d654b9d4030f715ab940, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 545508272056772959, guid: 0ac59cb364f7d654b9d4030f715ab940, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12790,11 +12791,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93513721715042204, guid: 7c1544cd76a08a14b9cebe477b1db326, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 93513721715042204, guid: 7c1544cd76a08a14b9cebe477b1db326, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 93513721715042204, guid: 7c1544cd76a08a14b9cebe477b1db326, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12993,11 +12994,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3468690206609496411, guid: a2c003619fb31744b9d504504442fd00, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3468690206609496411, guid: a2c003619fb31744b9d504504442fd00, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 3468690206609496411, guid: a2c003619fb31744b9d504504442fd00, type: 3}
       propertyPath: m_LocalPosition.x
