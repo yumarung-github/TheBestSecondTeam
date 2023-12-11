@@ -8,7 +8,7 @@ namespace sihyeon
     public class BuildingManager : SingleTon<BuildingManager>
     {
         public Dictionary<string, Building> BuildingDics = new Dictionary<string, Building>();
-
+        //빌딩의 딕셔너리, 건설할수있는 건물들
         [Header("테스트용 버튼들")]
 
         public Button buildCatABtn;
@@ -18,59 +18,58 @@ namespace sihyeon
         public Button buildBirdNestBtn;
 
 
-
         [Header("리스트")]
-        [SerializeField]
-        public List<Building> TestbuildingList;
 
-
-
+        public List<Building> buildingList;
+        //건설된 건물의 리스트.
 
         [Header("테스트용 게임오브젝트aka 건물")]
-        public GameObject TestBuildingA;
+        public GameObject catSawMillPrefab;
+        public GameObject catBarrackPrefab;
+        public GameObject catWorkShopPrefab;
+        public GameObject birdNestPrefab;
+        public GameObject woodBasePrefab;
 
 
 
 
         private void Start()
         {
-            TestbuildingList = new List<Building>();
+            buildingList = new List<Building>();
             setBuilding();
-
         }
-
         private new void Awake()
         {
             base.Awake();
-
         }
-
         public void buildBuilding(Building building)
         {
             Debug.Log(building.type + "건설test");
         }
 
-        //박스 생성후에 타입넣고(스크립트까지) 
-        //
         public void setBuilding()
         {
-            Building catSawmill = new Building();
-            catSawmill.type = Building_TYPE.CAT_SAWMILL;
-            catSawmill.cost = 1;
-            //추후 자원과 관련된 코스트 까지 넣을예정.
-            //임시
+            Building catSawMill = new Building();
+            catSawMill.type = Building_TYPE.CAT_SAWMILL;
+            catSawMill.cost = 1;
+            catSawMill.buildingPrefabs = catSawMillPrefab;
             Building catBarracks = new Building();
             catBarracks.type = Building_TYPE.CAT_BARRACKS;
+            catBarracks.cost = 1;
+            catBarracks.buildingPrefabs = catBarrackPrefab;
             Building catWorkShop = new Building();
             catWorkShop.type = Building_TYPE.CAT_WORKSHOP;
-
+            catWorkShop.cost = 1;
+            catWorkShop.buildingPrefabs = catWorkShopPrefab;
             Building woodBase = new Building();
             woodBase.type = Building_TYPE.WOOD_BASE;
-
+            woodBase.cost = 1;
+            woodBase.buildingPrefabs = woodBasePrefab;
             Building birdNest = new Building();
             birdNest.type = Building_TYPE.BIRD_NEST;
-
-            BuildingDics.Add("catSawmill", catSawmill);
+            birdNest.cost = 1;
+            birdNest.buildingPrefabs = birdNestPrefab;
+            BuildingDics.Add("catSawmill", catSawMill);
             BuildingDics.Add("catBarracks", catBarracks);
             BuildingDics.Add("catWorkShop", catWorkShop);
             BuildingDics.Add("woodBase", woodBase);
@@ -78,38 +77,23 @@ namespace sihyeon
             SetBtnTest();
         }
 
-
+        //테스트용 버튼 // 
         public void SetBtnTest()
         {
             buildCatABtn.onClick.RemoveAllListeners();
             buildCatABtn.onClick.AddListener(() => {
                 buildBuilding(BuildingDics["catSawmill"]);
-                GameObject TestspawnBuilding = Instantiate(TestBuildingA);
-                TestbuildingList.Add(BuildingDics["catSawmill"]);
+                GameObject spawnBuilding = Instantiate(catSawMillPrefab);
+                buildingList.Add(BuildingDics["catSawmill"]);
             });
         }
 
 
-        /* private void Update()
-         {
-             if(Input.GetKeyDown(KeyCode.W))
-             {
-                 for (int i = 0; i < TestbuildingList.Count; i++)
-                 {
-                     Debug.Log(TestbuildingList[i] +""+ i);                    
-                 }
-                 foreach(Building building in TestbuildingList)
-                 {
-                     Debug.Log(building.type);
-                 }
-
-
-
-             }
-         }*/
-
-
-
+        public Building SpawnBuilding(Building _building)
+        {
+            GameObject spawnBuilding = Instantiate(_building.buildingPrefabs);
+            return _building;
+        }
 
     }
 }
