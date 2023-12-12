@@ -3357,10 +3357,10 @@ MonoBehaviour:
   remainSolText: {fileID: 1943936714}
   officerText: {fileID: 413718702}
   craftCardText: {fileID: 1092573071}
-  foxRevoitNumText: {fileID: 1367282127}
-  ratRevoitNumText: {fileID: 1118426842}
-  rabbitRevoitNumText: {fileID: 34336622}
-  birdRevoitNumText: {fileID: 675494879}
+  foxSupportNumText: {fileID: 1367282127}
+  ratSupportNumText: {fileID: 1118426842}
+  rabbitSupportNumText: {fileID: 34336622}
+  birdSupportNumText: {fileID: 675494879}
   cards: []
   cardUseType: 0
 --- !u!1 &674087081 stripped

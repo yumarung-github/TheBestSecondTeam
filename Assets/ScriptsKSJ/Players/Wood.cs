@@ -1,12 +1,12 @@
 using CustomInterface;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Wood : Player
-{
-    public Dictionary<ANIMAL_COST_TYPE, int> revoitVal = new Dictionary<ANIMAL_COST_TYPE, int>();
+{    
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
     public int RemainSoldierNum
@@ -82,7 +82,7 @@ public class Wood : Player
             isRabbitBuiilding = value;
         }
     }
-
+    public Dictionary<ANIMAL_COST_TYPE, int> supportVal = new Dictionary<ANIMAL_COST_TYPE, int>();
 
     private new void Start()
     {
@@ -117,5 +117,22 @@ public class Wood : Player
             return null;
         }
         
+    }
+    public void SetSupportUI(ANIMAL_COST_TYPE tempType)
+    {
+        switch (tempType) {
+            case ANIMAL_COST_TYPE.FOX:
+                Uimanager.Instance.woodUi.foxSupportNumText.text = supportVal[ANIMAL_COST_TYPE.FOX].ToString();
+                break;
+            case ANIMAL_COST_TYPE.RABBIT:
+                Uimanager.Instance.woodUi.rabbitSupportNumText.text = supportVal[ANIMAL_COST_TYPE.RABBIT].ToString();
+                break;
+            case ANIMAL_COST_TYPE.RAT:
+                Uimanager.Instance.woodUi.ratSupportNumText.text = supportVal[ANIMAL_COST_TYPE.RAT].ToString();
+                break;
+            case ANIMAL_COST_TYPE.BIRD:
+                Uimanager.Instance.woodUi.birdSupportNumText.text = supportVal[ANIMAL_COST_TYPE.BIRD].ToString();
+                break;
+        }
     }
 }

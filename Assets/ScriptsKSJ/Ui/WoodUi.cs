@@ -7,11 +7,11 @@ using UnityEngine.UI;
 public class WoodUi : MonoBehaviour
 {
     [Header("[버튼들]")]
-    public Button agreeBtn;
-    public Button revoitBtn;
-    public Button craftBtn;
-    public Button officerBtn;
-    public Button supporterBtn;
+    public Button agreeBtn;//동조
+    public Button revoitBtn;//반란
+    public Button craftBtn;//제작
+    public Button officerBtn;//장교
+    public Button supporterBtn;//지지자결집
 
     public Button emotionBtn;
     [Header("[프로필]")]
@@ -29,10 +29,10 @@ public class WoodUi : MonoBehaviour
     public TextMeshProUGUI remainSolText;
     public TextMeshProUGUI officerText;
     public TextMeshProUGUI craftCardText;
-    public TextMeshProUGUI foxRevoitNumText;
-    public TextMeshProUGUI ratRevoitNumText;
-    public TextMeshProUGUI rabbitRevoitNumText;
-    public TextMeshProUGUI birdRevoitNumText;
+    public TextMeshProUGUI foxSupportNumText;
+    public TextMeshProUGUI ratSupportNumText;
+    public TextMeshProUGUI rabbitSupportNumText;
+    public TextMeshProUGUI birdSupportNumText;
 
     [Header("[카드 체크]")]
     public List<Card> cards = new List<Card>();
@@ -40,7 +40,7 @@ public class WoodUi : MonoBehaviour
     {
         NONE,
         CRAFT,
-        REVOIT
+        SUPPORT
     }
     public CardUseType cardUseType;
 
@@ -48,8 +48,20 @@ public class WoodUi : MonoBehaviour
     {
         
     }
-
-
+    public void SetCraftBtn()
+    {
+        craftBtn.onClick.AddListener(() =>
+        {
+            cardUseType = CardUseType.CRAFT;
+        });
+    }    
+    public void SetSupportBtn()
+    {
+        supporterBtn.onClick.AddListener(() =>
+        {
+            cardUseType = CardUseType.SUPPORT;
+        });
+    }
 
     public void SetWoodMorning1()
     {

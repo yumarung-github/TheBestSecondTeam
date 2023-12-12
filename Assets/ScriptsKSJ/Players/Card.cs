@@ -29,7 +29,7 @@ public class BattleCard : CardStrategy
     public override void UseCard()
     {
         //Debug.Log(costType);
-        if (RoundManager.Instance.nowPlayer.CardDecks.ContainsKey(costType))
+        if (RoundManager.Instance.nowPlayer.cardDecks.ContainsKey(costType))
         {
             Debug.Log("내용채우기");
         }
@@ -59,7 +59,7 @@ public class ProduceCard : CardStrategy
         else
         {
             Debug.Log("사용 쌉가능");
-            card.DestroyObj();
+            //card.DestroyObj();
         }
     }
 }
@@ -100,11 +100,22 @@ public class Card : MonoBehaviour
                 break;
             case WoodUi.CardUseType.CRAFT:
                 RoundManager.Instance.nowPlayer.craftedCards.Add(this);
-                RoundManager.Instance.nowPlayer.CardDecks[costType].Remove(this);
-                break;
-            case WoodUi.CardUseType.REVOIT:
+                Uimanager.Instance.woodUi.craftCardText.text = 
+                    RoundManager.Instance.nowPlayer.craftedCards.Count.ToString();
 
-                RoundManager.Instance.nowPlayer.CardDecks[costType].Remove(this);
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                break;
+            case WoodUi.CardUseType.SUPPORT:
+                if (!RoundManager.Instance.wood.supportVal.ContainsKey(costType))
+                {
+                    RoundManager.Instance.wood.supportVal.Add(costType, 0);
+                }
+                RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
+                RoundManager.Instance.wood.SetSupportUI(costType);
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                Debug.Log(RoundManager.Instance.wood.supportVal[costType]);
+                Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                 break;
         }
             
