@@ -40,13 +40,22 @@ public class WoodUi : MonoBehaviour
     {
         NONE,
         CRAFT,
-        SUPPORT
+        SUPPORT,
+        OFFICER
     }
     public CardUseType cardUseType;
 
     void Start()
     {
         
+    }
+    public void SetOfficerBtn()
+    {
+        officerBtn.onClick.AddListener(() =>
+        {
+            //장교추가 카드사용해서 하는듯
+            cardUseType = CardUseType.OFFICER;
+        });
     }
     public void SetCraftBtn()
     {

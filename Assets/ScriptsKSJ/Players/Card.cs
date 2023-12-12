@@ -91,7 +91,7 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void Active()//김성진 수정함
+    public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
         switch (Uimanager.Instance.woodUi.cardUseType)
         {
@@ -115,6 +115,11 @@ public class Card : MonoBehaviour
                 RoundManager.Instance.wood.SetSupportUI(costType);
                 RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
                 Debug.Log(RoundManager.Instance.wood.supportVal[costType]);
+                Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                break;
+            case WoodUi.CardUseType.OFFICER:
+                RoundManager.Instance.wood.OfficerNum++;//장교추가
+
                 Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                 break;
         }

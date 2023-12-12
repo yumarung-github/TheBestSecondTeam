@@ -20,11 +20,11 @@ public class Wood : Player
     private int officerNum;//장교 기지가 생길때마다 추가
     public int OfficerNum
     {
-        get { return soldierMaxNum; }
+        get { return officerNum; }
         set
         {
-            remainSoldierNum--;//장교가 추가되면 병사수가 줄어듬
-            soldierMaxNum = value;
+            RemainSoldierNum--;//장교가 추가되면 병사수가 줄어듬
+            officerNum = value;
             Uimanager.Instance.woodUi.officerText.text = officerNum.ToString();
         }
     }
@@ -133,6 +133,17 @@ public class Wood : Player
             case ANIMAL_COST_TYPE.BIRD:
                 Uimanager.Instance.woodUi.birdSupportNumText.text = supportVal[ANIMAL_COST_TYPE.BIRD].ToString();
                 break;
+        }
+    }
+    public void SetOfficerBtnOnoff()
+    {
+        if(isRabbitBuiilding || isRabbitBuiilding || isFoxBuiilding)
+        {
+            Uimanager.Instance.woodUi.officerBtn.enabled = true;
+        }
+        else
+        {
+            Uimanager.Instance.woodUi.officerBtn.enabled = false;
         }
     }
 }

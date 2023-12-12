@@ -19,6 +19,7 @@ public class CatWaitState : RmState
         rm.nowPlayer = cat;
         Uimanager.Instance.woodUi.SetCraftBtn();
         Uimanager.Instance.woodUi.SetSupportBtn();
+        Uimanager.Instance.woodUi.SetOfficerBtn();
         // 다음버튼에 다음으로 넘어갈수있게 넣어줌
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
