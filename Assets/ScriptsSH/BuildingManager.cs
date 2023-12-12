@@ -38,7 +38,6 @@ namespace sihyeon
         {
             buildingList = new List<Building>();
             setBuilding();
-
         }
         private new void Awake()
         {
@@ -51,17 +50,16 @@ namespace sihyeon
 
         public void setBuilding()
         {
-            
-            //BuildingDics.Add("catSawmill", catSawMill);
-            //BuildingDics.Add("catBarracks", catBarracks);
-            //BuildingDics.Add("catWorkShop", catWorkShop);
-            //BuildingDics.Add("woodBase", woodBase);
-            //BuildingDics.Add("birdNest", birdNest);
-            //SetBtnTest();
+
+            BuildingDics.Add("catSawMill", catSawMillPrefab);
+            BuildingDics.Add("catBarracks", catBarrackPrefab);
+            BuildingDics.Add("catWorkShop", catWorkShopPrefab);
+            BuildingDics.Add("woodBase", woodBasePrefab);
+            BuildingDics.Add("birdNest", birdNestPrefab);
         }
 
         //테스트용 버튼 // 
-        public void SetBtnTest()
+        /*public void SetBtnTest()
         {
             buildCatABtn.onClick.RemoveAllListeners();
             buildCatABtn.onClick.AddListener(() => {
@@ -70,16 +68,12 @@ namespace sihyeon
                 //buildingList.Add(BuildingDics["catSawmill"]);
             });
         }
+        */
 
-
-        public void TestSpawnBuilding(Building building)
+        public void TestSpawnBuilding(GameObject building)
         {
-
             NodeMember node = RoundManager.Instance.mapController.nowTile;
-
-            GameObject buildingPrefab = Instantiate(building.buildingPrefabs, node.transform.position, Quaternion.identity);
-
-
+            GameObject buildingPrefab = Instantiate(building, node.transform.position, Quaternion.identity);
         }
 
     }

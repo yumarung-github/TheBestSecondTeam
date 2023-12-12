@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     //병사를 가지고있는 타일에 병사 리스트를 저장
     //병사명수를 정해서 리스트의 끝부터 하나씩 꺼내서 쓰게 하면됨.
 
-    public Dictionary<string, List<Building>> hasBuildingDic = new Dictionary<string, List<Building>>(); 
+    public Dictionary<string, List<GameObject>> hasBuildingDic = new Dictionary<string, List<GameObject>>();
     //건물 저장해둘 공간 -시현 추가
     protected RoundManager roundManager;//많이 쓸거같아서 넣어놨음.
 
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         haveAnimalMoney.Add(ANIMAL_COST_TYPE.BIRD, 0);
         SetMoney(ANIMAL_COST_TYPE.FOX, 3);
         roundManager = RoundManager.Instance;
-        isOver = true;                
+        isOver = true;
     }
     public void SetPlayer()
     {
@@ -70,20 +70,21 @@ public class Player : MonoBehaviour
     }
     public virtual GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
-        
+
         Vector3 tempVec = Vector3.zero;
         if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
         {
-            tempVec = new Vector3(hasSoldierDic[tileName].Count, 0,0);//명수에 따라 소환하는 위치를 바꿔야해서
+            tempVec = new Vector3(hasSoldierDic[tileName].Count, 0, 0);//명수에 따라 소환하는 위치를 바꿔야해서
         }
         GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
         //더해줄 병사를 임의로 저장해주고
         SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
         return addedSoldier;//생성한 병사를 return시킴
     }
-    public void SetHasNode(string tempName,Soldier tempSoldier)//리스트를 생성하고 더해주기위함.
+    public void SetHasNode(string tempName, Soldier tempSoldier)//리스트를 생성하고 더해주기위함.
     {
-        if(hasSoldierDic.ContainsKey(tempName)==false) {//병사딕셔너리에 이게 있는지 체크하고 
+        if (hasSoldierDic.ContainsKey(tempName) == false)
+        {//병사딕셔너리에 이게 있는지 체크하고 
             //없으면 list를 새로 생성해준다.
             hasSoldierDic.Add(tempName, new List<Soldier>());
         }
@@ -91,12 +92,12 @@ public class Player : MonoBehaviour
     }
 
     // 시현 추가//
-    public void SpawnBuilding(string tileName, Transform targetTransform, Building building)
+    public void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
 
         if (hasBuildingDic.ContainsKey(tileName) == false)
         {
-            hasBuildingDic.Add(tileName, new List<Building>());
+            hasBuildingDic.Add(tileName, new List<GameObject>());
         }
         if (hasBuildingDic[tileName].Contains(building) == false)//예외처리 실수
         {
@@ -108,7 +109,7 @@ public class Player : MonoBehaviour
         }
 
     }
-    public void SetHasBuildingNode(string tileName, Transform targetTransform, Building building)
+    public void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
         Debug.Log("setHasBuilding 작동1");
         hasBuildingDic[tileName].Add(building);
@@ -121,14 +122,13 @@ public class Player : MonoBehaviour
 
         Uimanager.Instance.testBtn.onClick.RemoveAllListeners();
         Uimanager.Instance.testBtn.onClick.AddListener(() => {
-            Debug.Log("123");
             Debug.Log(node.nodeName);
-            //SpawnBuilding(node.nodeName, node.transform, BuildingManager.Instance.BuildingDics["catSawmill"]);
+            SpawnBuilding(node.nodeName, node.transform, BuildingManager.Instance.BuildingDics["catSawMill"]);
         });
     }
 
 
-    //private void Update() - 임시
+    //private void Update() //- 임시
     //{
     //    testSetBtn();
     //}

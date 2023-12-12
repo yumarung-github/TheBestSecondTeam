@@ -67,7 +67,8 @@ namespace sihyeon
 
         public void Destroy(Building targetBuilding)
         {
-            throw new System.NotImplementedException();
+            targetBuilding.buildingState = Building_STATE.DESTROY;
+            Debug.Log("파괴됨");
         }
     }
 }
