@@ -1698,6 +1698,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256178368}
   m_CullTransparentMesh: 1
+--- !u!1 &283032453
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 283032455}
+  - component: {fileID: 283032454}
+  m_Layer: 0
+  m_Name: BuildingManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &283032454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283032453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5593829dfb6f0ab4bafc6ae4e899619d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildCatABtn: {fileID: 0}
+  buildCatBBtn: {fileID: 0}
+  buildCatCBtn: {fileID: 0}
+  buildWoodBaseBtn: {fileID: 0}
+  buildBirdNestBtn: {fileID: 0}
+  buildingList: []
+  catSawMillPrefab: {fileID: 7867484097259043547, guid: 0602a76f208f18446b7a6f26449c880e, type: 3}
+  catBarrackPrefab: {fileID: 1966447741461680955, guid: 142955d07de05e74c98137f9afbcd218, type: 3}
+  catWorkShopPrefab: {fileID: 4677784777451389283, guid: 8108b5d1a6bd195409db84ca29b29eeb, type: 3}
+  birdNestPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
+  woodBasePrefab: {fileID: 5657896330754583860, guid: 1ddc3d7477fc6424b870b2ba01ec6c72, type: 3}
+--- !u!4 &283032455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 283032453}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 530.1111, y: 26.31556, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &285607477 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 93513721715042204, guid: 7c1544cd76a08a14b9cebe477b1db326, type: 3}
@@ -10914,6 +10969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d51cfe4ad8d746b65dbcc85cda09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testBtn: {fileID: 0}
   playerUI: {fileID: 634604653}
   woodUi: {fileID: 634604661}
   cardWindow: {fileID: 2029656724}
@@ -15794,3 +15850,4 @@ SceneRoots:
   - {fileID: 1777737882}
   - {fileID: 1502245810234674844}
   - {fileID: 896089300}
+  - {fileID: 283032455}

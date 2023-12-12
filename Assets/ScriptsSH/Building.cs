@@ -51,9 +51,9 @@ namespace sihyeon
     //해결책?
     // 일단은 건물의 스크립트를 가진 게임오브젝트 자체를 전달하는쪽으로. 12-11 시현
 
-    public class Building
+    public class Building : MonoBehaviour, IDestroyAble
     {
-        public playerState state;
+        //public playerState state;
         public Building_TYPE type;
         public Building_STATE buildingState = Building_STATE.NONE;
         public int cost;
@@ -64,53 +64,10 @@ namespace sihyeon
         {
             Debug.Log("testBuild");
         }
-    }
-
-
-    public class Build : MonoBehaviour, IDestroyAble
-    {
-        public Dictionary<string, Building> BuildingDics;
-        private BuildingManager BuildMgr;
-        public Building_TYPE types;
-        public int cost;
-
-        private void Start()
-        {
-            BuildMgr = BuildingManager.Instance;
-            BuildingDics = BuildMgr.BuildingDics;
-
-        }
-
-        public void SetBuilding(string keyValue, Building_TYPE _TYPE, int _cost)
-        {
-            _TYPE = types;
-            _cost = cost;
-            BuildingDics[keyValue].cost = _cost;
-            BuildingDics[keyValue].type = _TYPE;
-
-        }
-
-        public void BuildBuildng(string buildingName)
-        {
-            BuildingDics[buildingName].Build();
-        }
-
 
         public void Destroy(Building targetBuilding)
         {
-            targetBuilding.buildingState = Building_STATE.DESTROY;
-            Debug.Log("파괴됨");
+            throw new System.NotImplementedException();
         }
-
-
-
-
-
-
-
-
-
-
     }
-
 }

@@ -8,7 +8,7 @@ namespace sihyeon
 {
     public class BuildingManager : SingleTon<BuildingManager>
     {
-        public Dictionary<string, Building> BuildingDics = new Dictionary<string, Building>();
+        public Dictionary<string, GameObject> BuildingDics = new Dictionary<string, GameObject>();
         //빌딩의 딕셔너리, 건설할수있는 건물들
         [Header("테스트용 버튼들")]
 
@@ -51,31 +51,12 @@ namespace sihyeon
 
         public void setBuilding()
         {
-            Building catSawMill = new Building();
-            catSawMill.type = Building_TYPE.CAT_SAWMILL;
-            catSawMill.cost = 1;
-            catSawMill.buildingPrefabs = catSawMillPrefab;
-            Building catBarracks = new Building();
-            catBarracks.type = Building_TYPE.CAT_BARRACKS;
-            catBarracks.cost = 1;
-            catBarracks.buildingPrefabs = catBarrackPrefab;
-            Building catWorkShop = new Building();
-            catWorkShop.type = Building_TYPE.CAT_WORKSHOP;
-            catWorkShop.cost = 1;
-            catWorkShop.buildingPrefabs = catWorkShopPrefab;
-            Building woodBase = new Building();
-            woodBase.type = Building_TYPE.WOOD_BASE;
-            woodBase.cost = 1;
-            woodBase.buildingPrefabs = woodBasePrefab;
-            Building birdNest = new Building();
-            birdNest.type = Building_TYPE.BIRD_NEST;
-            birdNest.cost = 1;
-            birdNest.buildingPrefabs = birdNestPrefab;
-            BuildingDics.Add("catSawmill", catSawMill);
-            BuildingDics.Add("catBarracks", catBarracks);
-            BuildingDics.Add("catWorkShop", catWorkShop);
-            BuildingDics.Add("woodBase", woodBase);
-            BuildingDics.Add("birdNest", birdNest);
+            
+            //BuildingDics.Add("catSawmill", catSawMill);
+            //BuildingDics.Add("catBarracks", catBarracks);
+            //BuildingDics.Add("catWorkShop", catWorkShop);
+            //BuildingDics.Add("woodBase", woodBase);
+            //BuildingDics.Add("birdNest", birdNest);
             //SetBtnTest();
         }
 
@@ -84,9 +65,9 @@ namespace sihyeon
         {
             buildCatABtn.onClick.RemoveAllListeners();
             buildCatABtn.onClick.AddListener(() => {
-                buildBuilding(BuildingDics["catSawmill"]);
-                TestSpawnBuilding(BuildingDics["catSawmill"]);
-                buildingList.Add(BuildingDics["catSawmill"]);
+                //buildBuilding(BuildingDics["catSawmill"]);
+                //TestSpawnBuilding(BuildingDics["catSawmill"]);
+                //buildingList.Add(BuildingDics["catSawmill"]);
             });
         }
 

@@ -123,7 +123,7 @@ public class Player : MonoBehaviour
         Uimanager.Instance.testBtn.onClick.AddListener(() => {
             Debug.Log("123");
             Debug.Log(node.nodeName);
-            SpawnBuilding(node.nodeName, node.transform, BuildingManager.Instance.BuildingDics["catSawmill"]);
+            //SpawnBuilding(node.nodeName, node.transform, BuildingManager.Instance.BuildingDics["catSawmill"]);
         });
     }
 
