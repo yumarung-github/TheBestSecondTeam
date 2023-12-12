@@ -8,9 +8,11 @@ using UnityEngine.EventSystems;
 public abstract class CardStrategy
 {
     public Card card;
+    public bool isUse;
     public CardStrategy(Card card)
     {
         this.card = card;
+        card.isUse = isUse;
     }
     public abstract void UseCard();
 }
@@ -24,7 +26,7 @@ public class BattleCard : CardStrategy
         this.damage = card.damage;
         this.defense = card.defense;
         this.costType = card.costType;
-        Debug.Log(costType);
+        //Debug.Log(costType);
     }
     public override void UseCard()
     {
@@ -32,6 +34,7 @@ public class BattleCard : CardStrategy
         if (RoundManager.Instance.nowPlayer.cardDecks.ContainsKey(costType))
         {
             Debug.Log("내용채우기");
+            card.isUse = true;
         }
         else
         {
@@ -59,7 +62,7 @@ public class ProduceCard : CardStrategy
         else
         {
             Debug.Log("사용 쌉가능");
-            //card.DestroyObj();
+            card.isUse = true;
         }
     }
 }
@@ -68,6 +71,7 @@ public class Card : MonoBehaviour
 {
     public CardStrategy cardStrategy;
     public Sprite sprite;
+    public bool isUse;
     public string cardName;
     public string cardInfo;
     public int damage;
@@ -76,7 +80,7 @@ public class Card : MonoBehaviour
     public ANIMAL_COST_TYPE costType;
 
     public CARD_SKILL_TYPE skillType;
-    
+
 
     private void Start()
     {
@@ -101,7 +105,7 @@ public class Card : MonoBehaviour
         {
             cardStrategy.UseCard();
         }
-        else if(RoundManager.Instance.nowPlayer is Wood)
+        else if (RoundManager.Instance.nowPlayer is Wood)
         {
             switch (Uimanager.Instance.woodUi.cardUseType)
             {
@@ -134,12 +138,8 @@ public class Card : MonoBehaviour
                     break;
             }
         }
-        
-            
-            //Debug.Log("카드 액티브");
-    }
-    public void DestroyObj()
-    {
-        Destroy(this.gameObject);
+
+
+        //Debug.Log("카드 액티브");
     }
 }

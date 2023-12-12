@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,6 @@ public class PlayerInventory : MonoBehaviour
     {
         slot = parentTransfom.GetComponentsInChildren<Slot>().ToList();
     }
-    public void Use()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            slot[0].UseCard();
-    }
     public void AddCard(Card card)
     {
         for (int i = 0; i < slot.Count; i++)
@@ -28,9 +24,18 @@ public class PlayerInventory : MonoBehaviour
             }
         }
     }
-    private void Update()
+    public void SetSort()
     {
-        Use();
+        for (int i = 0; i < slot.Count-1; i++)
+        {
+            if (slot[i].card == null)
+            {
+                slot[i].card = slot[i + 1].card;
+                slot[i].image.sprite = slot[i + 1].image.sprite;
+                slot[i + 1].card = null;
+                slot[i + 1].image.sprite = null;
+            }
+        }
     }
 }
 
