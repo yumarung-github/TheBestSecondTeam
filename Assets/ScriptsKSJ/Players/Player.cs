@@ -30,7 +30,17 @@ public class Player : MonoBehaviour
     protected RoundManager roundManager;//많이 쓸거같아서 넣어놨음.
 
     public int Score
-    { get { return score; } }
+    { 
+        get { return score; } 
+        set
+        { 
+            score = value; 
+            if(score >= 0)
+            {
+                //게임 마지막씬 호출
+            }
+        }
+    }
 
     public Dictionary<ANIMAL_COST_TYPE, int> HaveAnimalMoney
     {
