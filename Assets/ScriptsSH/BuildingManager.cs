@@ -76,7 +76,7 @@ namespace sihyeon
             BuildingDics.Add("catWorkShop", catWorkShop);
             BuildingDics.Add("woodBase", woodBase);
             BuildingDics.Add("birdNest", birdNest);
-            SetBtnTest();
+            //SetBtnTest();
         }
 
         //테스트용 버튼 // 

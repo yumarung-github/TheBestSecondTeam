@@ -9,10 +9,10 @@ using UnityEngine.UI;
 public class Uimanager : SingleTon<Uimanager>
 {
 
-
+    public Button testBtn; // 임시 테스트버튼
 
     // 현재 플레이어 턴 텍스트
-    
+
     public PlayerUI playerUI;
     public WoodUi woodUi;
 
