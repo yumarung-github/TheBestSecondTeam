@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Wood : Player
 {
+    public Dictionary<ANIMAL_COST_TYPE, int> revoitVal = new Dictionary<ANIMAL_COST_TYPE, int>();
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
     public int RemainSoldierNum

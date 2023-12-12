@@ -29,14 +29,27 @@ public class WoodUi : MonoBehaviour
     public TextMeshProUGUI remainSolText;
     public TextMeshProUGUI officerText;
     public TextMeshProUGUI craftCardText;
+    public TextMeshProUGUI foxRevoitNumText;
+    public TextMeshProUGUI ratRevoitNumText;
+    public TextMeshProUGUI rabbitRevoitNumText;
+    public TextMeshProUGUI birdRevoitNumText;
 
     [Header("[카드 체크]")]
     public List<Card> cards = new List<Card>();
+    public enum CardUseType 
+    {
+        NONE,
+        CRAFT,
+        REVOIT
+    }
+    public CardUseType cardUseType;
 
     void Start()
     {
         
     }
+
+
 
     public void SetWoodMorning1()
     {

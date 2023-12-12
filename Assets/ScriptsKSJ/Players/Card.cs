@@ -76,7 +76,7 @@ public class Card : MonoBehaviour
     public ANIMAL_COST_TYPE costType;
 
     public CARD_SKILL_TYPE skillType;
-    //public Skill skill;
+    
 
     private void Start()
     {
@@ -91,9 +91,23 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void Active()
+    public void Active()//김성진 수정함
     {
-            cardStrategy.UseCard();
+        switch (Uimanager.Instance.woodUi.cardUseType)
+        {
+            case WoodUi.CardUseType.NONE:
+                cardStrategy.UseCard();
+                break;
+            case WoodUi.CardUseType.CRAFT:
+                RoundManager.Instance.nowPlayer.craftedCards.Add(this);
+                RoundManager.Instance.nowPlayer.CardDecks[costType].Remove(this);
+                break;
+            case WoodUi.CardUseType.REVOIT:
+
+                RoundManager.Instance.nowPlayer.CardDecks[costType].Remove(this);
+                break;
+        }
+            
             //Debug.Log("카드 액티브");
     }
     public void DestroyObj()

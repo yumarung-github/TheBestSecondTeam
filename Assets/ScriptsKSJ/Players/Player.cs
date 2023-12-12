@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public PlayerInventory inven;
     private Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
     private Dictionary<ANIMAL_COST_TYPE, int> haveAnimalMoney = new Dictionary<ANIMAL_COST_TYPE, int>();
+    public List<Card> craftedCards = new List<Card>();
 
     public bool isOver;//현재 자기턴이 아니면 false상태
     int score;//테스트용 없애도됨
