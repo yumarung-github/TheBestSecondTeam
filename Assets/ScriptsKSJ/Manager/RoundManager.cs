@@ -25,7 +25,8 @@ public class RoundManager : SingleTon<RoundManager>
         MoveSelect,
         Move,
         Select,
-        Spawn
+        Spawn,
+        Build
     }
     // 예외처리 거의 안되어있음.
     public SoldierTestType testType;

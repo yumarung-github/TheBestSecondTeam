@@ -75,7 +75,7 @@ public class PlayerUI : MonoBehaviour
         buildBtn.onClick.RemoveAllListeners();
         string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
         buildBtn.onClick.AddListener(() => {
-            Debug.Log("건설 !");
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
         });
     }
     public void SetBattleBtn()

@@ -113,17 +113,15 @@ public class Player : MonoBehaviour
     {
         Debug.Log("setHasBuilding 작동1");
         hasBuildingDic[tileName].Add(building);
-        BuildingManager.Instance.TestSpawnBuilding(building);
+        BuildingManager.Instance.InstantiateBuilding(building);
         Debug.Log("setHasBuilding 작동2");
     }
     public void testSetBtn()
     {
-        NodeMember node = RoundManager.Instance.mapController.nowTile;
-
         Uimanager.Instance.testBtn.onClick.RemoveAllListeners();
         Uimanager.Instance.testBtn.onClick.AddListener(() => {
-            Debug.Log(node.nodeName);
-            SpawnBuilding(node.nodeName, node.transform, BuildingManager.Instance.BuildingDics["catSawMill"]);
+            BuildingManager.Instance.selectedBuilding 
+            = BuildingManager.Instance.BuildingDics["catSawMill"];
         });
     }
 

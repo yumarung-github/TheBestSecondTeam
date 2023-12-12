@@ -9,6 +9,7 @@ namespace sihyeon
     public class BuildingManager : SingleTon<BuildingManager>
     {
         public Dictionary<string, GameObject> BuildingDics = new Dictionary<string, GameObject>();
+        public GameObject selectedBuilding;
         //빌딩의 딕셔너리, 건설할수있는 건물들
         [Header("테스트용 버튼들")]
 
@@ -70,7 +71,7 @@ namespace sihyeon
         }
         */
 
-        public void TestSpawnBuilding(GameObject building)
+        public void InstantiateBuilding(GameObject building)
         {
             NodeMember node = RoundManager.Instance.mapController.nowTile;
             GameObject buildingPrefab = Instantiate(building, node.transform.position, Quaternion.identity);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomInterface;
+using sihyeon;
 
 public class CatWaitState : RmState
 {
@@ -17,6 +18,8 @@ public class CatWaitState : RmState
             //Debug.Log("dd");
         }
         rm.nowPlayer = cat;
+
+        cat.testSetBtn();//임의로 버튼설정
         Uimanager.Instance.woodUi.SetCraftBtn();
         Uimanager.Instance.woodUi.SetSupportBtn();
         Uimanager.Instance.woodUi.SetOfficerBtn();

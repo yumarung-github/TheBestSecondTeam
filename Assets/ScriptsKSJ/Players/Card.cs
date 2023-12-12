@@ -93,36 +93,44 @@ public class Card : MonoBehaviour
 
     public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
-        switch (Uimanager.Instance.woodUi.cardUseType)
+        if(RoundManager.Instance.nowPlayer is Bird)
         {
-            case WoodUi.CardUseType.NONE:
-                cardStrategy.UseCard();
-                break;
-            case WoodUi.CardUseType.CRAFT:
-                RoundManager.Instance.nowPlayer.craftedCards.Add(this);
-                Uimanager.Instance.woodUi.craftCardText.text = 
-                    RoundManager.Instance.nowPlayer.craftedCards.Count.ToString();
 
-                RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
-                Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
-                break;
-            case WoodUi.CardUseType.SUPPORT:
-                if (!RoundManager.Instance.wood.supportVal.ContainsKey(costType))
-                {
-                    RoundManager.Instance.wood.supportVal.Add(costType, 0);
-                }
-                RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
-                RoundManager.Instance.wood.SetSupportUI(costType);
-                RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
-                Debug.Log(RoundManager.Instance.wood.supportVal[costType]);
-                Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
-                break;
-            case WoodUi.CardUseType.OFFICER:
-                RoundManager.Instance.wood.OfficerNum++;//장교추가
-
-                Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
-                break;
         }
+        else if(RoundManager.Instance.nowPlayer is Wood)
+        {
+            switch (Uimanager.Instance.woodUi.cardUseType)
+            {
+                case WoodUi.CardUseType.NONE:
+                    cardStrategy.UseCard();
+                    break;
+                case WoodUi.CardUseType.CRAFT:
+                    RoundManager.Instance.nowPlayer.craftedCards.Add(this);
+                    Uimanager.Instance.woodUi.craftCardText.text =
+                        RoundManager.Instance.nowPlayer.craftedCards.Count.ToString();
+
+                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                    Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                    break;
+                case WoodUi.CardUseType.SUPPORT:
+                    if (!RoundManager.Instance.wood.supportVal.ContainsKey(costType))
+                    {
+                        RoundManager.Instance.wood.supportVal.Add(costType, 0);
+                    }
+                    RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
+                    RoundManager.Instance.wood.SetSupportUI(costType);
+                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                    Debug.Log(RoundManager.Instance.wood.supportVal[costType]);
+                    Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                    break;
+                case WoodUi.CardUseType.OFFICER:
+                    RoundManager.Instance.wood.OfficerNum++;//장교추가
+
+                    Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                    break;
+            }
+        }
+        
             
             //Debug.Log("카드 액티브");
     }

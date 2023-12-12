@@ -1,3 +1,4 @@
+using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -152,6 +153,16 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                 Uimanager.Instance.playerUI.isOn = true;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                break;
+            case RoundManager.SoldierTestType.Build:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
+                {
+                    nowTile = buildTile;
+                    RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                    BuildingManager.Instance.selectedBuilding);
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                }
+                    
                 break;
             default: break;
         }

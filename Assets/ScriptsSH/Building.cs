@@ -57,7 +57,6 @@ namespace sihyeon
         public Building_TYPE type;
         public Building_STATE buildingState = Building_STATE.NONE;
         public int cost;
-        public GameObject buildingPrefabs;
 
 
         public void Build()
