@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     /// 선진
     /// </summary>
     public PlayerInventory inven;
-    private Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
+    public Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
     private Dictionary<ANIMAL_COST_TYPE, int> haveAnimalMoney = new Dictionary<ANIMAL_COST_TYPE, int>();
     public List<Card> craftedCards = new List<Card>();
 
@@ -35,11 +35,6 @@ public class Player : MonoBehaviour
         get => haveAnimalMoney;
         set { haveAnimalMoney = value; }
     }
-    public Dictionary<ANIMAL_COST_TYPE, List<Card>> CardDecks
-    {
-        get => cardDecks;
-        set { cardDecks = value; }
-    }
     public void AddCard(Card card, ANIMAL_COST_TYPE cardType)
     {
         //Debug.Log(card.gameObject.name);
@@ -47,10 +42,11 @@ public class Player : MonoBehaviour
         {
             cardDecks[cardType] = new List<Card>();
         }
-        CardDecks[cardType].Add(card);
+        cardDecks[cardType].Add(card);
         inven.AddCard(card);
         //Debug.Log(cardDecks.ContainsKey(cardType));
     }
+
     public void SetMoney(ANIMAL_COST_TYPE ACT, int money)
     {
         haveAnimalMoney[ACT] = money;
