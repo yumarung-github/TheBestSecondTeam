@@ -1738,10 +1738,10 @@ MonoBehaviour:
   catBarrackPrefab: {fileID: 1966447741461680955, guid: 142955d07de05e74c98137f9afbcd218, type: 3}
   catWorkShopPrefab: {fileID: 4677784777451389283, guid: 8108b5d1a6bd195409db84ca29b29eeb, type: 3}
   birdNestPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
-  woodTokenPrefab: {fileID: 0}
-  woodFoxBasePrefab: {fileID: 0}
-  woodRabbitBasePrefab: {fileID: 0}
-  woodRatBasePrefab: {fileID: 0}
+  woodTokenPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
+  woodFoxBasePrefab: {fileID: 74552981616339514, guid: d7d146811cd2c90428d73f7b459b483d, type: 3}
+  woodRabbitBasePrefab: {fileID: 1302940466933614774, guid: 9ed93fe131e08a84794381f7f5bd84bb, type: 3}
+  woodRatBasePrefab: {fileID: 3669571226469922247, guid: 09d6bfbc3717c474d9dc6c829821d07e, type: 3}
 --- !u!4 &283032455
 Transform:
   m_ObjectHideFlags: 0
@@ -9895,11 +9895,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 477681897858529492, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 485308039887748844, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 507033944216540954, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: m_Layer
@@ -9907,7 +9907,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 515757976602735230, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 624559872354755663, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: m_Name
@@ -9915,11 +9915,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1019128052662324018, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1273799632248217671, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1342759898288591273, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: m_Layer
@@ -9927,7 +9927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2008359150067426150, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2255043370077344517, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: m_Layer
@@ -9939,7 +9939,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2902370986364437811, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3534666076068602603, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: m_Layer
@@ -9947,7 +9947,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4111871387657595629, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: nodeType
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4423539517892345402, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
       propertyPath: m_Layer

@@ -55,7 +55,7 @@ public class WoodUi : MonoBehaviour
         agreeBtn.onClick.AddListener(() =>
         {
             BuildingManager.Instance.selectedBuilding
-            = BuildingManager.Instance.BuildingDics["WoodToken"];
+            = BuildingManager.Instance.BuildingDics[Building_TYPE.WOOD_TOKEN];
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
             //지을 수 있는 곳 표시 추가하기
         });
@@ -64,7 +64,7 @@ public class WoodUi : MonoBehaviour
     {
         revoitBtn.onClick.AddListener(() =>
         {
-            RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.Revoit;
             //지을 수 있는 곳 표시 추가하기
         });
     }

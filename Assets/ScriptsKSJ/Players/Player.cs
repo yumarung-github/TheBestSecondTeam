@@ -111,17 +111,17 @@ public class Player : MonoBehaviour
     }
     public void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
-        Debug.Log("setHasBuilding 작동1");
+        //Debug.Log("setHasBuilding 작동1");
         hasBuildingDic[tileName].Add(building);
         BuildingManager.Instance.InstantiateBuilding(building);
-        Debug.Log("setHasBuilding 작동2");
+        //Debug.Log("setHasBuilding 작동2");
     }
     public void testSetBtn()
     {
         Uimanager.Instance.testBtn.onClick.RemoveAllListeners();
         Uimanager.Instance.testBtn.onClick.AddListener(() => {
             BuildingManager.Instance.selectedBuilding 
-            = BuildingManager.Instance.BuildingDics["catSawMill"];
+            = BuildingManager.Instance.BuildingDics[Building_TYPE.CAT_SAWMILL];
         });
     }
 

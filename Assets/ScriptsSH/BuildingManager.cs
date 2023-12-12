@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CustomInterface;
 
 
 namespace sihyeon
 {
     public class BuildingManager : SingleTon<BuildingManager>
     {
-        public Dictionary<string, GameObject> BuildingDics = new Dictionary<string, GameObject>();
+        public Dictionary<Building_TYPE, GameObject> BuildingDics = new Dictionary<Building_TYPE, GameObject>();
         public GameObject selectedBuilding;
         //빌딩의 딕셔너리, 건설할수있는 건물들
         [Header("테스트용 버튼들")]
@@ -55,18 +56,29 @@ namespace sihyeon
         public void setBuilding()
         {
 
-            BuildingDics.Add("catSawMill", catSawMillPrefab);
-            BuildingDics.Add("catBarracks", catBarrackPrefab);
-            BuildingDics.Add("catWorkShop", catWorkShopPrefab);
-            BuildingDics.Add("WoodToken", woodTokenPrefab);
-            BuildingDics.Add("WoodFox", woodFoxBasePrefab);
-            BuildingDics.Add("WoodRat", woodRatBasePrefab);
-            BuildingDics.Add("WoodRabbit", woodRabbitBasePrefab);
-            BuildingDics.Add("birdNest", birdNestPrefab);
+            BuildingDics.Add(Building_TYPE.CAT_SAWMILL, catSawMillPrefab);
+            BuildingDics.Add(Building_TYPE.CAT_BARRACKS, catBarrackPrefab);
+            BuildingDics.Add(Building_TYPE.CAT_WORKSHOP, catWorkShopPrefab);
+            BuildingDics.Add(Building_TYPE.WOOD_TOKEN, woodTokenPrefab);
+            BuildingDics.Add(Building_TYPE.WOOD_FOX, woodFoxBasePrefab);
+            BuildingDics.Add(Building_TYPE.WOOD_RAT, woodRatBasePrefab);
+            BuildingDics.Add(Building_TYPE.WOOD_RABBIT, woodRabbitBasePrefab);
+            BuildingDics.Add(Building_TYPE.BIRD_NEST, birdNestPrefab);
         }
         public void SetWoodBase(NodeMember node)
         {
-            
+            switch (node.nodeType)
+            {
+                case ANIMAL_COST_TYPE.FOX:
+                    selectedBuilding = BuildingDics[Building_TYPE.WOOD_FOX];
+                    break;
+                case ANIMAL_COST_TYPE.RAT:
+                    selectedBuilding = BuildingDics[Building_TYPE.WOOD_RAT];
+                    break;
+                case ANIMAL_COST_TYPE.RABBIT:
+                    selectedBuilding = BuildingDics[Building_TYPE.WOOD_RABBIT];
+                    break;
+            }
         }
         //테스트용 버튼 // 
         /*public void SetBtnTest()

@@ -161,8 +161,17 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                }                    
+                break;
+            case RoundManager.SoldierTestType.Revoit:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember revoitTile))//nodemember를 찾음.
+                {
+                    nowTile = revoitTile;
+                    BuildingManager.Instance.SetWoodBase(nowTile);
+                    RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                    BuildingManager.Instance.selectedBuilding);
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
-                    
                 break;
             default: break;
         }

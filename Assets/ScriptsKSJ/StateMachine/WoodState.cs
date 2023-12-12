@@ -12,6 +12,12 @@ public class WoodWaitState : RmState
     public override void Enter()
     {
         wood.SetOfficerBtnOnoff();
+        Uimanager.Instance.woodUi.SetAgreeBtn();
+        Uimanager.Instance.woodUi.SetRevoitBtn();
+        Uimanager.Instance.woodUi.SetCraftBtn();
+        Uimanager.Instance.woodUi.SetSupportBtn();
+        Uimanager.Instance.woodUi.SetOfficerBtn();
+
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING1);
         Uimanager.Instance.woodUi.profileWindow.SetActive(true);

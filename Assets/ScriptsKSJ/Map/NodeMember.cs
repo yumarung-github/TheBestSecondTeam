@@ -7,7 +7,7 @@ public class NodeMember : MonoBehaviour
 {
     public Node node;
     public string nodeName;
-    public TRIBE_TYPE nodeType;
+    public ANIMAL_COST_TYPE nodeType;
     
 
     void Awake()

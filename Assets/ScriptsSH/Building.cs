@@ -21,7 +21,10 @@ namespace sihyeon
         CAT_SAWMILL,
         CAT_BARRACKS,
         CAT_WORKSHOP,
-        WOOD_BASE,
+        WOOD_TOKEN,
+        WOOD_FOX,
+        WOOD_RAT,
+        WOOD_RABBIT,
         BIRD_NEST
     }
 
