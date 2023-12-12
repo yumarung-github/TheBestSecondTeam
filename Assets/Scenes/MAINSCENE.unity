@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1737,11 +1737,11 @@ MonoBehaviour:
   catSawMillPrefab: {fileID: 7867484097259043547, guid: 0602a76f208f18446b7a6f26449c880e, type: 3}
   catBarrackPrefab: {fileID: 1966447741461680955, guid: 142955d07de05e74c98137f9afbcd218, type: 3}
   catWorkShopPrefab: {fileID: 4677784777451389283, guid: 8108b5d1a6bd195409db84ca29b29eeb, type: 3}
-  birdNestPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
-  woodTokenPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
-  woodFoxBasePrefab: {fileID: 74552981616339514, guid: d7d146811cd2c90428d73f7b459b483d, type: 3}
-  woodRabbitBasePrefab: {fileID: 1302940466933614774, guid: 9ed93fe131e08a84794381f7f5bd84bb, type: 3}
-  woodRatBasePrefab: {fileID: 3669571226469922247, guid: 09d6bfbc3717c474d9dc6c829821d07e, type: 3}
+  birdNestPrefab: {fileID: 5657896330754583860, guid: 1ddc3d7477fc6424b870b2ba01ec6c72, type: 3}
+  woodTokenPrefab: {fileID: 1193073037529638, guid: 40cad2c64a17589408c944c7501c06ed, type: 3}
+  woodFoxBasePrefab: {fileID: 1343920219198514, guid: b788486f0267c054bb3812d57dc8e352, type: 3}
+  woodRabbitBasePrefab: {fileID: 1506098538570848, guid: 43e85bde9c957b348b1142b1e223656a, type: 3}
+  woodRatBasePrefab: {fileID: 1343920219198514, guid: 2a870fb28c44b6744a53fdd34c05bb2c, type: 3}
 --- !u!4 &283032455
 Transform:
   m_ObjectHideFlags: 0
