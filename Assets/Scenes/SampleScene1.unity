@@ -1727,6 +1727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5593829dfb6f0ab4bafc6ae4e899619d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedBuilding: {fileID: 0}
   buildCatABtn: {fileID: 0}
   buildCatBBtn: {fileID: 0}
   buildCatCBtn: {fileID: 0}
@@ -1737,7 +1738,10 @@ MonoBehaviour:
   catBarrackPrefab: {fileID: 1966447741461680955, guid: 142955d07de05e74c98137f9afbcd218, type: 3}
   catWorkShopPrefab: {fileID: 4677784777451389283, guid: 8108b5d1a6bd195409db84ca29b29eeb, type: 3}
   birdNestPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
-  woodBasePrefab: {fileID: 5657896330754583860, guid: 1ddc3d7477fc6424b870b2ba01ec6c72, type: 3}
+  woodTokenPrefab: {fileID: 0}
+  woodFoxBasePrefab: {fileID: 0}
+  woodRabbitBasePrefab: {fileID: 0}
+  woodRatBasePrefab: {fileID: 0}
 --- !u!4 &283032455
 Transform:
   m_ObjectHideFlags: 0
@@ -11248,7 +11252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b78d51cfe4ad8d746b65dbcc85cda09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testBtn: {fileID: 115455396}
+  testBtn: {fileID: 1192481431}
   playerUI: {fileID: 634604653}
   woodUi: {fileID: 634604661}
   cardWindow: {fileID: 2029656724}
@@ -16119,6 +16123,7 @@ SceneRoots:
   - {fileID: 867388412}
   - {fileID: 2057123475}
   - {fileID: 2042726542}
+  - {fileID: 283032455}
   - {fileID: 1194659330}
   - {fileID: 162065805}
   - {fileID: 1203668380}
@@ -16129,4 +16134,3 @@ SceneRoots:
   - {fileID: 1777737882}
   - {fileID: 1502245810234674844}
   - {fileID: 896089300}
-  - {fileID: 283032455}

@@ -1,3 +1,4 @@
+using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -48,6 +49,24 @@ public class WoodUi : MonoBehaviour
     void Start()
     {
         
+    }
+    public void SetAgreeBtn()
+    {
+        agreeBtn.onClick.AddListener(() =>
+        {
+            BuildingManager.Instance.selectedBuilding
+            = BuildingManager.Instance.BuildingDics["WoodToken"];
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+            //지을 수 있는 곳 표시 추가하기
+        });
+    }
+    public void SetRevoitBtn()
+    {
+        revoitBtn.onClick.AddListener(() =>
+        {
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+            //지을 수 있는 곳 표시 추가하기
+        });
     }
     public void SetOfficerBtn()
     {

@@ -30,7 +30,10 @@ namespace sihyeon
         public GameObject catBarrackPrefab;
         public GameObject catWorkShopPrefab;
         public GameObject birdNestPrefab;
-        public GameObject woodBasePrefab;
+        public GameObject woodTokenPrefab;
+        public GameObject woodFoxBasePrefab;
+        public GameObject woodRabbitBasePrefab;
+        public GameObject woodRatBasePrefab;
 
 
 
@@ -55,10 +58,16 @@ namespace sihyeon
             BuildingDics.Add("catSawMill", catSawMillPrefab);
             BuildingDics.Add("catBarracks", catBarrackPrefab);
             BuildingDics.Add("catWorkShop", catWorkShopPrefab);
-            BuildingDics.Add("woodBase", woodBasePrefab);
+            BuildingDics.Add("WoodToken", woodTokenPrefab);
+            BuildingDics.Add("WoodFox", woodFoxBasePrefab);
+            BuildingDics.Add("WoodRat", woodRatBasePrefab);
+            BuildingDics.Add("WoodRabbit", woodRabbitBasePrefab);
             BuildingDics.Add("birdNest", birdNestPrefab);
         }
-
+        public void SetWoodBase(NodeMember node)
+        {
+            
+        }
         //테스트용 버튼 // 
         /*public void SetBtnTest()
         {
