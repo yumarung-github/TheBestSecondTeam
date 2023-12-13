@@ -115,4 +115,21 @@ public class Cat : Player
         SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
         return addedSoldier;//생성한 병사를 return시킴
     }
+    public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
+    {
+
+        if (hasBuildingDic.ContainsKey(tileName) == false)
+        {
+            hasBuildingDic.Add(tileName, new List<GameObject>());
+        }
+        if (hasBuildingDic[tileName].Contains(building) == false)//예외처리 실수
+        {
+            SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
+        }
+        else
+        {
+            Debug.Log("이미 건설됨");
+        }
+
+    }
 }
