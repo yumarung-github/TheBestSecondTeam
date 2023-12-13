@@ -126,10 +126,6 @@ public class Card : MonoBehaviour
                     Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                     break;
                 case WoodUi.CardUseType.SUPPORT:
-                    if (!RoundManager.Instance.wood.supportVal.ContainsKey(costType))
-                    {
-                        RoundManager.Instance.wood.supportVal.Add(costType, 0);
-                    }
                     RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
                     RoundManager.Instance.wood.SetSupportUI(costType);
                     RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);

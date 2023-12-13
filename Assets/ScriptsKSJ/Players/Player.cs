@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
     }
 
     // 시현 추가//
-    public void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
+    public virtual void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
 
         if (hasBuildingDic.ContainsKey(tileName) == false)

@@ -42,8 +42,8 @@ namespace sihyeon
             buildingList = new List<Building>();
             setBuilding();
            
-            RoundManager.Instance.nowPlayer.SpawnBuilding(catBaseNode.nodeName, catBaseNode.transform
-                , catBasePrefab);
+            //RoundManager.Instance.nowPlayer.SpawnBuilding(catBaseNode.nodeName, catBaseNode.transform
+             //   , catBasePrefab);
            
             
         }
@@ -107,7 +107,8 @@ namespace sihyeon
             }
             else
             {
-                GameObject buildingPrefab = Instantiate(building, node.transform.position, Quaternion.identity);
+                GameObject buildingPrefab = Instantiate(building, node.transform.position + 
+                    new Vector3(0,0.4f,0), Quaternion.identity);
             }
         }
 
