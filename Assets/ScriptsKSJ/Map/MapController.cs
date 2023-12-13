@@ -162,6 +162,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
                 {                    
                     nowTile = buildTile;
+                    if(RoundManager.Instance.nowPlayer is Wood wood)
+                    {
+                        wood.buildCost = 1;
+                    }
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
@@ -171,6 +175,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember revoitTile))//nodemember를 찾음.
                 {
                     nowTile = revoitTile;
+                    RoundManager.Instance.wood.buildCost = 2;
                     BuildingManager.Instance.SetWoodBase(nowTile);
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);

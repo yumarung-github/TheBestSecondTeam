@@ -85,6 +85,7 @@ public class Wood : Player
     }
     public Dictionary<ANIMAL_COST_TYPE, int> supportVal = new Dictionary<ANIMAL_COST_TYPE, int>();
 
+    public int buildCost;
     private new void Start()
     {
         base.Start();
@@ -100,6 +101,7 @@ public class Wood : Player
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RABBIT, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RAT, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
+        buildCost = 1;//초기화1
     }
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
@@ -154,7 +156,7 @@ public class Wood : Player
     public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
         NodeMember tempMem = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == tileName);
-        int buildCost = 1;
+        
         int soldierCost = FindSoldierCost(tempMem);
         //Debug.Log(supportVal[tempMem.nodeType]);
         //Debug.Log(supportVal[ANIMAL_COST_TYPE.BIRD]);
@@ -171,13 +173,16 @@ public class Wood : Player
                 if(supportVal[tempMem.nodeType] < buildCost + soldierCost)
                 {
                     int birdCostCal = supportVal[tempMem.nodeType] - (buildCost + soldierCost);
-                    //Debug.Log(birdCostCal);
                     supportVal[tempMem.nodeType] = 0;
                     supportVal[ANIMAL_COST_TYPE.BIRD] += birdCostCal;
-                    //Debug.Log(supportVal[ANIMAL_COST_TYPE.BIRD]);
                 }
                 else
                     supportVal[tempMem.nodeType] -= buildCost + soldierCost;
+                if(buildCost == 2)//반란이면
+                {
+                    SetBaseValue(tempMem.nodeType, true);
+                    Score += DestroyAllGetScore(tempMem);
+                }
             }
             else
             {
@@ -216,4 +221,25 @@ public class Wood : Player
         return solCost;
     }
 
+    public int DestroyAllGetScore(NodeMember node)
+    {
+        int calScore = 0;
+        Debug.Log("모두 파괴");
+        return calScore;
+    }
+    void SetBaseValue(ANIMAL_COST_TYPE type, bool onOff)
+    {
+        switch (type)
+        {
+            case ANIMAL_COST_TYPE.FOX:
+                IsFoxBuiilding = onOff;
+                break;
+            case ANIMAL_COST_TYPE.RAT:
+                IsRatBuiilding = onOff;
+                break;
+            case ANIMAL_COST_TYPE.RABBIT:
+                IsRabbitBuiilding = onOff;
+                break;
+        }
+    }
 }
