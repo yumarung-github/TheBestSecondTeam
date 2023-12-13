@@ -14,13 +14,15 @@ public class CatWaitState : RmState
     public override void Enter()
     {
         if (isDisposable)
+        {
             cat.FlashTile();
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSet;
+        }
         rm.nowPlayer = cat;
         cat.testSetBtn();//임의로 버튼설정        
         // 다음버튼에 다음으로 넘어갈수있게 넣어줌
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
-        
     }
     public override void Update()
     {

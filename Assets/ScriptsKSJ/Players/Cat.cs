@@ -96,7 +96,7 @@ public class Cat : Player
             for (int i = 0; i < nodeMem.Count; i++)
             {
                 if (i != foxTile1)
-                    SpawnSoldier(nodeMem[i].nodeName, nodeMem[i].transform); // 모든 타일 병력생성
+                    SpawnSoldier(nodeMem[i].nodeName, nodeMem[i].transform);
             }
             //여우 1 제외 병력 생성
         }
