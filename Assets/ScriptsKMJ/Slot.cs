@@ -10,8 +10,11 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerEnter(PointerEventData eventData)
     {
         Uimanager.Instance.cardWindow.SetActive(true);
-        Uimanager.Instance.cardName.text = "TEST 카드 이름 : " + card.cardName;
-        Uimanager.Instance.cardInfo.text = "카드 정보 \n" + card.cardInfo;
+        if(card != null )
+        {
+            Uimanager.Instance.cardName.text = "TEST 카드 이름 : " + card.cardName;
+            Uimanager.Instance.cardInfo.text = "카드 정보 \n" + card.cardInfo;
+        }        
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -21,6 +24,9 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         card = cardTemp;
         image.sprite = card.sprite;
+        Color32 tempColor = image.color;
+        Debug.Log(tempColor.a);
+        image.color = new Color32(tempColor.r, tempColor.g, tempColor.b, 255);
         if (card == null)
             image.sprite = null;
         else

@@ -35,6 +35,8 @@ public class BattleCard : CardStrategy
         {
             Debug.Log("내용채우기");
             card.isUse = true;
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
         }
         else
         {
@@ -61,6 +63,8 @@ public class ProduceCard : CardStrategy
         }
         else
         {
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
             Debug.Log("사용 쌉가능");
             card.isUse = true;
         }
@@ -97,6 +101,7 @@ public class Card : MonoBehaviour
 
     public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
+
         if (RoundManager.Instance.nowPlayer is Cat)
         {
             cardStrategy.UseCard();
