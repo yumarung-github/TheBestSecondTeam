@@ -6,14 +6,13 @@ using sihyeon;
 
 public class CatWaitState : RmState
 {
-    bool isDisposable = true;
     public CatWaitState()
     {
         name = "캣대기";
     }
     public override void Enter()
     {
-        if (isDisposable)
+        if (RoundManager.Instance.cat.isDisposable)
         {
             cat.FlashTile();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSet;

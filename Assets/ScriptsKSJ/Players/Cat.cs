@@ -1,12 +1,13 @@
 using CustomInterface;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cat : Player
 {
     public Dictionary<string, int> deadSoldierNum = new Dictionary<string, int>();
+    public bool isDisposable = true;
     IEnumerator flashCo;
     Color originColor1;
     Color originColor2;
@@ -38,7 +39,7 @@ public class Cat : Player
     }
     IEnumerator FlashCoroutine()
     {
-        while (true)
+        while (RoundManager.Instance.cat.isDisposable)
         {
             Debug.Log("TEST");
             RoundManager.Instance.mapExtra.mapTiles[0].transform.GetComponent<Renderer>().material.color = Color.green;

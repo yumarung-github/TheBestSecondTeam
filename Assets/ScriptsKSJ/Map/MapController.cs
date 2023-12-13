@@ -184,7 +184,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         }
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.catBasePrefab);
-                        
+                       
                     }
                     else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[8])
                     {
@@ -216,6 +216,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                           BuildingManager.Instance.catBasePrefab);
                     }
+                    RoundManager.Instance.cat.isDisposable = false;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
             default: break;
