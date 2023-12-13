@@ -147,8 +147,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
                         BirdCardSlot birdCardSlot = Uimanager.Instance.birdCardSlot;
-                        if (birdCardSlot.birdCard[birdCardSlot.curCaed].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+                        if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+                        {
+                            birdCardSlot.CurCard++;
                             Debug.Log("이어리 무브무브");
+                        }
                     }
                     //최단거리 계산하는 부분.
                 }

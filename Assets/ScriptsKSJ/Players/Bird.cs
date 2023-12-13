@@ -1,4 +1,5 @@
 using CustomInterface;
+using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -26,6 +27,7 @@ public class Bird : Player
     private LEADER_TYPE nowLeader;
     public GameObject choiceLeader;
     public GameObject[] prafab = new GameObject[4];
+    BirdCardSlot birdCardSlot;
 
     int spawn = 0;
     int move = 1;
@@ -37,8 +39,6 @@ public class Bird : Player
     public bool isBattled;
     public bool isBuilded;
 
-    bool isCheck = false;
-
     public LEADER_TYPE NowLeader
     {
         get => nowLeader;
@@ -49,7 +49,10 @@ public class Bird : Player
             switch (nowLeader)
             {
                 case LEADER_TYPE.NONE:
-                    choiceLeader.SetActive(true);
+                    if(RoundManager.Instance.nowPlayer == RoundManager.Instance.bird)
+                    {
+                        choiceLeader.SetActive(true);
+                    }
                     // 지도자 다시 활성화
                     break;
                 case LEADER_TYPE.ARCHITECT:
@@ -77,34 +80,52 @@ public class Bird : Player
     private new void Start()
     {
         base.Start();
+        birdCardSlot = Uimanager.Instance.birdCardSlot;
         // roundManager.bird = this;
         hasNodeNames.Add("생쥐1");
-
-
-    }
-    public void Update()
-    {
+        NowLeader = LEADER_TYPE.NONE;
 
     }
+
+
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
+        
+        if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+        {
+            Vector3 tempVec = Vector3.zero;
+            if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
+            {
+                tempVec = new Vector3(hasSoldierDic[tileName].Count, 0, 0);//명수에 따라 소환하는 위치를 바꿔야해서
+            }
+            if(this.nowLeader == LEADER_TYPE.PROPHET)
+            {
+                GameObject dubleSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
+                SetHasNode(tileName, dubleSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
+                return dubleSoldier;//생성한 병사를 return시킴
+            }
+            GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
+            //더해줄 병사를 임의로 저장해주고
+            SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
+            birdCardSlot.CurCard++;
+            return addedSoldier;//생성한 병사를 return시킴
 
-        Vector3 tempVec = Vector3.zero;
-        if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
-        {
-            tempVec = new Vector3(hasSoldierDic[tileName].Count, 0, 0);//명수에 따라 소환하는 위치를 바꿔야해서
         }
-        if(this.nowLeader == LEADER_TYPE.PROPHET)
-        {
-            GameObject dubleSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
-            SetHasNode(tileName, dubleSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
-            return dubleSoldier;//생성한 병사를 return시킴
-        }
-        GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
-        //더해줄 병사를 임의로 저장해주고
-        SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
-        return addedSoldier;//생성한 병사를 return시킴
+        isSpwaned = false;
+        Debug.Log("카드타입이랑 노드타입이 다름");
+        return null;
     }
+
+    public override void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
+    {
+        if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+        {
+            hasBuildingDic[tileName].Add(building);
+            BuildingManager.Instance.InstantiateBuilding(building);
+            birdCardSlot.CurCard++;
+        }
+    }
+
     public void AddDiscipline(int num)
     {
         GameObject temp = Instantiate(prafab[num], transform);

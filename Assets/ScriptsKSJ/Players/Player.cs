@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
         }
 
     }
-    public void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
+    public virtual void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
         //Debug.Log("setHasBuilding 작동1");
         hasBuildingDic[tileName].Add(building);

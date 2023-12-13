@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CARDUSE_TYPE
+public enum CARDSLOT_TYPE
 {
     MOVE,
     SPAWN,
@@ -13,10 +13,23 @@ public enum CARDUSE_TYPE
 public class BirdCardSlot : MonoBehaviour
 {
     public List<Card> birdCard;
-    public CARDUSE_TYPE cardUse_type;
+    public CARDSLOT_TYPE cardUse_type;
     public GameObject moveSoldierOBJ;
+    public BirdCardInventory birdInven;
 
-    public int curCaed = 0;
+    int curCard = 0;
+    
+    public int CurCard
+    {
+        get { return curCard; }
+        set 
+        { 
+            curCard = value;
+            if (curCard <= birdCard.Count - 1)
+                curCard = birdCard.Count - 1;
+        }
+    }
+
     private void Start()
     {
       
@@ -29,18 +42,26 @@ public class BirdCardSlot : MonoBehaviour
 
         switch (cardUse_type)
         {
-            case CARDUSE_TYPE.MOVE:
+            case CARDSLOT_TYPE.MOVE:
                 {
-                    
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
-                        
+                    //curCaed 를 올려줘야함
                 }
                 break;
-            case CARDUSE_TYPE.SPAWN:
+            case CARDSLOT_TYPE.SPAWN:
+                {
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Spawn;
+                }
                 break;
-            case CARDUSE_TYPE.BATTLE:
+            case CARDSLOT_TYPE.BATTLE:
+                {
+
+                }
                 break;
-            case CARDUSE_TYPE.BULID:
+            case CARDSLOT_TYPE.BULID:
+                {
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+                }
                 break;
 
         }
