@@ -109,6 +109,12 @@ public class BattleManager : SingleTon<BattleManager>
             {
                 wood.RemainSoldierNum++;
             }
+            if (battleP1 is Cat cat)
+            {
+                if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName))
+                    cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeName, 0);
+                cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeName]++;
+            }            
         }
         diceP2Num = (diceP2Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP2Num;
         for (int i = 0; i < diceP2Num; i++)
@@ -121,7 +127,15 @@ public class BattleManager : SingleTon<BattleManager>
             {
                 wood.RemainSoldierNum++;
             }
+            if(battleP2 is Cat cat)
+            {
+                if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName))
+                    cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeName, 0);
+                cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeName]++;
+            }
+            
         }
+        Debug.Log(RoundManager.Instance.cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeName]);
         Debug.Log(diceP1Num);
         Debug.Log(diceP2Num);
     }

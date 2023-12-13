@@ -20,8 +20,10 @@ public class CardManager : SingleTon<CardManager>
     }
     private void Start()
     {
+
+        
         //randomCard = Random.Range(0, 1);
-        foreach(Card cardTemp in cards)
+        foreach (Card cardTemp in cards)
         {
             Card card = Instantiate(cardTemp, deckParent);
             RoundManager.Instance.cat.AddCard(card, card.costType);

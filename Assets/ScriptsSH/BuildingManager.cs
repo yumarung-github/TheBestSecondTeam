@@ -10,7 +10,8 @@ namespace sihyeon
     public class BuildingManager : SingleTon<BuildingManager>
     {
         public Dictionary<Building_TYPE, GameObject> BuildingDics = new Dictionary<Building_TYPE, GameObject>();
-        public GameObject selectedBuilding;
+        public GameObject selectedBuilding;//원하는건물
+        public NodeMember catBaseNode;// 테스트용 고양이 기지 노드 12 -13 시현추가
         //빌딩의 딕셔너리, 건설할수있는 건물들
         [Header("테스트용 버튼들")]
 
@@ -27,6 +28,7 @@ namespace sihyeon
         //건설된 건물의 리스트.
 
         [Header("테스트용 게임오브젝트aka 건물")]
+        public GameObject catBasePrefab;
         public GameObject catSawMillPrefab;
         public GameObject catBarrackPrefab;
         public GameObject catWorkShopPrefab;
@@ -35,14 +37,15 @@ namespace sihyeon
         public GameObject woodFoxBasePrefab;
         public GameObject woodRabbitBasePrefab;
         public GameObject woodRatBasePrefab;
-
-
-
-
         private void Start()
         {
             buildingList = new List<Building>();
             setBuilding();
+           
+            //RoundManager.Instance.nowPlayer.SpawnBuilding(catBaseNode.nodeName, catBaseNode.transform
+             //   , catBasePrefab);
+           
+            
         }
         private new void Awake()
         {
@@ -64,6 +67,7 @@ namespace sihyeon
             BuildingDics.Add(Building_TYPE.WOOD_RAT, woodRatBasePrefab);
             BuildingDics.Add(Building_TYPE.WOOD_RABBIT, woodRabbitBasePrefab);
             BuildingDics.Add(Building_TYPE.BIRD_NEST, birdNestPrefab);
+            BuildingDics.Add(Building_TYPE.CAT_BASE, catBasePrefab);
         }
         public void SetWoodBase(NodeMember node)
         {
@@ -92,10 +96,20 @@ namespace sihyeon
         }
         */
 
+
+
         public void InstantiateBuilding(GameObject building)
         {
             NodeMember node = RoundManager.Instance.mapController.nowTile;
-            GameObject buildingPrefab = Instantiate(building, node.transform.position, Quaternion.identity);
+            if (building.GetComponent<Building>().type == Building_TYPE.CAT_BASE)
+            {
+                Instantiate(catBasePrefab, catBaseNode.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                GameObject buildingPrefab = Instantiate(building, node.transform.position + 
+                    new Vector3(0,0.4f,0), Quaternion.identity);
+            }
         }
 
     }

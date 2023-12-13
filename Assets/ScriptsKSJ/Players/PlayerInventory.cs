@@ -20,6 +20,12 @@ public class PlayerInventory : MonoBehaviour
             if (slot[i].card == null)
             {
                 slot[i].SetItem(card);
+                card.onActive += () => {
+                    if (card.isUse == true)
+                    {
+                        slot[i].EmptySlot();
+                    }
+                };
                 return;
             }
         }
@@ -34,6 +40,11 @@ public class PlayerInventory : MonoBehaviour
                 slot[i].image.sprite = slot[i + 1].image.sprite;
                 slot[i + 1].card = null;
                 slot[i + 1].image.sprite = null;
+                if(i + 1 == slot.Count - 1)
+                {
+                    Color32 tempColor = slot[i + 1].image.color;
+                    slot[i + 1].image.color = new Color32(tempColor.r,tempColor.g,tempColor.b,0);
+                }
             }
         }
     }

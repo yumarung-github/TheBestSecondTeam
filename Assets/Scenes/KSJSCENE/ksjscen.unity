@@ -1736,12 +1736,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedBuilding: {fileID: 0}
+  catBaseNode: {fileID: 0}
   buildCatABtn: {fileID: 0}
   buildCatBBtn: {fileID: 0}
   buildCatCBtn: {fileID: 0}
   buildWoodBaseBtn: {fileID: 0}
   buildBirdNestBtn: {fileID: 0}
   buildingList: []
+  catBasePrefab: {fileID: 9027382726976467516, guid: 0c8e8d825307a7f4eb1d609b8dd22513, type: 3}
   catSawMillPrefab: {fileID: 7867484097259043547, guid: 0602a76f208f18446b7a6f26449c880e, type: 3}
   catBarrackPrefab: {fileID: 1966447741461680955, guid: 142955d07de05e74c98137f9afbcd218, type: 3}
   catWorkShopPrefab: {fileID: 4677784777451389283, guid: 8108b5d1a6bd195409db84ca29b29eeb, type: 3}

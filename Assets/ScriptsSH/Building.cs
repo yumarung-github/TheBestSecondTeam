@@ -25,15 +25,11 @@ namespace sihyeon
         WOOD_FOX,
         WOOD_RAT,
         WOOD_RABBIT,
-        BIRD_NEST
+        BIRD_NEST,
+        CAT_BASE
     }
 
-    public enum playerState
-    {
-        CAT,
-        WOOD,
-        BIRD
-    }
+
     //문제 1
     //1. 일단 건물이 건설된다 - ㅇ
     //2. 그런데 이게 누구의 건물이고 어디에 건설된지 판별을 하고있는가 x

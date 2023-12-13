@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4956148831902802}
   - component: {fileID: 33214064549674032}
   - component: {fileID: 23946876723810954}
+  - component: {fileID: 8668980223335251796}
   m_Layer: 0
   m_Name: RABBITBASE
   m_TagString: Untagged
@@ -83,3 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8668980223335251796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506098538570848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110d4cf7dddf3714abb4b4fc9df8f432, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 6
+  buildingState: 1
+  cost: 0

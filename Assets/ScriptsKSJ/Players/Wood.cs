@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
+using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class Wood : Player
 {    
@@ -95,6 +96,10 @@ public class Wood : Player
         officerNum = 0;
         soldierMaxNum = 10;
         remainSoldierNum = soldierMaxNum;
+        RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.FOX, 0);
+        RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RABBIT, 0);
+        RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RAT, 0);
+        RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
     }
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
@@ -146,5 +151,69 @@ public class Wood : Player
             Uimanager.Instance.woodUi.officerBtn.enabled = false;
         }
     }
-    
+    public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
+    {
+        NodeMember tempMem = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == tileName);
+        int buildCost = 1;
+        int soldierCost = FindSoldierCost(tempMem);
+        //Debug.Log(supportVal[tempMem.nodeType]);
+        //Debug.Log(supportVal[ANIMAL_COST_TYPE.BIRD]);
+
+        if (supportVal[tempMem.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= buildCost + soldierCost)
+        {
+            if (hasBuildingDic.ContainsKey(tileName) == false)
+            {
+                hasBuildingDic.Add(tileName, new List<GameObject>());
+            }
+            if (hasBuildingDic[tileName].Contains(building) == false)
+            {
+                SetHasBuildingNode(tileName, targetTransform, building);
+                if(supportVal[tempMem.nodeType] < buildCost + soldierCost)
+                {
+                    int birdCostCal = supportVal[tempMem.nodeType] - (buildCost + soldierCost);
+                    //Debug.Log(birdCostCal);
+                    supportVal[tempMem.nodeType] = 0;
+                    supportVal[ANIMAL_COST_TYPE.BIRD] += birdCostCal;
+                    //Debug.Log(supportVal[ANIMAL_COST_TYPE.BIRD]);
+                }
+                else
+                    supportVal[tempMem.nodeType] -= buildCost + soldierCost;
+            }
+            else
+            {
+                Debug.Log("이미 건설됨");
+            }      
+            SetSupportUI(tempMem.nodeType);
+            SetSupportUI(ANIMAL_COST_TYPE.BIRD);
+        }
+        else
+        {
+            Debug.Log("지지자가 부족합니다");
+        }
+    }
+    int FindSoldierCost(NodeMember findTile)//현재 타일에 가장 큰 병사수를 가진거에 따라 코스트 리턴
+    {
+        int calNum = 0;
+        int solCost = 0;
+        int catNum = 0;
+        int birdNum = 0;
+        if (roundManager.cat.hasSoldierDic.ContainsKey(findTile.nodeName))
+        {
+            catNum = roundManager.cat.hasSoldierDic[findTile.nodeName].Count;
+        }
+        if (roundManager.bird.hasSoldierDic.ContainsKey(findTile.nodeName))
+        {
+            birdNum = roundManager.bird.hasSoldierDic[findTile.nodeName].Count;
+        }
+        
+        calNum = catNum >= birdNum ? catNum : birdNum;
+        
+        while(calNum >= 3) 
+        {
+            calNum = calNum / 3;
+            solCost++;
+        }
+        return solCost;
+    }
+
 }
