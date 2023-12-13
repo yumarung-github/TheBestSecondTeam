@@ -1728,20 +1728,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedBuilding: {fileID: 0}
+  catBaseNode: {fileID: 875120700}
   buildCatABtn: {fileID: 0}
   buildCatBBtn: {fileID: 0}
   buildCatCBtn: {fileID: 0}
   buildWoodBaseBtn: {fileID: 0}
   buildBirdNestBtn: {fileID: 0}
   buildingList: []
-  catSawMillPrefab: {fileID: 7867484097259043547, guid: 0602a76f208f18446b7a6f26449c880e, type: 3}
-  catBarrackPrefab: {fileID: 1966447741461680955, guid: 142955d07de05e74c98137f9afbcd218, type: 3}
-  catWorkShopPrefab: {fileID: 4677784777451389283, guid: 8108b5d1a6bd195409db84ca29b29eeb, type: 3}
-  birdNestPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
-  woodTokenPrefab: {fileID: 8880672292223948151, guid: ee1627d990aedf64bbff15dc5426ac1d, type: 3}
-  woodFoxBasePrefab: {fileID: 74552981616339514, guid: d7d146811cd2c90428d73f7b459b483d, type: 3}
-  woodRabbitBasePrefab: {fileID: 1302940466933614774, guid: 9ed93fe131e08a84794381f7f5bd84bb, type: 3}
-  woodRatBasePrefab: {fileID: 3669571226469922247, guid: 09d6bfbc3717c474d9dc6c829821d07e, type: 3}
+  catBasePrefab: {fileID: 4257552895312696128, guid: 0083a68d2a71b5f4ebb27e50bab60f17, type: 3}
+  catSawMillPrefab: {fileID: 9027382726976467516, guid: 0c8e8d825307a7f4eb1d609b8dd22513, type: 3}
+  catBarrackPrefab: {fileID: 827841190667033740, guid: c8d4ed8dfd9d183489146c96fb1353a7, type: 3}
+  catWorkShopPrefab: {fileID: 160407641998269428, guid: ee616e9dd6d817f4d83fa5b04f629f23, type: 3}
+  birdNestPrefab: {fileID: 3407116560351871788, guid: da67f558871e22046a9711ce6db8755d, type: 3}
+  woodTokenPrefab: {fileID: 8846687453520545866, guid: d9af7665a7fd9894aa22ca1c50239def, type: 3}
+  woodFoxBasePrefab: {fileID: 8328874997189878206, guid: 9cd6336f43fedfd4398ec96d2728709e, type: 3}
+  woodRabbitBasePrefab: {fileID: 9030085032732331254, guid: 7ea65dd559e593a4594cd26c1f4e54e9, type: 3}
+  woodRatBasePrefab: {fileID: 352284497018667497, guid: 4567ec171ff17854e8f2d21d99d869a7, type: 3}
 --- !u!4 &283032455
 Transform:
   m_ObjectHideFlags: 0
@@ -4578,6 +4580,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 7c8eca8ad21e87b4ca86092ecbfb815e, type: 3}
+--- !u!114 &875120700 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2891870651569162858, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
+  m_PrefabInstance: {fileID: 1777737882}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875120693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47c10b8fe491bb040b7e90bbb90d3a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &896089299
 GameObject:
   m_ObjectHideFlags: 0
@@ -10252,6 +10265,17 @@ MonoBehaviour:
   hasNodeNames: []
   prefabSoldier: {fileID: 454993966645367485, guid: aa70964dd8507d746ba74344437ffb39, type: 3}
   battleSoldierNum: 0
+  nowLeader: 0
+  choiceLeader: {fileID: 0}
+  prafab:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  isSpwaned: 0
+  isMoved: 0
+  isBattled: 0
+  isBuilded: 0
 --- !u!4 &1850166813
 Transform:
   m_ObjectHideFlags: 0
