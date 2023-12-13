@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
     {
         //Debug.Log("setHasBuilding 작동1");
         hasBuildingDic[tileName].Add(building);
-        BuildingManager.Instance.InstantiateBuilding(building);
+        BuildingManager.Instance.InstantiateBuilding(building);       
         //Debug.Log("setHasBuilding 작동2");
     }
     public void testSetBtn()

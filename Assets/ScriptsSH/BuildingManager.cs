@@ -28,6 +28,7 @@ namespace sihyeon
         //건설된 건물의 리스트.
 
         [Header("테스트용 게임오브젝트aka 건물")]
+        public GameObject catBasePrefab;
         public GameObject catSawMillPrefab;
         public GameObject catBarrackPrefab;
         public GameObject catWorkShopPrefab;
@@ -36,19 +37,15 @@ namespace sihyeon
         public GameObject woodFoxBasePrefab;
         public GameObject woodRabbitBasePrefab;
         public GameObject woodRatBasePrefab;
-
-
-        public GameObject catBasePrefab;
-
-
-
         private void Start()
         {
             buildingList = new List<Building>();
             setBuilding();
-            Debug.Log("고양이 기지 1");
-            RoundManager.Instance.nowPlayer.SpawnBuilding(catBaseNode.nodeName, catBaseNode.transform, catBasePrefab);
-            Debug.Log("고양이 기지 2");
+           
+            RoundManager.Instance.nowPlayer.SpawnBuilding(catBaseNode.nodeName, catBaseNode.transform
+                , catBasePrefab);
+           
+            
         }
         private new void Awake()
         {
@@ -99,10 +96,19 @@ namespace sihyeon
         }
         */
 
+
+
         public void InstantiateBuilding(GameObject building)
         {
             NodeMember node = RoundManager.Instance.mapController.nowTile;
-            GameObject buildingPrefab = Instantiate(building, node.transform.position, Quaternion.identity);
+            if (building.GetComponent<Building>().type == Building_TYPE.CAT_BASE)
+            {
+                Instantiate(catBasePrefab, catBaseNode.transform.position, Quaternion.identity);
+            }
+            else
+            {
+                GameObject buildingPrefab = Instantiate(building, node.transform.position, Quaternion.identity);
+            }
         }
 
     }
