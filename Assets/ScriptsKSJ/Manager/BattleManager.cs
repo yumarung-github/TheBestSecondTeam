@@ -111,9 +111,9 @@ public class BattleManager : SingleTon<BattleManager>
             }
             if (battleP1 is Cat cat)
             {
-                if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName))
-                    cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeName, 0);
-                cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeName]++;
+                if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeType))
+                    cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeType, 0);
+                cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]++;
             }            
         }
         diceP2Num = (diceP2Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP2Num;
@@ -129,13 +129,13 @@ public class BattleManager : SingleTon<BattleManager>
             }
             if(battleP2 is Cat cat)
             {
-                if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName))
-                    cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeName, 0);
-                cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeName]++;
+                if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeType))
+                    cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeType, 0);
+                cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]++;
             }
             
         }
-        Debug.Log(RoundManager.Instance.cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeName]);
+        Debug.Log(RoundManager.Instance.cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]);
         Debug.Log(diceP1Num);
         Debug.Log(diceP2Num);
     }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3735,6 +3735,7 @@ MonoBehaviour:
   hasNodeNames: []
   prefabSoldier: {fileID: 7957776772810165783, guid: d9eccb8f7f2c2eb48b41c7533f173704, type: 3}
   battleSoldierNum: 0
+  isDisposable: 1
 --- !u!4 &717167213
 Transform:
   m_ObjectHideFlags: 0
@@ -4358,6 +4359,7 @@ MonoBehaviour:
   prefabSoldier: {fileID: 3625900152842981291, guid: a3822e5e7137b25439055e4b5117f3e1, type: 3}
   battleSoldierNum: 0
   soldierMaxNum: 0
+  buildCost: 0
 --- !u!4 &857245165
 Transform:
   m_ObjectHideFlags: 0
@@ -11484,6 +11486,7 @@ MonoBehaviour:
   testBtn: {fileID: 1192481431}
   playerUI: {fileID: 634604653}
   woodUi: {fileID: 634604661}
+  birdCardSlot: {fileID: 0}
   cardWindow: {fileID: 2029656724}
   cardName: {fileID: 606007970}
   cardInfo: {fileID: 297198022}
@@ -12002,7 +12005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &803747908229375078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12050,7 +12053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &906495952531756833
 GameObject:
   m_ObjectHideFlags: 0

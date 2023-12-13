@@ -52,7 +52,6 @@ public class ProduceCard : CardStrategy
     {
         this.cost = card.cost;
         this.costType = card.costType;
-        Debug.Log(costType);
     }
 
     public override void UseCard()

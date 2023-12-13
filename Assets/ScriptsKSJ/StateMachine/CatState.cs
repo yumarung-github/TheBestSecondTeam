@@ -20,6 +20,16 @@ public class CatWaitState : RmState
         rm.nowPlayer = cat;
         cat.testSetBtn();//임의로 버튼설정        
         // 다음버튼에 다음으로 넘어갈수있게 넣어줌
+        Dictionary<ANIMAL_COST_TYPE, int> deadSoldierCheck = RoundManager.Instance.cat.deadSoldierNum;
+        Dictionary<ANIMAL_COST_TYPE, List<Card>> playerCard = RoundManager.Instance.cat.cardDecks;
+        if (deadSoldierCheck != null)
+        {
+            if(deadSoldierCheck.Keys.ToString() == playerCard.Keys.ToString())
+            {
+
+            }
+        }
+
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
     }

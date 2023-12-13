@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Cat : Player
 {
-    public Dictionary<string, int> deadSoldierNum = new Dictionary<string, int>();
+    public Dictionary<ANIMAL_COST_TYPE, int> deadSoldierNum = new Dictionary<ANIMAL_COST_TYPE, int>();
     public bool isDisposable = true;
     IEnumerator flashCo;
     Color originColor1;
@@ -41,7 +41,6 @@ public class Cat : Player
     {
         while (RoundManager.Instance.cat.isDisposable)
         {
-            Debug.Log("TEST");
             RoundManager.Instance.mapExtra.mapTiles[0].transform.GetComponent<Renderer>().material.color = Color.green;
             RoundManager.Instance.mapExtra.mapTiles[2].transform.GetComponent<Renderer>().material.color = Color.green;
             RoundManager.Instance.mapExtra.mapTiles[8].transform.GetComponent<Renderer>().material.color = Color.green;
@@ -55,54 +54,6 @@ public class Cat : Player
             yield return null;
         }
     }
-    public void SetSoldierAllTile(string tileName) //모든 타일에 병력 소환 //
-    {
-        //제외 해야할 타일 목록들//
-        int foxTile1 = 0;
-        int foxTile4 = 2;
-        int ratTile1 = 8;
-        int ratTile4 = 11;
-        //노드 멤버를 불러와야함
-        //리스트의 0 2 8 11 이 여우 1 여우 4 생쥐 1 생쥐 4임
-        List<NodeMember> nodeMem = RoundManager.Instance.mapExtra.mapTiles;
-        if (tileName == "여우 1")
-        {
-            for (int i = 0; i < nodeMem.Count; i++)
-            {
-                if (i != ratTile4)
-                    SpawnSoldier(nodeMem[i].nodeName, nodeMem[i].transform); // 모든 타일 병력생성
-            }
-            //생쥐 4 제외 병력생성
-        }
-        else if (tileName == "여우 4")
-        {
-            for (int i = 0; i < nodeMem.Count; i++)
-            {
-                if (i != ratTile1)
-                    SpawnSoldier(nodeMem[i].nodeName, nodeMem[i].transform); // 모든 타일 병력생성
-            }
-            //생쥐 1 제외 병력 생성
-        }
-        else if (tileName == "생쥐 1")
-        {
-            for (int i = 0; i < nodeMem.Count; i++)
-            {
-                if (i != foxTile4)
-                    SpawnSoldier(nodeMem[i].nodeName, nodeMem[i].transform); // 모든 타일 병력생성
-            }
-            //여우 4 제외 병력 생성
-        }
-        else if (tileName == "생쥐 4")
-        {
-            for (int i = 0; i < nodeMem.Count; i++)
-            {
-                if (i != foxTile1)
-                    SpawnSoldier(nodeMem[i].nodeName, nodeMem[i].transform);
-            }
-            //여우 1 제외 병력 생성
-        }
-    }
-
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
 

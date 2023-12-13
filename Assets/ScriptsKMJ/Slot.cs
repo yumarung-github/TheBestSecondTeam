@@ -25,7 +25,6 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         card = cardTemp;
         image.sprite = card.sprite;
         Color32 tempColor = image.color;
-        Debug.Log(tempColor.a);
         image.color = new Color32(tempColor.r, tempColor.g, tempColor.b, 255);
         if (card == null)
             image.sprite = null;
