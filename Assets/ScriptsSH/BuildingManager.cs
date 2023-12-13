@@ -40,11 +40,7 @@ namespace sihyeon
         private void Start()
         {
             buildingList = new List<Building>();
-            setBuilding();
-           
-            //RoundManager.Instance.nowPlayer.SpawnBuilding(catBaseNode.nodeName, catBaseNode.transform
-             //   , catBasePrefab);
-           
+            setBuilding();        
             
         }
         private new void Awake()
@@ -100,16 +96,9 @@ namespace sihyeon
 
         public void InstantiateBuilding(GameObject building)
         {
-            NodeMember node = RoundManager.Instance.mapController.nowTile;
-            if (building.GetComponent<Building>().type == Building_TYPE.CAT_BASE)
-            {
-                Instantiate(catBasePrefab, catBaseNode.transform.position, Quaternion.identity);
-            }
-            else
-            {
+            NodeMember node = RoundManager.Instance.mapController.nowTile;           
                 GameObject buildingPrefab = Instantiate(building, node.transform.position + 
                     new Vector3(0,0.4f,0), Quaternion.identity);
-            }
         }
 
     }

@@ -184,7 +184,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         }
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.catBasePrefab);
-                        Debug.Log(BuildingManager.Instance.catBasePrefab.transform.position);
+                        
                     }
                     else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[8])
                     {
@@ -193,6 +193,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             if (i != 2)
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                         }
+                        RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                             BuildingManager.Instance.catBasePrefab);
                     }
                     else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[2])
                     {
@@ -201,6 +203,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             if (i != 8)
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                         }
+                        RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                         BuildingManager.Instance.catBasePrefab);
                     }
                     else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[0])
                     {
@@ -209,6 +213,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             if (i != 11)
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                         }
+                        RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                          BuildingManager.Instance.catBasePrefab);
                     }
                 }
                 break;
