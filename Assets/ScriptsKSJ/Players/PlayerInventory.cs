@@ -20,6 +20,12 @@ public class PlayerInventory : MonoBehaviour
             if (slot[i].card == null)
             {
                 slot[i].SetItem(card);
+                card.onActive += () => {
+                    if (card.isUse == true)
+                    {
+                        slot[i].EmptySlot();
+                    }
+                };
                 return;
             }
         }

@@ -1,4 +1,5 @@
 using CustomInterface;
+using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +27,6 @@ public class BattleCard : CardStrategy
         this.damage = card.damage;
         this.defense = card.defense;
         this.costType = card.costType;
-        //Debug.Log(costType);
     }
     public override void UseCard()
     {
@@ -73,6 +73,7 @@ public class ProduceCard : CardStrategy
 
 public class Card : MonoBehaviour
 {
+    public event Action onActive;
     public CardStrategy cardStrategy;
     public Sprite sprite;
     public bool isUse;
@@ -140,7 +141,7 @@ public class Card : MonoBehaviour
             }
         }
 
-
+        onActive?.Invoke();
         //Debug.Log("카드 액티브");
     }
 }

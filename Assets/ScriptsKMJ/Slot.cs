@@ -41,10 +41,14 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             card.Active();
             if (card.isUse == true)
             {
-                image.sprite = null;
-                card = null;
-                RoundManager.Instance.cat.inven.SetSort();
+                EmptySlot();
             }
         }
+    }
+    public void EmptySlot()
+    {
+        image.sprite = null;
+        card = null;
+        RoundManager.Instance.cat.inven.SetSort();
     }
 }
