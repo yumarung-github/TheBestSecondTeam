@@ -6,19 +6,16 @@ using sihyeon;
 
 public class CatWaitState : RmState
 {
+    bool isDisposable = true;
     public CatWaitState()
     {
         name = "캣대기";
     }
     public override void Enter()
     {
-        //Debug.Log("캣대기중");
-        if (cat != null && wood != null && bird != null)//디버깅용
-        {
-            //Debug.Log("dd");
-        }
+        if (isDisposable)
+            cat.FlashTile();
         rm.nowPlayer = cat;
-
         cat.testSetBtn();//임의로 버튼설정        
         // 다음버튼에 다음으로 넘어갈수있게 넣어줌
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작";

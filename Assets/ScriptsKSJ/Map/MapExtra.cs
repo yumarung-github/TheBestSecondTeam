@@ -342,7 +342,7 @@ public class MapExtra : MonoBehaviour
 
     public Graph graph;
     public AsAlgo asAlgo;
-    void Start()
+    void Awake()
     {
         graph = new Graph();
         asAlgo = new AsAlgo();

@@ -6,9 +6,13 @@ using UnityEngine;
 
 public class Cat : Player
 {
-    public Dictionary<string, int> deadSoldierNum = new Dictionary<string, int>();//죽은 병사들 명수
-    //맵컨트롤러에 야전병원 select라는거 추가해서 선택한 노드의 name받아서 딕셔너리에서 찾으면
-    //명수 찾을 수 있게
+    public Dictionary<string, int> deadSoldierNum = new Dictionary<string, int>();
+    IEnumerator flashCo;
+    Color originColor1;
+    Color originColor2;
+    Color originColor3;
+    Color originColor4;
+
     private new void Start()
     {
         base.Start();
@@ -17,6 +21,37 @@ public class Cat : Player
         roundManager.cat = this;
         roundManager.nowPlayer = this;
         hasNodeNames.Add("생쥐3");
+        ColorSetting();
+        flashCo = FlashCoroutine();
     }
 
+    private void ColorSetting()
+    {
+        originColor1 = RoundManager.Instance.mapExtra.mapTiles[0].transform.GetComponent<Renderer>().material.color;
+        originColor2 = RoundManager.Instance.mapExtra.mapTiles[2].transform.GetComponent<Renderer>().material.color;
+        originColor3 = RoundManager.Instance.mapExtra.mapTiles[8].transform.GetComponent<Renderer>().material.color;
+        originColor4 = RoundManager.Instance.mapExtra.mapTiles[11].transform.GetComponent<Renderer>().material.color;
+    }
+    public void FlashTile()
+    {
+        StartCoroutine(flashCo);
+    }
+    IEnumerator FlashCoroutine()
+    {
+        while (true)
+        {
+            Debug.Log("TEST");
+            RoundManager.Instance.mapExtra.mapTiles[0].transform.GetComponent<Renderer>().material.color = Color.green;
+            RoundManager.Instance.mapExtra.mapTiles[2].transform.GetComponent<Renderer>().material.color = Color.green;
+            RoundManager.Instance.mapExtra.mapTiles[8].transform.GetComponent<Renderer>().material.color = Color.green;
+            RoundManager.Instance.mapExtra.mapTiles[11].transform.GetComponent<Renderer>().material.color = Color.green;
+            yield return new WaitForSeconds(1f);
+            RoundManager.Instance.mapExtra.mapTiles[0].transform.GetComponent<Renderer>().material.color = originColor1;
+            RoundManager.Instance.mapExtra.mapTiles[2].transform.GetComponent<Renderer>().material.color = originColor2;
+            RoundManager.Instance.mapExtra.mapTiles[8].transform.GetComponent<Renderer>().material.color = originColor3;
+            RoundManager.Instance.mapExtra.mapTiles[11].transform.GetComponent<Renderer>().material.color = originColor4;
+            yield return new WaitForSeconds(1f);
+            yield return null;
+        }
+    }
 }
