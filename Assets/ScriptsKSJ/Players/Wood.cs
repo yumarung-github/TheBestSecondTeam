@@ -167,7 +167,7 @@ public class Wood : Player
             {
                 hasBuildingDic.Add(tileName, new List<GameObject>());
             }
-            if (hasBuildingDic[tileName].Contains(building) == false)
+            if (hasBuildingDic[tileName].Contains(building) == false && CostTypeCheck(tempMem.nodeType) == false)
             {
                 SetHasBuildingNode(tileName, targetTransform, building);
                 if(supportVal[tempMem.nodeType] < buildCost + soldierCost)
@@ -241,5 +241,22 @@ public class Wood : Player
                 IsRabbitBuiilding = onOff;
                 break;
         }
+    }
+    bool CostTypeCheck(ANIMAL_COST_TYPE type)
+    {
+        bool check = false;
+        switch (type)
+        {
+            case ANIMAL_COST_TYPE.FOX:
+                check = isFoxBuiilding;
+                break;
+            case ANIMAL_COST_TYPE.RAT:
+                check = isRatBuiilding;
+                break;
+            case ANIMAL_COST_TYPE.RABBIT:
+                check = isRabbitBuiilding;
+                break;
+        }
+        return check;
     }
 }
