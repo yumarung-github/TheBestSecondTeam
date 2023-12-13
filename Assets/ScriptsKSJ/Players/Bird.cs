@@ -25,7 +25,6 @@ public class Bird : Player
 {
     [SerializeField] 
     private LEADER_TYPE nowLeader;
-    public GameObject choiceLeader;
     public GameObject[] prafab = new GameObject[4];
     BirdCardSlot birdCardSlot;
 
@@ -51,7 +50,7 @@ public class Bird : Player
                 case LEADER_TYPE.NONE:
                     if(RoundManager.Instance.nowPlayer == RoundManager.Instance.bird)
                     {
-                        choiceLeader.SetActive(true);
+                        Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
                     }
                     // 지도자 다시 활성화
                     break;
@@ -80,7 +79,7 @@ public class Bird : Player
     private new void Start()
     {
         base.Start();
-        birdCardSlot = Uimanager.Instance.birdCardSlot;
+        birdCardSlot = Uimanager.Instance.birdUI.birdSlot;
         // roundManager.bird = this;
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;

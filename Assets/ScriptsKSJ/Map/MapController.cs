@@ -146,7 +146,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
                     if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
-                        BirdCardSlot birdCardSlot = Uimanager.Instance.birdCardSlot;
+                        BirdCardSlot birdCardSlot = Uimanager.Instance.birdUI.birdSlot;
                         if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
                         {
                             birdCardSlot.CurCard++;
