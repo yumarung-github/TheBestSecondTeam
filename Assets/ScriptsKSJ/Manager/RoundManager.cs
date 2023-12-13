@@ -27,7 +27,8 @@ public class RoundManager : SingleTon<RoundManager>
         Select,
         Spawn,
         Build,
-        Revoit
+        Revoit,
+        CATSET
     }
     // 예외처리 거의 안되어있음.
     public SoldierTestType testType;

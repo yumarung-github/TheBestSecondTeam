@@ -1,4 +1,5 @@
 using CustomInterface;
+using System;
 using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +27,6 @@ public class BattleCard : CardStrategy
         this.damage = card.damage;
         this.defense = card.defense;
         this.costType = card.costType;
-        //Debug.Log(costType);
     }
     public override void UseCard()
     {
@@ -35,6 +35,8 @@ public class BattleCard : CardStrategy
         {
             Debug.Log("내용채우기");
             card.isUse = true;
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
         }
         else
         {
@@ -61,6 +63,8 @@ public class ProduceCard : CardStrategy
         }
         else
         {
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
             Debug.Log("사용 쌉가능");
             card.isUse = true;
         }
@@ -69,6 +73,7 @@ public class ProduceCard : CardStrategy
 
 public class Card : MonoBehaviour
 {
+    public event Action onActive;
     public CardStrategy cardStrategy;
     public Sprite sprite;
     public bool isUse;
@@ -97,6 +102,7 @@ public class Card : MonoBehaviour
 
     public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
+
         if (RoundManager.Instance.nowPlayer is Cat)
         {
             cardStrategy.UseCard();
@@ -121,10 +127,6 @@ public class Card : MonoBehaviour
                     Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                     break;
                 case WoodUi.CardUseType.SUPPORT:
-                    if (!RoundManager.Instance.wood.supportVal.ContainsKey(costType))
-                    {
-                        RoundManager.Instance.wood.supportVal.Add(costType, 0);
-                    }
                     RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
                     RoundManager.Instance.wood.SetSupportUI(costType);
                     RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
@@ -139,7 +141,7 @@ public class Card : MonoBehaviour
             }
         }
 
-
+        onActive?.Invoke();
         //Debug.Log("카드 액티브");
     }
 }

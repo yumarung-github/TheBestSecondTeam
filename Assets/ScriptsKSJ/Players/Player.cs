@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     //병사를 가지고있는 타일에 병사 리스트를 저장
     //병사명수를 정해서 리스트의 끝부터 하나씩 꺼내서 쓰게 하면됨.
 
+
+
     public Dictionary<string, List<GameObject>> hasBuildingDic = new Dictionary<string, List<GameObject>>();
     //건물 저장해둘 공간 -시현 추가
     protected RoundManager roundManager;//많이 쓸거같아서 넣어놨음.
@@ -73,6 +75,10 @@ public class Player : MonoBehaviour
         SetMoney(ANIMAL_COST_TYPE.FOX, 3);
         roundManager = RoundManager.Instance;
         isOver = true;
+
+        
+
+
     }
     public void SetPlayer()
     {
@@ -102,7 +108,7 @@ public class Player : MonoBehaviour
     }
 
     // 시현 추가//
-    public void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
+    public virtual void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
 
         if (hasBuildingDic.ContainsKey(tileName) == false)
@@ -123,7 +129,7 @@ public class Player : MonoBehaviour
     {
         //Debug.Log("setHasBuilding 작동1");
         hasBuildingDic[tileName].Add(building);
-        BuildingManager.Instance.InstantiateBuilding(building);
+        BuildingManager.Instance.InstantiateBuilding(building);       
         //Debug.Log("setHasBuilding 작동2");
     }
     public void testSetBtn()

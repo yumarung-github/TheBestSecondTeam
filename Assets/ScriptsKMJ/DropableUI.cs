@@ -6,12 +6,9 @@ using UnityEngine.UI;
 
 public class DropableUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDropHandler
 {
+
     private RawImage image;
     private Color originColor;
-    private void Start()
-    {
-        image = GetComponent<RawImage>();
-    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -27,6 +24,8 @@ public class DropableUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             //Debug.Log("드롭");
             eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
+
         }
+  
     }
 }

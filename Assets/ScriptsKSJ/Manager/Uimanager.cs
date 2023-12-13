@@ -15,6 +15,7 @@ public class Uimanager : SingleTon<Uimanager>
 
     public PlayerUI playerUI;
     public WoodUi woodUi;
+    public BirdCardSlot birdCardSlot;
 
     [Header("[카드 정보창]")]
 

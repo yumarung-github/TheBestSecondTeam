@@ -102,7 +102,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         switch (RoundManager.Instance.testType)//나중에 스위치문 전체를 nodemember있는지 체크하는거로 바꾸고 통일함
         {
             case RoundManager.SoldierTestType.None:
-
                 break;
             case RoundManager.SoldierTestType.Select:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember tempMem))//nodemember를 찾음.
@@ -133,7 +132,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     soldiers.Clear();
                 }
                 break;
-
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;
                 if(moveCo != null)
@@ -144,7 +142,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
                 {
                     finNode = mem;
-                    Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
+                    //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
                     //최단거리 계산하는 부분.
                 }
@@ -156,7 +154,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.Build:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
-                {
+                {                    
                     nowTile = buildTile;
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
@@ -171,6 +169,21 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                }
+                break;
+            case RoundManager.SoldierTestType.CatSet:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember settingTile))
+                {
+                    nowTile = settingTile;
+                    if (nowTile == RoundManager.Instance.mapExtra.mapTiles[11])
+                    {
+
+                        for (int i = 0; i < mapExtra.mapTiles.Count; i++)
+                        {
+                            if (i != 0)
+                                RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
+                        }
+                    }
                 }
                 break;
             default: break;

@@ -7,7 +7,7 @@ using UnityEngine.SearchService;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-public class BirdStrategy
+/*public class BirdStrategy
 {
     public Bird bird;
     public BirdStrategy(Bird bird)
@@ -65,7 +65,7 @@ public class TYRANTStrategy : BirdStrategy//폭군전략
     {
         //전투를 통해 상대방의 건물이나 토큰 제거시 추가 숭점 획득
     }
-}
+}*/
 
 public enum LEADER_TYPE
 {
@@ -81,14 +81,23 @@ public enum LEADER_TYPE
 
 public class Bird : Player
 {
-    [SerializeField] private LEADER_TYPE nowLeader;
+    [SerializeField] 
+    private LEADER_TYPE nowLeader;
     public GameObject choiceLeader;
+    public GameObject[] prafab = new GameObject[4];
 
-    BirdStrategy birdStrategy;
     int spawn = 0;
     int move = 1;
     int battle = 2;
     int bulid = 3;
+
+    public bool isSpwaned;
+    public bool isMoved;
+    public bool isBattled;
+    public bool isBuilded;
+
+    bool isCheck = false;
+
     public LEADER_TYPE NowLeader
     {
         get => nowLeader;
@@ -105,8 +114,6 @@ public class Bird : Player
                 case LEADER_TYPE.ARCHITECT:
                     AddDiscipline(move);
                     AddDiscipline(spawn);
-                    birdStrategy = new ARCHITECTStrategy(this);
-                    birdStrategy.Active();
                     break;
                 case LEADER_TYPE.PROPHET:
                     AddDiscipline(battle);
@@ -124,16 +131,7 @@ public class Bird : Player
         }
     }
 
-    public GameObject[] prafab = new GameObject[4];
 
-    public bool isSpwaned;
-    public bool isMoved;
-    public bool isBattled;
-    public bool isBuilded;
-
-    bool isCheck = false;
-
-    int count = 0;
 
     private new void Start()
     {
@@ -154,6 +152,12 @@ public class Bird : Player
         if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
         {
             tempVec = new Vector3(hasSoldierDic[tileName].Count, 0, 0);//명수에 따라 소환하는 위치를 바꿔야해서
+        }
+        if(this.nowLeader == LEADER_TYPE.PROPHET)
+        {
+            GameObject dubleSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
+            SetHasNode(tileName, dubleSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
+            return dubleSoldier;//생성한 병사를 return시킴
         }
         GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
         //더해줄 병사를 임의로 저장해주고
