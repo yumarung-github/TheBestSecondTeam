@@ -177,10 +177,36 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     nowTile = settingTile;
                     if (nowTile == RoundManager.Instance.mapExtra.mapTiles[11])
                     {
-
                         for (int i = 0; i < mapExtra.mapTiles.Count; i++)
                         {
                             if (i != 0)
+                                RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
+                        }
+                        RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                        BuildingManager.Instance.catBasePrefab);
+                        Debug.Log(BuildingManager.Instance.catBasePrefab.transform.position);
+                    }
+                    else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[8])
+                    {
+                        for (int i = 0; i < mapExtra.mapTiles.Count; i++)
+                        {
+                            if (i != 2)
+                                RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
+                        }
+                    }
+                    else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[2])
+                    {
+                        for (int i = 0; i < mapExtra.mapTiles.Count; i++)
+                        {
+                            if (i != 8)
+                                RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
+                        }
+                    }
+                    else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[0])
+                    {
+                        for (int i = 0; i < mapExtra.mapTiles.Count; i++)
+                        {
+                            if (i != 11)
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                         }
                     }
