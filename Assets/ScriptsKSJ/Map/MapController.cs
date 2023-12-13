@@ -144,6 +144,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     finNode = mem;
                     //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
+                    if (RoundManager.Instance.nowPlayer is Bird bird)
+                    {
+                        BirdCardSlot birdCardSlot = Uimanager.Instance.birdCardSlot;
+                        if (birdCardSlot.birdCard[birdCardSlot.curCaed].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+                            Debug.Log("이어리 무브무브");
+                    }
                     //최단거리 계산하는 부분.
                 }
                 moveCo = StartCoroutine("MoveCoroutine");

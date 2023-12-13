@@ -33,10 +33,6 @@ public class BirdCardSlot : MonoBehaviour
                 {
                     
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
-                    if (birdCard[curCaed].costType == RoundManager.Instance.mapController.nowTile.nodeType)
-                    {
-
-                    }
                         
                 }
                 break;

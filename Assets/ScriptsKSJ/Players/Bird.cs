@@ -7,65 +7,6 @@ using UnityEngine.SearchService;
 using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
-/*public class BirdStrategy
-{
-    public Bird bird;
-    public BirdStrategy(Bird bird)
-    {
-        this.bird = bird;
-    }
-    public virtual void Active() { }
-
-}
-
-public class ARCHITECTStrategy : BirdStrategy //건축가전략
-{
-    public ARCHITECTStrategy(Bird Bird) : base(Bird) { }
-    public override void Active()
-    {
-        //아이템제작시 승점 그대로 획득
-        bird.Score++;
-
-    }
-
-}
-
-
-public class PROPHETStrategy : BirdStrategy//선지자전략
-{
-    public PROPHETStrategy(Bird Bird) : base(Bird) { }
-
-    NodeMember nowNode;
-
-    public override void Active()
-    {
-        nowNode = RoundManager.Instance.mapController.nowTile;
-        bird.SpawnSoldier(nowNode.nodeName, nowNode.transform);
-        bird.SpawnSoldier(nowNode.nodeName, nowNode.transform);
-        //bird.StartCoroutine(SpawnCo());
-        //스폰시 병사 2명을 배치함
-    }
-
-}
-
-public class COMMANDERStrategy : BirdStrategy//사령관전략
-{
-    public COMMANDERStrategy(Bird Bird) : base(Bird) { }
-
-    public override void Active()
-    {
-        //공격자로 참여하는 모든 전투에 추가 공격을 할 수 있음
-    }
-}
-public class TYRANTStrategy : BirdStrategy//폭군전략
-{
-    public TYRANTStrategy(Bird Bird) : base(Bird) { }
-
-    public override void Active()
-    {
-        //전투를 통해 상대방의 건물이나 토큰 제거시 추가 숭점 획득
-    }
-}*/
 
 public enum LEADER_TYPE
 {
