@@ -10,7 +10,8 @@ namespace sihyeon
     public class BuildingManager : SingleTon<BuildingManager>
     {
         public Dictionary<Building_TYPE, GameObject> BuildingDics = new Dictionary<Building_TYPE, GameObject>();
-        public GameObject selectedBuilding;
+        public GameObject selectedBuilding;//원하는건물
+        public NodeMember catBaseNode;// 테스트용 고양이 기지 노드 12 -13 시현추가
         //빌딩의 딕셔너리, 건설할수있는 건물들
         [Header("테스트용 버튼들")]
 
@@ -37,12 +38,17 @@ namespace sihyeon
         public GameObject woodRatBasePrefab;
 
 
+        public GameObject catBasePrefab;
+
 
 
         private void Start()
         {
             buildingList = new List<Building>();
             setBuilding();
+            Debug.Log("고양이 기지 1");
+            RoundManager.Instance.nowPlayer.SpawnBuilding(catBaseNode.nodeName, catBaseNode.transform, catBasePrefab);
+            Debug.Log("고양이 기지 2");
         }
         private new void Awake()
         {
@@ -64,6 +70,7 @@ namespace sihyeon
             BuildingDics.Add(Building_TYPE.WOOD_RAT, woodRatBasePrefab);
             BuildingDics.Add(Building_TYPE.WOOD_RABBIT, woodRabbitBasePrefab);
             BuildingDics.Add(Building_TYPE.BIRD_NEST, birdNestPrefab);
+            BuildingDics.Add(Building_TYPE.CAT_BASE, catBasePrefab);
         }
         public void SetWoodBase(NodeMember node)
         {

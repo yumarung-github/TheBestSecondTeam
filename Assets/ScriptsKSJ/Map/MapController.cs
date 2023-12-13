@@ -156,7 +156,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.Build:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
-                {
+                {                    
                     nowTile = buildTile;
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
