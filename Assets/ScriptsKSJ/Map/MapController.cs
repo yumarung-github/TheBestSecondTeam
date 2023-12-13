@@ -152,6 +152,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             birdCardSlot.CurCard++;
                             Debug.Log("이어리 무브무브");
                         }
+                        else
+                            RoundManager.Instance.bird.isMoved = false;
                     }
                     //최단거리 계산하는 부분.
                 }

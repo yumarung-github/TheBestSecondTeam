@@ -123,6 +123,8 @@ public class Bird : Player
             BuildingManager.Instance.InstantiateBuilding(building);
             birdCardSlot.CurCard++;
         }
+        else
+            isBuilded = false;
     }
 
     public void AddDiscipline(int num)
