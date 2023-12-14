@@ -21419,6 +21419,7 @@ GameObject:
   - component: {fileID: 1054564714044768825}
   - component: {fileID: 2689369781397639782}
   - component: {fileID: 6342492688605397216}
+  - component: {fileID: 6342492688605397217}
   m_Layer: 5
   m_Name: SetButton
   m_TagString: Untagged
@@ -22907,6 +22908,7 @@ GameObject:
   - component: {fileID: 5744361515247368726}
   - component: {fileID: 985044194572623717}
   - component: {fileID: 3278573677927888828}
+  - component: {fileID: 5744361515247368727}
   m_Layer: 5
   m_Name: Leader_D
   m_TagString: Untagged
@@ -22971,6 +22973,7 @@ GameObject:
   - component: {fileID: 3561711800473330357}
   - component: {fileID: 6625220349190258654}
   - component: {fileID: 7473800443497927171}
+  - component: {fileID: 8830205901450634090}
   m_Layer: 5
   m_Name: SetButton
   m_TagString: Untagged
@@ -23330,6 +23333,21 @@ RectTransform:
   m_AnchoredPosition: {x: 939.4387, y: -300}
   m_SizeDelta: {x: 241.1225, y: 520}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5744361515247368727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4464834379979932132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01dd4f4c977f3744861b3e526edb6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 4480395700690794064}
+  bird: {fileID: 1850166812}
+  leaders_type: 4
 --- !u!222 &5779649566606677069
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23487,6 +23505,7 @@ GameObject:
   - component: {fileID: 6391382278031822775}
   - component: {fileID: 2765675371687598725}
   - component: {fileID: 6365687074822300748}
+  - component: {fileID: 7488779234889139225}
   m_Layer: 5
   m_Name: SetButton
   m_TagString: Untagged
@@ -23610,6 +23629,21 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 2
   m_LayoutPriority: 1
+--- !u!114 &6342492688605397217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224190945102908324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01dd4f4c977f3744861b3e526edb6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 2689369781397639782}
+  bird: {fileID: 1850166812}
+  leaders_type: 1
 --- !u!114 &6365687074822300748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24464,6 +24498,21 @@ RectTransform:
   m_AnchoredPosition: {x: 119.706245, y: -150.89667}
   m_SizeDelta: {x: 239.41249, y: 301.79333}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7488779234889139225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6044155070144517455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01dd4f4c977f3744861b3e526edb6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 2765675371687598725}
+  bird: {fileID: 1850166812}
+  leaders_type: 2
 --- !u!222 &7494224839750560382
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25465,6 +25514,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4507798145992799164}
   m_CullTransparentMesh: 1
+--- !u!114 &8830205901450634090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4507798145992799164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c01dd4f4c977f3744861b3e526edb6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 6625220349190258654}
+  bird: {fileID: 1850166812}
+  leaders_type: 3
 --- !u!114 &8981394892717722034
 MonoBehaviour:
   m_ObjectHideFlags: 0
