@@ -47,31 +47,36 @@ public class PlayerInventory : MonoBehaviour
         Debug.Log("남은카드" + tempCardNum);
         for (int j = 0; j < tempCardNum; j++)
         {
+            int a = j;
+
             Debug.Log("도는거 체크" + j);
             if (slot[j].card == null)
             {
-                slot[j + 1].card.onActive = null;
-                slot[j + 1].card.onActive += () =>
-                {
-                    Debug.Log(j + "번쨰 비움");
-                    if (slot[j].card.isUse == true)
-                    {                        
-                        slot[j].EmptySlot();
-                    }
-                };
                 slot[j].card = slot[j + 1].card;
                 slot[j].image.sprite = slot[j + 1].image.sprite;
                 slot[j + 1].card = null;
                 slot[j + 1].image.sprite = null;
 
-                
+                slot[a].card.onActive = null;
+                Debug.Log(a + "왜");
+                slot[a].card.onActive += () =>
+                {
+                    Debug.Log(a + "번쨰 비움");
+                    if (slot[a].card.isUse == true)
+                    {
+                        slot[a].EmptySlot();
+                    }
+                };
+
+
+
                 Debug.Log(tempCardNum);
                 Debug.Log(j);
-                
-                
+
+
             }
-        }     
-        
+        }
+
         if (slot[tempCardNum].card == null)
         {
             //Color32 tempColor = slot[tempCardNum].image.color;
