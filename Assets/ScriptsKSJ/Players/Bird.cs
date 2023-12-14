@@ -48,11 +48,7 @@ public class Bird : Player
             switch (nowLeader)
             {
                 case LEADER_TYPE.NONE:
-                    if(RoundManager.Instance.NowPlayer == RoundManager.Instance.bird)
-                    {
-                        Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
-                    }
-                    // 지도자 다시 활성화
+                        
                     break;
                 case LEADER_TYPE.ARCHITECT:
                     AddDiscipline(move);
@@ -111,7 +107,6 @@ public class Bird : Player
 
         }
         isSpwaned = false;
-        Debug.Log("카드타입이랑 노드타입이 다름");
         return null;
     }
 

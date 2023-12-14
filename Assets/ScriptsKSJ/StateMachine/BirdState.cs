@@ -11,8 +11,11 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
+        rm.nowPlayer = bird;
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
+        if(RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
+            Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
     }
     public override void Update()
     {
@@ -20,7 +23,6 @@ public class BirdWaitState : RmState
     }
     public override void Exit()
     {
-        rm.NowPlayer = bird;
         Uimanager.Instance.playerUI.SpawnSoldier();
         BattleManager.Instance.InitBattle();
     }
@@ -84,7 +86,7 @@ public class BirdDinnerState : RmState
     {
         bird.isOver = true;
         wood.isOver = false;
-        rm.NowPlayer = null;
+        rm.nowPlayer = null;
         Uimanager.Instance.birdInven.SetActive(false);
     }
 }

@@ -31,12 +31,12 @@ public class BattleCard : CardStrategy
     public override void UseCard()
     {
         //Debug.Log(costType);
-        if (RoundManager.Instance.NowPlayer.cardDecks.ContainsKey(costType))
+        if (RoundManager.Instance.nowPlayer.cardDecks.ContainsKey(costType))
         {
             Debug.Log("내용채우기");
             card.isUse = true;
-            RoundManager.Instance.NowPlayer.cardDecks[costType].Remove(
-                RoundManager.Instance.NowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
         }
         else
         {
@@ -56,14 +56,14 @@ public class ProduceCard : CardStrategy
 
     public override void UseCard()
     {
-        if (cost > RoundManager.Instance.NowPlayer.HaveAnimalMoney[costType])
+        if (cost > RoundManager.Instance.nowPlayer.HaveAnimalMoney[costType])
         {
             Debug.Log("사용못함");
         }
         else
         {
-            RoundManager.Instance.NowPlayer.cardDecks[costType].Remove(
-                RoundManager.Instance.NowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Find(card => card.cardName == this.card.cardName));
             Debug.Log("사용 쌉가능");
             card.isUse = true;
         }
@@ -102,15 +102,15 @@ public class Card : MonoBehaviour
     public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
 
-        if (RoundManager.Instance.NowPlayer is Cat)
+        if (RoundManager.Instance.nowPlayer is Cat)
         {
             cardStrategy.UseCard();
         }
-        if (RoundManager.Instance.NowPlayer is Bird)
+        if (RoundManager.Instance.nowPlayer is Bird)
         {
             cardStrategy.UseCard();
         }
-        else if (RoundManager.Instance.NowPlayer is Wood)
+        else if (RoundManager.Instance.nowPlayer is Wood)
         {
             switch (Uimanager.Instance.woodUi.cardUseType)
             {
@@ -118,17 +118,17 @@ public class Card : MonoBehaviour
                     cardStrategy.UseCard();
                     break;
                 case WoodUi.CardUseType.CRAFT:
-                    RoundManager.Instance.NowPlayer.craftedCards.Add(this);
+                    RoundManager.Instance.nowPlayer.craftedCards.Add(this);
                     Uimanager.Instance.woodUi.craftCardText.text =
-                        RoundManager.Instance.NowPlayer.craftedCards.Count.ToString();
+                        RoundManager.Instance.nowPlayer.craftedCards.Count.ToString();
 
-                    RoundManager.Instance.NowPlayer.cardDecks[costType].Remove(this);
+                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
                     Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                     break;
                 case WoodUi.CardUseType.SUPPORT:
                     RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
                     RoundManager.Instance.wood.SetSupportUI(costType);
-                    RoundManager.Instance.NowPlayer.cardDecks[costType].Remove(this);
+                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
                     Debug.Log(RoundManager.Instance.wood.supportVal[costType]);
                     Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                     break;

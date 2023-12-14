@@ -90,7 +90,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         {
             Instantiate(prefaba, miniMapHit.point, Quaternion.identity);
 
-            if (RoundManager.Instance.NowPlayer != null)
+            if (RoundManager.Instance.nowPlayer != null)
             {
                 SetSoldier(miniMapHit);
             }
@@ -118,11 +118,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             case RoundManager.SoldierTestType.MoveSelect:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember tempTile))//nodemember를 찾음.
                 {
-                    if (RoundManager.Instance.NowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
-                        RoundManager.Instance.NowPlayer.hasSoldierDic[tempTile.nodeName].Count > 0)
+                    if (RoundManager.Instance.nowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
+                        RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName].Count > 0)
                     {
                         nowTile = tempTile;
-                        soldiers = RoundManager.Instance.NowPlayer.hasSoldierDic[tempTile.nodeName];
+                        soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
                         Uimanager.Instance.playerUI.MoveSoldier();
                         //선택된 애들을 리스트에 넣어줌.
                     }
@@ -144,7 +144,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     finNode = mem;
                     //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
-                    if (RoundManager.Instance.NowPlayer is Bird bird)
+                    if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
                         BirdCardSlot birdCardSlot = Uimanager.Instance.birdUI.birdSlot;
                         if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
@@ -167,11 +167,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
                 {                    
                     nowTile = buildTile;
-                    if(RoundManager.Instance.NowPlayer is Wood wood)
+                    if(RoundManager.Instance.nowPlayer is Wood wood)
                     {
                         wood.buildCost = 1;
                     }
-                    RoundManager.Instance.NowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                    RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }                    
@@ -182,7 +182,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     nowTile = revoitTile;
                     RoundManager.Instance.wood.buildCost = 2;
                     BuildingManager.Instance.SetWoodBase(nowTile);
-                    RoundManager.Instance.NowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                    RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
@@ -257,8 +257,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     Soldier tempSoldier = soldiers[soldiers.Count - 1];
                     //Debug.Log(nodeStrings[num]);
                     tempSoldier.MoveAuto(tempPostion);//움직이게하고  
-                    RoundManager.Instance.NowPlayer.SetHasNode(foundNode.nodeName, tempSoldier);//옮겨갈 땅으로 병사정보
-                    RoundManager.Instance.NowPlayer.hasSoldierDic[nowTile.nodeName].RemoveAt(soldiers.Count - 1);
+                    RoundManager.Instance.nowPlayer.SetHasNode(foundNode.nodeName, tempSoldier);//옮겨갈 땅으로 병사정보
+                    RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName].RemoveAt(soldiers.Count - 1);
                     //원래있던 곳에서 없애줌
                 }
                 //foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName])
@@ -271,7 +271,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 //}
 
                 nowTile = foundNode;
-                soldiers = RoundManager.Instance.NowPlayer.hasSoldierDic[foundNode.nodeName];
+                soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[foundNode.nodeName];
                 //RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName] = 
                 count--;//다움직일때까지
                 num++;//시작점을 제외하고 움직이기

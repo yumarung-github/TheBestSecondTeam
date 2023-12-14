@@ -16,22 +16,11 @@ public class RoundManager : SingleTon<RoundManager>
     public Bird bird;//플레이어중에 이어리
     public Wood wood;//플레이어중에 우드랜드
     public ManagerStateMahchine<RoundManager> roundSM;//라운드 상태머신
-    [Serialize] Player nowPlayer;// 현재 턴인 플레이어 (라운드 상태머신에서 자동으로 바뀜)
+    public Player nowPlayer;// 현재 턴인 플레이어 (라운드 상태머신에서 자동으로 바뀜)
     public bool moveOver; // mapcontroller에서 최종 도착지까지 가기위해 이동이 끝나면 다음 타일로 이동하기 위해 선언해둔 것
     [Header("스폰 테스트")]
     public MapExtra mapExtra;// 최단거리 이동 계산하기위해 스크립트 넣어놓은것
 
-    public Player NowPlayer
-    {
-        get { return nowPlayer; }
-        set
-        {
-            nowPlayer = value;
-            if (nowPlayer == bird && bird.NowLeader == LEADER_TYPE.NONE)
-                Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
-
-        }
-    }
 
 
     public enum SoldierTestType//버튼으로 모병이나 선택이나 이런거 클릭할때의 기능이 바뀌게됨

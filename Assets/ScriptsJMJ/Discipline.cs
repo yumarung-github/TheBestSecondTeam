@@ -28,7 +28,10 @@ public class Discipline : MonoBehaviour
 
     private void Start()
     {
-        if(ruleType == RULE_TYPE.MUST_MOVE)
+        OnBreakingRule.AddListener(() => { RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE; });
+        OnBreakingRule.AddListener(() => { Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true); });
+
+        if (ruleType == RULE_TYPE.MUST_MOVE)
             IsBreakRule = () => { return bird.isMoved == false; };
         if (ruleType == RULE_TYPE.MUST_SPAWN)
             IsBreakRule = () => { return bird.isSpwaned == false; };

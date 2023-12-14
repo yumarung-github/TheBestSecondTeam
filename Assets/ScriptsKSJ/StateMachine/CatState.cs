@@ -17,7 +17,7 @@ public class CatWaitState : RmState
             cat.FlashTile();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSet;
         }
-        rm.NowPlayer = cat;
+        rm.nowPlayer = cat;
         cat.testSetBtn();//임의로 버튼설정        
         // 다음버튼에 다음으로 넘어갈수있게 넣어줌
         Dictionary<ANIMAL_COST_TYPE, int> deadSoldierCheck = RoundManager.Instance.cat.deadSoldierNum;
@@ -113,7 +113,7 @@ public class CatDinnerState : RmState
         rm.mapController.nowTile = null;
         cat.isOver = true;
         bird.isOver = false;
-        rm.NowPlayer = null;
+        rm.nowPlayer = null;
         Uimanager.Instance.playerUI.ResetBtn(false);
         Uimanager.Instance.catInven.SetActive(false);
     }

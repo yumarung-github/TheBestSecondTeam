@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
     }
     public void SetPlayer()
     {
-        RoundManager.Instance.NowPlayer = this;
+        RoundManager.Instance.nowPlayer = this;
     }
     public virtual GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
