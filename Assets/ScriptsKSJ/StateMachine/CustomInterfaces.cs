@@ -18,6 +18,7 @@ namespace CustomInterface {
     public enum MASTATE_TYPE
     {
         ////////////////
+        CAT_SET,
         CAT_WAIT,
         CAT_MORNING,
         CAT_AFTERNOON,

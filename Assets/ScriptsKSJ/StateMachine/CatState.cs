@@ -6,6 +6,11 @@ using sihyeon;
 
 public class CatWaitState : RmState
 {
+
+
+    bool isFirst = true;
+
+
     public CatWaitState()
     {
         name = "캣대기";
