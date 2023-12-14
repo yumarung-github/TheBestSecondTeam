@@ -1,4 +1,5 @@
 using CustomInterface;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -162,7 +163,7 @@ public class Wood : Player
         //Debug.Log(supportVal[ANIMAL_COST_TYPE.BIRD]);
 
         if (supportVal[tempMem.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= buildCost + soldierCost)
-        {
+        {//지지자 값 계산 같은종류+새카드 > 건물 코스트+병사 코스트 계산
             if (hasBuildingDic.ContainsKey(tileName) == false)
             {
                 hasBuildingDic.Add(tileName, new List<GameObject>());
@@ -210,7 +211,7 @@ public class Wood : Player
         {
             birdNum = roundManager.bird.hasSoldierDic[findTile.nodeName].Count;
         }
-        
+        //고양이후작이랑 이어리중에병사수가 더많은걸 찾음
         calNum = catNum >= birdNum ? catNum : birdNum;
         
         while(calNum >= 3) 
@@ -225,6 +226,26 @@ public class Wood : Player
     {
         int calScore = 0;
         Debug.Log("모두 파괴");
+        if(roundManager.cat.hasBuildingDic.ContainsKey(node.nodeName) && roundManager.cat.hasBuildingDic[node.nodeName].Count > 0)
+        {
+            Debug.Log("우드" + roundManager.cat.hasBuildingDic[node.nodeName].Count + "점 획득");
+            calScore += roundManager.cat.hasBuildingDic[node.nodeName].Count;
+            foreach(GameObject tempObject in roundManager.cat.hasBuildingDic[node.nodeName])
+            {
+                roundManager.cat.hasBuildingDic[node.nodeName].Remove(tempObject);
+                Destroy(tempObject);
+            }
+        }
+        if (roundManager.bird.hasBuildingDic.ContainsKey(node.nodeName) && roundManager.bird.hasBuildingDic[node.nodeName].Count > 0)
+        {
+            Debug.Log("우드" + roundManager.bird.hasBuildingDic[node.nodeName].Count + "점 획득");
+            calScore += roundManager.bird.hasBuildingDic[node.nodeName].Count;
+            foreach (GameObject tempObject in roundManager.bird.hasBuildingDic[node.nodeName])
+            {
+                roundManager.bird.hasBuildingDic[node.nodeName].Remove(tempObject);
+                Destroy(tempObject);
+            }
+        }
         return calScore;
     }
     void SetBaseValue(ANIMAL_COST_TYPE type, bool onOff)

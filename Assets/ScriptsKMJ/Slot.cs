@@ -14,7 +14,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             Uimanager.Instance.cardName.text = "TEST 카드 이름 : " + card.cardName;
             Uimanager.Instance.cardInfo.text = "카드 정보 \n" + card.cardInfo;
-        }        
+        }
+        else
+        {
+            Uimanager.Instance.cardName.text = "TEST 카드 이름 : " ;
+            Uimanager.Instance.cardInfo.text = "카드 정보 \n";
+        }
     }
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -38,16 +43,17 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (card != null)
         {
             card.Active();
-            if (card.isUse == true)
-            {
-                EmptySlot();
-            }
+            //if (card.isUse == true)
+            //{
+            //    EmptySlot();
+            //}
         }
     }
     public void EmptySlot()
     {
+        Debug.Log(card.cardName + "비웠음");
         image.sprite = null;
         card = null;
-        RoundManager.Instance.cat.inven.SetSort();
+        RoundManager.Instance.nowPlayer.inven.SetSort();
     }
 }
