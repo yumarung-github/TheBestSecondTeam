@@ -150,5 +150,6 @@ public class BattleManager : SingleTon<BattleManager>
         }
         Debug.Log(diceP1Num);
         Debug.Log(diceP2Num);
+        Uimanager.Instance.playerUI.battleWindow.SetActive(false);
     }
 }
