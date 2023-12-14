@@ -14,8 +14,6 @@ public class BirdCardSlot : MonoBehaviour
 {
     public List<Card> birdCard;
     public CARDSLOT_TYPE cardUse_type;
-    public GameObject moveSoldierOBJ;
-    public BirdCardInventory birdInven;
 
     int curCard = 0;
     
