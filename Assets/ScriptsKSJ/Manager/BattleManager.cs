@@ -31,13 +31,13 @@ public class BattleManager : SingleTon<BattleManager>
         RoundManager.Instance.bird.battleSoldierNum = 0;
         RoundManager.Instance.wood.battleSoldierNum = 0;
         //초기화
-        battleP1 = RoundManager.Instance.nowPlayer;
+        battleP1 = RoundManager.Instance.NowPlayer;
 
         int tempNum = 0;
         if(RoundManager.Instance.cat.isOver == true)
         {
             Uimanager.Instance.playerUI.buttons[tempNum].transform.GetComponentInChildren<TextMeshProUGUI>().text =
-                RoundManager.Instance.nowPlayer.gameObject.name + " vs Cat";
+                RoundManager.Instance.NowPlayer.gameObject.name + " vs Cat";
             Uimanager.Instance.playerUI.buttons[tempNum].onClick.AddListener(() =>
             {                
                 if (RoundManager.Instance.cat.hasSoldierDic.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName))
@@ -55,7 +55,7 @@ public class BattleManager : SingleTon<BattleManager>
         if(RoundManager.Instance.bird.isOver == true)
         {
             Uimanager.Instance.playerUI.buttons[tempNum].transform.GetComponentInChildren<TextMeshProUGUI>().text =
-                RoundManager.Instance.nowPlayer.gameObject.name + " vs Bird";
+                RoundManager.Instance.NowPlayer.gameObject.name + " vs Bird";
             
             Uimanager.Instance.playerUI.buttons[tempNum].onClick.AddListener(() =>
             {
@@ -74,7 +74,7 @@ public class BattleManager : SingleTon<BattleManager>
         if(RoundManager.Instance.wood.isOver == true)
         {
             Uimanager.Instance.playerUI.buttons[tempNum].transform.GetComponentInChildren<TextMeshProUGUI>().text =
-                RoundManager.Instance.nowPlayer.gameObject.name + " vs Wood";
+                RoundManager.Instance.NowPlayer.gameObject.name + " vs Wood";
             Uimanager.Instance.playerUI.buttons[tempNum].onClick.AddListener(() =>
             {
                 if (RoundManager.Instance.wood.hasSoldierDic.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName))
@@ -92,8 +92,8 @@ public class BattleManager : SingleTon<BattleManager>
     }
     public void StartBattle()
     {
-        battleP1Soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[RoundManager.Instance.mapController.nowTile.nodeName];
-        RoundManager.Instance.nowPlayer.battleSoldierNum = battleP1Soldiers.Count;
+        battleP1Soldiers = RoundManager.Instance.NowPlayer.hasSoldierDic[RoundManager.Instance.mapController.nowTile.nodeName];
+        RoundManager.Instance.NowPlayer.battleSoldierNum = battleP1Soldiers.Count;
         int diceP1Num = Random.Range(0, 4);
         int diceP2Num = Random.Range(0, 4);
         Debug.Log("배틀시작");

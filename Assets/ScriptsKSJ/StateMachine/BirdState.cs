@@ -20,7 +20,7 @@ public class BirdWaitState : RmState
     }
     public override void Exit()
     {
-        rm.nowPlayer = bird;
+        rm.NowPlayer = bird;
         Uimanager.Instance.playerUI.SpawnSoldier();
         BattleManager.Instance.InitBattle();
     }
@@ -84,7 +84,7 @@ public class BirdDinnerState : RmState
     {
         bird.isOver = true;
         wood.isOver = false;
-        rm.nowPlayer = null;
+        rm.NowPlayer = null;
         Uimanager.Instance.birdInven.SetActive(false);
     }
 }

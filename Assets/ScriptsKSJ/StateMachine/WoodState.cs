@@ -30,7 +30,7 @@ public class WoodWaitState : RmState
     }
     public override void Exit()
     {
-        rm.nowPlayer = wood;
+        rm.NowPlayer = wood;
         Uimanager.Instance.playerUI.SpawnSoldier();
         BattleManager.Instance.InitBattle();
     }
@@ -119,7 +119,7 @@ public class WoodDinnerState : RmState
     {
         RoundManager.Instance.wood.isOver = true;
         RoundManager.Instance.cat.isOver = false;
-        rm.nowPlayer = null;
+        rm.NowPlayer = null;
         Uimanager.Instance.playerUI.ResetBtn(false);
         Uimanager.Instance.woodUi.profileWindow.SetActive(false);
         Uimanager.Instance.woodInven.SetActive(false);

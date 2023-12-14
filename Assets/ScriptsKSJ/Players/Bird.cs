@@ -48,7 +48,7 @@ public class Bird : Player
             switch (nowLeader)
             {
                 case LEADER_TYPE.NONE:
-                    if(RoundManager.Instance.nowPlayer == RoundManager.Instance.bird)
+                    if(RoundManager.Instance.NowPlayer == RoundManager.Instance.bird)
                     {
                         Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
                     }

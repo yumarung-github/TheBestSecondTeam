@@ -18764,10 +18764,10 @@ MonoBehaviour:
   battleSoldierNum: 0
   nowLeader: 0
   prafab:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 5950224029180600710, guid: 2dcbf5110e7539b4f9cd112c6e062e53, type: 3}
+  - {fileID: 5950224029180600710, guid: 0c9e99e7051e9724ba877c9c3fbeaab6, type: 3}
+  - {fileID: 5950224029180600710, guid: 5208cd6d5ef246f49a96e489984ce54e, type: 3}
+  - {fileID: 5950224029180600710, guid: 168513b394ed1194e8dba185dff76461, type: 3}
   isSpwaned: 0
   isMoved: 0
   isBattled: 0
@@ -20667,7 +20667,6 @@ MonoBehaviour:
   cat: {fileID: 717167212}
   bird: {fileID: 1850166812}
   wood: {fileID: 857245164}
-  nowPlayer: {fileID: 717167212}
   moveOver: 0
   mapExtra: {fileID: 0}
   testType: 0

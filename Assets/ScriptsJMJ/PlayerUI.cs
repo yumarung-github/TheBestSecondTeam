@@ -28,7 +28,7 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
-        player = RoundManager.Instance.nowPlayer;
+        player = RoundManager.Instance.NowPlayer;
         moveBtn.onClick.AddListener(() => { RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect; });
         isOn = true;
         //buttons = battleWindow.transform.GetComponentsInChildren<Button>();
@@ -53,10 +53,10 @@ public class PlayerUI : MonoBehaviour
     public void SpawnSoldier()
     {
         spawnBtn.onClick.RemoveAllListeners();
-        string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
+        string tempName = RoundManager.Instance.NowPlayer.hasNodeNames[0];
         spawnBtn.onClick.AddListener(() =>
         {
-            RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+            RoundManager.Instance.NowPlayer.SpawnSoldier(tempName,
             RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
         });
     }
@@ -73,7 +73,7 @@ public class PlayerUI : MonoBehaviour
     public void SetBuildBtn()
     {
         buildBtn.onClick.RemoveAllListeners();
-        string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
+        string tempName = RoundManager.Instance.NowPlayer.hasNodeNames[0];
         buildBtn.onClick.AddListener(() => {
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
         });
@@ -81,7 +81,7 @@ public class PlayerUI : MonoBehaviour
     public void SetBattleBtn()
     {
         battleBtn.onClick.RemoveAllListeners();
-        string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
+        string tempName = RoundManager.Instance.NowPlayer.hasNodeNames[0];
         battleBtn.onClick.AddListener(() => { Debug.Log("전투 !"); });
         battleBtn.onClick.AddListener(() => 
         {

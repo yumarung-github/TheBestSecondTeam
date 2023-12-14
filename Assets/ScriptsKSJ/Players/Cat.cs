@@ -20,7 +20,7 @@ public class Cat : Player
         //Debug.Log(animator.GetLayerIndex("Idle"));
         isOver = false;
         roundManager.cat = this;
-        roundManager.nowPlayer = this;
+        roundManager.NowPlayer = this;
         hasNodeNames.Add("생쥐3");
         ColorSetting();
         flashCo = FlashCoroutine();
