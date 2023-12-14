@@ -4,28 +4,39 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DropableUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDropHandler
+public class DropableUI : MonoBehaviour, IDropHandler
 {
 
-    private RawImage image;
-    private Color originColor;
+    PointerEventData ped = new PointerEventData(null);
+    private GraphicRaycaster gr = null;
+    private bool isMove = false;
+    List<RaycastResult> results;
 
-    public void OnPointerEnter(PointerEventData eventData)
+    private void Start()
     {
-        
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
+        gr = GetComponent<GraphicRaycaster>();
     }
     public void OnDrop(PointerEventData eventData)
     {
+        results = new List<RaycastResult>();
+        ped.position = Input.mousePosition;
+        gr.Raycast(ped, results);
+        if (results.Count <= 0 || results[1].gameObject == null)
+            return;
+        if (results[1].gameObject.name == "Frame")
+            isMove = true;
+        else
+            isMove = false;
         if (eventData.pointerDrag != null)
         {
-            //Debug.Log("드롭");
-            eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
-
+            if (isMove)
+            {
+                results[1].gameObject.transform.GetChild(0).GetComponent<BirdCardSlot>().
+                birdCard.Add(eventData.pointerDrag.GetComponentInParent<Slot>().card);
+                eventData.pointerDrag.GetComponentInParent<Slot>().EmptySlot();
+            }
+            else
+                eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
         }
-  
     }
 }

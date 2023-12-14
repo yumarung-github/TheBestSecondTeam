@@ -27,17 +27,8 @@ public class BirdCardSlot : MonoBehaviour
                 curCard = birdCard.Count - 1;
         }
     }
-
-    private void Start()
-    {
-      
-
-    }
-
     public void Use()
     {
-        
-
         switch (cardUse_type)
         {
             case CARDSLOT_TYPE.MOVE:
@@ -61,8 +52,6 @@ public class BirdCardSlot : MonoBehaviour
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
                 }
                 break;
-
         }
-
     }
 }
