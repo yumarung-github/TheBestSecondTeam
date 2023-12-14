@@ -85,15 +85,9 @@ public class PlayerUI : MonoBehaviour
         battleBtn.onClick.AddListener(() => { Debug.Log("전투 !"); });
         battleBtn.onClick.AddListener(() => 
         {
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
             
-            if (isOn)
-            {
-                battleWindow.gameObject.SetActive(true);
-            }
-            else
-                battleWindow.gameObject.SetActive(false);
-            isOn = !isOn;
-        }        );
+        });
 
 
     }

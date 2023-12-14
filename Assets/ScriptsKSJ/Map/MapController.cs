@@ -187,6 +187,19 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
+            case RoundManager.SoldierTestType.Battle:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember battleMem))//nodemember를 찾음.
+                {
+                    Debug.Log(battleMem.nodeName);
+                    nowTile = battleMem;
+                    Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                }
+                else
+                {
+                    Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(false);
+                    Debug.Log(RoundManager.Instance.cat.hasSoldierDic[nowTile.nodeName].Count);
+                }
+                break;
             case RoundManager.SoldierTestType.CatSet:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTile))
                 {

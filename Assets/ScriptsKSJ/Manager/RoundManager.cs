@@ -32,6 +32,7 @@ public class RoundManager : SingleTon<RoundManager>
         Spawn,
         Build,
         Revoit,
+        Battle,
         CatSet
     }
     // 예외처리 거의 안되어있음.
