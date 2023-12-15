@@ -4499,6 +4499,8 @@ MonoBehaviour:
   prefabSoldier: {fileID: 3625900152842981291, guid: a3822e5e7137b25439055e4b5117f3e1, type: 3}
   battleSoldierNum: 0
   soldierMaxNum: 0
+  officerNum: 0
+  battleActionNum: 0
   buildCost: 0
 --- !u!4 &857245165
 Transform:
@@ -10420,7 +10422,7 @@ MonoBehaviour:
   battleSoldierNum: 0
   nowLeader: 0
   birdCard: {fileID: 1339631726393681252, guid: a53d37fa47f4393468c459fdce80d814, type: 3}
-  inventory: {fileID: 0}
+  inventory: {fileID: 6677091683135365608}
   isSpwaned: 0
   isMoved: 0
   isBattled: 0
@@ -15924,7 +15926,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1568761474341892957}
   - component: {fileID: 5460023090854904778}
-  - component: {fileID: 5460023090854904780}
   - component: {fileID: 2630642268912070121}
   - component: {fileID: 5460023090854904779}
   m_Layer: 5
@@ -19276,21 +19277,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5460023090854904780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3050579562862887720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8670f14c33d842a4399011295e17af6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  birdCard: []
-  cardUse_type: 0
-  disciplinePrefab: {fileID: 0}
 --- !u!222 &5482400829247071245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19310,7 +19296,6 @@ GameObject:
   - component: {fileID: 6696344381952705226}
   - component: {fileID: 8168740323301259313}
   - component: {fileID: 9026756662216277408}
-  - component: {fileID: 9026756662216277410}
   - component: {fileID: 9026756662216277409}
   m_Layer: 5
   m_Name: InputArea_Battle
@@ -25548,21 +25533,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &9026756662216277410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5482503568130525977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8670f14c33d842a4399011295e17af6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  birdCard: []
-  cardUse_type: 0
-  disciplinePrefab: {fileID: 0}
 --- !u!114 &9039790984936157223
 MonoBehaviour:
   m_ObjectHideFlags: 0

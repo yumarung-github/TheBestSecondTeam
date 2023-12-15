@@ -113,16 +113,15 @@ public class Bird : Player
 
     public override void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
-        BirdCardSlot cardSlot = inventory.birdCardSlot[inventory.curSlot];
-        curIndex = inventory.birdCardSlot[inventory.curSlot].CurCard;
-        if (cardSlot.birdCard[curIndex].costType == RoundManager.Instance.mapController.nowTile.nodeType)
-        {
-            hasBuildingDic[tileName].Add(building);
-            BuildingManager.Instance.InstantiateBuilding(building, targetTransform);
-            cardSlot.CurCard++;
-
-        }
-        else
-            isBuilded = false;
+        //if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+        //{
+        Debug.Log(tileName);
+        hasBuildingDic[tileName].Add(building);
+        Debug.Log(hasBuildingDic[tileName][0].name);
+        BuildingManager.Instance.InstantiateBuilding(building, targetTransform);
+        //    birdCardSlot.CurCard++;
+        //}
+        //else
+        //    isBuilded = false;
     }
 }

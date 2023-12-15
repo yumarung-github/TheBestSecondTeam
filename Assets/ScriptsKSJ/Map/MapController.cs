@@ -211,7 +211,13 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         for (int i = 0; i < mapExtra.mapTiles.Count; i++)
                         {
                             if (i != 0)
+                            {
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
+                            }
+                            for(int j = 0; j < 7; j++)
+                            {
+                                RoundManager.Instance.bird.SpawnSoldier(mapExtra.mapTiles[0].nodeName, mapExtra.mapTiles[0].transform);
+                            }
                         }
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.catBasePrefab);
