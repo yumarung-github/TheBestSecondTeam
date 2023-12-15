@@ -96,6 +96,7 @@ public class BattleManager : SingleTon<BattleManager>
         RoundManager.Instance.nowPlayer.battleSoldierNum = battleP1Soldiers.Count;
         int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
         int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
+
         Debug.Log("배틀시작");
         diceP1Num = (diceP1Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP1Num;
         Debug.Log(diceP2Num);

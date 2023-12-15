@@ -94,11 +94,12 @@ namespace sihyeon
 
 
 
-        public void InstantiateBuilding(GameObject building)
+        public GameObject InstantiateBuilding(GameObject building)
         {
             NodeMember node = RoundManager.Instance.mapController.nowTile;           
                 GameObject buildingPrefab = Instantiate(building, node.transform.position + 
                     new Vector3(0,0.4f,0), Quaternion.identity);
+            return buildingPrefab;
         }
 
     }

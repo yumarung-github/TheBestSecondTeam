@@ -128,8 +128,7 @@ public class Player : MonoBehaviour
     public virtual void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
         //Debug.Log("setHasBuilding 작동1");
-        hasBuildingDic[tileName].Add(building);
-        BuildingManager.Instance.InstantiateBuilding(building);       
+        hasBuildingDic[tileName].Add(BuildingManager.Instance.InstantiateBuilding(building));
         //Debug.Log("setHasBuilding 작동2");
     }
     public void testSetBtn()
