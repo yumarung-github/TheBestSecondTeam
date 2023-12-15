@@ -363,4 +363,9 @@ public class Wood : Player
         tokenScoreDic.Add(9, 4);
         tokenScoreDic.Add(10, 4);
     }
+     
+    public void SetTileColor()
+    {
+
+    }
 }

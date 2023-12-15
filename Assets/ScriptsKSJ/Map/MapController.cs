@@ -180,10 +180,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember revoitTile))//nodemember를 찾음.
                 {
                     nowTile = revoitTile;
-                    RoundManager.Instance.wood.buildCost = 2;
-                    BuildingManager.Instance.SetWoodBase(nowTile);
-                    RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
-                    BuildingManager.Instance.selectedBuilding);
+                    if (RoundManager.Instance.wood.hasBuildingDic[nowTile.nodeName].
+                        Exists(gameObject => gameObject.GetComponent<Building>().type == Building_TYPE.WOOD_TOKEN))
+                    {
+                        RoundManager.Instance.wood.buildCost = 2;
+                        BuildingManager.Instance.SetWoodBase(nowTile);
+                        RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                        BuildingManager.Instance.selectedBuilding);
+                        GameObject tokenObj = RoundManager.Instance.wood.hasBuildingDic[nowTile.nodeName].
+                            Find(gameObject => gameObject.GetComponent<Building>().type == Building_TYPE.WOOD_TOKEN);
+                        RoundManager.Instance.wood.hasBuildingDic[nowTile.nodeName].Remove(tokenObj);
+                        Destroy(tokenObj);
+                    }                    
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
