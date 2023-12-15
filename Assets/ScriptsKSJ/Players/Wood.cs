@@ -163,7 +163,7 @@ public class Wood : Player
     }
     public void SetOfficerBtnOnoff()
     {
-        if(isRabbitBuiilding || isRabbitBuiilding || isFoxBuiilding)
+        if (isRatBuiilding || isRabbitBuiilding || isFoxBuiilding)
         {
             Uimanager.Instance.woodUi.officerBtn.enabled = true;
         }
