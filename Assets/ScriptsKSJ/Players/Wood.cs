@@ -1,11 +1,13 @@
 using CustomInterface;
+using sihyeon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Wood : Player
-{    
+{
+    public Dictionary<int,int> tokenScoreDic = new Dictionary<int,int>();
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
     public int RemainSoldierNum
@@ -116,10 +118,11 @@ public class Wood : Player
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RAT, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
         buildCost = 1;//초기화1
-        supportVal[ANIMAL_COST_TYPE.RAT] = 1;
-        supportVal[ANIMAL_COST_TYPE.BIRD] = 1;
-        SetSupportUI(ANIMAL_COST_TYPE.RAT);
-        SetSupportUI(ANIMAL_COST_TYPE.BIRD);
+        SetTokenScore();
+        supportVal[ANIMAL_COST_TYPE.RAT] = 1;//테스트용 지울거
+        supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
+        SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
+        SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거
     }
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
@@ -176,7 +179,7 @@ public class Wood : Player
     {
         NodeMember tempMem = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == tileName);
         
-        int soldierCost = FindSoldierCost(tempMem);
+        int soldierCost = FindSoldierCost(tempMem);//병사가 3명이상있으면 코스트 계산
         //Debug.Log(supportVal[tempMem.nodeType]);
         //Debug.Log(supportVal[ANIMAL_COST_TYPE.BIRD]);
 
@@ -199,12 +202,39 @@ public class Wood : Player
                     supportVal[tempMem.nodeType] -= buildCost + soldierCost;
                 if(buildCost == 2)//반란이면
                 {
-                    SetBaseValue(tempMem.nodeType, true);
-                    Score += DestroyAllGetScore(tempMem);
+                    SetBaseValue(tempMem.nodeType, true);//기지 체크해주는거
+                    Score += DestroyAllGetScore(tempMem);//건물 부수는거
+                    for (int i = 0; i < RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
+                    {
+                        Soldier tempSol = RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName][i];
+                        Debug.Log(tempSol.name);
+                        RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
+                        Destroy(tempSol.gameObject);
+                    }
+                    for (int i = 0; i < RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
+                    {
+                        Soldier tempSol = RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName][i];
+                        Debug.Log(tempSol.name);
+                        RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
+                        Destroy(tempSol.gameObject);
+                    }
                 }
-                else
+                else//동조라면
                 {
-                    Score += 1;
+                    int tokenNum = 0;
+                    Debug.Log(RoundManager.Instance.nowPlayer.hasBuildingDic.Count);
+                    foreach (KeyValuePair<string, List<GameObject>> kv in RoundManager.Instance.nowPlayer.hasBuildingDic)
+                    {
+                        for(int i = 0; i < kv.Value.Count; i++)
+                        {
+                            if(kv.Value[i].GetComponent<Building>().type == Building_TYPE.WOOD_TOKEN)
+                            {
+                                tokenNum++;
+                            }
+                        }
+                    }
+
+                    Score += tokenScoreDic[tokenNum];
                 }
                 
             }
@@ -318,5 +348,19 @@ public class Wood : Player
         Uimanager.Instance.playerUI.battleBtn.enabled = onOff;
         Uimanager.Instance.playerUI.moveBtn.enabled = onOff;
         Uimanager.Instance.playerUI.spawnBtn.enabled = onOff;
+    }
+
+    public void SetTokenScore()//토큰 설치했을때 점수
+    {
+        tokenScoreDic.Add(1, 0);
+        tokenScoreDic.Add(2, 1);
+        tokenScoreDic.Add(3, 1);
+        tokenScoreDic.Add(4, 1);
+        tokenScoreDic.Add(5, 2);
+        tokenScoreDic.Add(6, 2);
+        tokenScoreDic.Add(7, 3);
+        tokenScoreDic.Add(8, 4);
+        tokenScoreDic.Add(9, 4);
+        tokenScoreDic.Add(10, 4);
     }
 }
