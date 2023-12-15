@@ -14,7 +14,8 @@ public class BirdCardSlot : MonoBehaviour
 {
     public List<Card> birdCard;
     public CARDSLOT_TYPE cardUse_type;
-
+    public GameObject disciplinePrefab;
+    
     int curCard = 0;
     
     public int CurCard
@@ -27,31 +28,48 @@ public class BirdCardSlot : MonoBehaviour
                 curCard = birdCard.Count - 1;
         }
     }
+    public void AddBirdCard(Card card)
+    {
+        birdCard.Add(card);
+    }
+    public void AddCard(Card card)
+    {
+        Bird bird = RoundManager.Instance.bird;
+        GameObject prediscipline;
+
+        birdCard.Add(card);
+        prediscipline = Instantiate(disciplinePrefab, gameObject.transform);
+        prediscipline.gameObject.transform.SetParent(bird.transform);
+    }
     public void Use()
     {
-        switch (cardUse_type)
+        for (int i = 0; i < birdCard.Count - 1; i++)
         {
-            case CARDSLOT_TYPE.MOVE:
-                {
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
-                    //curCaed 를 올려줘야함
-                }
-                break;
-            case CARDSLOT_TYPE.SPAWN:
-                {
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Spawn;
-                }
-                break;
-            case CARDSLOT_TYPE.BATTLE:
-                {
 
-                }
-                break;
-            case CARDSLOT_TYPE.BULID:
-                {
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
-                }
-                break;
+            switch (cardUse_type)
+            {
+                case CARDSLOT_TYPE.MOVE:
+                    {
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
+                        //curCaed 를 올려줘야함
+                    }
+                    break;
+                case CARDSLOT_TYPE.SPAWN:
+                    {
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Spawn;
+                    }
+                    break;
+                case CARDSLOT_TYPE.BATTLE:
+                    {
+
+                    }
+                    break;
+                case CARDSLOT_TYPE.BULID:
+                    {
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+                    }
+                    break;
+            }
         }
     }
 }

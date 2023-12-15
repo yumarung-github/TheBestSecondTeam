@@ -1,13 +1,6 @@
 using CustomInterface;
 using sihyeon;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SearchService;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
-
 
 public enum LEADER_TYPE
 {
@@ -25,19 +18,19 @@ public class Bird : Player
 {
     [SerializeField] 
     private LEADER_TYPE nowLeader;
-    public GameObject[] prafab = new GameObject[4];
-    BirdCardSlot birdCardSlot;
+    public Card birdCard;
+    public BirdCardInventory inventory;
 
+    int curIndex;
     int spawn = 0;
     int move = 1;
     int battle = 2;
-    int bulid = 3;
+    int build = 3;
 
     public bool isSpwaned;
-    public bool isMoved;
+    public bool isMoved  ;
     public bool isBattled;
     public bool isBuilded;
-
     public LEADER_TYPE NowLeader
     {
         get => nowLeader;
@@ -51,20 +44,20 @@ public class Bird : Player
                         
                     break;
                 case LEADER_TYPE.ARCHITECT:
-                    AddDiscipline(move);
-                    AddDiscipline(spawn);
+                    inventory.birdCardSlot[spawn].AddBirdCard(birdCard);
+                    inventory.birdCardSlot[move].AddBirdCard(birdCard);
                     break;
                 case LEADER_TYPE.PROPHET:
-                    AddDiscipline(battle);
-                    AddDiscipline(spawn);
+                    inventory.birdCardSlot[battle].AddBirdCard(birdCard);
+                    inventory.birdCardSlot[spawn].AddBirdCard(birdCard);
                     break;
                 case LEADER_TYPE.COMMANDER:
-                    AddDiscipline(move);
-                    AddDiscipline(battle);
+                    inventory.birdCardSlot[move].AddBirdCard(birdCard);
+                    inventory.birdCardSlot[battle].AddBirdCard(birdCard);
                     break;
                 case LEADER_TYPE.TYRANT:
-                    AddDiscipline(move);
-                    AddDiscipline(bulid);
+                    inventory.birdCardSlot[move].AddBirdCard(birdCard);
+                    inventory.birdCardSlot[build].AddBirdCard(birdCard);
                     break;
             }
         }
@@ -75,18 +68,26 @@ public class Bird : Player
     private new void Start()
     {
         base.Start();
-        birdCardSlot = Uimanager.Instance.birdUI.birdSlot;
         // roundManager.bird = this;
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
 
+        isSpwaned = true;
+        isMoved = true;
+        isBattled = true;
+        isBuilded = true;
     }
 
 
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
-    {
-        
-        if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+    {       
+        BirdCardSlot cardSlot = inventory.birdCardSlot[inventory.curSlot];
+        curIndex = inventory.birdCardSlot[inventory.curSlot].CurCard;
+        bool isCheckBird = cardSlot.birdCard[curIndex].costType == ANIMAL_COST_TYPE.BIRD;
+        bool isCheckType = cardSlot.birdCard[curIndex].costType == RoundManager.Instance.mapController.nowTile.nodeType;
+
+
+        if (isCheckBird || isCheckType)
         {
             Vector3 tempVec = Vector3.zero;
             if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
@@ -102,7 +103,7 @@ public class Bird : Player
             GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
             //더해줄 병사를 임의로 저장해주고
             SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
-            birdCardSlot.CurCard++;
+            cardSlot.CurCard++;
             return addedSoldier;//생성한 병사를 return시킴
 
         }
@@ -112,20 +113,15 @@ public class Bird : Player
 
     public override void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
-        if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
+        BirdCardSlot cardSlot = inventory.birdCardSlot[inventory.curSlot];
+        curIndex = inventory.birdCardSlot[inventory.curSlot].CurCard;
+        if (cardSlot.birdCard[curIndex].costType == RoundManager.Instance.mapController.nowTile.nodeType)
         {
             hasBuildingDic[tileName].Add(building);
             BuildingManager.Instance.InstantiateBuilding(building);
-            birdCardSlot.CurCard++;
+            cardSlot.CurCard++;
         }
         else
             isBuilded = false;
     }
-
-    public void AddDiscipline(int num)
-    {
-        GameObject temp = Instantiate(prafab[num], transform);
-        temp.GetComponent<Discipline>().bird = this;
-    }
-
 }

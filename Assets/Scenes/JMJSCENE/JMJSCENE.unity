@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3556,8 +3556,29 @@ MonoBehaviour:
   ratSupportNumText: {fileID: 1118426842}
   rabbitSupportNumText: {fileID: 34336622}
   birdSupportNumText: {fileID: 675494879}
+  woodActionNumText: {fileID: 0}
   cards: []
   cardUseType: 0
+--- !u!114 &634604665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634604652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c689fdc93388dee4c8b932cc1c43b3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BirdInventory: {fileID: 6677091683135365608}
+  birdSlot:
+  - {fileID: 6226337043639207131}
+  - {fileID: 9039790984936157224}
+  - {fileID: 6418069463828070069}
+  - {fileID: 8805112895760668289}
+  birdLeaderSelect: {fileID: 795916571182404832}
+  birdCardBox: {fileID: 6677091683135365607}
 --- !u!1 &674087081 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2777308742060490375, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
@@ -7210,6 +7231,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6013406750815638403, guid: 84f7384d67f4cdd4f9098711cc8c35fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 634604661}
+    - targetCorrespondingSourceObject: {fileID: 6013406750815638403, guid: 84f7384d67f4cdd4f9098711cc8c35fa, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 634604665}
   m_SourcePrefab: {fileID: 100100000, guid: 84f7384d67f4cdd4f9098711cc8c35fa, type: 3}
 --- !u!1 &1207686579
 GameObject:
@@ -10395,12 +10419,8 @@ MonoBehaviour:
   prefabSoldier: {fileID: 454993966645367485, guid: aa70964dd8507d746ba74344437ffb39, type: 3}
   battleSoldierNum: 0
   nowLeader: 0
-  choiceLeader: {fileID: 795916571182404832}
-  prafab:
-  - {fileID: 5950224029180600710, guid: 2dcbf5110e7539b4f9cd112c6e062e53, type: 3}
-  - {fileID: 5950224029180600710, guid: 0c9e99e7051e9724ba877c9c3fbeaab6, type: 3}
-  - {fileID: 5950224029180600710, guid: 5208cd6d5ef246f49a96e489984ce54e, type: 3}
-  - {fileID: 5950224029180600710, guid: 168513b394ed1194e8dba185dff76461, type: 3}
+  birdCard: {fileID: 1339631726393681252, guid: a53d37fa47f4393468c459fdce80d814, type: 3}
+  inventory: {fileID: 0}
   isSpwaned: 0
   isMoved: 0
   isBattled: 0
@@ -11408,7 +11428,8 @@ MonoBehaviour:
   testBtn: {fileID: 1192481431}
   playerUI: {fileID: 634604653}
   woodUi: {fileID: 634604661}
-  birdCardSlot: {fileID: 6226337043639207131}
+  birdUI: {fileID: 634604665}
+  scoreBoard: {fileID: 0}
   cardWindow: {fileID: 2029656724}
   cardName: {fileID: 606007970}
   cardInfo: {fileID: 297198022}
@@ -11996,7 +12017,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8203783044434195177}
-  - {fileID: 3281927806229057189}
   - {fileID: 5336727906399640623}
   - {fileID: 7065312637639639701}
   m_Father: {fileID: 1700820461097265949}
@@ -12381,7 +12401,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6418069463828070068}
   m_Father: {fileID: 6696344381952705226}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -12908,7 +12929,7 @@ GameObject:
   - component: {fileID: 3090268745360088368}
   - component: {fileID: 6418069463828070069}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Slot3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13896,7 +13917,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3934841638719866059}
-  - {fileID: 5228546277548234931}
   - {fileID: 5203938804483501104}
   - {fileID: 1414226161704272663}
   m_Father: {fileID: 1700820461097265949}
@@ -16139,7 +16159,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8315056172011288172}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16148,7 +16168,7 @@ RectTransform:
   - {fileID: 4325812642068131641}
   - {fileID: 443557522152041712}
   - {fileID: 4237721128814188635}
-  m_Father: {fileID: 116360669572189963}
+  m_Father: {fileID: 8203783044434195177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -16869,7 +16889,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6151400614040331387}
   m_Father: {fileID: 7927260738569708153}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -17027,7 +17048,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5228546277548234931}
   m_Father: {fileID: 1568761474341892957}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -17218,7 +17240,7 @@ GameObject:
   - component: {fileID: 1020152642987507245}
   - component: {fileID: 4210742564556021441}
   m_Layer: 5
-  m_Name: BirdCardInventory
+  m_Name: cardimage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18922,7 +18944,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8805112895760668288}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -18931,7 +18953,7 @@ RectTransform:
   - {fileID: 1499721774466700358}
   - {fileID: 8606710452062135513}
   - {fileID: 7498259586196897138}
-  m_Father: {fileID: 1568761474341892957}
+  m_Father: {fileID: 3934841638719866059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -19268,8 +19290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 0
-  moveSoldierOBJ: {fileID: 0}
-  birdInven: {fileID: 0}
+  disciplinePrefab: {fileID: 0}
 --- !u!222 &5482400829247071245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20295,7 +20316,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6226337043639207130}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20304,7 +20325,7 @@ RectTransform:
   - {fileID: 4686505530324571952}
   - {fileID: 7197130485281515423}
   - {fileID: 7170157116799837358}
-  m_Father: {fileID: 7927260738569708153}
+  m_Father: {fileID: 3861072662105463017}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -20414,7 +20435,7 @@ GameObject:
   - component: {fileID: 4275497098991161299}
   - component: {fileID: 6226337043639207131}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Slot1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20435,8 +20456,7 @@ MonoBehaviour:
   birdCard:
   - {fileID: 1339631726393681252, guid: 66b77026880176c489abf182ff8263ba, type: 3}
   cardUse_type: 1
-  moveSoldierOBJ: {fileID: 0}
-  birdInven: {fileID: 0}
+  disciplinePrefab: {fileID: 5950224029180600710, guid: 2dcbf5110e7539b4f9cd112c6e062e53, type: 3}
 --- !u!224 &6243234534068008414
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20682,7 +20702,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 844885855881893390}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -20691,7 +20711,7 @@ RectTransform:
   - {fileID: 4525878770084704345}
   - {fileID: 540505231904816555}
   - {fileID: 8180316577550021846}
-  m_Father: {fileID: 6696344381952705226}
+  m_Father: {fileID: 398126015538807718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -20712,8 +20732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 2
-  moveSoldierOBJ: {fileID: 0}
-  birdInven: {fileID: 0}
+  disciplinePrefab: {fileID: 5950224029180600710, guid: 5208cd6d5ef246f49a96e489984ce54e, type: 3}
 --- !u!222 &6432863456975108715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21203,7 +21222,7 @@ GameObject:
   - component: {fileID: 361860192944529940}
   - component: {fileID: 6677091683135365608}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BirdCardInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21223,7 +21242,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCardSlot:
   - {fileID: 6226337043639207131}
-  owner: {fileID: 0}
+  - {fileID: 9039790984936157224}
+  - {fileID: 6418069463828070069}
+  - {fileID: 8805112895760668289}
+  curSlot: 0
 --- !u!1 &6689579632193695158
 GameObject:
   m_ObjectHideFlags: 0
@@ -21346,7 +21368,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 398126015538807718}
-  - {fileID: 6418069463828070068}
   - {fileID: 7978746251713671206}
   - {fileID: 4146449971673725680}
   m_Father: {fileID: 1700820461097265949}
@@ -23702,7 +23723,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3861072662105463017}
-  - {fileID: 6151400614040331387}
   - {fileID: 4381939123628065375}
   - {fileID: 7843882858124054815}
   m_Father: {fileID: 1700820461097265949}
@@ -24175,7 +24195,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3281927806229057189}
   m_Father: {fileID: 116360669572189963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -24385,7 +24406,7 @@ GameObject:
   - component: {fileID: 9039790984936157223}
   - component: {fileID: 9039790984936157224}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Slot2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25132,7 +25153,7 @@ GameObject:
   - component: {fileID: 5817091509031205447}
   - component: {fileID: 8805112895760668289}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Slot4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25152,8 +25173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 3
-  moveSoldierOBJ: {fileID: 0}
-  birdInven: {fileID: 0}
+  disciplinePrefab: {fileID: 5950224029180600710, guid: 168513b394ed1194e8dba185dff76461, type: 3}
 --- !u!222 &8829243761932928325
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25542,8 +25562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 0
-  moveSoldierOBJ: {fileID: 0}
-  birdInven: {fileID: 0}
+  disciplinePrefab: {fileID: 0}
 --- !u!114 &9039790984936157223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25584,8 +25603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 0
-  moveSoldierOBJ: {fileID: 0}
-  birdInven: {fileID: 0}
+  disciplinePrefab: {fileID: 5950224029180600710, guid: 0c9e99e7051e9724ba877c9c3fbeaab6, type: 3}
 --- !u!1 &9040529794616957017
 GameObject:
   m_ObjectHideFlags: 0

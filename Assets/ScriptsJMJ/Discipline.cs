@@ -28,6 +28,7 @@ public class Discipline : MonoBehaviour
 
     private void Start()
     {
+        bird = RoundManager.Instance.bird;
         OnBreakingRule.AddListener(() => { RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE; });
         OnBreakingRule.AddListener(() => { Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true); });
 
@@ -45,10 +46,13 @@ public class Discipline : MonoBehaviour
     {
        if(Input.GetKeyDown(KeyCode.Space))
        {
-           NextTurn();
-       }
+            if (IsBreakRule.Invoke())
+            {
+                BreakingRule();
+            }
+        }
     }
-    public void NextTurn()
+/*    public void NextTurn()
     {
         if (IsBreakRule.Invoke())
         {
@@ -59,7 +63,7 @@ public class Discipline : MonoBehaviour
 
         }
     }
-
+*/
     public void BreakingRule()
     {
         Debug.LogWarning("룰을 어김");

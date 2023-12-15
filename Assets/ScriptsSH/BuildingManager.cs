@@ -41,7 +41,6 @@ namespace sihyeon
         {
             buildingList = new List<Building>();
             setBuilding();        
-            
         }
         private new void Awake()
         {
@@ -91,9 +90,6 @@ namespace sihyeon
             });
         }
         */
-
-
-
         public GameObject InstantiateBuilding(GameObject building)
         {
             NodeMember node = RoundManager.Instance.mapController.nowTile;           
