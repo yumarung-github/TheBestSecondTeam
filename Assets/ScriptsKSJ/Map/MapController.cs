@@ -260,7 +260,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         {
             NodeMember foundNode = mapExtra.mapTiles.Find(node => node.nodeName == nodeStrings[num]);
             Vector3 tempPostion = foundNode.transform.position;
-                        
+            if(RoundManager.Instance.nowPlayer is Wood wood)
+            {
+                if (wood.BattleActionNum == wood.OfficerNum)
+                    break;//행동이끝나면 이동더못함.
+            }
             if (RoundManager.Instance.moveOver)
             {
                 checkSoldier = soldiers[soldierNum - 1];
@@ -288,7 +292,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 //RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName] = 
                 count--;//다움직일때까지
                 num++;//시작점을 제외하고 움직이기
-                RoundManager.Instance.moveOver = false;                
+                RoundManager.Instance.wood.BattleActionNum++;
+                RoundManager.Instance.moveOver = false;      
             }
             yield return new WaitForSeconds(Time.deltaTime * 20f);
             if (RoundManager.Instance.moveOver == false)

@@ -17,6 +17,7 @@ public class WoodWaitState : RmState
         Uimanager.Instance.woodUi.SetCraftBtn();
         Uimanager.Instance.woodUi.SetSupportBtn();
         Uimanager.Instance.woodUi.SetOfficerBtn();
+        wood.BattleBtnsOnOff(true);
 
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING1);
@@ -109,7 +110,8 @@ public class WoodDinnerState : RmState
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 저녁";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
-        Uimanager.Instance.playerUI.ResetBtn(true);
+        Uimanager.Instance.woodUi.SetDinner(true);
+        //Uimanager.Instance.playerUI.ResetBtn(true);
     }
     public override void Update()
     {
@@ -120,7 +122,8 @@ public class WoodDinnerState : RmState
         RoundManager.Instance.wood.isOver = true;
         RoundManager.Instance.cat.isOver = false;
         rm.nowPlayer = null;
-        Uimanager.Instance.playerUI.ResetBtn(false);
+        Uimanager.Instance.woodUi.SetDinner(false);
+        //Uimanager.Instance.playerUI.ResetBtn(false);
         Uimanager.Instance.woodUi.profileWindow.SetActive(false);
         Uimanager.Instance.woodInven.SetActive(false);
     }

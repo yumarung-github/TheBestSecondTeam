@@ -34,6 +34,8 @@ public class WoodUi : MonoBehaviour
     public TextMeshProUGUI ratSupportNumText;
     public TextMeshProUGUI rabbitSupportNumText;
     public TextMeshProUGUI birdSupportNumText;
+    public TextMeshProUGUI woodActionNumText;
+
 
     [Header("[카드 체크]")]
     public List<Card> cards = new List<Card>();
@@ -49,6 +51,10 @@ public class WoodUi : MonoBehaviour
     void Start()
     {
         
+    }
+    public void SetActionNum(int actionNum, int officerNum)
+    {
+        woodActionNumText.text = "남은횟수\n   " + actionNum + "/" + officerNum;
     }
     public void SetAgreeBtn()
     {
@@ -106,5 +112,12 @@ public class WoodUi : MonoBehaviour
         craftBtn.gameObject.SetActive(onOff);
         officerBtn.gameObject.SetActive(onOff);
         supporterBtn.gameObject.SetActive(onOff);
+    }
+    public void SetDinner(bool onOff)
+    {
+        Uimanager.Instance.playerUI.moveBtn.gameObject.SetActive(onOff);
+        Uimanager.Instance.playerUI.spawnBtn.gameObject.SetActive(onOff);
+        Uimanager.Instance.playerUI.battleBtn.gameObject.SetActive(onOff);
+        woodActionNumText.gameObject.SetActive(onOff);
     }
 }

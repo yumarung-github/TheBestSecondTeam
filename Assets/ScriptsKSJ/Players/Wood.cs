@@ -2,10 +2,7 @@ using CustomInterface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
-using static Unity.VisualScripting.Dependencies.Sqlite.SQLite3;
 
 public class Wood : Player
 {    
@@ -28,6 +25,20 @@ public class Wood : Player
             RemainSoldierNum--;//장교가 추가되면 병사수가 줄어듬
             officerNum = value;
             Uimanager.Instance.woodUi.officerText.text = officerNum.ToString();
+            Uimanager.Instance.woodUi.SetActionNum(battleActionNum, officerNum);
+        }
+    }
+    private int battleActionNum;
+    public int BattleActionNum
+    {
+        get { return battleActionNum; }
+        set {
+            battleActionNum = value;
+            if(officerNum == battleActionNum)
+            {
+                BattleBtnsOnOff(false);
+            }
+            Uimanager.Instance.woodUi.SetActionNum(battleActionNum, officerNum);
         }
     }
 
@@ -39,11 +50,11 @@ public class Wood : Player
         {
             if(value)
             {
-                officerNum++;//기지가 생기면 장교1명추가
+                OfficerNum++;//기지가 생기면 장교1명추가
             }
             else
             {
-                officerNum--;//기지가 부숴지면 장교1명감소
+                OfficerNum--;//기지가 부숴지면 장교1명감소
             }
             isFoxBuiilding = value;
         }
@@ -57,11 +68,11 @@ public class Wood : Player
         {
             if (value)
             {
-                officerNum++;//기지가 생기면 장교1명추가
+                OfficerNum++;//기지가 생기면 장교1명추가
             }
             else
             {
-                officerNum--;//기지가 부숴지면 장교1명감소
+                OfficerNum--;//기지가 부숴지면 장교1명감소
             }
             isRatBuiilding = value;
         }
@@ -75,11 +86,11 @@ public class Wood : Player
         {
             if (value)
             {
-                officerNum++;//기지가 생기면 장교1명추가
+                OfficerNum++;//기지가 생기면 장교1명추가
             }
             else
             {
-                officerNum--;//기지가 부숴지면 장교1명감소
+                OfficerNum--;//기지가 부숴지면 장교1명감소
             }
             isRabbitBuiilding = value;
         }
@@ -113,6 +124,7 @@ public class Wood : Player
         if(remainSoldierNum > 0)
         {
             RemainSoldierNum--;//UI도 변경
+            battleActionNum++;
             Vector3 tempVec = Vector3.zero;
             if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
             {
@@ -293,5 +305,16 @@ public class Wood : Player
                 break;
         }
         return check;
+    }
+
+    public void BattleBtnsOnOff(bool onOff)
+    {
+        if(onOff)
+        {
+            battleActionNum = 0;
+        }
+        Uimanager.Instance.playerUI.battleBtn.enabled = onOff;
+        Uimanager.Instance.playerUI.moveBtn.enabled = onOff;
+        Uimanager.Instance.playerUI.spawnBtn.enabled = onOff;
     }
 }

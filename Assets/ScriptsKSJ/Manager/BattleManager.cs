@@ -97,9 +97,11 @@ public class BattleManager : SingleTon<BattleManager>
         int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
         int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
 
+        //더 큰 숫자가 dicep2num에 가야함. (공격)
         Debug.Log("배틀시작");
         diceP1Num = (diceP1Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP1Num;
-        Debug.Log(diceP2Num);
+        //여기에 플레이어 2번의 버드의 지도자가 데미지 1이면 다이스1num에 1추가
+
         for (int i = 0; i< diceP1Num; i++)
         {
             if (battleP1.battleSoldierNum == 0)
@@ -122,6 +124,7 @@ public class BattleManager : SingleTon<BattleManager>
             }            
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;
+        //여기에 플레이어 1번의 버드의 지도자가 데미지 1이면 다이스2num에 1추가
         for (int i = 0; i < diceP2Num; i++)
         {
             if(battleP2.battleSoldierNum == 0)
