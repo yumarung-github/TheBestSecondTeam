@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17051,6 +17051,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1587872278}
   m_CullTransparentMesh: 1
+--- !u!114 &1596666378 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8519569012735394694, guid: aca4c91c1e30b04418bceedc897c88ed, type: 3}
+  m_PrefabInstance: {fileID: 1222900355}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3d1ef9ea9ce4c479dd92863ca2a966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1607732792
 GameObject:
   m_ObjectHideFlags: 0
@@ -20569,6 +20580,7 @@ MonoBehaviour:
   playerUI: {fileID: 634604653}
   woodUi: {fileID: 634604661}
   birdUI: {fileID: 634604662}
+  scoreBoard: {fileID: 1596666378}
   cardWindow: {fileID: 2029656724}
   cardName: {fileID: 606007970}
   cardInfo: {fileID: 297198022}

@@ -31,12 +31,6 @@ public class ScoreBoard : MonoBehaviour
 
     private void Update()
     {
-        if (cat.Score > 0)
-            SetScore(cat.Score - 1, catCode);
-        if (bird.Score > 0)
-            SetScore(bird.Score - 1, birdCode);
-        if (wood.Score > 0)
-            SetScore(wood.Score - 1, woodCode);
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SetScore(score, catCode);
@@ -44,13 +38,16 @@ public class ScoreBoard : MonoBehaviour
         }
     }
 
-    void SetScore(int score, int playerCode)
+    public void SetScore(int score, int playerCode)
     {
         for (int i = 0; i <= scoreOBJs.Length - 1; i++)
         {
             transform.GetChild(i).GetChild(playerCode).gameObject.SetActive(false);
         }
-        transform.GetChild(scoreOBJs.Length - score).GetChild(playerCode).gameObject.SetActive(true);
+        if(score > 0)
+        {
+            transform.GetChild(scoreOBJs.Length - score).GetChild(playerCode).gameObject.SetActive(true);
+        }   
 
     }
 }

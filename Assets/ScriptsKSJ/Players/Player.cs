@@ -39,7 +39,18 @@ public class Player : MonoBehaviour
             score = value; 
             if(score >= 0)
             {
-                //게임 마지막씬 호출
+                if(this is Cat)
+                {
+                    Uimanager.Instance.scoreBoard.SetScore(score, 0);
+                }
+                else if(this is Bird)
+                {
+                    Uimanager.Instance.scoreBoard.SetScore(score, 1);
+                }
+                else if(this is Wood)
+                {
+                    Uimanager.Instance.scoreBoard.SetScore(score, 2);
+                }
             }
         }
     }

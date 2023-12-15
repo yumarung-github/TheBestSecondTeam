@@ -103,6 +103,10 @@ public class Wood : Player
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RAT, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
         buildCost = 1;//초기화1
+        supportVal[ANIMAL_COST_TYPE.RAT] = 1;
+        supportVal[ANIMAL_COST_TYPE.BIRD] = 1;
+        SetSupportUI(ANIMAL_COST_TYPE.RAT);
+        SetSupportUI(ANIMAL_COST_TYPE.BIRD);
     }
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
@@ -184,6 +188,11 @@ public class Wood : Player
                     SetBaseValue(tempMem.nodeType, true);
                     Score += DestroyAllGetScore(tempMem);
                 }
+                else
+                {
+                    Score += 1;
+                }
+                
             }
             else
             {
@@ -230,20 +239,25 @@ public class Wood : Player
         {
             Debug.Log("우드" + roundManager.cat.hasBuildingDic[node.nodeName].Count + "점 획득");
             calScore += roundManager.cat.hasBuildingDic[node.nodeName].Count;
-            foreach(GameObject tempObject in roundManager.cat.hasBuildingDic[node.nodeName])
+            Debug.Log(roundManager.cat.hasBuildingDic[node.nodeName].Count);
+            for(int i=0; i < roundManager.cat.hasBuildingDic[node.nodeName].Count; i++)
             {
-                roundManager.cat.hasBuildingDic[node.nodeName].Remove(tempObject);
+                GameObject tempObject = roundManager.cat.hasBuildingDic[node.nodeName][i];
+                roundManager.cat.hasBuildingDic[node.nodeName].RemoveAt(i);
                 Destroy(tempObject);
+                Debug.Log(roundManager.cat.hasBuildingDic[node.nodeName].Count);
             }
         }
         if (roundManager.bird.hasBuildingDic.ContainsKey(node.nodeName) && roundManager.bird.hasBuildingDic[node.nodeName].Count > 0)
         {
             Debug.Log("우드" + roundManager.bird.hasBuildingDic[node.nodeName].Count + "점 획득");
             calScore += roundManager.bird.hasBuildingDic[node.nodeName].Count;
-            foreach (GameObject tempObject in roundManager.bird.hasBuildingDic[node.nodeName])
+            for (int i = 0; i < roundManager.bird.hasBuildingDic[node.nodeName].Count - 1; i++)
             {
-                roundManager.bird.hasBuildingDic[node.nodeName].Remove(tempObject);
+                GameObject tempObject = roundManager.bird.hasBuildingDic[node.nodeName][i];
+                roundManager.bird.hasBuildingDic[node.nodeName].RemoveAt(i);
                 Destroy(tempObject);
+                Debug.Log(roundManager.bird.hasBuildingDic[node.nodeName].Count);
             }
         }
         return calScore;
