@@ -115,7 +115,7 @@ public class Bird : Player
         if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
         {
             hasBuildingDic[tileName].Add(building);
-            BuildingManager.Instance.InstantiateBuilding(building);
+            BuildingManager.Instance.InstantiateBuilding(building,targetTransform);
             birdCardSlot.CurCard++;
         }
         else
