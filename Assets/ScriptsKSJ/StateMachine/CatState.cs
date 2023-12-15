@@ -6,11 +6,6 @@ using sihyeon;
 
 public class CatWaitState : RmState
 {
-
-
-    bool isFirst = true;
-
-
     public CatWaitState()
     {
         name = "캣대기";
@@ -23,24 +18,9 @@ public class CatWaitState : RmState
             RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSet;
         }
         rm.nowPlayer = cat;
-        cat.testSetBtn();//임의로 버튼설정        
-        // 다음버튼에 다음으로 넘어갈수있게 넣어줌
-        Dictionary<ANIMAL_COST_TYPE, int> deadSoldierCheck = RoundManager.Instance.cat.deadSoldierNum;
-        Dictionary<ANIMAL_COST_TYPE, List<Card>> playerCard = RoundManager.Instance.cat.cardDecks;
-
-        List<ANIMAL_COST_TYPE> deadSoldierType = new List<ANIMAL_COST_TYPE>(deadSoldierCheck.Keys);
-
-
-        for (int i = 0; i < deadSoldierType.Count; i++)
-        {
-            if (playerCard.ContainsKey(deadSoldierType[i]))
-            {
-                Debug.Log(RoundManager.Instance.cat.cardDecks[deadSoldierType[i]].Count);
-            }
-            else
-                return;
-        }
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작";
+        cat.testSetBtn();      
+        
+        Uimanager.Instance.playerUI.turnText.text = "게임 준비";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
     }
     public override void Update()
@@ -69,6 +49,22 @@ public class CatMorningState : RmState
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작/ 아침 / 선택";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_AFTERNOON);
         Uimanager.Instance.catInven.SetActive(true);
+
+        Dictionary<ANIMAL_COST_TYPE, int> deadSoldierCheck = RoundManager.Instance.cat.deadSoldierNum;
+        Dictionary<ANIMAL_COST_TYPE, List<Card>> playerCard = RoundManager.Instance.cat.cardDecks;
+
+        List<ANIMAL_COST_TYPE> deadSoldierType = new List<ANIMAL_COST_TYPE>(deadSoldierCheck.Keys);
+
+
+        for (int i = 0; i < deadSoldierType.Count; i++)
+        {
+            if (playerCard.ContainsKey(deadSoldierType[i]))
+            {
+                Debug.Log(RoundManager.Instance.cat.cardDecks[deadSoldierType[i]].Count);
+            }
+            else
+                return;
+        }
     }
     public override void Update()
     {

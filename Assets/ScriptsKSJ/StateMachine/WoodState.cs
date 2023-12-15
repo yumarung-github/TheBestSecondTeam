@@ -108,7 +108,7 @@ public class WoodDinnerState : RmState
     public override void Enter()
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 저녁";
-        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_WAIT);
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
         Uimanager.Instance.playerUI.ResetBtn(true);
     }
     public override void Update()
