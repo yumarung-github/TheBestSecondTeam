@@ -52,12 +52,16 @@ public class PlayerUI : MonoBehaviour
     // 소환 버튼 설정
     public void SpawnSoldier()
     {
-        spawnBtn.onClick.RemoveAllListeners();
-        string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
+        spawnBtn.onClick.RemoveAllListeners();       
+        
         spawnBtn.onClick.AddListener(() =>
         {
-            RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-            RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+            if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
+            {
+                string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
+                RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+                RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+            }            
         });
     }
 
@@ -81,7 +85,7 @@ public class PlayerUI : MonoBehaviour
     public void SetBattleBtn()
     {
         battleBtn.onClick.RemoveAllListeners();
-        string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
+        //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
         battleBtn.onClick.AddListener(() => { Debug.Log("전투 !"); });
         battleBtn.onClick.AddListener(() => 
         {
