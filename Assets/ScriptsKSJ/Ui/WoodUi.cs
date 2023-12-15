@@ -58,6 +58,7 @@ public class WoodUi : MonoBehaviour
     }
     public void SetAgreeBtn()
     {
+        agreeBtn.onClick.RemoveAllListeners();
         agreeBtn.onClick.AddListener(() =>
         {
             RoundManager.Instance.wood.SetTileEffectAgree();
@@ -69,6 +70,7 @@ public class WoodUi : MonoBehaviour
     }
     public void SetRevoitBtn()
     {
+        revoitBtn.onClick.RemoveAllListeners();
         revoitBtn.onClick.AddListener(() =>
         {
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Revoit;
@@ -77,6 +79,7 @@ public class WoodUi : MonoBehaviour
     }
     public void SetOfficerBtn()
     {
+        officerBtn.onClick.RemoveAllListeners();
         officerBtn.onClick.AddListener(() =>
         {
             //장교추가 카드사용해서 하는듯
@@ -85,6 +88,7 @@ public class WoodUi : MonoBehaviour
     }
     public void SetCraftBtn()
     {
+        craftBtn.onClick.RemoveAllListeners();
         craftBtn.onClick.AddListener(() =>
         {
             cardUseType = CardUseType.CRAFT;
@@ -92,6 +96,7 @@ public class WoodUi : MonoBehaviour
     }    
     public void SetSupportBtn()
     {
+        supporterBtn.onClick.RemoveAllListeners();
         supporterBtn.onClick.AddListener(() =>
         {
             cardUseType = CardUseType.SUPPORT;

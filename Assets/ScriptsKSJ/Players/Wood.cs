@@ -131,8 +131,8 @@ public class Wood : Player
             particles.Add(p.gameObject);
             p.gameObject.SetActive(false);
         }
-        supportVal[ANIMAL_COST_TYPE.RAT] = 1;//테스트용 지울거
-        supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
+        supportVal[ANIMAL_COST_TYPE.RAT] = 2;//테스트용 지울거
+        //supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
         //SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거
     }
@@ -383,24 +383,91 @@ public class Wood : Player
     }
     public void SetTileEffectAgree()
     {
-        List<NodeMember> buildingExist = new List<NodeMember>();
-        foreach (NodeMember temp in RoundManager.Instance.mapExtra.mapTiles)
-        {
-            if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 1)//코스트 계산 필요 위에도
-                buildingExist.Add(temp);
-        }
+        List<string> seedMem = new List<string>();
+        List<string> minusMem = new List<string>();
+        
         foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
         {
             if (kv.Value.Count > 0)
             {
-                buildingExist.Remove(RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key));
+                seedMem.Add(RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key).nodeName);
+                minusMem.Add(RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key).nodeName);
+                Debug.Log(seedMem[0]);
             }
         }
-        Debug.Log(buildingExist.Count);
-        foreach(NodeMember temp in buildingExist)
+        
+        if(seedMem.Count > 0)
         {
-            Debug.Log(temp.nodeName);
-            temp.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+            int tempNum = seedMem.Count;
+            //주변 노드만 켜질수있어야하고 체크해야함.
+            for (int i = 0; i < tempNum; i++)
+            {
+                Node tempnode = roundManager.mapExtra.graph.nodeList.Find(node => node.name == seedMem[i]);
+                foreach(Edge tempEdge in tempnode.edgesInNode)
+                {
+                    Debug.Log(tempnode.edgesInNode.Count);
+                    if (!seedMem.Exists(name => name == tempEdge.sNode.name))
+                    {
+                        seedMem.Add(tempEdge.sNode.name);
+                        Debug.Log("추가" + tempEdge.sNode.name);
+                    }
+                    if (!seedMem.Exists(name => name == tempEdge.eNode.name))
+                    {
+                        seedMem.Add(tempEdge.eNode.name);
+                        Debug.Log("추가" + tempEdge.eNode.name);
+                    }
+                }
+            }
+            tempNum = seedMem.Count;
+            for (int i = 0; i < tempNum; i++)
+            {
+                NodeMember temp = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
+                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] < 1)
+                {
+                    seedMem.Remove(temp.nodeName);
+                    Debug.Log("제거됨" + temp.nodeName);
+                }//코스트 계산 필요 위에도             
+            }
+            foreach(string tempName in minusMem)
+            {
+                seedMem.Remove(tempName);
+            }
+            for (int i = 0; i < seedMem.Count; i++)
+            {
+                NodeMember member = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
+                //Debug.Log(seedMem[i]);
+                member.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+                Debug.Log(member.nodeName + "이펙트킴");
+            }
+        }
+        else
+        {
+            List<NodeMember> buildingExist = new List<NodeMember>();
+            foreach (NodeMember temp in RoundManager.Instance.mapExtra.mapTiles)
+            {
+                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 1)//코스트 계산 필요 위에도
+                    buildingExist.Add(temp);
+            }
+            foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
+            {
+                if (kv.Value.Count > 0)
+                {
+                    buildingExist.Remove(RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key));
+                }
+            }
+            Debug.Log(buildingExist.Count);
+            foreach (NodeMember temp in buildingExist)
+            {
+                Debug.Log(temp.nodeName);
+                temp.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+            }
+        }        
+    }
+    public void SetOffAllEffect()
+    {
+        foreach(GameObject effect in particles)
+        {
+            effect.SetActive(false);
         }
     }
 }

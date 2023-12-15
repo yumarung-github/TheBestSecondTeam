@@ -170,6 +170,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     if (RoundManager.Instance.nowPlayer is Wood wood)
                     {
                         wood.buildCost = 1;
+                        wood.SetOffAllEffect();
                     }
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
