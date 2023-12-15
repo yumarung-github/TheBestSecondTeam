@@ -26,8 +26,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     LayerMask layerMask;//타일만 선택할 수 있게 레이어마스크 설정
 
-    
-    
+
+
     private void Start()
     {
         mapExtra = RoundManager.Instance.mapExtra;
@@ -51,7 +51,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             //Debug.Log(texture.width + ", " + texture.height);//맵 rawimage에 들어가는  rawimage텍스쳐의 크기
             float calX = coordX / texture.width;
             float calY = coordY / texture.height;
-            
+
             cursor = new Vector2(calX, calY);
             //여기까지 클릭되는 곳 계산한 것
             CastRayToWorld(cursor);
@@ -61,7 +61,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 tileTextObj.gameObject.SetActive(true);
                 tileTextObj.position = cursor;
             }*/
-            
+
         }
     }
     private void Update()
@@ -134,11 +134,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;
-                if(moveCo != null)
+                if (moveCo != null)
                 {
                     StopCoroutine(moveCo);
                 }
-                RoundManager.Instance.moveOver = true;                
+                RoundManager.Instance.moveOver = true;
                 if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
                 {
                     finNode = mem;
@@ -165,16 +165,16 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.Build:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
-                {                    
+                {
                     nowTile = buildTile;
-                    if(RoundManager.Instance.nowPlayer is Wood wood)
+                    if (RoundManager.Instance.nowPlayer is Wood wood)
                     {
                         wood.buildCost = 1;
                     }
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-                }                    
+                }
                 break;
             case RoundManager.SoldierTestType.Revoit:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember revoitTile))//nodemember를 찾음.
@@ -201,9 +201,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 }
                 break;
             case RoundManager.SoldierTestType.CatSet: // 첫 세팅..
+                RoundManager.Instance.bird.isFirstCheck = true;
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTile))
                 {
-
                     nowTile = settingTile;
                     if (nowTile == RoundManager.Instance.mapExtra.mapTiles[11])
                     {
@@ -214,11 +214,15 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             {
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                             }
-                            for(int j = 0; j < 7; j++)
+                            else
                             {
-                                RoundManager.Instance.bird.SpawnSoldier(mapExtra.mapTiles[0].nodeName, mapExtra.mapTiles[0].transform);
+                                for (int j = 0; j < 7; j++)
+                                {
+                                    RoundManager.Instance.bird.SpawnSoldier(mapExtra.mapTiles[0].nodeName, mapExtra.mapTiles[0].transform);
+                                }
                             }
                         }
+                        RoundManager.Instance.bird.isFirstCheck = false;
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.catBasePrefab);
                         RoundManager.Instance.bird.SpawnBuilding(RoundManager.Instance.mapExtra.mapTiles[0].nodeName, RoundManager.Instance.mapExtra.mapTiles[0].transform,
@@ -343,7 +347,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             default: break;
         }
-    
+
     }
     IEnumerator MoveCoroutine()//병사 이동하는 코루틴 
     {
@@ -353,20 +357,20 @@ public class MapController : MonoBehaviour, IPointerDownHandler
         {
             NodeMember foundNode = mapExtra.mapTiles.Find(node => node.nodeName == nodeStrings[num]);
             Vector3 tempPostion = foundNode.transform.position;
-            if(RoundManager.Instance.nowPlayer is Wood wood)
+            if (RoundManager.Instance.nowPlayer is Wood wood)
             {
                 if (wood.BattleActionNum == wood.OfficerNum)
                 {
                     Debug.Log("행동력 끝남");
                     break;//행동이끝나면 이동더못함.
                 }
-                    
+
             }
             if (RoundManager.Instance.moveOver)
             {
                 checkSoldier = soldiers[soldierNum - 1];
                 for (int i = 1; i <= soldierNum; i++)
-                {                    
+                {
                     //Debug.Log(soldiers.Count - 1);
                     Soldier tempSoldier = soldiers[soldiers.Count - 1];
                     //Debug.Log(nodeStrings[num]);
@@ -390,17 +394,17 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 count--;//다움직일때까지
                 num++;//시작점을 제외하고 움직이기
                 RoundManager.Instance.wood.BattleActionNum++;
-                RoundManager.Instance.moveOver = false;      
+                RoundManager.Instance.moveOver = false;
             }
             yield return new WaitForSeconds(Time.deltaTime * 20f);
             if (RoundManager.Instance.moveOver == false)
-            {                
+            {
                 if (checkSoldier.agent.remainingDistance < 1f)
                 {
                     Debug.Log("들어옴");
                     RoundManager.Instance.moveOver = true;
                 }
-            }            
+            }
             if (num >= nodeStrings.Count)
                 break;
             yield return new WaitForSeconds(Time.deltaTime * 10f);
