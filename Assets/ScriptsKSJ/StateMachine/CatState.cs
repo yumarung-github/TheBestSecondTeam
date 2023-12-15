@@ -29,13 +29,7 @@ public class CatWaitState : RmState
     }
     public override void Exit()
     {
-        Uimanager.Instance.playerUI.SetBuildBtn();
-        Uimanager.Instance.playerUI.SpawnSoldier();
-        Uimanager.Instance.playerUI.SetBattleBtn();
         
-        Uimanager.Instance.playerUI.ResetBtn(false);
-
-        BattleManager.Instance.InitBattle();
     }
 }
 public class CatMorningState : RmState
@@ -47,9 +41,16 @@ public class CatMorningState : RmState
     public override void Enter()
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작/ 아침 / 선택";
+        Uimanager.Instance.playerUI.SetBuildBtn();
+        Uimanager.Instance.playerUI.SpawnSoldier();
+        Uimanager.Instance.playerUI.SetBattleBtn();
+
+        Uimanager.Instance.playerUI.ResetBtn(false);
+
+        BattleManager.Instance.InitBattle();
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_AFTERNOON);
         Uimanager.Instance.catInven.SetActive(true);
-
+        // 야전 병원
         Dictionary<ANIMAL_COST_TYPE, int> deadSoldierCheck = RoundManager.Instance.cat.deadSoldierNum;
         Dictionary<ANIMAL_COST_TYPE, List<Card>> playerCard = RoundManager.Instance.cat.cardDecks;
 
