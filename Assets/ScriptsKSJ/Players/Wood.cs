@@ -16,6 +16,7 @@ public class Wood : Player
             Uimanager.Instance.woodUi.remainSolText.text = remainSoldierNum.ToString();
         }
     }
+    [SerializeField]
     private int officerNum;//장교 기지가 생길때마다 추가
     public int OfficerNum
     {
@@ -28,6 +29,7 @@ public class Wood : Player
             Uimanager.Instance.woodUi.SetActionNum(battleActionNum, officerNum);
         }
     }
+    [SerializeField]
     private int battleActionNum;
     public int BattleActionNum
     {
@@ -124,7 +126,7 @@ public class Wood : Player
         if(remainSoldierNum > 0)
         {
             RemainSoldierNum--;//UI도 변경
-            battleActionNum++;
+            BattleActionNum++;
             Vector3 tempVec = Vector3.zero;
             if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
             {

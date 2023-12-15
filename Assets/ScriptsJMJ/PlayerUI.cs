@@ -73,7 +73,7 @@ public class PlayerUI : MonoBehaviour
     public void SetBuildBtn()
     {
         buildBtn.onClick.RemoveAllListeners();
-        string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
+        //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
         buildBtn.onClick.AddListener(() => {
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
         });

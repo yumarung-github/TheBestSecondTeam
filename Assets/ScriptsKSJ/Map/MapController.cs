@@ -263,7 +263,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             if(RoundManager.Instance.nowPlayer is Wood wood)
             {
                 if (wood.BattleActionNum == wood.OfficerNum)
+                {
+                    Debug.Log("행동력 끝남");
                     break;//행동이끝나면 이동더못함.
+                }
+                    
             }
             if (RoundManager.Instance.moveOver)
             {
