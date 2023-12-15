@@ -25,4 +25,8 @@ public class BirdCardInventory : MonoBehaviour
         }
     }
 
+    public void CheckAddMaxCard() //카드가 몇장들어왔는지 확인 하려는 함수
+    {
+
+    }
 }

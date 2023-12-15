@@ -16,6 +16,8 @@ public class BirdWaitState : RmState
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
         if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
+
+        Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
     }
     public override void Update()
     {
@@ -37,6 +39,7 @@ public class BirdMorningState : RmState
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 아침";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
+        Uimanager.Instance.birdUI.birdCardBox.SetActive(false);
         Uimanager.Instance.birdInven.SetActive(true);
     }
     public override void Update()
