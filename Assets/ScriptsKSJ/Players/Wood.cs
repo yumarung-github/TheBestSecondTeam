@@ -3,10 +3,15 @@ using sihyeon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Wood : Player
 {
+    int tokenNum;
+    [SerializeField]
+    Transform particlesParent;
+    public List<GameObject> particles = new List<GameObject>();
     public Dictionary<int,int> tokenScoreDic = new Dictionary<int,int>();
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
@@ -112,6 +117,7 @@ public class Wood : Player
         isRatBuiilding = false;
         officerNum = 0;
         soldierMaxNum = 10;
+        tokenNum = 0;
         remainSoldierNum = soldierMaxNum;
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.FOX, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RABBIT, 0);
@@ -119,10 +125,16 @@ public class Wood : Player
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
         buildCost = 1;//초기화1
         SetTokenScore();
+        List<Effect> list = particlesParent.GetComponentsInChildren<Effect>().ToList();
+        foreach (Effect p in list)
+        {
+            particles.Add(p.gameObject);
+            p.gameObject.SetActive(false);
+        }
         supportVal[ANIMAL_COST_TYPE.RAT] = 1;//테스트용 지울거
         supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
-        SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거
+        //SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거
     }
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
@@ -221,8 +233,9 @@ public class Wood : Player
                 }
                 else//동조라면
                 {
-                    int tokenNum = 0;
+                    
                     Debug.Log(RoundManager.Instance.nowPlayer.hasBuildingDic.Count);
+                    tokenNum = 0;
                     foreach (KeyValuePair<string, List<GameObject>> kv in RoundManager.Instance.nowPlayer.hasBuildingDic)
                     {
                         for(int i = 0; i < kv.Value.Count; i++)
@@ -364,8 +377,30 @@ public class Wood : Player
         tokenScoreDic.Add(10, 4);
     }
      
-    public void SetTileColor()
+    public void SetTileEffectRevoit()
     {
-
+        
+    }
+    public void SetTileEffectAgree()
+    {
+        List<NodeMember> buildingExist = new List<NodeMember>();
+        foreach (NodeMember temp in RoundManager.Instance.mapExtra.mapTiles)
+        {
+            if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 1)//코스트 계산 필요 위에도
+                buildingExist.Add(temp);
+        }
+        foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
+        {
+            if (kv.Value.Count > 0)
+            {
+                buildingExist.Remove(RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key));
+            }
+        }
+        Debug.Log(buildingExist.Count);
+        foreach(NodeMember temp in buildingExist)
+        {
+            Debug.Log(temp.nodeName);
+            temp.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+        }
     }
 }

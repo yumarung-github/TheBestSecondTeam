@@ -60,6 +60,7 @@ public class WoodUi : MonoBehaviour
     {
         agreeBtn.onClick.AddListener(() =>
         {
+            RoundManager.Instance.wood.SetTileEffectAgree();
             BuildingManager.Instance.selectedBuilding
             = BuildingManager.Instance.BuildingDics[Building_TYPE.WOOD_TOKEN];
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
