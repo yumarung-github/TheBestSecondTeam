@@ -12,12 +12,13 @@ public class CatWaitState : RmState
     }
     public override void Enter()
     {
+        rm.nowPlayer = cat;
         if (RoundManager.Instance.cat.isDisposable)
         {
             cat.FlashTile();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSet;
         }
-        rm.nowPlayer = cat;
+        
         cat.testSetBtn();      
         
         Uimanager.Instance.playerUI.turnText.text = "게임 준비";
@@ -40,6 +41,7 @@ public class CatMorningState : RmState
     }
     public override void Enter()
     {
+        rm.nowPlayer = cat;
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 고양이 후작/ 아침 / 선택";
         Uimanager.Instance.playerUI.SetBuildBtn();
         Uimanager.Instance.playerUI.SpawnSoldier();

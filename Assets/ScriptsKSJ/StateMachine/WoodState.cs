@@ -11,7 +11,6 @@ public class WoodWaitState : RmState
     }
     public override void Enter()
     {
-        wood.SetOfficerBtnOnoff();
         Uimanager.Instance.woodUi.SetAgreeBtn();
         Uimanager.Instance.woodUi.SetRevoitBtn();
         Uimanager.Instance.woodUi.SetCraftBtn();
@@ -87,6 +86,7 @@ public class WoodAfternoonState : RmState
     }
     public override void Enter()
     {
+        wood.SetOfficerBtnOnoff();
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 점심";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_DINNER);
         Uimanager.Instance.woodUi.SetAfternoon(true);

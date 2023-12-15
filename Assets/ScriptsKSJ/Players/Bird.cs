@@ -120,6 +120,7 @@ public class Bird : Player
             hasBuildingDic[tileName].Add(building);
             BuildingManager.Instance.InstantiateBuilding(building);
             cardSlot.CurCard++;
+
         }
         else
             isBuilded = false;

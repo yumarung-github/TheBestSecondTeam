@@ -33,7 +33,10 @@ public class RoundManager : SingleTon<RoundManager>
         Build,
         Revoit,
         Battle,
-        CatSet
+        CatSet,
+        CatSetSawMill,
+        CatSetBarrack,
+        CatSetWorkShop
     }
     // 예외처리 거의 안되어있음.
     public SoldierTestType testType;

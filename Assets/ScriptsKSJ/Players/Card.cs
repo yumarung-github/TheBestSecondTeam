@@ -145,6 +145,7 @@ public class Card : MonoBehaviour
                     break;
                 case WoodUi.CardUseType.OFFICER:
                     RoundManager.Instance.wood.OfficerNum++;//장교추가
+                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
                     isUse = true;
 
                     Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;

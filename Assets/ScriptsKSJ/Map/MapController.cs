@@ -200,12 +200,14 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     Debug.Log(RoundManager.Instance.cat.hasSoldierDic[nowTile.nodeName].Count);
                 }
                 break;
-            case RoundManager.SoldierTestType.CatSet:
+            case RoundManager.SoldierTestType.CatSet: // 첫 세팅..
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTile))
                 {
+
                     nowTile = settingTile;
                     if (nowTile == RoundManager.Instance.mapExtra.mapTiles[11])
                     {
+                        Debug.Log("쥐 4");  //
                         for (int i = 0; i < mapExtra.mapTiles.Count; i++)
                         {
                             if (i != 0)
@@ -213,44 +215,129 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         }
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.catBasePrefab);
-                       
+                        RoundManager.Instance.bird.SpawnBuilding(RoundManager.Instance.mapExtra.mapTiles[0].nodeName, RoundManager.Instance.mapExtra.mapTiles[0].transform,
+                        BuildingManager.Instance.birdNestPrefab);
+                        Debug.Log(RoundManager.Instance.mapExtra.mapTiles[0].nodeName);
+                        Debug.Log(RoundManager.Instance.bird.hasBuildingDic[RoundManager.Instance.mapExtra.mapTiles[0].nodeName][0].name);
                     }
                     else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[8])
                     {
+                        Debug.Log("여우4"); //에 새 둥지 생성 
                         for (int i = 0; i < mapExtra.mapTiles.Count; i++)
                         {
                             if (i != 2)
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                         }
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
-                             BuildingManager.Instance.catBasePrefab);
+                        BuildingManager.Instance.catBasePrefab);
+                        //Debug.Log(RoundManager.Instance.bird.hasBuildingDic[RoundManager.Instance.mapExtra.mapTiles[8].nodeName].Count);
+                        RoundManager.Instance.bird.SpawnBuilding(RoundManager.Instance.mapExtra.mapTiles[2].nodeName, RoundManager.Instance.mapExtra.mapTiles[2].transform,
+                        BuildingManager.Instance.birdNestPrefab);
+                        Debug.Log(RoundManager.Instance.bird.hasBuildingDic[RoundManager.Instance.mapExtra.mapTiles[2].nodeName].Count);
+
                     }
                     else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[2])
                     {
+                        Debug.Log("생쥐 1");
                         for (int i = 0; i < mapExtra.mapTiles.Count; i++)
                         {
                             if (i != 8)
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                         }
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
-                         BuildingManager.Instance.catBasePrefab);
+                        BuildingManager.Instance.catBasePrefab);
+                        RoundManager.Instance.bird.SpawnBuilding(RoundManager.Instance.mapExtra.mapTiles[8].nodeName, RoundManager.Instance.mapExtra.mapTiles[8].transform,
+                        BuildingManager.Instance.birdNestPrefab);
+                        Debug.Log(RoundManager.Instance.mapExtra.mapTiles[8].nodeName);
                     }
                     else if (nowTile == RoundManager.Instance.mapExtra.mapTiles[0])
                     {
+                        Debug.Log("여우1");
                         for (int i = 0; i < mapExtra.mapTiles.Count; i++)
                         {
                             if (i != 11)
                                 RoundManager.Instance.cat.SpawnSoldier(mapExtra.mapTiles[i].nodeName, mapExtra.mapTiles[i].transform);
                         }
                         RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform,
-                          BuildingManager.Instance.catBasePrefab);
+                        BuildingManager.Instance.catBasePrefab);
+                        RoundManager.Instance.bird.SpawnBuilding(RoundManager.Instance.mapExtra.mapTiles[11].nodeName, RoundManager.Instance.mapExtra.mapTiles[11].transform,
+                        BuildingManager.Instance.birdNestPrefab);
+                        //Debug.Log(RoundManager.Instance.mapExtra.mapTiles[11].nodeName);
+                        Debug.Log(RoundManager.Instance.bird.hasBuildingDic[RoundManager.Instance.mapExtra.mapTiles[11].nodeName][0]);
                     }
+                    else
+                        return;
                     RoundManager.Instance.cat.isDisposable = false;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetSawMill;
+
+                }
+                break;
+            case RoundManager.SoldierTestType.CatSetSawMill:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileA))
+                {
+                    nowTile = settingTileA;
+                    if (RoundManager.Instance.cat.hasBuildingDic[mapExtra.mapTiles[0].nodeName] != null) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
+                    {
+                        if (nowTile.nodeName == "토끼1")
+                        {
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            Debug.Log("작동해줘1");
+                            Debug.Log(RoundManager.Instance.cat.hasBuildingDic[nowTile.nodeName][0].name);
+                            Debug.Log("작동해줘2");
+                        }
+                        else if (nowTile.nodeName == "여우2")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                        else if (nowTile.nodeName == "생쥐2")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                    }
+                    else if (RoundManager.Instance.cat.hasBuildingDic[mapExtra.mapTiles[8].nodeName] != null) //여우4는 생쥐2,3 토끼 2
+                    {
+                        if (nowTile.nodeName == "생쥐2")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                        else if (nowTile.nodeName == "생쥐4")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                        else if (nowTile.nodeName == "토끼2")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                    }
+                    else if (RoundManager.Instance.cat.hasBuildingDic["생쥐1"] != null)//토 1,3 여2
+                    {
+                        if (nowTile.nodeName == "토끼1")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                        else if (nowTile.nodeName == "토끼3")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                        else if (nowTile.nodeName == "여우2")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                    }
+                    else if (RoundManager.Instance.cat.hasBuildingDic["생쥐4"] != null)// 토 34 여 3
+                    {
+                        if (nowTile.nodeName == "토끼3")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                        else if (nowTile.nodeName == "토끼4")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                        else if (nowTile.nodeName == "여우3")
+                            RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                    }
+                    else
+                        return;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetBarrack;
+                }
+                break;
+            case RoundManager.SoldierTestType.CatSetBarrack:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileB))
+                {
+
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetWorkShop;
+                }
+                break;
+            case RoundManager.SoldierTestType.CatSetWorkShop:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileC))
+                {
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
             default: break;
         }
+    
     }
     IEnumerator MoveCoroutine()//병사 이동하는 코루틴 
     {
@@ -263,7 +350,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             if(RoundManager.Instance.nowPlayer is Wood wood)
             {
                 if (wood.BattleActionNum == wood.OfficerNum)
+                {
+                    Debug.Log("행동력 끝남");
                     break;//행동이끝나면 이동더못함.
+                }
+                    
             }
             if (RoundManager.Instance.moveOver)
             {
