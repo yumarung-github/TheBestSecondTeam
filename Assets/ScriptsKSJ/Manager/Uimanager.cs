@@ -12,10 +12,12 @@ public class Uimanager : SingleTon<Uimanager>
     public Button testBtn; // 임시 테스트버튼
 
     // 현재 플레이어 턴 텍스트
-
+    [Header("[플레이어 UI]")]
     public PlayerUI playerUI;
-    public WoodUi woodUi;
+
+    public CatUI catUI;
     public BirdUI birdUI;
+    public WoodUi woodUi;
     public ScoreBoard scoreBoard;
 
     [Header("[카드 정보창]")]
