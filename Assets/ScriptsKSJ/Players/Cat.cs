@@ -6,19 +6,22 @@ using UnityEngine;
 
 public class Cat : Player
 {
+    private int actionPoint; 
+    // 각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다
+    // 예외적으로 카드 하나를 소모후 야근으로 1포인트 더 
+
+
     private int woodProductNum;
-    private int actionPoint; //각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다// 예외적으로 카드 하나를 소모후 야근으로 1포인트 더 
-
-
     public int WoodProductNum
     {
         get { return remainSoldierNum; }
         set
         {
             woodProductNum = value;
-            //Uimanager.Instance.woodUi.woodProductNum.text = woodProductNum.ToString();
+            Uimanager.Instance.catUI.woodProductText.text = woodProductNum.ToString();
         }
     }
+
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
     public int RemainSoldierNum
@@ -27,9 +30,17 @@ public class Cat : Player
         set
         {
             remainSoldierNum = value;
-            Uimanager.Instance.woodUi.remainSolText.text = remainSoldierNum.ToString();
+            Uimanager.Instance.catUI.remainSolText.text = remainSoldierNum.ToString();
         }
     }
+
+    private int sawmillbuildNum;
+
+    private int workshopbuildNum;
+
+    private int barrackbuildNum;
+
+
     public Dictionary<ANIMAL_COST_TYPE, int> deadSoldierNum = new Dictionary<ANIMAL_COST_TYPE, int>();
     public bool isDisposable = true;
     IEnumerator flashCo;
@@ -45,11 +56,13 @@ public class Cat : Player
         isOver = false;
         roundManager.cat = this;
         roundManager.nowPlayer = this;
-        hasNodeNames.Add("생쥐3");
+        //hasNodeNames.Add("생쥐3");
         ColorSetting();
         flashCo = FlashCoroutine();
+
         soldierMaxNum = 25;
         remainSoldierNum = soldierMaxNum;
+
     }
 
     private void ColorSetting()
@@ -82,7 +95,6 @@ public class Cat : Player
     }
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
-
         Vector3 tempVec = Vector3.zero;
         if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
         {
@@ -91,6 +103,8 @@ public class Cat : Player
         GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
         //더해줄 병사를 임의로 저장해주고
         SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
+
+        RemainSoldierNum--;
         return addedSoldier;//생성한 병사를 return시킴
     }
     public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)

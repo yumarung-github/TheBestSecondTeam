@@ -10,15 +10,20 @@ public class CatUI : MonoBehaviour
     [Header("[프로필]")]
     public GameObject profileWindow;
     public GameObject profile;
-    public GameObject sawmillImage;
-    public GameObject workshopImage;
-    public GameObject barracksImage;
 
-    public GameObject woodProductImage;
-    public GameObject remainSolImage;
 
     [Header("[값]")]
     public TextMeshProUGUI remainSolText;
+    public TextMeshProUGUI woodProductText;
     public TextMeshProUGUI craftCardText;
+    
     public TextMeshProUGUI actionNumText;
+    
+    public TextMeshProUGUI sawmillConsumeText;
+    public TextMeshProUGUI workshopConsumeText;
+    public TextMeshProUGUI barracksConsumeText;
+
+    public TextMeshProUGUI sawmillCostText;
+    public TextMeshProUGUI workshopCostText;
+    public TextMeshProUGUI barracksCostText;
 }
