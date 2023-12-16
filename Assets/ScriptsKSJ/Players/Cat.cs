@@ -6,6 +6,27 @@ using UnityEngine;
 
 public class Cat : Player
 {
+    private int woodProductNum;
+    public int WoodProductNum
+    {
+        get { return remainSoldierNum; }
+        set
+        {
+            woodProductNum = value;
+            //Uimanager.Instance.woodUi.woodProductNum.text = woodProductNum.ToString();
+        }
+    }
+    public int soldierMaxNum;//병사 최대 명수
+    private int remainSoldierNum;
+    public int RemainSoldierNum
+    {
+        get { return remainSoldierNum; }
+        set
+        {
+            remainSoldierNum = value;
+            Uimanager.Instance.woodUi.remainSolText.text = remainSoldierNum.ToString();
+        }
+    }
     public Dictionary<ANIMAL_COST_TYPE, int> deadSoldierNum = new Dictionary<ANIMAL_COST_TYPE, int>();
     public bool isDisposable = true;
     IEnumerator flashCo;
@@ -24,6 +45,8 @@ public class Cat : Player
         hasNodeNames.Add("생쥐3");
         ColorSetting();
         flashCo = FlashCoroutine();
+        soldierMaxNum = 25;
+        remainSoldierNum = soldierMaxNum;
     }
 
     private void ColorSetting()

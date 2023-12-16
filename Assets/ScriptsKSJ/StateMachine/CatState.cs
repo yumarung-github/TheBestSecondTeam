@@ -68,6 +68,19 @@ public class CatMorningState : RmState
             else
                 return;
         }
+
+        foreach (KeyValuePair<string, List<GameObject>> kv in RoundManager.Instance.nowPlayer.hasBuildingDic)
+        {
+            for (int i = 0; i < kv.Value.Count; i++)
+            {
+                if (kv.Value[i].GetComponent<Building>().type == Building_TYPE.CAT_SAWMILL)
+                {
+                    Debug.Log(kv.Key);
+                    NodeMember mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key);
+                    RoundManager.Instance.cat.SpawnBuilding(mem.nodeName, mem.transform, BuildingManager.Instance.catSawMillPrefab);
+                }
+            }
+        }
     }
     public override void Update()
     {

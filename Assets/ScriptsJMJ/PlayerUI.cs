@@ -1,4 +1,5 @@
 using CustomInterface;
+using sihyeon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,7 +57,22 @@ public class PlayerUI : MonoBehaviour
         
         spawnBtn.onClick.AddListener(() =>
         {
-            if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
+            if (RoundManager.Instance.nowPlayer is Cat cat)
+            {
+                foreach (KeyValuePair<string, List<GameObject>> kv in RoundManager.Instance.nowPlayer.hasBuildingDic)
+                {
+                    for (int i = 0; i < kv.Value.Count; i++)
+                    {
+                        if (kv.Value[i].GetComponent<Building>().type == Building_TYPE.CAT_BARRACKS)
+                        {
+                            Debug.Log(kv.Key);
+                            NodeMember mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key);
+                            cat.SpawnSoldier(mem.name, mem.transform);
+                        }
+                    }
+                }
+            }
+            else if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
             {
                 string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
                 RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
