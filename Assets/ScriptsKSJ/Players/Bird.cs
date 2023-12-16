@@ -81,39 +81,39 @@ public class Bird : Player
     }
 
 
-    //public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
-    //{
-    //    BirdCardSlot cardSlot = inventory.birdCardSlot[inventory.curSlot];
-    //    curIndex = inventory.birdCardSlot[inventory.curSlot].CurCard;
-    //    bool isCheckBird = cardSlot.birdCard[curIndex].costType == ANIMAL_COST_TYPE.BIRD;
-    //    bool isCheckType = cardSlot.birdCard[curIndex].costType == RoundManager.Instance.mapController.nowTile.nodeType;
+    public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
+    {
+        BirdCardSlot cardSlot = inventory.birdCardSlot[inventory.curSlot];
+        curIndex = inventory.birdCardSlot[inventory.curSlot].CurCard;
+        bool isCheckBird = cardSlot.birdCard[curIndex].costType == ANIMAL_COST_TYPE.BIRD;
+        bool isCheckType = cardSlot.birdCard[curIndex].costType == RoundManager.Instance.mapController.nowTile.nodeType;
 
-    //    if (isFirstCheck)
-    //    {
-    //        base.SpawnSoldier(tileName, targetTransform);
-    //    }
-    //    else if (isCheckBird || isCheckType)
-    //    {
-    //        Vector3 tempVec = Vector3.zero;
-    //        if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
-    //        {
-    //            tempVec = new Vector3(hasSoldierDic[tileName].Count, 0, 0);//명수에 따라 소환하는 위치를 바꿔야해서
-    //        }
-    //        if (this.nowLeader == LEADER_TYPE.PROPHET)
-    //        {
-    //            GameObject dubleSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
-    //            SetHasNode(tileName, dubleSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
-    //            return dubleSoldier;//생성한 병사를 return시킴
-    //        }
-    //        GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
-    //        //더해줄 병사를 임의로 저장해주고
-    //        SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
-    //        cardSlot.CurCard++;
-    //        return addedSoldier;//생성한 병사를 return시킴
-    //    }
-    //    isSpwaned = false;
-    //    return null;
-    //}
+        if (isFirstCheck)
+        {
+            base.SpawnSoldier(tileName, targetTransform);
+        }
+        else if (isCheckBird || isCheckType)
+        {
+            Vector3 tempVec = Vector3.zero;
+            if (hasSoldierDic.ContainsKey(tileName))//병사가 존재하는지 체크
+            {
+                tempVec = new Vector3(hasSoldierDic[tileName].Count, 0, 0);//명수에 따라 소환하는 위치를 바꿔야해서
+            }
+            if (this.nowLeader == LEADER_TYPE.PROPHET)
+            {
+                GameObject dubleSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
+                SetHasNode(tileName, dubleSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
+                return dubleSoldier;//생성한 병사를 return시킴
+            }
+            GameObject addedSoldier = Instantiate(prefabSoldier, targetTransform.position + tempVec, Quaternion.identity);
+            //더해줄 병사를 임의로 저장해주고
+            SetHasNode(tileName, addedSoldier.GetComponent<Soldier>());//그타일에 방금 만든 병사를 저장해줌.
+            cardSlot.CurCard++;
+            return addedSoldier;//생성한 병사를 return시킴
+        }
+        isSpwaned = false;
+        return null;
+    }
 
 
     public override void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
