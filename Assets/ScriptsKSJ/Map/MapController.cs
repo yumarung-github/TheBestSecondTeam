@@ -369,20 +369,20 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                         return;
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetBarrack;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetWorkShop;
                 }
                 break;
             case RoundManager.SoldierTestType.CatSetBarrack:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileB))
                 {
 
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetWorkShop;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
             case RoundManager.SoldierTestType.CatSetWorkShop:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileC))
                 {
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetBarrack;
                 }
                 break;
             default: break;
