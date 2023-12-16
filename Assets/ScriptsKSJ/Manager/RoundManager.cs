@@ -34,8 +34,7 @@ public class RoundManager : SingleTon<RoundManager>
         Revoit,
         Battle,
         CatSet,
-        CatSetSawMill,
-        CatSetBarrack,
+        CatSetSawMill,       
         CatSetWorkShop
     }
     // 예외처리 거의 안되어있음.

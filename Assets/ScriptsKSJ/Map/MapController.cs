@@ -327,10 +327,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.CatSetSawMill:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileA))
-                {                    
+                {  
+                 
                     //이유 발견 딕셔너리 생성이 안되있음 조건바꿔야함.
                     //- 딕셔너리가 1개만 생성되있음
-                    //조건 바꿔야함.//
+                    //조건 바꿔야함.// 해결 - 12.17 시현
                     nowTile = settingTileA;
 
                     if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1")) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
@@ -374,21 +375,208 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         return;
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetWorkShop;                    
                 }
-                    break;
-                
-            case RoundManager.SoldierTestType.CatSetBarrack:
+                    break;             
+            case RoundManager.SoldierTestType.CatSetWorkShop:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileB))
                 {
                     nowTile = settingTileB;
-                    
+                    NodeMember extraNode;
 
+                    if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1"))
+                    {
+                        if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼1"))
+                        {
+                            if (nowTile.nodeName == "여우2")
+                            {
+                                extraNode = mapExtra.mapTiles[4];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "생쥐2")
+                            {
+                                extraNode = mapExtra.mapTiles[3];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우2"))
+                        {
+                            if (nowTile.nodeName == "토끼1")
+                            {
+                                extraNode = mapExtra.mapTiles[4];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "생쥐2")
+                            {
+                                extraNode = mapExtra.mapTiles[1];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐2"))
+                        {
+                            if (nowTile.nodeName == "토끼1")
+                            {
+                                extraNode = mapExtra.mapTiles[3];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "여우2")
+                            {
+                                extraNode = mapExtra.mapTiles[1];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                    }
+                    else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우4")) //생쥐 23, 토끼 2
+                    {
+                        if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐2"))
+                        {
+                            if (nowTile.nodeName == "생쥐3")
+                            {
+                                extraNode = mapExtra.mapTiles[5];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "토끼2")
+                            {
+                                extraNode = mapExtra.mapTiles[7];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐3"))
+                        {
+                            if (nowTile.nodeName == "생쥐2")
+                            {
+                                extraNode = mapExtra.mapTiles[5];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "토끼2")
+                            {
+                                extraNode = mapExtra.mapTiles[4];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼2"))
+                        {
+                            if (nowTile.nodeName == "생쥐3")
+                            {
+                                extraNode = mapExtra.mapTiles[4];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "생쥐2")
+                            {
+                                extraNode = mapExtra.mapTiles[9];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                    }
+                    else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐1"))//토 1,3 여2
+                    {
+                        if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼1"))
+                        {
+                            if (nowTile.nodeName == "토끼3")
+                            {
+                                extraNode = mapExtra.mapTiles[3];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "여우2")
+                            {
+                                extraNode = mapExtra.mapTiles[7];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼3"))
+                        {
+                            if (nowTile.nodeName == "토끼1")
+                            {
+                                extraNode = mapExtra.mapTiles[3];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "여우2")
+                            {
+                                extraNode = mapExtra.mapTiles[1];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우2"))
+                        {
+                            if (nowTile.nodeName == "토끼3")
+                            {
+                                extraNode = mapExtra.mapTiles[1];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "토끼1")
+                            {
+                                extraNode = mapExtra.mapTiles[7];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                    }
+                    else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐4"))// 토 34 여 3  
+                    {
+                        if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼3"))
+                        {
+                            if (nowTile.nodeName == "토끼4")
+                            {
+                                extraNode = mapExtra.mapTiles[6];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "여우3")
+                            {
+                                extraNode = mapExtra.mapTiles[10];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼4"))
+                        {
+                            if (nowTile.nodeName == "토끼3")
+                            {
+                                extraNode = mapExtra.mapTiles[6];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "여우3")
+                            {
+                                extraNode = mapExtra.mapTiles[7];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }
+                        else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우3"))
+                        {
+                            if (nowTile.nodeName == "토끼3")
+                            {
+                                extraNode = mapExtra.mapTiles[10];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                            else if (nowTile.nodeName == "토끼4")
+                            {
+                                extraNode = mapExtra.mapTiles[7];
+                                RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
+                                RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                            }
+                        }                       
+                    }
+                    else
+                        return;
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-                }
-                break;
-            case RoundManager.SoldierTestType.CatSetWorkShop:
-                if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileC))
-                {
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetBarrack;
                 }
                 break;
             default: break;
