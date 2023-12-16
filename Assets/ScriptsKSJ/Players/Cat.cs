@@ -1,4 +1,5 @@
 using CustomInterface;
+using sihyeon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -124,6 +125,7 @@ public class Cat : Player
         }
 
     }
+    
 
     public void UseActionPoint()
     {

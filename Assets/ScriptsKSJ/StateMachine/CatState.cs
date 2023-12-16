@@ -19,9 +19,7 @@ public class CatWaitState : RmState
             cat.FlashTile();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSet;
         }
-        
-        cat.testSetBtn();      
-        
+
         Uimanager.Instance.playerUI.turnText.text = "게임 준비";
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
     }

@@ -93,6 +93,10 @@ public class PlayerUI : MonoBehaviour
         buildBtn.onClick.RemoveAllListeners();
         //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
         buildBtn.onClick.AddListener(() => {
+            if (RoundManager.Instance.nowPlayer is Cat cat)
+            {
+                Uimanager.Instance.catUI.bulidSectionWindow.SetActive(true);
+            }
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
         });
     }
