@@ -327,32 +327,32 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.CatSetSawMill:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileA))
-                {
+                {                    
+                    //이유 발견 딕셔너리 생성이 안되있음 조건바꿔야함.
+                    //- 딕셔너리가 1개만 생성되있음
+                    //조건 바꿔야함.//
                     nowTile = settingTileA;
-                    if (RoundManager.Instance.cat.hasBuildingDic[mapExtra.mapTiles[0].nodeName] != null) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
+
+                    if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1")) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
                     {
                         if (nowTile.nodeName == "토끼1")
-                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
-                            Debug.Log("작동해줘1");
-                            Debug.Log(RoundManager.Instance.cat.hasBuildingDic[nowTile.nodeName][0].name);
-                            Debug.Log("작동해줘2");
-                        }
                         else if (nowTile.nodeName == "여우2")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
                         else if (nowTile.nodeName == "생쥐2")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
                     }
-                    else if (RoundManager.Instance.cat.hasBuildingDic[mapExtra.mapTiles[8].nodeName] != null) //여우4는 생쥐2,3 토끼 2
+                    else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우4")) //여우4는 생쥐2,3 토끼 2                       
                     {
                         if (nowTile.nodeName == "생쥐2")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+
                         else if (nowTile.nodeName == "생쥐4")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
                         else if (nowTile.nodeName == "토끼2")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
                     }
-                    else if (RoundManager.Instance.cat.hasBuildingDic["생쥐1"] != null)//토 1,3 여2
+                    else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐1"))//토 1,3 여2                        
                     {
                         if (nowTile.nodeName == "토끼1")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
@@ -361,7 +361,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         else if (nowTile.nodeName == "여우2")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
                     }
-                    else if (RoundManager.Instance.cat.hasBuildingDic["생쥐4"] != null)// 토 34 여 3
+                    else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐4"))// 토 34 여 3                        
                     {
                         if (nowTile.nodeName == "토끼3")
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
@@ -372,12 +372,15 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                         return;
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetWorkShop;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetWorkShop;                    
                 }
-                break;
+                    break;
+                
             case RoundManager.SoldierTestType.CatSetBarrack:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileB))
                 {
+                    nowTile = settingTileB;
+                    
 
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
