@@ -72,11 +72,9 @@ public class PlayerUI : MonoBehaviour
                     }
                 }
             }
-            else if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
+            else 
             {
-                string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];
-                RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-                RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Spawn;
             }            
         });
     }

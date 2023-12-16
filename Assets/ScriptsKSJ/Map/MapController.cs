@@ -115,6 +115,16 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     soldiers.Clear();
                 }
                 break;
+            case RoundManager.SoldierTestType.Spawn:
+
+                if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
+                {
+                    string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
+                    RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+                    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                }
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                break;
             case RoundManager.SoldierTestType.MoveSelect:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember tempTile))//nodemember를 찾음.
                 {
@@ -131,6 +141,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 {
                     soldiers.Clear();
                 }
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;
@@ -209,6 +220,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     Debug.Log(RoundManager.Instance.cat.hasSoldierDic[nowTile.nodeName].Count);
                 }
                 break;
+            #region 고양이 후작
             case RoundManager.SoldierTestType.CatSet: // 첫 세팅..
                 RoundManager.Instance.bird.isFirstCheck = true;
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTile))
@@ -374,6 +386,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 }
                 break;
             default: break;
+            #endregion
         }
 
     }
