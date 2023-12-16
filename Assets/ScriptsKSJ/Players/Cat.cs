@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class Cat : Player
 {
-    private int actionPoint; 
+    private int actionPoint;
     // 각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다
-    // 예외적으로 카드 하나를 소모후 야근으로 1포인트 더 
-
+    // 예외적으로 카드 하나를 소모후 매고용으로 1포인트 더 
+    public NodeMember baseNode;
 
     private int woodProductNum;
     public int WoodProductNum
@@ -134,7 +134,7 @@ public class Cat : Player
     }
 
 
-    public void ExtraWork() // 임시 추가근무 스크립트
+    public void Employment() // 매 고용
     {
         if (actionPoint < 3)
             actionPoint++;

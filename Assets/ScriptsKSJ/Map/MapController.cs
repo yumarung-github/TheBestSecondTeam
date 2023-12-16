@@ -317,6 +317,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                         return;
+
+                    RoundManager.Instance.cat.baseNode = nowTile;
+                    Debug.Log(RoundManager.Instance.cat.baseNode);
                     RoundManager.Instance.cat.isDisposable = false;
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetSawMill;
 
