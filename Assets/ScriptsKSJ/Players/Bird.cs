@@ -133,6 +133,5 @@ public class Bird : Player
         Debug.LogWarning("룰을 어김");
         RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
         Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
-        Destroy(gameObject);
     }
 }

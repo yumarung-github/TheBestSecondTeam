@@ -9,17 +9,14 @@ public class BirdCardInventory : MonoBehaviour
 
     public void Start()
     {
-        birdCardSlot = new BirdCardSlot[4];
-        for (int i = 0; i < birdCardSlot.Length; i++) 
-        {
-            birdCardSlot[i] = Uimanager.Instance.birdUI.birdSlot[i];
-        }
-        
+        birdCardSlot = Uimanager.Instance.birdUI.birdSlot;
+        this.transform.parent.gameObject.SetActive(false);
     }
+
     public void UseSlot()
     {
         Debug.Log("유즈슬롯 들어옴");
-        for(int i = 0; i < birdCardSlot.Length -1; i++) 
+        for (int i = 0; i < birdCardSlot.Length - 1; i++)
         {
             if (birdCardSlot[i].birdCard != null)
             {
