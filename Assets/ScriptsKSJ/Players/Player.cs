@@ -1,10 +1,7 @@
 using CustomInterface;
 using sihyeon;
-// using SJ;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
@@ -86,10 +83,13 @@ public class Player : MonoBehaviour
         SetMoney(ANIMAL_COST_TYPE.FOX, 3);
         roundManager = RoundManager.Instance;
         isOver = true;
-
-        
-
-
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Debug.Log("무슨 타입인지 궁금해" + RoundManager.Instance.testType);
+        }
     }
     public void SetPlayer()
     {

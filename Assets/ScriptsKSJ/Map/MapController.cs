@@ -1,10 +1,7 @@
 using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -111,9 +108,28 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     //선택된 애들을 리스트에 넣어줌.
                 }
                 else
-                {
                     soldiers.Clear();
+                break;
+            case RoundManager.SoldierTestType.BirdSpawn:
+                if (miniMapHit.transform.TryGetComponent(out NodeMember temp))
+                {
+                    nowTile = temp;
+                    Debug.Log(nowTile.ToString());
+                    Debug.Log(RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName));
+                    if (RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName))
+                    {
+                        RoundManager.Instance.bird.SpawnSoldier(nowTile.nodeName, nowTile.transform);
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                    }
+                    else
+                        return;
                 }
+                //if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
+                //{
+                //    string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
+                //    RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+                //    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                //}
                 break;
             case RoundManager.SoldierTestType.Spawn:
 
@@ -138,9 +154,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                 }
                 else
-                {
                     soldiers.Clear();
-                }
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;
@@ -154,17 +168,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     finNode = mem;
                     //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
                     nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
-                    if (RoundManager.Instance.nowPlayer is Bird bird)
-                    {
-                        BirdCardSlot birdCardSlot = Uimanager.Instance.birdUI.BirdInventory.birdCardSlot[Uimanager.Instance.birdUI.BirdInventory.curSlot];
-                        if (birdCardSlot.birdCard[birdCardSlot.CurCard].costType == RoundManager.Instance.mapController.nowTile.nodeType)
-                        {
-                            birdCardSlot.CurCard++;
-                            Debug.Log("이어리 무브무브");
-                        }
-                        else
-                            RoundManager.Instance.bird.isMoved = false;
-                    }
                     //최단거리 계산하는 부분.
                 }
                 moveCo = StartCoroutine("MoveCoroutine");
@@ -177,6 +180,16 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
                 {
                     nowTile = buildTile;
+                    if (RoundManager.Instance.nowPlayer is Bird bird && RoundManager.Instance.bird.hasSoldierDic.ContainsKey(nowTile.nodeName))
+                    {
+                        foreach (KeyValuePair<string, List<GameObject>> soldierloc in RoundManager.Instance.bird.hasBuildingDic)
+                        {
+                            if (RoundManager.Instance.bird.hasBuildingDic[soldierloc.Key] == null)
+                                continue;
+                        }
+                    }
+                    else
+                        return;
                     if (RoundManager.Instance.nowPlayer is Wood wood)
                     {
                         wood.buildCost = 1;

@@ -36,7 +36,8 @@ public class RoundManager : SingleTon<RoundManager>
         CatSet,
         CatSetSawMill,       
         CatSetWorkShop,
-        CatSetBarrack
+        CatSetBarrack,
+        BirdSpawn,
     }
     // 예외처리 거의 안되어있음.
     public SoldierTestType testType;
