@@ -9,7 +9,12 @@ public class BirdCardInventory : MonoBehaviour
 
     public void Start()
     {
-        birdCardSlot = Uimanager.Instance.birdUI.birdSlot;
+        birdCardSlot = new BirdCardSlot[4];
+        for (int i = 0; i < birdCardSlot.Length; i++) 
+        {
+            birdCardSlot[i] = Uimanager.Instance.birdUI.birdSlot[i];
+        }
+        
     }
     public void UseSlot()
     {

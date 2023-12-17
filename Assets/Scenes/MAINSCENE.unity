@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 6735043}
   - component: {fileID: 6735042}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Inven4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6745,7 +6745,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BirdInventory: {fileID: 1146641454}
   birdSlot:
-  - {fileID: 0}
+  - {fileID: 1425944100}
+  - {fileID: 1823138977}
+  - {fileID: 680287699}
+  - {fileID: 6735042}
   birdLeaderSelect: {fileID: 855945242297952656}
   birdCardBox: {fileID: 825583074}
   nextButton: {fileID: 944142820}
@@ -7053,7 +7056,7 @@ GameObject:
   - component: {fileID: 680287700}
   - component: {fileID: 680287699}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Inven3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13190,8 +13193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe53064db63b67f488c7fe052b3bef38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  birdCardSlot:
-  - {fileID: 1425944100}
+  birdCardSlot: []
   curSlot: 0
 --- !u!1 &1174571317
 GameObject:
@@ -17501,7 +17503,7 @@ GameObject:
   - component: {fileID: 1425944098}
   - component: {fileID: 1425944100}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Inven1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20011,7 +20013,7 @@ GameObject:
   - component: {fileID: 1823138978}
   - component: {fileID: 1823138977}
   m_Layer: 5
-  m_Name: Cost
+  m_Name: Inven2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20325,10 +20327,6 @@ MonoBehaviour:
   birdCard: {fileID: 1924781419363487819, guid: 41deb7c4d6f7daa4fa935de0be13dca0, type: 3}
   inventory: {fileID: 1146641454}
   birdBuilding: []
-  isSpwaned: 0
-  isMoved: 0
-  isBattled: 0
-  isBuilded: 0
   isFirstCheck: 0
 --- !u!4 &1850166813
 Transform:
