@@ -36,11 +36,36 @@ public class Cat : Player
     }
 
     private int sawmillbuildNum;
+    public int SawmillbuildNum
+    {
+        get { return sawmillbuildNum; }
+        set
+        {
+            sawmillbuildNum = value;
+            Uimanager.Instance.catUI.sawmillConsumeText.text = sawmillbuildNum.ToString();
+        }
+    }
 
     private int workshopbuildNum;
-
+    public int WorkshopbuildNum
+    {
+        get { return workshopbuildNum; }
+        set
+        {
+            workshopbuildNum = value;
+            Uimanager.Instance.catUI.workshopConsumeText.text = workshopbuildNum.ToString();
+        }
+    }
     private int barrackbuildNum;
-
+    public int BarrackbuildNum
+    {
+        get { return barrackbuildNum; }
+        set
+        {
+            barrackbuildNum = value;
+            Uimanager.Instance.catUI.barracksConsumeText.text = barrackbuildNum.ToString();
+        }
+    }
 
     public Dictionary<ANIMAL_COST_TYPE, int> deadSoldierNum = new Dictionary<ANIMAL_COST_TYPE, int>();
     public bool isDisposable = true;
@@ -61,9 +86,9 @@ public class Cat : Player
         ColorSetting();
         flashCo = FlashCoroutine();
 
+        woodProductNum = 8;
         soldierMaxNum = 25;
         remainSoldierNum = soldierMaxNum;
-
     }
 
     private void ColorSetting()
