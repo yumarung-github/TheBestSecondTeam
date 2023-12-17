@@ -35,35 +35,35 @@ public class Cat : Player
         }
     }
 
-    private int sawmillbuildNum;
-    public int SawmillbuildNum
+    private int remainSawmillNum;
+    public int RemainSawmillNum
     {
-        get { return sawmillbuildNum; }
+        get { return remainSawmillNum; }
         set
         {
-            sawmillbuildNum = value;
-            Uimanager.Instance.catUI.sawmillConsumeText.text = sawmillbuildNum.ToString();
+            remainSawmillNum = value;
+            Uimanager.Instance.catUI.remainSawmillsText.text = remainSawmillNum.ToString();
         }
     }
 
-    private int workshopbuildNum;
-    public int WorkshopbuildNum
+    private int remainworkshopsNum;
+    public int RemainWorkshopsNum
     {
-        get { return workshopbuildNum; }
+        get { return remainworkshopsNum; }
         set
         {
-            workshopbuildNum = value;
-            Uimanager.Instance.catUI.workshopConsumeText.text = workshopbuildNum.ToString();
+            remainworkshopsNum = value;
+            Uimanager.Instance.catUI.remainWorkshopsText.text = remainworkshopsNum.ToString();
         }
     }
-    private int barrackbuildNum;
-    public int BarrackbuildNum
+    private int remainbarracksNum;
+    public int RemainBarracksNum
     {
-        get { return barrackbuildNum; }
+        get { return remainbarracksNum; }
         set
         {
-            barrackbuildNum = value;
-            Uimanager.Instance.catUI.barracksConsumeText.text = barrackbuildNum.ToString();
+            remainbarracksNum = value;
+            Uimanager.Instance.catUI.remainBarracksText.text = remainbarracksNum.ToString();
         }
     }
 
@@ -87,6 +87,11 @@ public class Cat : Player
         flashCo = FlashCoroutine();
 
         woodProductNum = 8;
+        
+        remainSawmillNum = 6;
+        remainworkshopsNum = 6;
+        remainbarracksNum = 6;
+
         soldierMaxNum = 25;
         remainSoldierNum = soldierMaxNum;
     }

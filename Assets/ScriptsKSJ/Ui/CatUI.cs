@@ -21,9 +21,9 @@ public class CatUI : MonoBehaviour
     public GameObject actionNum;
     public TextMeshProUGUI actionNumText;
     [Header("[프로필 남은 건물 잔량]")]
-    public TextMeshProUGUI sawmillConsumeText;
-    public TextMeshProUGUI workshopConsumeText;
-    public TextMeshProUGUI barracksConsumeText;
+    public TextMeshProUGUI remainSawmillsText;
+    public TextMeshProUGUI remainWorkshopsText;
+    public TextMeshProUGUI remainBarracksText;
     [Header("[프로필 제작비용]")]
     public TextMeshProUGUI sawmillCostText;
     public TextMeshProUGUI workshopCostText;
