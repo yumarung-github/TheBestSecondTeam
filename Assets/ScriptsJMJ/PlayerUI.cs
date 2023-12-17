@@ -39,6 +39,9 @@ public class PlayerUI : MonoBehaviour
         if (isOn)
         {
             soldierMove.SetActive(true);
+            soldierMove.GetComponent<SoldierChoice>().maxSoldier = RoundManager.Instance.mapController.soldiers.Count;
+            
+            soldierMove.GetComponent<SoldierChoice>().maxSol.text = soldierMove.GetComponent<SoldierChoice>().maxSoldier.ToString();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
 
         }

@@ -13,7 +13,7 @@ using UnityEngine.UI;
         public TextMeshProUGUI curSol;
         public TextMeshProUGUI maxSol;
 
-        int maxSoldier;
+        public int maxSoldier;
         int curSoldier;
 
     int CurSoldier
@@ -34,11 +34,10 @@ using UnityEngine.UI;
     private void Start()
         {
             curSoldier = 0;
-            maxSoldier = RoundManager.Instance.mapController.soldiers.Count;
             plusButton.onClick.AddListener(() => { CurSoldier++; });
             minusButton.onClick.AddListener(() => { CurSoldier--; });
             curSol.text = CurSoldier.ToString();
-            maxSol.text = maxSoldier.ToString();
+            
         }
 
 
