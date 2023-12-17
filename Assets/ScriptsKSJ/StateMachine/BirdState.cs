@@ -29,7 +29,7 @@ public class BirdWaitState : RmState
     public override void Exit()
     {
         Uimanager.Instance.playerUI.SpawnSoldier();
-        BattleManager.Instance.InitBattle();
+        
     }
 }
 public class BirdMorningState : RmState

@@ -65,8 +65,6 @@ public class Bird : Player
         base.Start();
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
-        RoundManager.Instance.bird.hasBuildingDic.Add("여우2",new List<GameObject>()); // 테스트선진
-        RoundManager.Instance.bird.hasBuildingDic.Add("여우4",new List<GameObject>()); // 테스트선진
     }
 
 

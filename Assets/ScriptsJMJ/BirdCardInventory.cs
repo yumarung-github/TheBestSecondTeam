@@ -18,7 +18,9 @@ public class BirdCardInventory : MonoBehaviour
         Debug.Log("유즈슬롯 들어옴");
         for (int i = 0; i < birdCardSlot.Length - 1; i++)
         {
-            if (birdCardSlot[i].birdCard != null)
+/*            if (birdCardSlot[i].birdCard == null)
+                return;*/
+             if (birdCardSlot[i].birdCard != null)
             {
                 curSlot = i;
                 birdCardSlot[i].Use();

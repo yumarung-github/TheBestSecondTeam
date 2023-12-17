@@ -84,18 +84,33 @@ public class BirdCardAction : MonoBehaviour
         }
     }
 
-
+    public void SetBattleNode()
+    {
+        RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+        foreach (KeyValuePair<string, List<Soldier>> battleTileCheck in RoundManager.Instance.bird.hasSoldierDic)
+        {
+            NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == battleTileCheck.Key);
+            bool isBattletile = birdCard[CurCard].costType == tile.nodeType;
+            if (isBattletile) 
+            {
+                tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
+                BattleManager.Instance.InitBattle();
+            }
+            else
+                RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+        }
+    }
     public void SetBulidNode()
     {
         RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
-            bool issoldierTile = birdCard[CurCard].costType == tile.nodeType;
-            bool isbirdCardCheck = birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD;
-            bool ishasBuilding = RoundManager.Instance.bird.hasBuildingDic[soldierTileCheck.Key] == null;
+            bool isSoldierTile = birdCard[CurCard].costType == tile.nodeType;
+            bool isBirdCardCheck = birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD;
+            bool isHasBuilding = RoundManager.Instance.bird.hasBuildingDic[soldierTileCheck.Key] == null;
             //병사가 위치한 타일들 체크 = tile
-            if ((issoldierTile || isbirdCardCheck) && ishasBuilding)
+            if ((isSoldierTile || isBirdCardCheck) && isHasBuilding)
             {
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
             }
@@ -107,34 +122,42 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetMoveNode()
     {
-        RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
+        tiles.Clear();
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
+            if (tile.nodeType.Equals(birdCard[CurCard].costType))
+            {
+                tiles.Add(tile);
+            }
             if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.blue;
                 tile.isTileCheck = true;
-
+                
             }
             else if (birdCard[CurCard].costType == tile.nodeType)
             {
                 for (int j = 0; j < tiles.Count; j++)
                 {
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
+                    RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
                     tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
                     tiles[j].isTileCheck = true;
+                    
                 }
             }
-            else
+            else  
             {
+               
                 RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
                 RoundManager.Instance.bird.BreakingRule();
             }
         }
-        
     }
-    public void SetSpawnNode()
+
+
+public void SetSpawnNode()
     {
         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
         {
