@@ -5,6 +5,7 @@ namespace CustomInterface {
 
     public enum ANIMAL_COST_TYPE
     {
+        None,
         FOX,
         RAT,
         RABBIT,
