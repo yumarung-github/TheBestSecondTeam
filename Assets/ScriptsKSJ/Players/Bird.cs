@@ -19,6 +19,7 @@ public class Bird : Player
     public BirdCardInventory inventory;
     public Building[] birdBuilding;
 
+    
 
     int spawn = 0;
     int move = 1;
@@ -62,11 +63,17 @@ public class Bird : Player
 
     private new void Start()
     {
+        score = 0;
         base.Start();
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
     }
 
+
+    public void ScoreUp()
+    {
+        score += birdBuilding.Length;
+    }
 
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {

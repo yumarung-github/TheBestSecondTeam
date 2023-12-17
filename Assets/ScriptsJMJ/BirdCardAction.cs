@@ -102,23 +102,37 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetBulidNode()
     {
-        RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+        //tiles.Clear();
+        Debug.Log("빌드");
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
-            bool isSoldierTile = birdCard[CurCard].costType == tile.nodeType;
-            bool isBirdCardCheck = birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD;
-            bool isHasBuilding = RoundManager.Instance.bird.hasBuildingDic[soldierTileCheck.Key] == null;
-            //병사가 위치한 타일들 체크 = tile
-            if ((isSoldierTile || isBirdCardCheck) && isHasBuilding)
+            if (tile.nodeType.Equals(birdCard[CurCard].costType))
             {
-                tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
+                tiles.Add(tile);
             }
-            else
+            if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
-                RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+                tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
+                tile.isTileCheck = true;
+                
             }
         }
+        if (tiles.Count == 0)
+        {
+            Debug.Log("빌드 브레이킹 룰");
+            RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+            RoundManager.Instance.bird.BreakingRule();
+        }
+        for (int j = 0; j < tiles.Count; j++)
+        {
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+            tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
+            tiles[j].isTileCheck = true;
+            
+        }
+
     }
     public void SetMoveNode()
     {
