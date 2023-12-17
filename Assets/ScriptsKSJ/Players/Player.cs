@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public List<Card> craftedCards = new List<Card>();
 
     public bool isOver;//현재 자기턴이 아니면 false상태
-    int score;//테스트용 없애도됨
+    protected int score;//테스트용 없애도됨
     public List<string> hasNodeNames = new List<string>();//어떤 타일을 지배하고 있는지 체크하는 용도
     public GameObject prefabSoldier;
     public int battleSoldierNum;
