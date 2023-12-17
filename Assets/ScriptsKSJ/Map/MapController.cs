@@ -141,7 +141,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 {
                     soldiers.Clear();
                 }
-                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;
@@ -333,7 +332,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     //- 딕셔너리가 1개만 생성되있음
                     //조건 바꿔야함.// 해결 - 12.17 시현
                     nowTile = settingTileA;
-
                     if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1")) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
                     {
                         if (nowTile.nodeName == "토끼1")
@@ -372,14 +370,14 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
                     }
                     else
-                        return;
+                        break;
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.CatSetWorkShop;                    
                 }
                     break;             
             case RoundManager.SoldierTestType.CatSetWorkShop:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember settingTileB))
                 {
-                    nowTile = settingTileB;
+                    nowTile = settingTileB;                    
                     NodeMember extraNode;
 
                     if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1"))
@@ -575,7 +573,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         }                       
                     }
                     else
-                        return;
+                        break;
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;

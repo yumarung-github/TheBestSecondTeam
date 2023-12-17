@@ -118,7 +118,7 @@ public class Wood : Player
         officerNum = 0;
         soldierMaxNum = 10;
         tokenNum = 0;
-        remainSoldierNum = soldierMaxNum;
+        RemainSoldierNum = soldierMaxNum;
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.FOX, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RABBIT, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RAT, 0);
