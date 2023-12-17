@@ -21,7 +21,6 @@ public class BirdCardInventory : MonoBehaviour
             if (birdCardSlot[i].birdCard != null)
             {
                 curSlot = i;
-                Debug.Log(curSlot);
                 birdCardSlot[i].Use();
             }
         }

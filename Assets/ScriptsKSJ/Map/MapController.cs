@@ -114,7 +114,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember temp))
                 {
                     nowTile = temp;
-                    Debug.Log(nowTile.ToString());
                     Debug.Log(RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName));
                     if (RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName))
                     {

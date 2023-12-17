@@ -43,7 +43,6 @@ public class PlayerUI : MonoBehaviour
             
             soldierMove.GetComponent<SoldierChoice>().maxSol.text = soldierMove.GetComponent<SoldierChoice>().maxSoldier.ToString();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Move;
-
         }
         else
             soldierMove.SetActive(false);

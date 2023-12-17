@@ -11,10 +11,6 @@ public enum LEADER_TYPE
     COMMANDER,
     TYRANT
 }
-
-
-
-
 public class Bird : Player
 {
     [SerializeField]
@@ -22,7 +18,6 @@ public class Bird : Player
     public Card birdCard;
     public BirdCardInventory inventory;
     public Building[] birdBuilding;
-
     int curIndex;
     int spawn = 0;
     int move = 1;
@@ -70,6 +65,8 @@ public class Bird : Player
         // roundManager.bird = this;
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
+        RoundManager.Instance.bird.hasBuildingDic.Add("여우2",new List<GameObject>()); // 테스트선진
+        RoundManager.Instance.bird.hasBuildingDic.Add("여우4",new List<GameObject>()); // 테스트선진
     }
 
 

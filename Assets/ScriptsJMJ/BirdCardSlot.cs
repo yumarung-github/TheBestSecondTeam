@@ -1,4 +1,5 @@
 using CustomInterface;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class BirdCardSlot : MonoBehaviour
     public List<Card> birdCard;
     public CARDSLOT_TYPE cardUse_type;
     public Button resetButton;
-    
+
     int curCard = 0;
 
     private void Start()
@@ -27,8 +28,8 @@ public class BirdCardSlot : MonoBehaviour
     public int CurCard
     {
         get { return curCard; }
-        set 
-        { 
+        set
+        {
             curCard = value;
             if (curCard <= birdCard.Count - 1)
                 curCard = birdCard.Count - 1;
@@ -46,11 +47,42 @@ public class BirdCardSlot : MonoBehaviour
     }
     public void Use()
     {
-        for (int i = 0; i < birdCard.Count - 1; i++)
+        for (int i = 0; i <= birdCard.Count - 1; i++)
         {
-
             switch (cardUse_type)
             {
+                case CARDSLOT_TYPE.SPAWN:
+                    {
+                        foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
+                        {
+                            NodeMember tile1 = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == buildingTileCheck.Key);
+                            List<NodeMember> tiles = new List<NodeMember>();
+                            if(tile1.nodeType.Equals(birdCard[CurCard].costType))
+                            {
+                                tiles.Add(tile1);
+                            }
+                            if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
+                            {
+                                RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
+                                tile1.gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
+                            }
+                            else if (birdCard[CurCard].costType == tile1.nodeType)
+                            {
+                                for(int j = 0; j < tiles.Count; j++)
+                                {
+                                    RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
+                                    tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("들어옴4");
+                                RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+                                RoundManager.Instance.bird.BreakingRule();
+                            }
+                        }
+                    }
+                    break;
                 case CARDSLOT_TYPE.MOVE:
                     {
                         Debug.Log("무브무브");
@@ -64,29 +96,7 @@ public class BirdCardSlot : MonoBehaviour
                         //curCaed 를 올려줘야함
                     }
                     break;
-                case CARDSLOT_TYPE.SPAWN:
-                    {
-                        Debug.Log("들어옴1");
-                        foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
-                        {
-                            Debug.Log(CurCard);
-                            Debug.Log(birdCard[CurCard].costType);
-                            NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == buildingTileCheck.Key);
-                            if (birdCard[CurCard].costType == tile.nodeType || birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
-                            {
-                                Debug.Log("들어옴3");
-                                RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
-                                tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
-                            }
-                            else
-                            {
-                                Debug.Log("들어옴4");
-                                RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
-                                RoundManager.Instance.bird.BreakingRule();
-                            }
-                        }
-                    }
-                    break;
+
                 case CARDSLOT_TYPE.BATTLE:
                     {
                     }
@@ -118,7 +128,7 @@ public class BirdCardSlot : MonoBehaviour
 
     public void CardReset()
     {
-        for(int i = 0; i < birdCard.Count -1; i++)
+        for (int i = 0; i < birdCard.Count - 1; i++)
         {
             birdCard.RemoveAt(i);
         }
