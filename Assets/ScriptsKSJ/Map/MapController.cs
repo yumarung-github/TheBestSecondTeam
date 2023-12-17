@@ -142,10 +142,22 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             case RoundManager.SoldierTestType.MoveSelect:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember tempTile))//nodemember를 찾음.
                 {
+                    nowTile = tempTile;
+                    if (RoundManager.Instance.nowPlayer is Bird bird)
+                    {
+                        if (nowTile.isTileCheck == false)
+                        {
+                            soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
+                            Uimanager.Instance.playerUI.MoveSoldier();
+                            for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
+                            {
+                                RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
+                            }
+                        }
+                    }
                     if (RoundManager.Instance.nowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
                         RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName].Count > 0)
                     {
-                        nowTile = tempTile;
                         soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
                         Uimanager.Instance.playerUI.MoveSoldier();
                         //선택된 애들을 리스트에 넣어줌.

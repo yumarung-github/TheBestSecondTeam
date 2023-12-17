@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BirdCardInventory : MonoBehaviour
 {
-    public BirdCardSlot[] birdCardSlot;
+    public BirdCardAction[] birdCardSlot;
     public int curSlot;
 
     public void Start()

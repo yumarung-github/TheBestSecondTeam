@@ -61,6 +61,7 @@ public class BirdAfternoonState : RmState
     public override void Enter()
     {
         Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 점심";
+        Uimanager.Instance.birdUI.SequenceBox.SetActive(true);
         Uimanager.Instance.birdUI.BirdInventory.UseSlot();
         Uimanager.Instance.playerUI.ResetBtn(true);
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_DINNER);
@@ -70,6 +71,7 @@ public class BirdAfternoonState : RmState
     }
     public override void Exit()
     {
+        Uimanager.Instance.birdUI.SequenceBox.SetActive(false);
         Uimanager.Instance.playerUI.ResetBtn(false);
     }
 }

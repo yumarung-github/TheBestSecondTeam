@@ -18,7 +18,8 @@ public class Bird : Player
     public Card birdCard;
     public BirdCardInventory inventory;
     public Building[] birdBuilding;
-    int curIndex;
+
+
     int spawn = 0;
     int move = 1;
     int battle = 2;
@@ -62,7 +63,6 @@ public class Bird : Player
     private new void Start()
     {
         base.Start();
-        // roundManager.bird = this;
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
         RoundManager.Instance.bird.hasBuildingDic.Add("여우2",new List<GameObject>()); // 테스트선진
@@ -72,14 +72,6 @@ public class Bird : Player
 
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
-        //BirdCardSlot cardSlot = inventory.birdCardSlot[inventory.curSlot];
-        //curIndex = inventory.birdCardSlot[inventory.curSlot].CurCard;
-        //Debug.Log(inventory.birdCardSlot[inventory.curSlot]);
-        //Debug.Log(curIndex);
-        //Debug.Log(RoundManager.Instance.mapController.nowTile.nodeType);
-        //bool isCheckBird = cardSlot.birdCard[curIndex].costType == ANIMAL_COST_TYPE.BIRD;
-        //bool isCheckType = cardSlot.birdCard[curIndex].costType == RoundManager.Instance.mapController.nowTile.nodeType;
-        // 안됨 이유 모름 - 선진
         bool isCheckBuilding = hasBuildingDic.Count > 0;
 
         if (isFirstCheck)
