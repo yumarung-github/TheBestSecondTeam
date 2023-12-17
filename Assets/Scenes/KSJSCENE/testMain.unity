@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 3
+  disciplinePrefab: {fileID: 0}
 --- !u!114 &6735043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5990,7 +5991,7 @@ MonoBehaviour:
   buttons:
   - {fileID: 897593230}
   - {fileID: 1239002912}
-  soldierMove: {fileID: 973241800}
+  soldierMove: {fileID: 0}
   turnText: {fileID: 32313014}
   spawnBtn: {fileID: 538262530}
   battleBtn: {fileID: 969867574}
@@ -6049,9 +6050,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BirdInventory: {fileID: 1146641454}
-  birdSlot: {fileID: 1425944100}
+  birdSlot:
+  - {fileID: 0}
   birdLeaderSelect: {fileID: 855945242297952656}
   birdCardBox: {fileID: 825583074}
+  nextButton: {fileID: 0}
 --- !u!1 &674087081 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2777308742060490375, guid: 02d9fe4dc205e5b4ab896788e567a1e9, type: 3}
@@ -6394,6 +6397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 2
+  disciplinePrefab: {fileID: 0}
 --- !u!114 &680287700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6842,6 +6846,8 @@ MonoBehaviour:
   hasNodeNames: []
   prefabSoldier: {fileID: 7957776772810165783, guid: d9eccb8f7f2c2eb48b41c7533f173704, type: 3}
   battleSoldierNum: 0
+  baseNode: {fileID: 0}
+  soldierMaxNum: 0
   isDisposable: 1
 --- !u!4 &717167213
 Transform:
@@ -7895,7 +7901,11 @@ MonoBehaviour:
   hasNodeNames: []
   prefabSoldier: {fileID: 3625900152842981291, guid: a3822e5e7137b25439055e4b5117f3e1, type: 3}
   battleSoldierNum: 0
+  particlesParent: {fileID: 0}
+  particles: []
   soldierMaxNum: 0
+  officerNum: 0
+  battleActionNum: 0
   buildCost: 0
 --- !u!4 &857245165
 Transform:
@@ -9180,6 +9190,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2717002738732506169, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717002738732506169, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717002738732506169, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717002738732506169, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2717002738732506169, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3227059222761259652, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
       propertyPath: m_fontSize
       value: 40
@@ -9210,6 +9240,86 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3478539231733694177, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286906478828462974, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286906478828462974, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286906478828462974, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286906478828462974, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286906478828462974, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829903525633820772, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829903525633820772, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829903525633820772, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829903525633820772, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5829903525633820772, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124054557548906026, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124054557548906026, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124054557548906026, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124054557548906026, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124054557548906026, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373231638928734269, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373231638928734269, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373231638928734269, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373231638928734269, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373231638928734269, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7621738454728867145, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
@@ -9413,16 +9523,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
---- !u!1 &973241800 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3478539231733694177, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
-  m_PrefabInstance: {fileID: 973241799}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &973241801 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7927630381148541628, guid: 78423ecff3a8e0d4399010376b77cd50, type: 3}
-  m_PrefabInstance: {fileID: 973241799}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &981802330 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1358038072071852435, guid: aca4c91c1e30b04418bceedc897c88ed, type: 3}
@@ -11694,7 +11794,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCardSlot:
   - {fileID: 1425944100}
-  owner: {fileID: 0}
+  curSlot: 0
 --- !u!1 &1174571317
 GameObject:
   m_ObjectHideFlags: 0
@@ -12812,9 +12912,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6029460898940011061, guid: 84f7384d67f4cdd4f9098711cc8c35fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1095910245}
-    - targetCorrespondingSourceObject: {fileID: 6029460898940011061, guid: 84f7384d67f4cdd4f9098711cc8c35fa, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 973241801}
     - targetCorrespondingSourceObject: {fileID: 6029460898940011061, guid: 84f7384d67f4cdd4f9098711cc8c35fa, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1088428315}
@@ -16500,6 +16597,7 @@ MonoBehaviour:
   birdCard:
   - {fileID: 1339631726393681252, guid: 66b77026880176c489abf182ff8263ba, type: 3}
   cardUse_type: 1
+  disciplinePrefab: {fileID: 0}
 --- !u!1 &1443369445
 GameObject:
   m_ObjectHideFlags: 0
@@ -18665,6 +18763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   birdCard: []
   cardUse_type: 0
+  disciplinePrefab: {fileID: 0}
 --- !u!114 &1823138978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18932,15 +19031,14 @@ MonoBehaviour:
   prefabSoldier: {fileID: 454993966645367485, guid: aa70964dd8507d746ba74344437ffb39, type: 3}
   battleSoldierNum: 0
   nowLeader: 0
-  prafab:
-  - {fileID: 5950224029180600710, guid: 2dcbf5110e7539b4f9cd112c6e062e53, type: 3}
-  - {fileID: 5950224029180600710, guid: 0c9e99e7051e9724ba877c9c3fbeaab6, type: 3}
-  - {fileID: 5950224029180600710, guid: 5208cd6d5ef246f49a96e489984ce54e, type: 3}
-  - {fileID: 5950224029180600710, guid: 168513b394ed1194e8dba185dff76461, type: 3}
+  birdCard: {fileID: 0}
+  inventory: {fileID: 0}
+  birdBuilding: []
   isSpwaned: 0
   isMoved: 0
   isBattled: 0
   isBuilded: 0
+  isFirstCheck: 0
 --- !u!4 &1850166813
 Transform:
   m_ObjectHideFlags: 0
@@ -20780,8 +20878,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testBtn: {fileID: 1192481431}
   playerUI: {fileID: 634604653}
-  woodUi: {fileID: 634604661}
+  catUI: {fileID: 0}
   birdUI: {fileID: 634604662}
+  woodUi: {fileID: 634604661}
   scoreBoard: {fileID: 1596666378}
   cardWindow: {fileID: 2029656724}
   cardName: {fileID: 606007970}
@@ -25771,3 +25870,4 @@ SceneRoots:
   - {fileID: 857245165}
   - {fileID: 1777737882}
   - {fileID: 896089300}
+  - {fileID: 973241799}
