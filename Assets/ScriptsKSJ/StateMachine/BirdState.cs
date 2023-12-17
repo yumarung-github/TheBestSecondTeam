@@ -17,7 +17,7 @@ public class BirdWaitState : RmState
         if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
 
-        Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
+        //Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
     }
     public override void Update()
     {

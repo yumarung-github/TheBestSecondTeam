@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum CARDSLOT_TYPE
 {
@@ -14,10 +15,14 @@ public class BirdCardSlot : MonoBehaviour
 {
     public List<Card> birdCard;
     public CARDSLOT_TYPE cardUse_type;
-    public GameObject disciplinePrefab;
+    public Button resetButton;
     
     int curCard = 0;
-    
+
+    private void Start()
+    {
+        resetButton.onClick.AddListener(CardReset);
+    }
     public int CurCard
     {
         get { return curCard; }
@@ -38,8 +43,6 @@ public class BirdCardSlot : MonoBehaviour
         GameObject prediscipline;
 
         birdCard.Add(card);
-        prediscipline = Instantiate(disciplinePrefab, gameObject.transform);
-        prediscipline.gameObject.transform.SetParent(bird.transform);
     }
     public void Use()
     {
@@ -70,6 +73,14 @@ public class BirdCardSlot : MonoBehaviour
                     }
                     break;
             }
+        }
+    }
+
+    public void CardReset()
+    {
+        for(int i = 0; i < birdCard.Count -1; i++)
+        {
+            birdCard.RemoveAt(i);
         }
     }
 }
