@@ -18,7 +18,7 @@ public class BirdCardSlot : MonoBehaviour
     public List<Card> birdCard;
     public CARDSLOT_TYPE cardUse_type;
     public Button resetButton;
-
+    List<NodeMember> tiles = new List<NodeMember>();
     int curCard = 0;
 
     private void Start()
@@ -56,7 +56,6 @@ public class BirdCardSlot : MonoBehaviour
                         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
                         {
                             NodeMember tile1 = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == buildingTileCheck.Key);
-                            List<NodeMember> tiles = new List<NodeMember>();
                             if(tile1.nodeType.Equals(birdCard[CurCard].costType))
                             {
                                 tiles.Add(tile1);
@@ -65,6 +64,7 @@ public class BirdCardSlot : MonoBehaviour
                             {
                                 RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
                                 tile1.gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
+                                tile1.isTileCheck = true;
                             }
                             else if (birdCard[CurCard].costType == tile1.nodeType)
                             {
@@ -72,11 +72,11 @@ public class BirdCardSlot : MonoBehaviour
                                 {
                                     RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
                                     tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
+                                    tiles[j].isTileCheck = true;
                                 }
                             }
                             else
                             {
-                                Debug.Log("들어옴4");
                                 RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
                                 RoundManager.Instance.bird.BreakingRule();
                             }

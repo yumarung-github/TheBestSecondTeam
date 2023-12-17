@@ -1,6 +1,7 @@
 using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -114,21 +115,19 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember temp))
                 {
                     nowTile = temp;
-                    Debug.Log(RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName));
-                    if (RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName))
+                    if (temp.isTileCheck == true)
                     {
                         RoundManager.Instance.bird.SpawnSoldier(nowTile.nodeName, nowTile.transform);
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
+                        {
+                            RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
+                            Debug.Log("Test" + RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck);
+                        }
                     }
                     else
-                        return;
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
                 }
-                //if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
-                //{
-                //    string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
-                //    RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-                //    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
-                //}
                 break;
             case RoundManager.SoldierTestType.Spawn:
 
