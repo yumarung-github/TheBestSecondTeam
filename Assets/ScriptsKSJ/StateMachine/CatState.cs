@@ -132,6 +132,7 @@ public class CatDinnerState : RmState
         rm.nowPlayer = null;
         Uimanager.Instance.playerUI.ResetBtn(false);
         Uimanager.Instance.catInven.SetActive(false);
+        Uimanager.Instance.catUI.profileWindow.SetActive(false);
         Uimanager.Instance.catUI.bulidSectionWindow.SetActive(false);
     }
 }
