@@ -51,5 +51,5 @@ MonoBehaviour:
   damage: 2
   defense: 0
   cost: 1
-  costType: 3
+  costType: 2
   skillType: 0
