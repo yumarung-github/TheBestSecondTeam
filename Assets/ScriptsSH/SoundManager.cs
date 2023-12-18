@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoundManager : SingleTon<SoundManager>
 {
     List<AudioClip> bgmList;
+    List<AudioClip> effectSoundList;
     GameObject soundPlayer;
 
 
@@ -13,10 +14,10 @@ public class SoundManager : SingleTon<SoundManager>
     public AudioClip bgm2;
     public AudioClip bgm3;
 
-    [Header("버튼 사운드")]
-    public AudioClip btnSound;
+    
 
-    [Header("")]
+    [Header("이펙트사운드")]
+    public AudioClip btnSound;
     public AudioClip battleSound;
     public AudioClip buildiSound;
     public AudioClip moveSound;
@@ -30,12 +31,18 @@ public class SoundManager : SingleTon<SoundManager>
     private void Start()
     {
         bgmList = new List<AudioClip>();
-        bgmList.Add(btnSound);
-        bgmList.Add(battleSound);
-        bgmList.Add(buildiSound); 
-        bgmList.Add(moveSound);
-        bgmList.Add(turnEndSound);
-        bgmList.Add(clickSound);
+        bgmList.Add(bgm1);
+        bgmList.Add(bgm2);
+        bgmList.Add(bgm3);
+
+
+        effectSoundList = new List<AudioClip>();
+        effectSoundList.Add(btnSound);
+        effectSoundList.Add(battleSound);
+        effectSoundList.Add(buildiSound);
+        effectSoundList.Add(moveSound);
+        effectSoundList.Add(turnEndSound);
+        effectSoundList.Add(clickSound);
     }
 
 }
