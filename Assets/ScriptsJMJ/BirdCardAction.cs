@@ -98,19 +98,14 @@ public class BirdCardAction : MonoBehaviour
 
             if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
             {
+                tile.isTileCheck = true;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
-                /*                if (RoundManager.Instance.mapController.nowTile != tile)
-                                {
-                                    SetBattleNode();
-                                }*/
-
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
             }
             else if (isBattletile)
             {
                 tiles.Add(tile);
             }
-
         }
         if (tiles != null)
         {
@@ -121,7 +116,7 @@ public class BirdCardAction : MonoBehaviour
                             {
                                 SetBattleNode();
                             }*/
-
+                tiles[i].isTileCheck = true;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
             }
 

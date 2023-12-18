@@ -151,7 +151,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     nowTile = tempTile;
                     if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
-                        if (nowTile.isTileCheck == false)
+                        if (nowTile.isTileCheck == true)
                         {
                             soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
                             Uimanager.Instance.playerUI.MoveSoldier();
@@ -161,7 +161,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             }
                         }
                     }
-                    if (RoundManager.Instance.nowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
+                    else if (RoundManager.Instance.nowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
                         RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName].Count > 0)
                     {
                         soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];

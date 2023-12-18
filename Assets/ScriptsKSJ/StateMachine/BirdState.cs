@@ -65,6 +65,7 @@ public class BirdAfternoonState : RmState
         Uimanager.Instance.birdUI.BirdInventory.UseSlot();
         Uimanager.Instance.playerUI.ResetBtn(true);
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_DINNER);
+        BattleManager.Instance.InitBattle();
     }
     public override void Update()
     {
