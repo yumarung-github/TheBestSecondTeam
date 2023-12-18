@@ -395,12 +395,46 @@ public class Wood : Player
      
     public void SetTileEffectRevoit()
     {
+        List<NodeMember> seedMem = new List<NodeMember>();
+        List<NodeMember> checkMem = new List<NodeMember>();
+
+        foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
+        {
+            if (kv.Value.Count > 0)
+            {
+                seedMem.Add(RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key));
+            }            
+        }
+        foreach(NodeMember costMem in seedMem)
+        {
+            if (!CostTypeCheck(costMem.nodeType))//건설된 코스트타입
+            {
+                //코스트 체크하고 add체크멤
+                if(supportVal[costMem.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 2)//코스트 병사 계산
+                {
+                    checkMem.Add(costMem);
+                }
+            }
+        }
+        if(checkMem.Count > 0)
+        {
+            foreach (NodeMember temp in checkMem)
+            {
+                Debug.Log(temp.nodeName);
+                temp.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            Uimanager.Instance.woodUi.woodAlarm.SetActive(true);
+            RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.WOOD_MORNING2);
+        }
         
     }
     public void SetTileEffectAgree()
     {
         List<string> seedMem = new List<string>();
-        List<string> minusMem = new List<string>();
+        List<string> minusMem = new List<string>();//자기자신
         
         foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
         {
@@ -434,26 +468,38 @@ public class Wood : Player
                     }
                 }
             }
-            tempNum = seedMem.Count;
-            for (int i = 0; i < tempNum; i++)
-            {
-                NodeMember temp = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
-                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] < 1)
-                {
-                    seedMem.Remove(temp.nodeName);
-                    Debug.Log("제거됨" + temp.nodeName);
-                }//코스트 계산 필요 위에도             
-            }
-            foreach(string tempName in minusMem)
+            foreach (string tempName in minusMem)
             {
                 seedMem.Remove(tempName);
             }
             for (int i = 0; i < seedMem.Count; i++)
             {
-                NodeMember member = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
-                //Debug.Log(seedMem[i]);
-                member.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
-                Debug.Log(member.nodeName + "이펙트킴");
+                Debug.Log(tempNum);
+                Debug.Log(i);
+                Debug.Log(roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]));
+                NodeMember temp = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
+                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] < 1)
+                {
+                    seedMem.Remove(temp.nodeName);
+                    Debug.Log("제거됨" + temp.nodeName);
+                    i--;
+                }//코스트 계산 필요 위에도             
+            }
+
+            if (seedMem.Count > 0)
+            {
+                for (int i = 0; i < seedMem.Count; i++)
+                {
+                    NodeMember member = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
+                    //Debug.Log(seedMem[i]);
+                    member.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+                    Debug.Log(member.nodeName + "이펙트킴");
+                }
+            }
+            else
+            {
+                Uimanager.Instance.woodUi.woodAlarm.SetActive(true);
+                RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.WOOD_AFTERNOON);
             }
         }
         else
@@ -472,10 +518,18 @@ public class Wood : Player
                 }
             }
             Debug.Log(buildingExist.Count);
-            foreach (NodeMember temp in buildingExist)
+            if(buildingExist.Count > 0)
             {
-                Debug.Log(temp.nodeName);
-                temp.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+                foreach (NodeMember temp in buildingExist)
+                {
+                    Debug.Log(temp.nodeName);
+                    temp.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+                }
+            }
+            else
+            {
+                Uimanager.Instance.woodUi.woodAlarm.SetActive(true);
+                RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.WOOD_AFTERNOON);
             }
         }        
     }

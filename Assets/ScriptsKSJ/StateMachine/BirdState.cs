@@ -12,7 +12,7 @@ public class BirdWaitState : RmState
     public override void Enter()
     {
         rm.nowPlayer = bird;
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조";
+        Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n대기");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
         if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
@@ -40,7 +40,7 @@ public class BirdMorningState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 아침";
+        Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
         Uimanager.Instance.birdInven.SetActive(true);
     }
@@ -60,7 +60,7 @@ public class BirdAfternoonState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 점심";
+        Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n점심");
         Uimanager.Instance.birdUI.SequenceBox.SetActive(true);
         Uimanager.Instance.birdUI.BirdInventory.UseSlot();
         Uimanager.Instance.playerUI.ResetBtn(true);
@@ -83,7 +83,7 @@ public class BirdDinnerState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 이어리 왕조 / 저녁";
+        Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
     }
     public override void Update()

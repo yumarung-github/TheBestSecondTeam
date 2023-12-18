@@ -18,7 +18,7 @@ public class WoodWaitState : RmState
         Uimanager.Instance.woodUi.SetOfficerBtn();
         wood.BattleBtnsOnOff(true);
 
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드";
+        Uimanager.Instance.playerUI.SetTurnTexts("우드랜드\n대기");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING1);
         Uimanager.Instance.woodUi.profileWindow.SetActive(true);
     }
@@ -43,7 +43,7 @@ public class WoodMorning1State : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 아침1";
+        Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n아침1");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING2);
         Uimanager.Instance.woodUi.SetWoodMorning1();
         Uimanager.Instance.woodInven.SetActive(true);
@@ -65,7 +65,7 @@ public class WoodMorning2State : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 아침2";
+        Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n아침2");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_AFTERNOON);
         Uimanager.Instance.woodUi.SetWoodMorning2();
     }
@@ -87,7 +87,7 @@ public class WoodAfternoonState : RmState
     public override void Enter()
     {
         wood.SetOfficerBtnOnoff();
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 점심";
+        Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n점심");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_DINNER);
         Uimanager.Instance.woodUi.SetAfternoon(true);
     }
@@ -108,7 +108,7 @@ public class WoodDinnerState : RmState
     }
     public override void Enter()
     {
-        Uimanager.Instance.playerUI.turnText.text = "현재 턴 : 우드랜드 / 저녁";
+        Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
         Uimanager.Instance.woodUi.SetDinner(true);
         //Uimanager.Instance.playerUI.ResetBtn(true);

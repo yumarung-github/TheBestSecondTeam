@@ -11,6 +11,8 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
+    public GameObject AlarmWindow;
+    public TextMeshProUGUI turnAlarmText;
     public GameObject battleWindow;
     public Button[] buttons = new Button[2];
     public GameObject soldierMove; //모병시 UI
@@ -49,7 +51,12 @@ public class PlayerUI : MonoBehaviour
         isOn = !isOn;
     }
 
-
+    public void SetTurnTexts(string tempText)
+    {
+        AlarmWindow.SetActive(true);
+        turnText.text = tempText;
+        turnAlarmText.text = tempText;
+    }
     // 버튼들은 현재 라운드상태머신의 고양이 대기상태에서 초기화중임.
 
     // 소환 버튼 설정

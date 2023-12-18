@@ -36,7 +36,7 @@ public class WoodUi : MonoBehaviour
     public TextMeshProUGUI birdSupportNumText;
     public TextMeshProUGUI woodActionNumText;
 
-
+    public GameObject woodAlarm;
     [Header("[카드 체크]")]
     public List<Card> cards = new List<Card>();
     public enum CardUseType 
@@ -73,6 +73,7 @@ public class WoodUi : MonoBehaviour
         revoitBtn.onClick.RemoveAllListeners();
         revoitBtn.onClick.AddListener(() =>
         {
+            RoundManager.Instance.wood.SetTileEffectRevoit();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Revoit;
             //지을 수 있는 곳 표시 추가하기
         });
