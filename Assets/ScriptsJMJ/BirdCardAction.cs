@@ -19,12 +19,13 @@ public class BirdCardAction : MonoBehaviour
 
     public CARDSLOT_TYPE cardUse_type;
     public List<Card> birdCard;
-    List<NodeMember> tiles = new List<NodeMember>();
+    List<NodeMember> tiles;
 
     int curCard = 0;
     private void Start()
     {
         resetButton.onClick.AddListener(CardReset);
+        tiles = new List<NodeMember>();
     }
     public int CurCard
     {
@@ -56,28 +57,29 @@ public class BirdCardAction : MonoBehaviour
                     {
                         Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
                         SetSpawnNode();
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
+                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
                     }
                     break;
                 case CARDSLOT_TYPE.MOVE:
                     {
                         Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
                         SetMoveNode();
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
+                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
                     }
                     break;
 
                 case CARDSLOT_TYPE.BATTLE:
                     {
                         Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
+                        SetBattleNode();
+                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
                     }
                     break;
                 case CARDSLOT_TYPE.BULID:
                     {
                         Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
                         SetBulidNode();
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
+                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
                     }
                     break;
             }
@@ -86,23 +88,55 @@ public class BirdCardAction : MonoBehaviour
 
     public void SetBattleNode()
     {
-        RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+        tiles.Clear();
+
         foreach (KeyValuePair<string, List<Soldier>> battleTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == battleTileCheck.Key);
+            bool isbattlePlayer = RoundManager.Instance.cat.hasSoldierDic.ContainsKey(tile.nodeName) || RoundManager.Instance.wood.hasSoldierDic.ContainsKey(tile.nodeName);
             bool isBattletile = birdCard[CurCard].costType == tile.nodeType;
-            if (isBattletile) 
+
+            if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
             {
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
-                BattleManager.Instance.InitBattle();
+                /*                if (RoundManager.Instance.mapController.nowTile != tile)
+                                {
+                                    SetBattleNode();
+                                }*/
+
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
             }
-            else
-                RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+            else if (isBattletile)
+            {
+                tiles.Add(tile);
+            }
+
+        }
+        if (tiles != null)
+        {
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                tiles[i].gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
+                /*            if (RoundManager.Instance.mapController.nowTile != tiles[i])
+                            {
+                                SetBattleNode();
+                            }*/
+
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+            }
+
+            if (tiles.Contains(RoundManager.Instance.mapController.nowTile))
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+        }
+        else if (tiles.Count > 0)
+        {
+            RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+            RoundManager.Instance.bird.BreakingRule();
         }
     }
     public void SetBulidNode()
     {
-        //tiles.Clear();
+        tiles.Clear();
         Debug.Log("빌드");
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
@@ -116,7 +150,7 @@ public class BirdCardAction : MonoBehaviour
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
                 tile.isTileCheck = true;
-                
+
             }
         }
         if (tiles.Count == 0)
@@ -130,7 +164,7 @@ public class BirdCardAction : MonoBehaviour
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
             tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
             tiles[j].isTileCheck = true;
-            
+
         }
 
     }
@@ -149,7 +183,7 @@ public class BirdCardAction : MonoBehaviour
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.blue;
                 tile.isTileCheck = true;
-                
+
             }
             else if (birdCard[CurCard].costType == tile.nodeType)
             {
@@ -158,12 +192,12 @@ public class BirdCardAction : MonoBehaviour
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
                     tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
                     tiles[j].isTileCheck = true;
-                    
+
                 }
             }
-            else  
+            else
             {
-               
+
                 RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
                 RoundManager.Instance.bird.BreakingRule();
             }
@@ -171,7 +205,7 @@ public class BirdCardAction : MonoBehaviour
     }
 
 
-public void SetSpawnNode()
+    public void SetSpawnNode()
     {
         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
         {
