@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
+using UnityEditor.Experimental.GraphView;
 
 public class MapController : MonoBehaviour, IPointerDownHandler
 {
@@ -172,25 +173,87 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     soldiers.Clear();
                 break;
             case RoundManager.SoldierTestType.Move:
-                NodeMember finNode = null;
-                if (moveCo != null)
-                {
-                    StopCoroutine(moveCo);
-                }
-                RoundManager.Instance.moveOver = true;
-                if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
-                {
-                    finNode = mem;
-                    //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
-                    nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
-                    //최단거리 계산하는 부분.
-                }
-                moveCo = StartCoroutine("MoveCoroutine");
+                NodeMember finNode = null;               
+                {  if (RoundManager.Instance.cat is Cat cat)
+                    {
+                        if(RoundManager.Instance.cat.actionPoint >0)
+                        {
+                            if (RoundManager.Instance.cat.firstMove == false)
+                            {
+                                RoundManager.Instance.cat.firstMove = true;
+                                if (moveCo != null)
+                                {
+                                    StopCoroutine(moveCo);
+                                }
+                                RoundManager.Instance.moveOver = true;
+                                if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
+                                {
+                                    finNode = mem;
+                                    //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
+                                    nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
+                                    //최단거리 계산하는 부분.
+                                }
+                                moveCo = StartCoroutine("MoveCoroutine");
 
-                Uimanager.Instance.playerUI.soldierMove.SetActive(false);
-                Uimanager.Instance.playerUI.isOn = true;
-                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-                break;
+                                Uimanager.Instance.playerUI.soldierMove.SetActive(false);
+                                Uimanager.Instance.playerUI.isOn = true;
+                                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                                catOnAction();
+                                break;
+                            }
+                            else if (RoundManager.Instance.cat.secondMove == false)
+                            {
+                                RoundManager.Instance.cat.secondMove = true;
+                                if (moveCo != null)
+                                {
+                                    StopCoroutine(moveCo);
+                                }
+                                RoundManager.Instance.moveOver = true;
+                                if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
+                                {
+                                    finNode = mem;
+                                    //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
+                                    nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
+                                    //최단거리 계산하는 부분.
+                                }
+                                moveCo = StartCoroutine("MoveCoroutine");
+
+                                Uimanager.Instance.playerUI.soldierMove.SetActive(false);
+                                Uimanager.Instance.playerUI.isOn = true;
+                                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                                catOnAction();
+                                break;
+                            }
+                            else
+                            { 
+                                Debug.Log("포인트없거나 두번다 이동함");
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                    else
+                    {
+                        if (moveCo != null)
+                        {
+                            StopCoroutine(moveCo);
+                        }
+                        RoundManager.Instance.moveOver = true;
+                        if (miniMapHit.transform.TryGetComponent(out NodeMember mem))
+                        {
+                            finNode = mem;
+                            //Debug.Log("a" + nowTile.nodeName + "/" + finNode.nodeName);
+                            nodeStrings = mapExtra.SetAl(nowTile.nodeName, finNode.nodeName);
+                            //최단거리 계산하는 부분.
+                        }
+                        moveCo = StartCoroutine("MoveCoroutine");
+
+                        Uimanager.Instance.playerUI.soldierMove.SetActive(false);
+                        Uimanager.Instance.playerUI.isOn = true;
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        break;
+                    }
+                }
             case RoundManager.SoldierTestType.Build:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
                 {

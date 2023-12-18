@@ -285,7 +285,7 @@ public class Wood : Player
         {
             Debug.Log("지지자가 부족합니다");
         }
-    }
+    }    
     int FindSoldierCost(NodeMember findTile)//현재 타일에 가장 큰 병사수를 가진거에 따라 코스트 리턴
     {
         int calNum = 0;
@@ -399,7 +399,37 @@ public class Wood : Player
         tokenScoreDic.Add(9, 4);
         tokenScoreDic.Add(10, 4);
     }
-     
+
+    public void SetMoveEffects()
+    {
+        List<NodeMember> seedMem = new List<NodeMember>();
+        List<NodeMember> checkMem = new List<NodeMember>();
+        foreach (NodeMember kv in roundManager.mapExtra.mapTiles)
+        {
+            seedMem.Add(kv);
+        }
+        Dictionary<string, int> tempDic = roundManager.mapExtra.SetCostMove(roundManager.mapController.nowTile.nodeName, officerNum-battleActionNum);
+        Debug.Log(tempDic.Count);
+        foreach(NodeMember costMem in seedMem)
+        {
+            foreach (KeyValuePair<string, int> kv in tempDic)
+            {
+                if(costMem.nodeName == kv.Key)
+                {
+                    checkMem.Add(costMem);
+                }
+            }
+        }
+        Debug.Log(checkMem.Count);
+        if (checkMem.Count > 0)
+        {
+            foreach (NodeMember temp in checkMem)
+            {
+                Debug.Log(temp.nodeName);
+                temp.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+            }
+        }
+    }
     public void SetTileEffectRevoit()
     {
         List<NodeMember> seedMem = new List<NodeMember>();
