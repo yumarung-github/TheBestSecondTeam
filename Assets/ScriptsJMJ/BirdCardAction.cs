@@ -2,6 +2,7 @@ using CustomInterface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,41 @@ public enum CARDSLOT_TYPE
 public class BirdCardAction : MonoBehaviour
 {
     public Button resetButton;
+    public TextMeshProUGUI[] countAnimals;
 
     public CARDSLOT_TYPE cardUse_type;
-    public List<Card> birdCard;
+    public List<Card> birdCards;
     List<NodeMember> tiles;
 
+    int foxCard = 0;
+    int rabbitCard = 0;
+    int ratCard = 0;
+    int birdCard = 0;
     int curCard = 0;
+
+    bool isBreakingRule;
+
+    public bool IsBreakingRule
+    {
+        set 
+        { 
+            isBreakingRule = value;
+            if (isBreakingRule == false)
+                RoundManager.Instance.bird.BreakingRule();
+        }
+    }
+
+
+
+    private void Awake()
+    {
+        countAnimals = GetComponentsInChildren<TextMeshProUGUI>();
+        countAnimals[0].text = "x " + foxCard.ToString();
+        countAnimals[1].text = "x " + rabbitCard.ToString();
+        countAnimals[2].text = "x " + ratCard.ToString();
+        countAnimals[3].text = "x " + birdCard.ToString();
+    }
+
     private void Start()
     {
         resetButton.onClick.AddListener(CardReset);
@@ -33,23 +63,26 @@ public class BirdCardAction : MonoBehaviour
         set
         {
             curCard = value;
-            if (curCard <= birdCard.Count - 1)
-                curCard = birdCard.Count - 1;
+            if (curCard <= birdCards.Count - 1)
+                curCard = birdCards.Count - 1;
         }
     }
     public void AddBirdCard(Card card)
     {
-        birdCard.Add(card);
+        birdCards.Add(card);
+        CountAnimals(card.costType);
+        Debug.Log(card.costType);
     }
     public void AddCard(Card card)
     {
         Bird bird = RoundManager.Instance.bird;
 
-        birdCard.Add(card);
+        birdCards.Add(card);
+        CountAnimals(card.costType);
     }
     public void Use()
     {
-        for (int i = 0; i <= birdCard.Count - 1; i++)
+        for (int i = 0; i <= birdCards.Count - 1; i++)
         {
             switch (cardUse_type)
             {
@@ -86,6 +119,7 @@ public class BirdCardAction : MonoBehaviour
         }
     }
 
+
     public void SetBattleNode()
     {
         tiles.Clear();
@@ -94,9 +128,9 @@ public class BirdCardAction : MonoBehaviour
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == battleTileCheck.Key);
             bool isbattlePlayer = RoundManager.Instance.cat.hasSoldierDic.ContainsKey(tile.nodeName) || RoundManager.Instance.wood.hasSoldierDic.ContainsKey(tile.nodeName);
-            bool isBattletile = birdCard[CurCard].costType == tile.nodeType;
+            bool isBattletile = birdCards[CurCard].costType == tile.nodeType;
 
-            if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
+            if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
             {
                 tile.isTileCheck = true;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
@@ -136,11 +170,11 @@ public class BirdCardAction : MonoBehaviour
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
-            if (tile.nodeType.Equals(birdCard[CurCard].costType))
+            if (tile.nodeType.Equals(birdCards[CurCard].costType))
             {
                 tiles.Add(tile);
             }
-            if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
+            if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
@@ -169,18 +203,18 @@ public class BirdCardAction : MonoBehaviour
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
-            if (tile.nodeType.Equals(birdCard[CurCard].costType))
+            if (tile.nodeType.Equals(birdCards[CurCard].costType))
             {
                 tiles.Add(tile);
             }
-            if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
+            if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.blue;
                 tile.isTileCheck = true;
 
             }
-            else if (birdCard[CurCard].costType == tile.nodeType)
+            else if (birdCards[CurCard].costType == tile.nodeType)
             {
                 for (int j = 0; j < tiles.Count; j++)
                 {
@@ -205,17 +239,17 @@ public class BirdCardAction : MonoBehaviour
         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
         {
             NodeMember tile1 = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == buildingTileCheck.Key);
-            if (tile1.nodeType.Equals(birdCard[CurCard].costType))
+            if (tile1.nodeType.Equals(birdCards[CurCard].costType))
             {
                 tiles.Add(tile1);
             }
-            if (birdCard[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
+            if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
                 tile1.gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
                 tile1.isTileCheck = true;
             }
-            else if (birdCard[CurCard].costType == tile1.nodeType)
+            else if (birdCards[CurCard].costType == tile1.nodeType)
             {
                 for (int j = 0; j < tiles.Count; j++)
                 {
@@ -234,9 +268,40 @@ public class BirdCardAction : MonoBehaviour
 
     public void CardReset()
     {
-        for (int i = 0; i < birdCard.Count - 1; i++)
+        for (int i = 0; i < birdCards.Count - 1; i++)
         {
-            birdCard.RemoveAt(i);
+            birdCards.RemoveAt(i);
         }
     }
+
+    public void CountAnimals(ANIMAL_COST_TYPE cost)
+    {
+
+        switch (cost)
+        {
+            case ANIMAL_COST_TYPE.FOX:
+                foxCard++;
+                Debug.Log(foxCard);
+                countAnimals[0].text = "x " + foxCard.ToString();
+                break;
+            case ANIMAL_COST_TYPE.RABBIT:
+                rabbitCard++;
+                Debug.Log(rabbitCard);
+                countAnimals[1].text ="x " + rabbitCard.ToString();
+                break;
+            case ANIMAL_COST_TYPE.RAT:
+                ratCard++;
+                Debug.Log(ratCard);
+                countAnimals[2].text = "x " + ratCard.ToString();
+                break;
+            case ANIMAL_COST_TYPE.BIRD:
+                birdCard++;
+                Debug.Log(birdCard);
+                countAnimals[3].text = "x " + birdCard.ToString();
+                break;
+
+        }
+
+    }
+    
 }

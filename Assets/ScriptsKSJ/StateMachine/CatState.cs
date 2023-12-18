@@ -119,7 +119,7 @@ public class CatDinnerState : RmState
     public override void Enter()
     {
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작 \n저녁");
-        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_WAIT);
     }
     public override void Update()
     {

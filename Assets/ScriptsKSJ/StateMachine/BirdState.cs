@@ -97,4 +97,5 @@ public class BirdDinnerState : RmState
         rm.nowPlayer = null;
         Uimanager.Instance.birdInven.SetActive(false);
     }
+    
 }

@@ -127,5 +127,9 @@ public class Bird : Player
         Debug.LogWarning("룰을 어김");
         RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
         Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
+        for (int i = 0; i < 4; i++) 
+        {
+            Uimanager.Instance.birdUI.birdSlot[i].CardReset();
+        }
     }
 }
