@@ -40,6 +40,10 @@ public class PlayerUI : MonoBehaviour
     {
         if (isOn)
         {
+            if(RoundManager.Instance.nowPlayer is Wood wood)
+            {
+                wood.SetMoveEffects();
+            }
             soldierMove.SetActive(true);
             soldierMove.GetComponent<SoldierChoice>().maxSoldier = RoundManager.Instance.mapController.soldiers.Count;
             

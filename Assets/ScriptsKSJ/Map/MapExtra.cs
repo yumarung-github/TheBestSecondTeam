@@ -400,8 +400,28 @@ public class MapExtra : MonoBehaviour
         }
         return tempStrings;
     }
-    void Update()
+    public Dictionary<string, int> SetCostMove(string a, int cost)
     {
-
+        Dictionary<string,int> costDic = new Dictionary<string,int>();
+        List<NodeMember> tempNodes = new List<NodeMember>();
+        foreach(NodeMember node in mapTiles)
+        {
+            if(node.nodeName != a)
+            {
+                tempNodes.Add(node);
+            }
+        }
+        int tempCost = 0;
+        foreach (NodeMember tempNode in tempNodes)
+        {
+            tempCost = SetAl(a, tempNode.nodeName).Count - 1;
+            Debug.Log(tempCost);
+            if(tempCost <= cost)
+            {
+                costDic.Add(tempNode.nodeName, tempCost);
+            }            
+        }
+        Debug.Log(costDic.Count);
+        return costDic;
     }
 }
