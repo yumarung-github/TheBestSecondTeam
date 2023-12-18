@@ -119,6 +119,7 @@ public class WoodDinnerState : RmState
     }
     public override void Exit()
     {
+        wood.BattleActionNum = 0;
         RoundManager.Instance.wood.isOver = true;
         RoundManager.Instance.cat.isOver = false;
         rm.nowPlayer = null;

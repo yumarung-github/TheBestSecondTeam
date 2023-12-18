@@ -81,6 +81,11 @@ public class PlayerUI : MonoBehaviour
                     }
                 }
             }
+            else if(RoundManager.Instance.nowPlayer is Wood wood)
+            {
+                wood.SetTileEffectSpawn();
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Spawn;
+            }
             else 
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Spawn;

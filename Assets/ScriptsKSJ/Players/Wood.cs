@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class Wood : Player
@@ -59,10 +60,12 @@ public class Wood : Player
         {
             if(value)
             {
+                Uimanager.Instance.woodUi.foxBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
             }
             else
             {
+                Uimanager.Instance.woodUi.foxBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
             }
             isFoxBuiilding = value;
@@ -77,10 +80,12 @@ public class Wood : Player
         {
             if (value)
             {
+                Uimanager.Instance.woodUi.ratBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
             }
             else
             {
+                Uimanager.Instance.woodUi.ratBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
             }
             isRatBuiilding = value;
@@ -95,10 +100,12 @@ public class Wood : Player
         {
             if (value)
             {
+                Uimanager.Instance.woodUi.rabbitBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
             }
             else
             {
+                Uimanager.Instance.woodUi.rabbitBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
             }
             isRabbitBuiilding = value;
@@ -132,9 +139,9 @@ public class Wood : Player
             p.gameObject.SetActive(false);
         }
         supportVal[ANIMAL_COST_TYPE.RAT] = 2;//테스트용 지울거
-        //supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
+        supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
-        //SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거
+        SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거
     }
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
@@ -409,13 +416,16 @@ public class Wood : Player
         {
             if (!CostTypeCheck(costMem.nodeType))//건설된 코스트타입
             {
+                Debug.Log(costMem.nodeName);
                 //코스트 체크하고 add체크멤
                 if(supportVal[costMem.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 2)//코스트 병사 계산
                 {
+                    Debug.Log("d" + costMem.nodeName);
                     checkMem.Add(costMem);
                 }
             }
         }
+        Debug.Log(checkMem.Count);
         if(checkMem.Count > 0)
         {
             foreach (NodeMember temp in checkMem)
@@ -428,6 +438,40 @@ public class Wood : Player
         {
             Uimanager.Instance.woodUi.woodAlarm.SetActive(true);
             RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.WOOD_MORNING2);
+        }
+        
+    }
+    public void SetTileEffectSpawn()
+    {
+        List<string> seedMem = new List<string>();
+        foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
+        {
+            if (kv.Value.Count > 0)
+            {
+                if(kv.Value.Exists(temp => temp.GetComponent<Building>().type == Building_TYPE.WOOD_FOX)||
+                   kv.Value.Exists(temp => temp.GetComponent<Building>().type == Building_TYPE.WOOD_RABBIT)||
+                   kv.Value.Exists(temp => temp.GetComponent<Building>().type == Building_TYPE.WOOD_RAT))
+                {
+                    seedMem.Add(RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key).nodeName);
+                    Debug.Log(seedMem[0]);
+                }                
+            }
+        }
+        if (seedMem.Count > 0)
+        {
+            for (int i = 0; i < seedMem.Count; i++)
+            {
+                NodeMember member = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
+                //Debug.Log(seedMem[i]);
+                member.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+                Debug.Log(member.nodeName + "이펙트킴");
+            }
+        }
+        else
+        {
+            Uimanager.Instance.playerUI.AlarmWindow.SetActive(true);
+            Uimanager.Instance.playerUI.turnAlarmText.text = "소환불가";
+            roundManager.testType = RoundManager.SoldierTestType.Select;
         }
         
     }

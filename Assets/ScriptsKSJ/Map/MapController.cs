@@ -131,12 +131,14 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 }
                 break;
             case RoundManager.SoldierTestType.Spawn:
-
-                if (RoundManager.Instance.nowPlayer.hasNodeNames.Count > 0)
+                if (miniMapHit.transform.TryGetComponent(out NodeMember spawnMem))
                 {
-                    string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
+                    nowTile = spawnMem;
+                        //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
+                    string tempName = nowTile.nodeName;
                     RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
                     RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                    RoundManager.Instance.wood.SetOffAllEffect();
                 }
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
@@ -226,7 +228,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         BuildingManager.Instance.SetWoodBase(nowTile);
                         RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.selectedBuilding);
-                    }                    
+                    }
+                    RoundManager.Instance.wood.SetOffAllEffect();
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
