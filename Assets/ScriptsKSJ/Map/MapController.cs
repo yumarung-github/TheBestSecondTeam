@@ -126,7 +126,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
                         {
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
-                            Debug.Log("Test" + RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck);
                         }
                     }
                     else
@@ -317,22 +316,36 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             case RoundManager.SoldierTestType.Battle:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember battleMem))//nodemember를 찾음.
                 {
-                    if (RoundManager.Instance.nowPlayer is Cat cat)
+                    nowTile = battleMem;
+                    if (RoundManager.Instance.nowPlayer is Bird bird && (nowTile.isTileCheck == true))
                     {
-                        if(RoundManager.Instance.cat.actionPoint > 0)
+                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                        for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
                         {
-                            Debug.Log(battleMem.nodeName);
-                            nowTile = battleMem;
-                            catOnAction();
-                            Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                            RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                         }
                     }
                     else
                     {
-                        Debug.Log(battleMem.nodeName);
-                        nowTile = battleMem;
-                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(false);
                     }
+                    //if (RoundManager.Instance.nowPlayer is Cat cat)
+                    //{
+                    //    if(RoundManager.Instance.cat.actionPoint > 0)
+                    //    {
+                    //        Debug.Log(battleMem.nodeName);
+                    //        nowTile = battleMem;
+                    //        catOnAction();
+                    //        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    Debug.Log(battleMem.nodeName);
+                    //    nowTile = battleMem;
+                    //    Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                    //}
                 }
                 else
                 {

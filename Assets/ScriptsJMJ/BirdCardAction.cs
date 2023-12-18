@@ -29,17 +29,7 @@ public class BirdCardAction : MonoBehaviour
     int birdCard = 0;
     int curCard = 0;
 
-    bool isBreakingRule;
-
-    public bool IsBreakingRule
-    {
-        set 
-        { 
-            isBreakingRule = value;
-            if (isBreakingRule == false)
-                RoundManager.Instance.bird.BreakingRule();
-        }
-    }
+    bool isBreakRule;
 
 
 
@@ -123,7 +113,7 @@ public class BirdCardAction : MonoBehaviour
     public void SetBattleNode()
     {
         tiles.Clear();
-
+        isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> battleTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == battleTileCheck.Key);
@@ -135,6 +125,7 @@ public class BirdCardAction : MonoBehaviour
                 tile.isTileCheck = true;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+                isBreakRule = true;
             }
             else if (isBattletile)
             {
@@ -146,18 +137,18 @@ public class BirdCardAction : MonoBehaviour
             for (int i = 0; i < tiles.Count; i++)
             {
                 tiles[i].gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
-                /*            if (RoundManager.Instance.mapController.nowTile != tiles[i])
-                            {
-                                SetBattleNode();
-                            }*/
                 tiles[i].isTileCheck = true;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+                isBreakRule = true;
             }
 
             if (tiles.Contains(RoundManager.Instance.mapController.nowTile))
+            {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
+                isBreakRule = true;
+            }
         }
-        else if (tiles.Count > 0)
+        else if (!isBreakRule)
         {
             RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
             RoundManager.Instance.bird.BreakingRule();
@@ -166,6 +157,7 @@ public class BirdCardAction : MonoBehaviour
     public void SetBulidNode()
     {
         tiles.Clear();
+        isBreakRule = false;
         Debug.Log("빌드");
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
@@ -173,16 +165,18 @@ public class BirdCardAction : MonoBehaviour
             if (tile.nodeType.Equals(birdCards[CurCard].costType))
             {
                 tiles.Add(tile);
+                isBreakRule = true;
             }
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
                 tile.isTileCheck = true;
-
+                isBreakRule = true;
             }
         }
-        if (tiles.Count == 0)
+        
+        if (!isBreakRule)
         {
             Debug.Log("빌드 브레이킹 룰");
             RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
@@ -200,6 +194,7 @@ public class BirdCardAction : MonoBehaviour
     public void SetMoveNode()
     {
         tiles.Clear();
+        isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
@@ -212,7 +207,7 @@ public class BirdCardAction : MonoBehaviour
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
                 tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.blue;
                 tile.isTileCheck = true;
-
+                isBreakRule = true;
             }
             else if (birdCards[CurCard].costType == tile.nodeType)
             {
@@ -221,15 +216,14 @@ public class BirdCardAction : MonoBehaviour
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
                     tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
                     tiles[j].isTileCheck = true;
-
+                    isBreakRule = true;
                 }
             }
-            else
-            {
-
-                RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
-                RoundManager.Instance.bird.BreakingRule();
-            }
+        }
+        if (!isBreakRule)
+        {
+            RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+            RoundManager.Instance.bird.BreakingRule();
         }
     }
 
@@ -248,6 +242,7 @@ public class BirdCardAction : MonoBehaviour
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
                 tile1.gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
                 tile1.isTileCheck = true;
+                isBreakRule = true;
             }
             else if (birdCards[CurCard].costType == tile1.nodeType)
             {
@@ -256,13 +251,14 @@ public class BirdCardAction : MonoBehaviour
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
                     tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
                     tiles[j].isTileCheck = true;
+                    isBreakRule = true;
                 }
             }
-            else
-            {
-                RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
-                RoundManager.Instance.bird.BreakingRule();
-            }
+        }
+        if (!isBreakRule)
+        {
+            RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
+            RoundManager.Instance.bird.BreakingRule();
         }
     }
 
