@@ -34,11 +34,11 @@ public class BattleManager : SingleTon<BattleManager>
         battleP1 = RoundManager.Instance.nowPlayer;
 
         int tempNum = 0;
-        if (RoundManager.Instance.cat.isOver == true) //현재 고양이턴이 아닐때
+        if (RoundManager.Instance.cat.isOver == true) 
         {
             Uimanager.Instance.playerUI.buttons[tempNum].transform.GetComponentInChildren<TextMeshProUGUI>().text =
-                RoundManager.Instance.nowPlayer.gameObject.name + " vs Cat"; //타겟 0 번째 버튼의 텍스트에 자기이름을  vs 캣을 넣음
-            Uimanager.Instance.playerUI.buttons[tempNum].onClick.AddListener(() => //타겟 0 번째 버튼을 누르면
+                RoundManager.Instance.nowPlayer.gameObject.name + " vs Cat"; 
+            Uimanager.Instance.playerUI.buttons[tempNum].onClick.AddListener(() =>
             {
                 if (RoundManager.Instance.cat.hasSoldierDic.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName)) //병사를 가지고 있는 타일이 있으면
                 {
@@ -122,6 +122,16 @@ public class BattleManager : SingleTon<BattleManager>
                     cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeType, 0);
                 cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]++;
             }
+/*            if (battleP1 is Bird bird)
+            {
+                bool buildingCheck = battleP2 == RoundManager.Instance.cat;
+                if (diceP1Num > battleP2.battleSoldierNum )
+                if(bird.NowLeader == LEADER_TYPE.TYRANT)
+                {
+                    diceP1Num++;
+                    수정해야댐 //민정
+                }
+            }*/
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;
         //여기에 플레이어 1번의 버드의 지도자가 데미지 1이면 다이스2num에 1추가

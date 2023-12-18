@@ -119,7 +119,19 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember temp))
                 {
                     nowTile = temp;
-                    if (temp.isTileCheck == true)
+                    if(temp.isTileCheck == true && RoundManager.Instance.bird.NowLeader == LEADER_TYPE.PROPHET)
+                    {
+                        for(int m = 0; m < 2; m++)
+                        {
+                            RoundManager.Instance.bird.SpawnSoldier(nowTile.nodeName, nowTile.transform);
+                            RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                            for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
+                            {
+                                RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
+                            }
+                        }
+                    }                    
+                    else if (temp.isTileCheck == true)
                     {
                         RoundManager.Instance.bird.SpawnSoldier(nowTile.nodeName, nowTile.transform);
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;

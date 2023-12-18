@@ -61,7 +61,6 @@ public class BirdCardAction : MonoBehaviour
     {
         birdCards.Add(card);
         CountAnimals(card.costType);
-        Debug.Log(card.costType);
     }
     public void AddCard(Card card)
     {
@@ -227,7 +226,6 @@ public class BirdCardAction : MonoBehaviour
         }
     }
 
-
     public void SetSpawnNode()
     {
         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
@@ -277,22 +275,18 @@ public class BirdCardAction : MonoBehaviour
         {
             case ANIMAL_COST_TYPE.FOX:
                 foxCard++;
-                Debug.Log(foxCard);
                 countAnimals[0].text = "x " + foxCard.ToString();
                 break;
             case ANIMAL_COST_TYPE.RABBIT:
                 rabbitCard++;
-                Debug.Log(rabbitCard);
                 countAnimals[1].text ="x " + rabbitCard.ToString();
                 break;
             case ANIMAL_COST_TYPE.RAT:
                 ratCard++;
-                Debug.Log(ratCard);
                 countAnimals[2].text = "x " + ratCard.ToString();
                 break;
             case ANIMAL_COST_TYPE.BIRD:
                 birdCard++;
-                Debug.Log(birdCard);
                 countAnimals[3].text = "x " + birdCard.ToString();
                 break;
 

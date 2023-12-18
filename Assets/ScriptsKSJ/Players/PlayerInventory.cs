@@ -45,17 +45,18 @@ public class PlayerInventory : MonoBehaviour
             tempCardNum += kv.Value.Count;
         }
         Debug.Log("남은카드" + tempCardNum);
-        for (int j = 0; j < tempCardNum; j++)
+        for (int j = 0; j < tempCardNum; j++) //카드 갯수만큼
         {
-            int a = j;
-
+            int a = j; // 0
+            int next = j + 1;
             Debug.Log("도는거 체크" + j);
-            if (slot[j].card == null)
+            if (slot[j].card == null) 
             {
-                slot[j].card = slot[j + 1].card;
-                slot[j].image.sprite = slot[j + 1].image.sprite;
-                slot[j + 1].card = null;
-                slot[j + 1].image.sprite = null;
+
+                slot[j].card = slot[next].card;
+                slot[j].image.sprite = slot[next].image.sprite;
+                slot[next].card = null;
+                slot[next].image.sprite = null;
 
                 slot[a].card.onActive = null;
                 Debug.Log(a + "왜");
@@ -68,9 +69,7 @@ public class PlayerInventory : MonoBehaviour
                     }
                 };
 
-
-
-                Debug.Log(tempCardNum);
+                tempCardNum--; //민정추가
                 Debug.Log(j);
 
 
