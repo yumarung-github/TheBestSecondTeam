@@ -201,8 +201,8 @@ public class Wood : Player
             {
                 hasBuildingDic.Add(tileName, new List<GameObject>());
             }
-            if (!hasBuildingDic[tileName].Exists(building => building.GetComponent<Building>().type == building.GetComponent<Building>().type)
-                && CostTypeCheck(tempMem.nodeType) == false)//지어지지않은 기지면
+            if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == building.GetComponent<Building>().type) &&
+                CostTypeCheck(tempMem.nodeType) == false)//지어지지않은 기지면
             {
                 SetHasBuildingNode(tileName, targetTransform, building);
                 if(supportVal[tempMem.nodeType] < buildCost + soldierCost)
@@ -215,22 +215,37 @@ public class Wood : Player
                     supportVal[tempMem.nodeType] -= buildCost + soldierCost;
                 if(buildCost == 2)//반란이면
                 {
+                    Debug.Log(buildCost);
+                    Debug.Log(buildCost + soldierCost);
+                    NodeMember nowTile = roundManager.mapController.nowTile;
+                                        
+                    GameObject tokenObj = RoundManager.Instance.wood.hasBuildingDic[nowTile.nodeName].
+                        Find(gameObject => gameObject.GetComponent<Building>().type == Building_TYPE.WOOD_TOKEN);
+                    RoundManager.Instance.wood.hasBuildingDic[nowTile.nodeName].Remove(tokenObj);
+                    Destroy(tokenObj);
+
                     SetBaseValue(tempMem.nodeType, true);//기지 체크해주는거
                     Score += DestroyAllGetScore(tempMem);//건물 부수는거
-                    for (int i = 0; i < RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
+                    if (RoundManager.Instance.cat.hasSoldierDic.ContainsKey(tempMem.nodeName))
                     {
-                        Soldier tempSol = RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName][i];
-                        Debug.Log(tempSol.name);
-                        RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
-                        Destroy(tempSol.gameObject);
-                    }
-                    for (int i = 0; i < RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
+                        for (int i = 0; i < RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
+                        {
+                            Soldier tempSol = RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName][i];
+                            Debug.Log(tempSol.name);
+                            RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
+                            Destroy(tempSol.gameObject);
+                        }
+                    }                    
+                    if (RoundManager.Instance.bird.hasSoldierDic.ContainsKey(tempMem.nodeName))
                     {
-                        Soldier tempSol = RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName][i];
-                        Debug.Log(tempSol.name);
-                        RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
-                        Destroy(tempSol.gameObject);
-                    }
+                        for (int i = 0; i < RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
+                        {
+                            Soldier tempSol = RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName][i];
+                            Debug.Log(tempSol.name);
+                            RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
+                            Destroy(tempSol.gameObject);
+                        }
+                    }                    
                 }
                 else//동조라면
                 {
@@ -303,7 +318,7 @@ public class Wood : Player
                 GameObject tempObject = roundManager.cat.hasBuildingDic[node.nodeName][i];
                 roundManager.cat.hasBuildingDic[node.nodeName].RemoveAt(i);
                 Destroy(tempObject);
-                Debug.Log(roundManager.cat.hasBuildingDic[node.nodeName].Count);
+                //Debug.Log(roundManager.cat.hasBuildingDic[node.nodeName].Count);
             }
         }
         if (roundManager.bird.hasBuildingDic.ContainsKey(node.nodeName) && roundManager.bird.hasBuildingDic[node.nodeName].Count > 0)
@@ -315,7 +330,7 @@ public class Wood : Player
                 GameObject tempObject = roundManager.bird.hasBuildingDic[node.nodeName][i];
                 roundManager.bird.hasBuildingDic[node.nodeName].RemoveAt(i);
                 Destroy(tempObject);
-                Debug.Log(roundManager.bird.hasBuildingDic[node.nodeName].Count);
+                //Debug.Log(roundManager.bird.hasBuildingDic[node.nodeName].Count);
             }
         }
         return calScore;

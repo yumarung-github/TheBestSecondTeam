@@ -226,10 +226,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         BuildingManager.Instance.SetWoodBase(nowTile);
                         RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.selectedBuilding);
-                        GameObject tokenObj = RoundManager.Instance.wood.hasBuildingDic[nowTile.nodeName].
-                            Find(gameObject => gameObject.GetComponent<Building>().type == Building_TYPE.WOOD_TOKEN);
-                        RoundManager.Instance.wood.hasBuildingDic[nowTile.nodeName].Remove(tokenObj);
-                        Destroy(tokenObj);
                     }                    
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
