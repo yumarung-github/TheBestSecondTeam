@@ -145,7 +145,7 @@ public class Cat : Player
         {
             hasBuildingDic.Add(tileName, new List<GameObject>());
         }
-        if (!hasBuildingDic[tileName].Exists(building => building.GetComponent<Building>().type == building.GetComponent<Building>().type))
+        if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == building.GetComponent<Building>().type))
         {
             SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
         }

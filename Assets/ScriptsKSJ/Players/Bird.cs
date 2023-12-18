@@ -112,7 +112,7 @@ public class Bird : Player
     {
         if (hasBuildingDic.ContainsKey(tileName) == false)
             hasBuildingDic.Add(tileName, new List<GameObject>());
-        if (!hasBuildingDic[tileName].Exists(building => building.GetComponent<Building>().type == building.GetComponent<Building>().type))
+        if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == building.GetComponent<Building>().type))
             SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
         else
             Debug.Log("이미 건설됨");
