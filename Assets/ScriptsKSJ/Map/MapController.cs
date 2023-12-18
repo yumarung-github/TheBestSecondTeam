@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
 
 public class MapController : MonoBehaviour, IPointerDownHandler
 {
@@ -25,7 +26,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     LayerMask layerMask;//타일만 선택할 수 있게 레이어마스크 설정
 
-
+    public event Action catOnAction;
+    public event Action catEmploy;
 
     private void Start()
     {
@@ -211,10 +213,26 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         wood.buildCost = 1;
                         wood.SetOffAllEffect();
                         Debug.Log("ㅇㅇ");
+                        RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                        BuildingManager.Instance.selectedBuilding);
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                     }
-                    RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
-                    BuildingManager.Instance.selectedBuilding);
-                    RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                    if(RoundManager.Instance.nowPlayer is Cat cat)
+                    {
+                        if (RoundManager.Instance.cat.actionPoint > 0)
+                        {
+                            RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                            BuildingManager.Instance.selectedBuilding);
+                            RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                            catOnAction();
+                        }
+                        else
+                        {
+                            Debug.Log("액션포인트없음");
+                        }
+                    }
+
+
                 }
                 break;
             case RoundManager.SoldierTestType.Revoit:
@@ -236,9 +254,22 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             case RoundManager.SoldierTestType.Battle:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember battleMem))//nodemember를 찾음.
                 {
-                    Debug.Log(battleMem.nodeName);
-                    nowTile = battleMem;
-                    Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                    if (RoundManager.Instance.nowPlayer is Cat cat)
+                    {
+                        if(RoundManager.Instance.cat.actionPoint > 0)
+                        {
+                            Debug.Log(battleMem.nodeName);
+                            nowTile = battleMem;
+                            catOnAction();
+                            Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log(battleMem.nodeName);
+                        nowTile = battleMem;
+                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                    }
                 }
                 else
                 {
@@ -604,6 +635,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
+            case RoundManager.SoldierTestType.CatExtraWork: // 이부분은 성환이형 스크립트와 이어야함 나중에 .
+                catEmploy();
+                break;
+
             default: break;
             #endregion
         }

@@ -1,4 +1,5 @@
 using CustomInterface;
+using JetBrains.Annotations;
 using sihyeon;
 using System;
 using System.Collections;
@@ -7,7 +8,10 @@ using UnityEngine;
 
 public class Cat : Player
 {
-    private int actionPoint;
+    public int actionPoint;
+    public bool firstMove = false;
+    public bool secondMove = false;
+    private int MaxActionPoint = 4;
     // 각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다
     // 예외적으로 카드 하나를 소모후 매고용으로 1포인트 더 
     public NodeMember baseNode;
@@ -94,6 +98,13 @@ public class Cat : Player
 
         soldierMaxNum = 25;
         remainSoldierNum = soldierMaxNum;
+
+        RoundManager.Instance.mapController.catOnAction+= () => { UseActionPoint(); };
+        RoundManager.Instance.mapController.catEmploy += () => { Employment(); };
+
+
+        actionPoint = 3;
+
     }
 
     private void ColorSetting()
@@ -160,18 +171,34 @@ public class Cat : Player
     public void UseActionPoint()
     {
         if (actionPoint > 0)
+        {
             actionPoint--;
+            Debug.Log("남은 포인트"+actionPoint);
+           
+        }
         else
+        {
             Debug.Log("포인트없음");
+            Debug.Log("남은 포인트" + actionPoint);
+            
+        }
     }
 
 
     public void Employment() // 매 고용
     {
         if (actionPoint < 3)
+        {
             actionPoint++;
+            Debug.Log("남은 포인트 : " + actionPoint);
+            
+        }
         else
-            Debug.Log("야근못함");
+        {
+            Debug.Log("매고용못함");
+            Debug.Log("남은 포인트 : " + actionPoint);
+            
+        }
     }
 
 
