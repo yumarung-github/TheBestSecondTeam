@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
         {
             hasBuildingDic.Add(tileName, new List<GameObject>());
         }
-        if (hasBuildingDic[tileName].Contains(building) == false)//예외처리 실수
+        if (!hasBuildingDic[tileName].Exists(building => building.GetComponent<Building>().type == building.GetComponent<Building>().type))//예외처리 실수
         {
             SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
         }

@@ -201,7 +201,8 @@ public class Wood : Player
             {
                 hasBuildingDic.Add(tileName, new List<GameObject>());
             }
-            if (hasBuildingDic[tileName].Contains(building) == false && CostTypeCheck(tempMem.nodeType) == false)
+            if (!hasBuildingDic[tileName].Exists(building => building.GetComponent<Building>().type == building.GetComponent<Building>().type)
+                && CostTypeCheck(tempMem.nodeType) == false)
             {
                 SetHasBuildingNode(tileName, targetTransform, building);
                 if(supportVal[tempMem.nodeType] < buildCost + soldierCost)

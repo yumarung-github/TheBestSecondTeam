@@ -1,6 +1,7 @@
 using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -190,20 +191,24 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember buildTile))//nodemember를 찾음.
                 {
                     nowTile = buildTile;
-                    if (RoundManager.Instance.nowPlayer is Bird bird && RoundManager.Instance.bird.hasSoldierDic.ContainsKey(nowTile.nodeName))
+                    if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
-                        foreach (KeyValuePair<string, List<GameObject>> soldierloc in RoundManager.Instance.bird.hasBuildingDic)
+                        if (nowTile.isTileCheck == true && RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName) == false)
                         {
-                            if (RoundManager.Instance.bird.hasBuildingDic[soldierloc.Key] == null)
-                                continue;
+                            RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
+                            BuildingManager.Instance.selectedBuilding);
+                            RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                            for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
+                            {
+                                RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
+                            }
                         }
                     }
-                    else
-                        return;
                     if (RoundManager.Instance.nowPlayer is Wood wood)
                     {
                         wood.buildCost = 1;
                         wood.SetOffAllEffect();
+                        Debug.Log("ㅇㅇ");
                     }
                     RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                     BuildingManager.Instance.selectedBuilding);
