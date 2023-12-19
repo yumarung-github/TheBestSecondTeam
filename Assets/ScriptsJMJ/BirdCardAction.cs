@@ -122,7 +122,7 @@ public class BirdCardAction : MonoBehaviour
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
             {
                 tile.isTileCheck = true;
-                tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
+                RoundManager.Instance.SetEffect(tile);
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
                 isBreakRule = true;
             }
@@ -135,7 +135,7 @@ public class BirdCardAction : MonoBehaviour
         {
             for (int i = 0; i < tiles.Count; i++)
             {
-                tiles[i].gameObject.transform.GetComponent<Renderer>().material.color = Color.gray;
+                RoundManager.Instance.SetEffect(tiles[i]);
                 tiles[i].isTileCheck = true;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
                 isBreakRule = true;
@@ -169,7 +169,7 @@ public class BirdCardAction : MonoBehaviour
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
-                tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
+                RoundManager.Instance.SetEffect(tile);
                 tile.isTileCheck = true;
                 isBreakRule = true;
             }
@@ -184,7 +184,7 @@ public class BirdCardAction : MonoBehaviour
         for (int j = 0; j < tiles.Count; j++)
         {
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
-            tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.cyan;
+            RoundManager.Instance.SetEffect(tiles[j]);
             tiles[j].isTileCheck = true;
 
         }
@@ -204,7 +204,7 @@ public class BirdCardAction : MonoBehaviour
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
-                tile.gameObject.transform.GetComponent<Renderer>().material.color = Color.blue;
+                RoundManager.Instance.SetEffect(tile);
                 tile.isTileCheck = true;
                 isBreakRule = true;
             }
@@ -213,7 +213,7 @@ public class BirdCardAction : MonoBehaviour
                 for (int j = 0; j < tiles.Count; j++)
                 {
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect;
-                    tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
+                    RoundManager.Instance.SetEffect(tiles[j]);
                     tiles[j].isTileCheck = true;
                     isBreakRule = true;
                 }
@@ -238,7 +238,7 @@ public class BirdCardAction : MonoBehaviour
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
-                tile1.gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
+                RoundManager.Instance.SetEffect(tile1);
                 tile1.isTileCheck = true;
                 isBreakRule = true;
             }
@@ -247,7 +247,7 @@ public class BirdCardAction : MonoBehaviour
                 for (int j = 0; j < tiles.Count; j++)
                 {
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
-                    tiles[j].gameObject.transform.GetComponent<Renderer>().material.color = Color.black;
+                    RoundManager.Instance.SetEffect(tiles[j]);
                     tiles[j].isTileCheck = true;
                     isBreakRule = true;
                 }
