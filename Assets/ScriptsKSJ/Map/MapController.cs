@@ -161,6 +161,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember tempTile))//nodemember를 찾음.
                 {
                     nowTile = tempTile;
+                    RoundManager.Instance.SetOffAllEffect();
                     if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
                         if (nowTile.isTileCheck == true)
@@ -183,8 +184,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                 }
                 else
-                    soldiers.Clear();
-                RoundManager.Instance.SetOffAllEffect();
+                    soldiers.Clear();                
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;               

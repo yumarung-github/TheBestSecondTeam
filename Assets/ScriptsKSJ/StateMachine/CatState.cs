@@ -12,6 +12,7 @@ public class CatWaitState : RmState
     }
     public override void Enter()
     {
+        rm.SetOffAllEffect();
         rm.nowPlayer = cat;
         Uimanager.Instance.catUI.profileWindow.SetActive(true);
         if (RoundManager.Instance.cat.isDisposable)
