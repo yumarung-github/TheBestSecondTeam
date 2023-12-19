@@ -150,9 +150,27 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     nowTile = spawnMem;
                         //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
                     string tempName = nowTile.nodeName;
-                    RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-                    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
-                    RoundManager.Instance.wood.SetOffAllEffect();
+
+                    if (RoundManager.Instance.cat is Cat cat)
+                    {
+                        if (RoundManager.Instance.cat.actionPoint > 0)
+                        {
+                            RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+                            RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                            RoundManager.Instance.wood.SetOffAllEffect();
+                            catOnAction();
+                        }
+                        else
+                        {
+                            Debug.Log("액션포인트 없음");
+                        }
+                    }
+                    else
+                    {
+                        RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+                        RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                        RoundManager.Instance.wood.SetOffAllEffect();
+                    }
                 }
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
