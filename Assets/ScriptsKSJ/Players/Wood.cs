@@ -9,10 +9,11 @@ using UnityEngine;
 
 public class Wood : Player
 {
-    int tokenNum;
+    public int tokenNum;
     [SerializeField]
     Transform particlesParent;
     public Dictionary<int,int> tokenScoreDic = new Dictionary<int,int>();
+    public Dictionary<int, int> tokenCostDic = new Dictionary<int, int>();
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
     public int RemainSoldierNum
@@ -131,7 +132,7 @@ public class Wood : Player
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.RAT, 0);
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
         buildCost = 1;//초기화1
-        SetTokenScore();
+        SetTokenValue();
         supportVal[ANIMAL_COST_TYPE.RAT] = 2;//테스트용 지울거
         supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
@@ -190,6 +191,7 @@ public class Wood : Player
     }
     public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
+        Building newBuilding = building.GetComponent<Building>();
         NodeMember tempMem = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == tileName);
         
         int soldierCost = FindSoldierCost(tempMem);//병사가 3명이상있으면 코스트 계산
@@ -206,14 +208,14 @@ public class Wood : Player
                 CostTypeCheck(tempMem.nodeType) == false)//지어지지않은 기지면
             {
                 SetHasBuildingNode(tileName, targetTransform, building);
-                if(supportVal[tempMem.nodeType] < buildCost + soldierCost)
+                if(supportVal[tempMem.nodeType] < buildCost + soldierCost)//병사 코스트와 건물코스트 새줄여주기
                 {
                     int birdCostCal = supportVal[tempMem.nodeType] - (buildCost + soldierCost);
                     supportVal[tempMem.nodeType] = 0;
                     supportVal[ANIMAL_COST_TYPE.BIRD] += birdCostCal;
                 }
                 else
-                    supportVal[tempMem.nodeType] -= buildCost + soldierCost;
+                    supportVal[tempMem.nodeType] -= buildCost + soldierCost;//새까지 필요없을떄
                 if(buildCost == 2)//반란이면
                 {
                     Debug.Log(buildCost);
@@ -250,7 +252,9 @@ public class Wood : Player
                 }
                 else//동조라면
                 {
-                    
+                    hasBuildingDic[roundManager.mapController.nowTile.nodeName].Find(temp => temp.
+                    GetComponent<Building>().type == Building_TYPE.WOOD_TOKEN).
+                    GetComponent<Building>().onDestroy += () => { tokenNum--; };
                     Debug.Log(RoundManager.Instance.nowPlayer.hasBuildingDic.Count);
                     tokenNum = 0;
                     foreach (KeyValuePair<string, List<GameObject>> kv in RoundManager.Instance.nowPlayer.hasBuildingDic)
@@ -381,7 +385,7 @@ public class Wood : Player
         Uimanager.Instance.playerUI.spawnBtn.enabled = onOff;
     }
 
-    public void SetTokenScore()//토큰 설치했을때 점수
+    public void SetTokenValue()//토큰 설치했을때 점수
     {
         tokenScoreDic.Add(1, 0);
         tokenScoreDic.Add(2, 1);
@@ -393,6 +397,17 @@ public class Wood : Player
         tokenScoreDic.Add(8, 4);
         tokenScoreDic.Add(9, 4);
         tokenScoreDic.Add(10, 4);
+
+        tokenCostDic.Add(0, 1);
+        tokenCostDic.Add(1, 1);
+        tokenCostDic.Add(2, 1);
+        tokenCostDic.Add(3, 2);
+        tokenCostDic.Add(4, 2);
+        tokenCostDic.Add(5, 2);
+        tokenCostDic.Add(6, 3);
+        tokenCostDic.Add(7, 3);
+        tokenCostDic.Add(8, 3);
+        tokenCostDic.Add(9, 3);
     }
 
     public void SetMoveEffects()
@@ -547,7 +562,7 @@ public class Wood : Player
                 Debug.Log(i);
                 Debug.Log(roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]));
                 NodeMember temp = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
-                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] < 1)
+                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] < tokenCostDic[tokenNum])
                 {
                     seedMem.Remove(temp.nodeName);
                     Debug.Log("제거됨" + temp.nodeName);
@@ -576,7 +591,7 @@ public class Wood : Player
             List<NodeMember> buildingExist = new List<NodeMember>();
             foreach (NodeMember temp in RoundManager.Instance.mapExtra.mapTiles)
             {
-                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 1)//코스트 계산 필요 위에도
+                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= tokenCostDic[tokenNum])//코스트 계산 필요 위에도
                     buildingExist.Add(temp);
             }
             foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)

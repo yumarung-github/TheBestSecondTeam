@@ -44,6 +44,7 @@ public class WoodMorning1State : RmState
     }
     public override void Enter()
     {
+        rm.SetOffAllEffect();
         Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n아침1");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_MORNING2);
         Uimanager.Instance.woodUi.SetWoodMorning1();
@@ -66,6 +67,7 @@ public class WoodMorning2State : RmState
     }
     public override void Enter()
     {
+        rm.SetOffAllEffect();
         Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n아침2");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_AFTERNOON);
         Uimanager.Instance.woodUi.SetWoodMorning2();
@@ -87,6 +89,7 @@ public class WoodAfternoonState : RmState
     }
     public override void Enter()
     {
+        rm.SetOffAllEffect();
         wood.SetOfficerBtnOnoff();
         Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n점심");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_DINNER);
@@ -109,6 +112,7 @@ public class WoodDinnerState : RmState
     }
     public override void Enter()
     {
+        rm.SetOffAllEffect();
         Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
         Uimanager.Instance.woodUi.SetDinner(true);

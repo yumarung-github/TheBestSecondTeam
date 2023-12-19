@@ -61,10 +61,13 @@ public class WoodUi : MonoBehaviour
         agreeBtn.onClick.RemoveAllListeners();
         agreeBtn.onClick.AddListener(() =>
         {
-            RoundManager.Instance.wood.SetTileEffectAgree();
-            BuildingManager.Instance.selectedBuilding
-            = BuildingManager.Instance.BuildingDics[Building_TYPE.WOOD_TOKEN];
-            RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+            if(RoundManager.Instance.wood.tokenNum < 10)
+            {
+                RoundManager.Instance.wood.SetTileEffectAgree();
+                BuildingManager.Instance.selectedBuilding
+                = BuildingManager.Instance.BuildingDics[Building_TYPE.WOOD_TOKEN];
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
+            }            
             //지을 수 있는 곳 표시 추가하기
         });
     }
