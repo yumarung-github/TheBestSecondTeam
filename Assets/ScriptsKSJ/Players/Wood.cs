@@ -12,7 +12,6 @@ public class Wood : Player
     int tokenNum;
     [SerializeField]
     Transform particlesParent;
-    public List<GameObject> particles = new List<GameObject>();
     public Dictionary<int,int> tokenScoreDic = new Dictionary<int,int>();
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
@@ -133,12 +132,6 @@ public class Wood : Player
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
         buildCost = 1;//초기화1
         SetTokenScore();
-        List<Effect> list = particlesParent.GetComponentsInChildren<Effect>().ToList();
-        foreach (Effect p in list)
-        {
-            particles.Add(p.gameObject);
-            p.gameObject.SetActive(false);
-        }
         supportVal[ANIMAL_COST_TYPE.RAT] = 2;//테스트용 지울거
         supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
@@ -324,6 +317,7 @@ public class Wood : Player
             for(int i=0; i < roundManager.cat.hasBuildingDic[node.nodeName].Count; i++)
             {
                 GameObject tempObject = roundManager.cat.hasBuildingDic[node.nodeName][i];
+                //tempObject.transform.GetComponent<Building>().Destroy();
                 roundManager.cat.hasBuildingDic[node.nodeName].RemoveAt(i);
                 Destroy(tempObject);
                 //Debug.Log(roundManager.cat.hasBuildingDic[node.nodeName].Count);
@@ -608,11 +602,4 @@ public class Wood : Player
             }
         }        
     }
-    public void SetOffAllEffect()
-    {
-        foreach(GameObject effect in particles)
-        {
-            effect.SetActive(false);
-        }
-    }    
 }

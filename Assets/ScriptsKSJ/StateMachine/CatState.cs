@@ -42,6 +42,9 @@ public class CatMorningState : RmState
     {
         rm.nowPlayer = cat;
         rm.cat.actionPoint = 3;
+        rm.cat.firstMove = false;
+        rm.cat.secondMove = false;
+        rm.cat.WoodProductNum += rm.cat.turnAddWoodToken;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
         Uimanager.Instance.playerUI.SpawnSoldier();

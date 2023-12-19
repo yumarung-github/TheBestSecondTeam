@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -50,9 +52,10 @@ namespace sihyeon
     //해결책?
     // 일단은 건물의 스크립트를 가진 게임오브젝트 자체를 전달하는쪽으로. 12-11 시현
 
-    public class Building : MonoBehaviour, IDestroyAble
+    public class Building : MonoBehaviour
     {
         //public playerState state;
+        public event Action onDestroy;
         public Building_TYPE type;
         public Building_STATE buildingState = Building_STATE.NONE;
         public int cost;
@@ -63,9 +66,9 @@ namespace sihyeon
             Debug.Log("testBuild");
         }
 
-        public void Destroy(Building targetBuilding)
+        public void Destroy()
         {
-            targetBuilding.buildingState = Building_STATE.DESTROY;
+            onDestroy();
             Debug.Log("파괴됨");
         }
     }

@@ -133,6 +133,22 @@ public class BattleManager : SingleTon<BattleManager>
                     cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeType, 0);
                 cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]++;
             }
+            if (battleP1 is Bird birdTow)
+            {
+                bool isTargetBuilding = battleP2.hasBuildingDic.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName);
+                bool isCheckBuilding = isTargetBuilding && battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName].Count > 0;
+                if(RoundManager.Instance.bird.NowLeader == LEADER_TYPE.TYRANT ||(diceP2Num > battleP2Soldiers.Count && isCheckBuilding))
+                {
+                    battleP2.hasBuildingDic.Remove(RoundManager.Instance.mapController.nowTile.nodeName);
+                    RoundManager.Instance.bird.Score++;
+                }
+
+                else if(diceP2Num > battleP2Soldiers.Count && isCheckBuilding)
+                {                    
+                    battleP2.hasBuildingDic.Remove(RoundManager.Instance.mapController.nowTile.nodeName);
+                }
+                    
+            }
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;
         //여기에 플레이어 1번의 버드의 지도자가 데미지 1이면 다이스2num에 1추가

@@ -6,10 +6,12 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 using Unity.VisualScripting;
+using static UnityEngine.ParticleSystem;
+using System.Linq;
 
 public class RoundManager : SingleTon<RoundManager>
 {
-
+    public List<GameObject> particles = new List<GameObject>();
     public Transform effectParent;
     [Header("[플레이어들]")]
     public Cat cat;//플레이어중에 고양이 
@@ -75,11 +77,30 @@ public class RoundManager : SingleTon<RoundManager>
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_AFTERNOON, new WoodAfternoonState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_DINNER, new WoodDinnerState());
 
+        List<Effect> list = effectParent.GetComponentsInChildren<Effect>().ToList();
+        foreach (Effect p in list)
+        {
+            particles.Add(p.gameObject);
+            p.gameObject.SetActive(false);
+        }
+
     }
     private void Update()
     {
         //상태가 변화되면 상태머신의 update가 실행된 상태.
         roundSM.Update();
+    }
+    public void SetEffect(NodeMember mem)
+    {
+        mem.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+        Debug.Log(mem.nodeName + "이펙트킴");
+    }
+    public void SetOffAllEffect()
+    {
+        foreach (GameObject effect in particles)
+        {
+            effect.SetActive(false);
+        }
     }
 }
 

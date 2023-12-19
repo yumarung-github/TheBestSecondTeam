@@ -72,6 +72,7 @@ public class PlayerUI : MonoBehaviour
         {
             if (RoundManager.Instance.nowPlayer is Cat cat)
             {
+                NodeMember mem = null;
                 foreach (KeyValuePair<string, List<GameObject>> kv in RoundManager.Instance.nowPlayer.hasBuildingDic)
                 {
                     for (int i = 0; i < kv.Value.Count; i++)
@@ -79,11 +80,25 @@ public class PlayerUI : MonoBehaviour
                         if (kv.Value[i].GetComponent<Building>().type == Building_TYPE.CAT_BARRACKS)
                         {
                             Debug.Log(kv.Key);
-                            NodeMember mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key);
-                            cat.SpawnSoldier(mem.name, mem.transform);
+                            mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key);
                         }
                     }
                 }
+
+                if (RoundManager.Instance.cat.actionPoint > 0)
+                {
+                    RoundManager.Instance.nowPlayer.SpawnSoldier(mem.nodeName,
+                    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == mem.nodeName).transform);
+                    RoundManager.Instance.wood.SetOffAllEffect();
+                    RoundManager.Instance.mapController.catOnAction();
+                }
+                else
+                {
+                    Debug.Log("액션포인트 없음");
+                }
+
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+           
             }
             else if(RoundManager.Instance.nowPlayer is Wood wood)
             {

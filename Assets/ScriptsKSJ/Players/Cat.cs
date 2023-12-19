@@ -11,11 +11,16 @@ public class Cat : Player
     public int actionPoint;
     public bool firstMove = false;
     public bool secondMove = false;
+    public bool firstSpawn = false;
     private int MaxActionPoint = 4;
     // 각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다
     // 예외적으로 카드 하나를 소모후 매고용으로 1포인트 더 
     public NodeMember baseNode;
 
+    
+    public int turnAddWoodToken = 0;
+
+    [SerializeField]
     private int woodProductNum;
     public int WoodProductNum
     {
@@ -151,14 +156,22 @@ public class Cat : Player
     }
     public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
-
+        Building newBuilding = building.GetComponent<Building>();
         if (hasBuildingDic.ContainsKey(tileName) == false)
         {
             hasBuildingDic.Add(tileName, new List<GameObject>());
         }
-        if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == building.GetComponent<Building>().type))
+        if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == newBuilding.type))
         {
             SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
+            
+
+            if(newBuilding.type == Building_TYPE.CAT_SAWMILL)
+            {
+                turnAddWoodToken++;
+                newBuilding.onDestroy += () => { turnAddWoodToken--; };
+                Debug.Log(newBuilding.type);
+            }
         }
         else
         {
@@ -201,6 +214,15 @@ public class Cat : Player
         }
     }
 
+    public void CatSawMill()
+    {
+        Debug.Log("제제소 작동1");
+        if (GetComponent<Building>() != null)
+        {
+
+        }
+
+    }
 
 
 
