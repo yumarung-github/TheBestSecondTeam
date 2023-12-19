@@ -240,6 +240,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 catOnAction();
                                 break;
                             }
+                            if(RoundManager.Instance.cat.actionPoint ==0)
+                            {
+                                Uimanager.Instance.playerUI.buildBtn.enabled = false;
+                            }
                             else
                             { 
                                 Debug.Log("포인트없거나 두번다 이동함");
@@ -303,6 +307,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             BuildingManager.Instance.selectedBuilding);
                             RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                             catOnAction();
+                            if(RoundManager.Instance.cat.actionPoint == 0)
+                            {
+                                Uimanager.Instance.playerUI.buildBtn.enabled = false;
+                            }
                         }
                         else
                         {
@@ -347,12 +355,16 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     //if (RoundManager.Instance.nowPlayer is Cat cat)
                     //{
-                    //    if(RoundManager.Instance.cat.actionPoint > 0)
+                    //    if (RoundManager.Instance.cat.actionPoint > 0)
                     //    {
                     //        Debug.Log(battleMem.nodeName);
                     //        nowTile = battleMem;
                     //        catOnAction();
                     //        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
+                    //        if (RoundManager.Instance.cat.actionPoint == 0)
+                    //        {
+                    //            Uimanager.Instance.playerUI.battleBtn.enabled = false;
+                    //        }
                     //    }
                     //}
                     //else

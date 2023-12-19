@@ -93,6 +93,7 @@ public class PlayerUI : MonoBehaviour
                     RoundManager.Instance.SetOffAllEffect();
                     RoundManager.Instance.mapController.catOnAction();
                     RoundManager.Instance.cat.isSpawn = true;
+                    Uimanager.Instance.playerUI.spawnBtn.enabled = false;
                 }
                 else
                 {

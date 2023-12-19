@@ -46,6 +46,7 @@ public class CatMorningState : RmState
         rm.cat.firstMove = false;
         rm.cat.secondMove = false;
         rm.cat.isSpawn = false;
+        
         rm.cat.WoodProductNum += rm.cat.turnAddWoodToken;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
@@ -126,6 +127,10 @@ public class CatDinnerState : RmState
     {
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_WAIT);
+        Uimanager.Instance.playerUI.spawnBtn.enabled = true;
+        Uimanager.Instance.playerUI.buildBtn.enabled = true;
+        Uimanager.Instance.playerUI.moveBtn.enabled = true;
+        Uimanager.Instance.playerUI.battleBtn.enabled = true;
     }
     public override void Update()
     {

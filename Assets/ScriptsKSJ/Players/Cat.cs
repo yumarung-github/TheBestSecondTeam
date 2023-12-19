@@ -217,4 +217,13 @@ public class Cat : Player
 
 
 
+
+
+    public void FieldHospital()
+    {
+       
+    }
+
+
+
 }

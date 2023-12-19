@@ -8804,7 +8804,10 @@ MonoBehaviour:
   actionPoint: 0
   firstMove: 0
   secondMove: 0
+  isSpawn: 0
   baseNode: {fileID: 0}
+  turnAddWoodToken: 0
+  woodProductNum: 0
   soldierMaxNum: 0
   isDisposable: 1
 --- !u!4 &717167213
@@ -10120,8 +10123,8 @@ MonoBehaviour:
   hasNodeNames: []
   prefabSoldier: {fileID: 3625900152842981291, guid: a3822e5e7137b25439055e4b5117f3e1, type: 3}
   battleSoldierNum: 0
+  tokenNum: 0
   particlesParent: {fileID: 934557085}
-  particles: []
   soldierMaxNum: 0
   officerNum: 0
   battleActionNum: 0
@@ -25005,6 +25008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46cc9ec95e4138479cbb7abc8939265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particles: []
   effectParent: {fileID: 934557085}
   cat: {fileID: 717167212}
   bird: {fileID: 1850166812}
