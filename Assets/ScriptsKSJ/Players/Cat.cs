@@ -11,7 +11,7 @@ public class Cat : Player
     public int actionPoint;
     public bool firstMove = false;
     public bool secondMove = false;
-    public bool firstSpawn = false;
+    public bool isSpawn = false;
     private int MaxActionPoint = 4;
     // 각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다
     // 예외적으로 카드 하나를 소모후 매고용으로 1포인트 더 
@@ -214,15 +214,6 @@ public class Cat : Player
         }
     }
 
-    public void CatSawMill()
-    {
-        Debug.Log("제제소 작동1");
-        if (GetComponent<Building>() != null)
-        {
-
-        }
-
-    }
 
 
 

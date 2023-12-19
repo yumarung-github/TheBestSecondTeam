@@ -85,16 +85,17 @@ public class PlayerUI : MonoBehaviour
                     }
                 }
 
-                if (RoundManager.Instance.cat.actionPoint > 0)
+            if (RoundManager.Instance.cat.actionPoint > 0 && RoundManager.Instance.cat.isSpawn == false)
                 {
                     RoundManager.Instance.nowPlayer.SpawnSoldier(mem.nodeName,
                     RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == mem.nodeName).transform);
                     RoundManager.Instance.SetOffAllEffect();
                     RoundManager.Instance.mapController.catOnAction();
+                    RoundManager.Instance.cat.isSpawn = true;
                 }
                 else
                 {
-                    Debug.Log("액션포인트 없음");
+                    Debug.Log("액션포인트 없음 or 이미 모병함");
                 }
 
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
