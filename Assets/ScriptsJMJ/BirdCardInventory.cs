@@ -6,11 +6,13 @@ public class BirdCardInventory : MonoBehaviour
 {
     public BirdCardAction[] birdCardSlot;
     public int curSlot;
+    bool firstSlotCheck;
 
     public void Start()
     {
         birdCardSlot = Uimanager.Instance.birdUI.birdSlot;
         this.transform.parent.gameObject.SetActive(false);
+        firstSlotCheck = false;
     }
 
     public void UseSlot()
@@ -22,8 +24,14 @@ public class BirdCardInventory : MonoBehaviour
                 return;*/
              if (birdCardSlot[i].birdCards != null)
             {
+                //birdCardSlot[i].Use(); //없앤거
+                if (!firstSlotCheck)
+                {
+                    firstSlotCheck = true;
+                    birdCardSlot[i].isOver[0] = true;
+                }
                 curSlot = i;
-                birdCardSlot[i].Use();
+                birdCardSlot[i].StartActionCo();
             }
         }
     }

@@ -131,6 +131,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                             }
                         }
+                        BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[0];
+                        tempBC.isOver[tempBC.curNum] = true;
                     }                    
                     else if (temp.isTileCheck == true)
                     {
@@ -140,6 +142,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         {
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                         }
+                        BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[0];
+                        tempBC.isOver[tempBC.curNum] = true;
                     }
                     else
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
@@ -254,6 +258,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                     {
+                        if(RoundManager.Instance.nowPlayer is Bird bird)
+                        {
+                            BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[1];
+                            tempBC.isOver[tempBC.curNum] = true;
+                        }
                         if (moveCo != null)
                         {
                             StopCoroutine(moveCo);
@@ -290,6 +299,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             {
                                 RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                             }
+                            BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[3];
+                            tempBC.isOver[tempBC.curNum] = true;
                         }
                     }
                     if (RoundManager.Instance.nowPlayer is Wood wood)
@@ -347,6 +358,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         {
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                         }
+                        BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[2];
+                        tempBC.isOver[tempBC.curNum] = true;
                     }
                     else
                     {

@@ -22,6 +22,7 @@ public class BirdCardAction : MonoBehaviour
     public CARDSLOT_TYPE cardUse_type;
     public List<Card> birdCards;
     List<NodeMember> tiles;
+    public int curNum;
 
     int foxCard = 0;
     int rabbitCard = 0;
@@ -31,7 +32,8 @@ public class BirdCardAction : MonoBehaviour
 
     bool isBreakRule;
 
-
+    Coroutine actionCo;
+    public List<bool> isOver = new List<bool>();
 
     private void Awake()
     {
@@ -40,6 +42,8 @@ public class BirdCardAction : MonoBehaviour
         countAnimals[1].text = "x " + rabbitCard.ToString();
         countAnimals[2].text = "x " + ratCard.ToString();
         countAnimals[3].text = "x " + birdCard.ToString();
+        isOver.Add(false);
+        curNum = 0;
     }
 
     private void Start()
@@ -68,6 +72,7 @@ public class BirdCardAction : MonoBehaviour
 
         birdCards.Add(card);
         CountAnimals(card.costType);
+        isOver.Add(false);
     }
     public void Use()
     {
@@ -77,37 +82,96 @@ public class BirdCardAction : MonoBehaviour
             {
                 case CARDSLOT_TYPE.SPAWN:
                     {
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
+                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
                         SetSpawnNode();
-                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
+                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
                     }
                     break;
                 case CARDSLOT_TYPE.MOVE:
                     {
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
+                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
                         SetMoveNode();
-                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
+                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
                     }
                     break;
 
                 case CARDSLOT_TYPE.BATTLE:
                     {
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
+                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
                         SetBattleNode();
-                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
+                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
                     }
                     break;
                 case CARDSLOT_TYPE.BULID:
                     {
-                        Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
+                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
                         SetBulidNode();
-                        Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
+                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
                     }
                     break;
             }
         }
     }
+    IEnumerator ActionCoroutine()
+    {
+        curNum = -1;
+        while(curNum <= birdCards.Count - 1)
+        {
+            Debug.Log(curNum + " " + isOver.Count);
+            while (isOver.Count > curNum)
+            {
+                if(curNum + 1 == birdCards.Count)
+                {
+                    //여기서 다음isover의 첫번째를 true로
+                }
+                if(isOver[curNum + 1])
+                {
+                    break;
+                }
 
+                yield return null;
+            }
+            curNum++;
+            switch (cardUse_type)
+            {
+                case CARDSLOT_TYPE.SPAWN:
+                    {
+                        Debug.Log(cardUse_type + "종류" + curNum);
+                        SetSpawnNode();
+                    }
+                    break;
+                case CARDSLOT_TYPE.MOVE:
+                    {
+                        Debug.Log(cardUse_type + "종류" + curNum);
+                        SetMoveNode();
+                    }
+                    break;
+
+                case CARDSLOT_TYPE.BATTLE:
+                    {
+                        Debug.Log(cardUse_type + "종류" + curNum);
+                        SetBattleNode();
+                    }
+                    break;
+                case CARDSLOT_TYPE.BULID:
+                    {
+                        Debug.Log(cardUse_type + "종류" + curNum);
+                        SetBulidNode();
+                    }
+                    break;
+            }
+            yield return null;
+            
+        }
+        Debug.Log("11");
+        curNum = 0;
+        yield return null;
+    }
+    public void StartActionCo()
+    {
+        Debug.Log("실행");
+        actionCo = RoundManager.Instance.StartCoroutine(ActionCoroutine());
+    }
 
     public void SetBattleNode()
     {
@@ -265,6 +329,7 @@ public class BirdCardAction : MonoBehaviour
         for (int i = 0; i < birdCards.Count - 1; i++)
         {
             birdCards.RemoveAt(i);
+            isOver.Clear();
         }
     }
 
