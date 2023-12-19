@@ -182,6 +182,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     {
                         if (nowTile.isTileCheck == true)
                         {
+                            RoundManager.Instance.bird.SetBirdMoveTileEffect(nowTile);
                             soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
                             Uimanager.Instance.playerUI.MoveSoldier();
                             for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)

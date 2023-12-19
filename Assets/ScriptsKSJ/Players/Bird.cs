@@ -151,7 +151,7 @@ public class Bird : Player
                 seedMem.Add(edge.sNode.name);
             }
         }
-
+        seedMem.Remove(nowMem.nodeName);
         if (seedMem.Count > 0)
         {
             for (int i = 0; i < seedMem.Count; i++)
