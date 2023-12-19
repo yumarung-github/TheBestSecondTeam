@@ -68,6 +68,7 @@ public class Bird : Player
         base.Start();
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
+        particlesParent = RoundManager.Instance.effectParent;
     }
 
 
@@ -107,7 +108,7 @@ public class Bird : Player
         }
         return null;
     }
-
+    
 
     public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
