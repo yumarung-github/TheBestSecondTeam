@@ -89,7 +89,7 @@ public class PlayerUI : MonoBehaviour
                 {
                     RoundManager.Instance.nowPlayer.SpawnSoldier(mem.nodeName,
                     RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == mem.nodeName).transform);
-                    RoundManager.Instance.wood.SetOffAllEffect();
+                    RoundManager.Instance.SetOffAllEffect();
                     RoundManager.Instance.mapController.catOnAction();
                 }
                 else

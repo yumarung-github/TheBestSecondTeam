@@ -27,7 +27,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     LayerMask layerMask;//타일만 선택할 수 있게 레이어마스크 설정
 
-    public event Action catOnAction;
+    public Action catOnAction;
     public event Action catEmploy;
 
     private void Start()
@@ -149,29 +149,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember spawnMem))
                 {
                     nowTile = spawnMem;
-                        //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
+                    //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
                     string tempName = nowTile.nodeName;
-
-                    if (RoundManager.Instance.cat is Cat cat)
-                    {
-                        if (RoundManager.Instance.cat.actionPoint > 0)
-                        {
-                            RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-                            RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
-                            catOnAction();
-                        }
-                        else
-                        {
-                            Debug.Log("액션포인트 없음");
-                        }
-                    }
-                    else
-                    {
-                        RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-                        RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
-                    }
+                    RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+                    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                    RoundManager.Instance.SetOffAllEffect();
                 }
-                RoundManager.Instance.SetOffAllEffect();
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
             case RoundManager.SoldierTestType.MoveSelect:
