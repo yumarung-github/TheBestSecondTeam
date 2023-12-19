@@ -217,11 +217,15 @@ public class Cat : Player
 
 
 
+   // public Dictionary<ANIMAL_COST_TYPE, int> deadSoldierNum = new Dictionary<ANIMAL_COST_TYPE, int>();
 
-
-    public void FieldHospital()
-    {
-       
+    public void FieldHospital(Card card)
+    {        
+        for(int i = 0; i< deadSoldierNum[card.costType];i++)
+        {
+            SpawnSoldier(baseNode.nodeName, baseNode.transform);            
+        }
+        deadSoldierNum[card.costType] = 0;
     }
 
 
