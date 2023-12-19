@@ -19,7 +19,13 @@ public class BattleManager : SingleTon<BattleManager>
     private new void Awake()
     {
         base.Awake();
-
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.J))
+        {
+            Debug.Log(RoundManager.Instance.bird.NowLeader);
+        }
     }
     public void InitBattle()
     {
@@ -97,6 +103,11 @@ public class BattleManager : SingleTon<BattleManager>
         int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
         int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
 
+        if (battleP1 is Bird bird)
+        {        
+            if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.COMMANDER)
+                diceP2Num++;
+        }
         //더 큰 숫자가 dicep2num에 가야함. (공격)
         Debug.Log("배틀시작");
         diceP1Num = (diceP1Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP1Num;
@@ -122,16 +133,6 @@ public class BattleManager : SingleTon<BattleManager>
                     cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeType, 0);
                 cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]++;
             }
-/*            if (battleP1 is Bird bird)
-            {
-                bool buildingCheck = battleP2 == RoundManager.Instance.cat;
-                if (diceP1Num > battleP2.battleSoldierNum )
-                if(bird.NowLeader == LEADER_TYPE.TYRANT)
-                {
-                    diceP1Num++;
-                    수정해야댐 //민정
-                }
-            }*/
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;
         //여기에 플레이어 1번의 버드의 지도자가 데미지 1이면 다이스2num에 1추가
