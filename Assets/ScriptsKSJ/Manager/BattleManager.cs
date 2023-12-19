@@ -139,12 +139,18 @@ public class BattleManager : SingleTon<BattleManager>
                 bool isCheckBuilding = isTargetBuilding && battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName].Count > 0;
                 if(RoundManager.Instance.bird.NowLeader == LEADER_TYPE.TYRANT ||(diceP2Num > battleP2Soldiers.Count && isCheckBuilding))
                 {
+                    List<GameObject> testObj = new List<GameObject>();
+                    testObj.Add(battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName][0]);
+                    Destroy(battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName][0]);
                     battleP2.hasBuildingDic.Remove(RoundManager.Instance.mapController.nowTile.nodeName);
                     RoundManager.Instance.bird.Score++;
                 }
 
                 else if(diceP2Num > battleP2Soldiers.Count && isCheckBuilding)
-                {                    
+                {
+                    List<GameObject> testObj = new List<GameObject>();
+                    testObj.Add(battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName][0]);
+                    Destroy(battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName][0]);
                     battleP2.hasBuildingDic.Remove(RoundManager.Instance.mapController.nowTile.nodeName);
                 }
                     

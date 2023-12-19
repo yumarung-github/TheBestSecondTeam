@@ -119,6 +119,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember temp))
                 {
                     nowTile = temp;
+
                     if(temp.isTileCheck == true && RoundManager.Instance.bird.NowLeader == LEADER_TYPE.PROPHET)
                     {
                         for(int m = 0; m < 2; m++)
