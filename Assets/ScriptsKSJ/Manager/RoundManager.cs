@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 public class RoundManager : SingleTon<RoundManager>
 {
 
-
+    public Transform effectParent;
     [Header("[플레이어들]")]
     public Cat cat;//플레이어중에 고양이 
     public Bird bird;//플레이어중에 이어리

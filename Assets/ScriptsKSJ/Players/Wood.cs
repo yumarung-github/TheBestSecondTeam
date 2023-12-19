@@ -117,6 +117,7 @@ public class Wood : Player
     private new void Start()
     {
         base.Start();
+        particlesParent = roundManager.effectParent;
         roundManager.wood = this;
         hasNodeNames.Add("여우1");//임의로 가진 타일
         isFoxBuiilding = false;
@@ -613,5 +614,5 @@ public class Wood : Player
         {
             effect.SetActive(false);
         }
-    }
+    }    
 }

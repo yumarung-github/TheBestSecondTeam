@@ -18,8 +18,9 @@ public class Bird : Player
     public Card birdCard;
     public BirdCardInventory inventory;
     public Building[] birdBuilding;
+    private Transform particlesParent;
 
-    
+
 
     int spawn = 0;
     int move = 1;
@@ -130,6 +131,39 @@ public class Bird : Player
         for (int i = 0; i < 4; i++) 
         {
             Uimanager.Instance.birdUI.birdSlot[i].CardReset();
+        }
+    }
+    public void SetBirdMoveTileEffect(NodeMember tempMem)
+    {
+        List<string> seedMem = new List<string>();
+        NodeMember nowMem = roundManager.mapExtra.mapTiles.Find(tempNode => tempNode.nodeName == tempMem.nodeName);
+
+        List<Edge> edges = roundManager.mapExtra.graph.nodeList.Find(node => node.name == nowMem.nodeName).edgesInNode;
+        foreach (Edge edge in edges)
+        {
+            if (!seedMem.Exists(tempName => tempName == edge.eNode.name))
+            {
+                seedMem.Add(edge.eNode.name);
+            }
+            if (!seedMem.Exists(tempName => tempName == edge.sNode.name))
+            {
+                seedMem.Add(edge.sNode.name);
+            }
+        }
+
+        if (seedMem.Count > 0)
+        {
+            for (int i = 0; i < seedMem.Count; i++)
+            {
+                NodeMember member = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
+                member.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            Uimanager.Instance.playerUI.AlarmWindow.SetActive(true);
+            Uimanager.Instance.playerUI.turnAlarmText.text = "에러";
+            roundManager.testType = RoundManager.SoldierTestType.Select;
         }
     }
 }
