@@ -132,7 +132,32 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             }
                         }
                         BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[0];
-                        tempBC.isOver[tempBC.curNum] = true;
+                        if (tempBC.curNum < tempBC.isOver.Count - 1)
+                        {
+                            tempBC.isOver[tempBC.curNum + 1] = true;
+                        }
+                        else
+                        {
+                            BirdCardAction tempBC1 = Uimanager.Instance.birdUI.birdSlot[1];
+                            BirdCardAction tempBC2 = Uimanager.Instance.birdUI.birdSlot[2];
+                            BirdCardAction tempBC3 = Uimanager.Instance.birdUI.birdSlot[3];
+                            if (tempBC1.birdCards.Count > 0)
+                            {
+                                tempBC1.isOver[0] = true;
+                            }
+                            else if (tempBC2.birdCards.Count > 0)
+                            {
+                                tempBC2.isOver[0] = true;
+                            }
+                            else if(tempBC3.birdCards.Count > 0)
+                            {
+                                tempBC3.isOver[0] = true;
+                            }
+                            else
+                            {
+                                Debug.Log("에러");
+                            }
+                        }
                     }                    
                     else if (temp.isTileCheck == true)
                     {
@@ -143,7 +168,29 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                         }
                         BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[0];
-                        tempBC.isOver[tempBC.curNum] = true;
+                        if (tempBC.curNum < tempBC.isOver.Count - 1)
+                        {
+                            tempBC.isOver[tempBC.curNum + 1] = true;
+                        }
+                        else
+                        {
+                            BirdCardAction tempBC1 = Uimanager.Instance.birdUI.birdSlot[1];
+                            BirdCardAction tempBC2 = Uimanager.Instance.birdUI.birdSlot[2];
+                            BirdCardAction tempBC3 = Uimanager.Instance.birdUI.birdSlot[3];
+                            if (tempBC1.birdCards.Count > 0)
+                            {
+                                tempBC1.isOver[0] = true;
+                            }
+                            else if (tempBC2.birdCards.Count > 0)
+                            {
+                                tempBC2.isOver[0] = true;
+                            }
+                            else
+                            {
+                                tempBC3.isOver[0] = true;
+                            }
+                        }
+                        Debug.Log(tempBC.curNum);
                     }
                     else
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
@@ -261,7 +308,27 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         if(RoundManager.Instance.nowPlayer is Bird bird)
                         {
                             BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[1];
-                            tempBC.isOver[tempBC.curNum] = true;
+                            if (tempBC.curNum < tempBC.isOver.Count - 1)
+                            {
+                                tempBC.isOver[tempBC.curNum + 1] = true;
+                            }
+                            else
+                            {
+                                BirdCardAction tempBC2 = Uimanager.Instance.birdUI.birdSlot[2];
+                                BirdCardAction tempBC3 = Uimanager.Instance.birdUI.birdSlot[3];
+                                if (tempBC2.birdCards.Count > 0)
+                                {
+                                    tempBC2.isOver[0] = true;
+                                }
+                                else if(tempBC3.birdCards.Count > 0)
+                                {
+                                    tempBC3.isOver[0] = true;
+                                }
+                                else
+                                {
+                                    Debug.Log("에러");
+                                }
+                            }
                         }
                         if (moveCo != null)
                         {
@@ -300,7 +367,14 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                             }
                             BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[3];
-                            tempBC.isOver[tempBC.curNum] = true;
+                            if (tempBC.curNum < tempBC.isOver.Count - 1)
+                            {
+                                tempBC.isOver[tempBC.curNum + 1] = true;
+                            }
+                            else
+                            {
+                                Debug.Log("에러");
+                            }
                         }
                     }
                     if (RoundManager.Instance.nowPlayer is Wood wood)
@@ -359,7 +433,22 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                         }
                         BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[2];
-                        tempBC.isOver[tempBC.curNum] = true;
+                        if (tempBC.curNum < tempBC.isOver.Count - 1)
+                        {
+                            tempBC.isOver[tempBC.curNum + 1] = true;
+                        }
+                        else
+                        {
+                            BirdCardAction tempBC3 = Uimanager.Instance.birdUI.birdSlot[3];
+                            if (tempBC3.birdCards.Count > 0)
+                            {
+                                tempBC3.isOver[0] = true;
+                            }
+                            else
+                            {
+                                Debug.Log("에러");
+                            }
+                        }
                     }
                     else
                     {

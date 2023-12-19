@@ -73,58 +73,16 @@ public class BirdCardAction : MonoBehaviour
         birdCards.Add(card);
         CountAnimals(card.costType);
         isOver.Add(false);
-    }
-    public void Use()
-    {
-        for (int i = 0; i <= birdCards.Count - 1; i++)
-        {
-            switch (cardUse_type)
-            {
-                case CARDSLOT_TYPE.SPAWN:
-                    {
-                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
-                        SetSpawnNode();
-                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(0));
-                    }
-                    break;
-                case CARDSLOT_TYPE.MOVE:
-                    {
-                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
-                        SetMoveNode();
-                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(1));
-                    }
-                    break;
-
-                case CARDSLOT_TYPE.BATTLE:
-                    {
-                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
-                        SetBattleNode();
-                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(2));
-                    }
-                    break;
-                case CARDSLOT_TYPE.BULID:
-                    {
-                        //Uimanager.Instance.birdUI.sequence.StartCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
-                        SetBulidNode();
-                        //Uimanager.Instance.birdUI.sequence.StopCoroutine(Uimanager.Instance.birdUI.sequence.PointCo(3));
-                    }
-                    break;
-            }
-        }
-    }
+    }    
     IEnumerator ActionCoroutine()
     {
-        curNum = -1;
+        curNum = 0;
         while(curNum <= birdCards.Count - 1)
         {
             Debug.Log(curNum + " " + isOver.Count);
-            while (isOver.Count > curNum)
+            while (true)
             {
-                if(curNum + 1 == birdCards.Count)
-                {
-                    //여기서 다음isover의 첫번째를 true로
-                }
-                if(isOver[curNum + 1])
+                if(isOver[curNum])
                 {
                     break;
                 }
@@ -163,7 +121,7 @@ public class BirdCardAction : MonoBehaviour
             yield return null;
             
         }
-        Debug.Log("11");
+        Debug.Log("규율 하나 끝");
         curNum = 0;
         yield return null;
     }
