@@ -41,6 +41,7 @@ public class CatMorningState : RmState
     public override void Enter()
     {
         rm.nowPlayer = cat;
+        rm.cat.actionPoint = 3;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
         Uimanager.Instance.playerUI.SpawnSoldier();
