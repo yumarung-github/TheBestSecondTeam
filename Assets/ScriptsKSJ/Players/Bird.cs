@@ -151,13 +151,15 @@ public class Bird : Player
                 seedMem.Add(edge.sNode.name);
             }
         }
-
+        seedMem.Remove(nowMem.nodeName);
         if (seedMem.Count > 0)
-        {
+        {            
             for (int i = 0; i < seedMem.Count; i++)
             {
+                Debug.Log(seedMem[i]);
                 NodeMember member = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
                 member.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
+                Debug.Log(member.transform.GetChild(0).name);
             }
         }
         else

@@ -11,6 +11,7 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
+        rm.SetOffAllEffect();
         rm.nowPlayer = bird;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n대기");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);

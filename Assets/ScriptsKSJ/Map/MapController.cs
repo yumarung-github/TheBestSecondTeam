@@ -27,7 +27,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     [SerializeField]
     LayerMask layerMask;//타일만 선택할 수 있게 레이어마스크 설정
 
-    public event Action catOnAction;
+    public Action catOnAction;
     public event Action catEmploy;
 
     private void Start()
@@ -144,34 +144,17 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     else
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
                 }
+                RoundManager.Instance.SetOffAllEffect();
                 break;
             case RoundManager.SoldierTestType.Spawn:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember spawnMem))
                 {
                     nowTile = spawnMem;
-                        //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
+                    //string tempName = RoundManager.Instance.nowPlayer.hasNodeNames[0];//테스트용 리스트
                     string tempName = nowTile.nodeName;
-
-                    if (RoundManager.Instance.cat is Cat cat)
-                    {
-                        if (RoundManager.Instance.cat.actionPoint > 0)
-                        {
-                            RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-                            RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
-                            RoundManager.Instance.wood.SetOffAllEffect();
-                            catOnAction();
-                        }
-                        else
-                        {
-                            Debug.Log("액션포인트 없음");
-                        }
-                    }
-                    else
-                    {
-                        RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
-                        RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
-                        RoundManager.Instance.wood.SetOffAllEffect();
-                    }
+                    RoundManager.Instance.nowPlayer.SpawnSoldier(tempName,
+                    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempName).transform);
+                    RoundManager.Instance.SetOffAllEffect();
                 }
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 break;
@@ -179,10 +162,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember tempTile))//nodemember를 찾음.
                 {
                     nowTile = tempTile;
+                    RoundManager.Instance.SetOffAllEffect();
                     if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
                         if (nowTile.isTileCheck == true)
                         {
+                            RoundManager.Instance.bird.SetBirdMoveTileEffect(nowTile);
                             soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
                             Uimanager.Instance.playerUI.MoveSoldier();
                             for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
@@ -200,7 +185,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                 }
                 else
-                    soldiers.Clear();
+                    soldiers.Clear();                
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;               
@@ -306,7 +291,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     if (RoundManager.Instance.nowPlayer is Wood wood)
                     {
                         wood.buildCost = 1;
-                        wood.SetOffAllEffect();
                         RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.selectedBuilding);
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
@@ -325,9 +309,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             Debug.Log("액션포인트없음");
                         }
                     }
-
-
                 }
+                RoundManager.Instance.SetOffAllEffect();
                 break;
             case RoundManager.SoldierTestType.Revoit:
                 if (miniMapHit.transform.TryGetComponent(out NodeMember revoitTile))//nodemember를 찾음.
@@ -341,7 +324,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.selectedBuilding);
                     }
-                    RoundManager.Instance.wood.SetOffAllEffect();
+                    RoundManager.Instance.SetOffAllEffect();
                     RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                 }
                 break;
@@ -754,7 +737,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     }
     IEnumerator MoveCoroutine()//병사 이동하는 코루틴 
     {
-        RoundManager.Instance.wood.SetOffAllEffect();
+        RoundManager.Instance.SetOffAllEffect();
         int count = nodeStrings.Count;
         int num = 1;
         while (count > 0)

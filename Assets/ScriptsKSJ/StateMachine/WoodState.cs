@@ -11,6 +11,7 @@ public class WoodWaitState : RmState
     }
     public override void Enter()
     {
+        rm.SetOffAllEffect();
         Uimanager.Instance.woodUi.SetAgreeBtn();
         Uimanager.Instance.woodUi.SetRevoitBtn();
         Uimanager.Instance.woodUi.SetCraftBtn();
