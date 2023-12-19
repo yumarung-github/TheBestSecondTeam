@@ -25,6 +25,7 @@ public class PlayerUI : MonoBehaviour
     public Button buildBtn;
     public Button moveBtn;
     public Button nextBtn;
+    
 
     Player player;
     public bool isOn;
@@ -112,7 +113,7 @@ public class PlayerUI : MonoBehaviour
             }            
         });
     }
-
+    
     public void SetNextBtn(MASTATE_TYPE curState)
     {
         nextBtn.onClick.RemoveAllListeners();

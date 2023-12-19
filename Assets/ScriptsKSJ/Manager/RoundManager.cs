@@ -40,6 +40,7 @@ public class RoundManager : SingleTon<RoundManager>
         CatSetWorkShop,
         CatSetBarrack,
         CatExtraWork,
+        CatRecruit,
         BirdSpawn,
     }
     // 예외처리 거의 안되어있음.
