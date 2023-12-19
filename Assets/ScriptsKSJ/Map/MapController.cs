@@ -185,7 +185,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 break;
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;               
-                {  if (RoundManager.Instance.cat is Cat cat)
+                {  
+                    if (RoundManager.Instance.cat is Cat cat)
                     {
                         if(RoundManager.Instance.cat.actionPoint >0)
                         {
@@ -261,6 +262,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
                         Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                         Uimanager.Instance.playerUI.isOn = true;
+                        
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                         break;
                     }
@@ -286,7 +288,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     {
                         wood.buildCost = 1;
                         wood.SetOffAllEffect();
-                        Debug.Log("ㅇㅇ");
                         RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                         BuildingManager.Instance.selectedBuilding);
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
@@ -734,6 +735,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     }
     IEnumerator MoveCoroutine()//병사 이동하는 코루틴 
     {
+        RoundManager.Instance.wood.SetOffAllEffect();
         int count = nodeStrings.Count;
         int num = 1;
         while (count > 0)
@@ -784,6 +786,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             {
                 if (checkSoldier.agent.remainingDistance < 1f)
                 {
+                    checkSoldier.agent.ResetPath();
                     Debug.Log("들어옴");
                     RoundManager.Instance.moveOver = true;
                 }
