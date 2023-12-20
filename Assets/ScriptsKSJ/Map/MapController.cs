@@ -915,6 +915,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             yield return new WaitForSeconds(Time.deltaTime * 20f);
             if (RoundManager.Instance.moveOver == false)
             {
+                if(RoundManager.Instance.nowPlayer is Bird)
+                {
+                    break;
+                }
                 if (checkSoldier.agent.remainingDistance < 1f)
                 {
                     checkSoldier.agent.ResetPath();

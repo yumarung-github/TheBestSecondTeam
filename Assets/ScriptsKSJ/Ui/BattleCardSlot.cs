@@ -20,6 +20,7 @@ public class BattleCardSlot : MonoBehaviour, IPointerDownHandler
     }
     public void UseCard(Card card)
     {
+        card.onActive = null;
         card.Active();
         //배틀 카드 인벤끄기
         BattleManager.Instance.StartBattle();
