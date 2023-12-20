@@ -11,12 +11,15 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
+    [Header("턴, 알람")]
     public GameObject AlarmWindow;
     public TextMeshProUGUI turnAlarmText;
     public GameObject battleWindow;
     public Button[] buttons = new Button[2];
     public GameObject soldierMove; //모병시 UI
     public TextMeshProUGUI turnText;    // 현재 플레이어 턴 텍스트
+
+    public GameObject battleCardsWindow;
 
 
     [Header("버튼")]

@@ -102,6 +102,25 @@ public class BattleManager : SingleTon<BattleManager>
         RoundManager.Instance.nowPlayer.battleSoldierNum = battleP1Soldiers.Count;
         int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
         int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
+        int tempNum;
+        if (battleP1 is Wood)
+        {            
+            if(diceP1Num > diceP2Num)
+            {
+                tempNum = diceP1Num;
+                diceP1Num = diceP2Num;
+                diceP2Num = tempNum;
+            }
+        }
+        if(battleP2 is Wood)
+        {
+            if (diceP2Num > diceP1Num)
+            {
+                tempNum = diceP1Num;
+                diceP1Num = diceP2Num;
+                diceP2Num = tempNum;
+            }
+        }
 
         if (battleP1 is Bird bird)
         {        

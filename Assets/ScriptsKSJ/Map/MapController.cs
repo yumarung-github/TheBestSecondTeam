@@ -431,6 +431,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember battleMem))//nodemember를 찾음.
                 {
                     nowTile = battleMem;
+                    if(RoundManager.Instance.nowPlayer.craftedCards.Exists(//배틀카드 체크하려고
+                        tempCard => tempCard.skillType == CustomInterface.CARD_SKILL_TYPE.BATTLE))//방어도 추가
+                    {
+
+                    }
                     if (RoundManager.Instance.nowPlayer is Bird bird && (nowTile.isTileCheck == true))
                     {
                         Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
@@ -457,10 +462,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         }
                     }
                     else
-                    {                        
+                    {
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                         Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
                     }
+                    /*
                     //if (RoundManager.Instance.nowPlayer is Cat cat)
                     //{
                     //    if (RoundManager.Instance.cat.actionPoint > 0)
@@ -480,7 +486,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     //    Debug.Log(battleMem.nodeName);
                     //    nowTile = battleMem;
                     //    Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
-                    //}
+                    //}*/
                 }
                 else
                 {
