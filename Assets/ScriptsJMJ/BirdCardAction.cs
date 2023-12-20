@@ -25,7 +25,6 @@ public class BirdCardAction : MonoBehaviour
     public List<bool> isOver = new List<bool>();
     public List<NodeMember> tiles;
     public int curNum;
-
     int foxCard = 0;
     int rabbitCard = 0;
     int ratCard = 0;
@@ -49,6 +48,7 @@ public class BirdCardAction : MonoBehaviour
     private void Start()
     {
         resetButton.onClick.AddListener(CopyCardAdd);
+        resetButton.onClick.AddListener(() => { Debug.Log("카피슬롯" + copySlot.Count); });
         tiles = new List<NodeMember>();
         copySlot = new List<Card>();
         Uimanager.Instance.birdUI.nextButton.onClick.AddListener(() => { copySlot.Clear(); });
@@ -79,6 +79,7 @@ public class BirdCardAction : MonoBehaviour
             Uimanager.Instance.birdUI.nextButton.gameObject.SetActive(true);
         copySlot.Add(card);
     }    
+
     IEnumerator ActionCoroutine()
     {
         curNum = 0;
@@ -297,14 +298,19 @@ public class BirdCardAction : MonoBehaviour
 
     public void CopyCardAdd()
     {
-        for(int i = 0; i < copySlot.Count; i++) 
-        {
-            RoundManager.Instance.bird.inven.AddCard(copySlot[i]);
+        Debug.Log(birdCards.Count);
         
+        for (int i = 0; i < birdCards.Count; i++)
+        {
+            if (copySlot.Contains(birdCards[i]))
+            {
+                RoundManager.Instance.bird.inven.AddCard(birdCards[i]);
+                birdCards.Remove(birdCards[i]);
+            }
         }
-        birdCards.Clear();
         copySlot.Clear();
         RoundManager.Instance.bird.inputCard = 0;
+        Debug.Log("버드카드" + birdCards.Count);
     }
 
     public void CountAnimals(ANIMAL_COST_TYPE cost)
