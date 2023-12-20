@@ -13,11 +13,10 @@ public class Cat : Player
     public bool secondMove = false;
     public bool isSpawn = false;
     private int MaxActionPoint = 4;
+    
     // 각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다
     // 예외적으로 카드 하나를 소모후 매고용으로 1포인트 더 
-    public NodeMember baseNode;
-
-    
+    public NodeMember baseNode;    
     public int turnAddWoodToken = 0;
 
     [SerializeField]
@@ -180,6 +179,18 @@ public class Cat : Player
 
     }
     
+
+    public void RuleTile()
+    {
+        //foreach(KeyValuePair<string, List<Soldier>> kv in RoundManager.Instance.cat.hasSoldierDic)
+        //{
+        //    if()
+        //}
+       
+        
+    }
+
+
     public void costBuilding()
     {
 
