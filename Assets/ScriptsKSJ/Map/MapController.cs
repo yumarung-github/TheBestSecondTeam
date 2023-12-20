@@ -466,6 +466,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 Debug.Log("에러");
                             }
                         }
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                     }
                     else
                     {
