@@ -56,6 +56,10 @@ public class BattleManager : SingleTon<BattleManager>
                 if(!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
                 CustomInterface.CARD_SKILL_TYPE.BATTLE))
                     StartBattle();
+                else
+                {
+                    Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
+                }
             });
             tempNum++;
         }
@@ -76,6 +80,10 @@ public class BattleManager : SingleTon<BattleManager>
                 if (!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
                 CustomInterface.CARD_SKILL_TYPE.BATTLE))
                     StartBattle();
+                else
+                {
+                    Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
+                }
             });
             tempNum++;
         }
@@ -95,6 +103,10 @@ public class BattleManager : SingleTon<BattleManager>
                 if (!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
                 CustomInterface.CARD_SKILL_TYPE.BATTLE))
                     StartBattle();
+                else
+                {
+                    Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
+                }
             });
             tempNum++;
         }//현재 턴이 아닌애들

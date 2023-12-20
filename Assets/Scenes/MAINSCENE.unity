@@ -4672,7 +4672,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &397336887
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7912,7 +7912,7 @@ MonoBehaviour:
   - {fileID: 1239002912}
   soldierMove: {fileID: 1061502648}
   turnText: {fileID: 32313014}
-  battleCardsWindow: {fileID: 0}
+  battleCardsWindow: {fileID: 397336886}
   spawnBtn: {fileID: 2144948028828344702}
   battleBtn: {fileID: 2054080361039881764}
   buildBtn: {fileID: 5761773036074007307}
@@ -28932,9 +28932,9 @@ RectTransform:
   - {fileID: 4106001392371422249}
   m_Father: {fileID: 397336887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 542.5, y: -150}
   m_SizeDelta: {x: 150, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &1743958696833720719
@@ -35016,9 +35016,9 @@ RectTransform:
   - {fileID: 2947279152938496030}
   m_Father: {fileID: 397336887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1127.5, y: -150}
   m_SizeDelta: {x: 150, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5241274887882453886
@@ -37316,9 +37316,9 @@ RectTransform:
   - {fileID: 7114599299349617615}
   m_Father: {fileID: 397336887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -275}
   m_SizeDelta: {x: 300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &6212875808594494341
@@ -42837,9 +42837,9 @@ RectTransform:
   - {fileID: 9218884935829477776}
   m_Father: {fileID: 397336887}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 835, y: -150}
   m_SizeDelta: {x: 150, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8495685394508415350
