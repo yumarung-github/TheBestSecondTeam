@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using CustomInterface;
 using sihyeon;
+using System;
 
 public class CatWaitState : RmState
 {
+
+
+
     public CatWaitState()
     {
         name = "캣대기";
@@ -30,7 +34,7 @@ public class CatWaitState : RmState
     }
     public override void Exit()
     {
-        
+
     }
 }
 public class CatMorningState : RmState
@@ -46,7 +50,7 @@ public class CatMorningState : RmState
         rm.cat.firstMove = false;
         rm.cat.secondMove = false;
         rm.cat.isSpawn = false;
-        
+
         rm.cat.WoodProductNum += rm.cat.turnAddWoodToken;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
@@ -147,4 +151,3 @@ public class CatDinnerState : RmState
         Uimanager.Instance.catUI.bulidSectionWindow.SetActive(false);
     }
 }
-
