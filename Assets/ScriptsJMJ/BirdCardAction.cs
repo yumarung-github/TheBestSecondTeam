@@ -19,9 +19,11 @@ public class BirdCardAction : MonoBehaviour
     public Button resetButton;
     public TextMeshProUGUI[] countAnimals;
 
-    public CARDSLOT_TYPE cardUse_type;
+    private CARDSLOT_TYPE cardUse_type;
+    public List<Card> copySlot;
     public List<Card> birdCards;
-    List<NodeMember> tiles;
+    public List<bool> isOver = new List<bool>();
+    public List<NodeMember> tiles;
     public int curNum;
 
     int foxCard = 0;
@@ -33,8 +35,6 @@ public class BirdCardAction : MonoBehaviour
     bool isBreakRule;
 
     Coroutine actionCo;
-    public List<bool> isOver = new List<bool>();
-
     private void Awake()
     {
         countAnimals = GetComponentsInChildren<TextMeshProUGUI>();
@@ -50,6 +50,8 @@ public class BirdCardAction : MonoBehaviour
     {
         resetButton.onClick.AddListener(CardReset);
         tiles = new List<NodeMember>();
+        copySlot = new List<Card>();
+        Uimanager.Instance.birdUI.nextButton.onClick.AddListener(() => { copySlot.Clear(); });
     }
     public int CurCard
     {
@@ -69,10 +71,13 @@ public class BirdCardAction : MonoBehaviour
     public void AddCard(Card card)
     {
         Bird bird = RoundManager.Instance.bird;
-
         birdCards.Add(card);
         CountAnimals(card.costType);
         isOver.Add(false);
+        bird.inputCard++;
+        if(bird.inputCard > 0)
+            Uimanager.Instance.birdUI.nextButton.gameObject.SetActive(true);
+        copySlot.Add(card);
     }    
     IEnumerator ActionCoroutine()
     {
@@ -130,7 +135,6 @@ public class BirdCardAction : MonoBehaviour
         Debug.Log("실행");
         actionCo = RoundManager.Instance.StartCoroutine(ActionCoroutine());
     }
-
     public void SetBattleNode()
     {
         tiles.Clear();

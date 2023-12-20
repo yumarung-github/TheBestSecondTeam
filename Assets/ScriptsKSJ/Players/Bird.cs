@@ -15,13 +15,14 @@ public class Bird : Player
 {
     [SerializeField]
     private LEADER_TYPE nowLeader;
+    private Transform particlesParent;
+    
     public Card birdCard;
     public BirdCardInventory inventory;
     public Building[] birdBuilding;
-    private Transform particlesParent;
 
 
-
+    public int inputCard = 0;
     int spawn = 0;
     int move = 1;
     int battle = 2;

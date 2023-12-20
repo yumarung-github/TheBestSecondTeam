@@ -41,9 +41,29 @@ public class BirdMorningState : RmState
     }
     public override void Enter()
     {
+        RoundManager.Instance.bird.inputCard = 0;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침");
-        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING2);
         Uimanager.Instance.birdInven.SetActive(true);
+    }
+    public override void Update()
+    {
+    }
+    public override void Exit()
+    {
+
+    }
+}
+public class BirdMorningState2 : RmState
+{
+    public BirdMorningState2()
+    {
+        name = "새아침2";
+    }
+    public override void Enter()
+    {
+        Debug.Log("아침2");
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
     }
     public override void Update()
     {
@@ -70,6 +90,7 @@ public class BirdAfternoonState : RmState
     }
     public override void Update()
     {
+
     }
     public override void Exit()
     {
