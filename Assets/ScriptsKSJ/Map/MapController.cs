@@ -227,6 +227,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             }
                         }
                     }
+                    else if (RoundManager.Instance.nowPlayer is Cat cat)
+                    {
+                        RoundManager.Instance.bird.SetBirdMoveTileEffect(nowTile);
+                        soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
+                        Uimanager.Instance.playerUI.MoveSoldier();
+                    }
                     else if (RoundManager.Instance.nowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
                         RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName].Count > 0)
                     {
@@ -451,9 +457,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         }
                     }
                     else
-                    {
-                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
-                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(false);
+                    {                        
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
                     }
                     //if (RoundManager.Instance.nowPlayer is Cat cat)
                     //{

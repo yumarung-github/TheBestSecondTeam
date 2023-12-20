@@ -19,6 +19,7 @@ public class BirdCardAction : MonoBehaviour
     public Button resetButton;
     public TextMeshProUGUI[] countAnimals;
 
+    [SerializeField]
     private CARDSLOT_TYPE cardUse_type;
     public List<Card> copySlot;
     public List<Card> birdCards;
@@ -41,7 +42,7 @@ public class BirdCardAction : MonoBehaviour
         countAnimals[1].text = "x " + rabbitCard.ToString();
         countAnimals[2].text = "x " + ratCard.ToString();
         countAnimals[3].text = "x " + birdCard.ToString();
-        isOver.Add(false);
+        //isOver.Add(false);
         curNum = 0;
     }
 
@@ -67,6 +68,7 @@ public class BirdCardAction : MonoBehaviour
     {
         birdCards.Add(card);
         CountAnimals(card.costType);
+        isOver.Add(false);
     }
     public void AddCard(Card card)
     {
