@@ -451,9 +451,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         }
                     }
                     else
-                    {
-                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
-                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(false);
+                    {                        
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
                     }
                     //if (RoundManager.Instance.nowPlayer is Cat cat)
                     //{

@@ -180,7 +180,10 @@ public class Cat : Player
 
     }
     
+    public void costBuilding()
+    {
 
+    }
     public void UseActionPoint()
     {
         if (actionPoint > 0)
