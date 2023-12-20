@@ -54,9 +54,9 @@ public class BirdMorningState : RmState
 
     }
 }
-public class BirdMorningState2 : RmState
+public class BirdMorning2State : RmState
 {
-    public BirdMorningState2()
+    public BirdMorning2State()
     {
         name = "새아침2";
     }
