@@ -96,6 +96,7 @@ public class BirdCardAction : MonoBehaviour
                 yield return null;
             }
             curNum++;
+            Debug.Log(cardUse_type);
             switch (cardUse_type)
             {
                 case CARDSLOT_TYPE.SPAWN:

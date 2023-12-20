@@ -124,7 +124,7 @@ public class Card : MonoBehaviour
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
                     case WoodUi.CardUseType.NONE:
-                        //cardStrategy.UseCard();
+                        cardStrategy.UseCard();
                         break;
                     case WoodUi.CardUseType.CRAFT:
                         RoundManager.Instance.nowPlayer.craftedCards.Add(this);

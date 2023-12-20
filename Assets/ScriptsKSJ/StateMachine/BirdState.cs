@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomInterface;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class BirdWaitState : RmState
 {
@@ -106,6 +107,9 @@ public class BirdDinnerState : RmState
     }
     public override void Enter()
     {
+        CardManager.Instance.DrawCard(bird.getCards, bird);
+        bird.Score += bird.hasBuildingDic.Count-1;
+        Debug.Log(bird.Score);
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
     }

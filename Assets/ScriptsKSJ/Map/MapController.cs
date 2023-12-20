@@ -247,7 +247,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;               
                 {  
-                    if (RoundManager.Instance.cat is Cat cat)
+                    if (RoundManager.Instance.nowPlayer is Cat cat)
                     {
                         if(RoundManager.Instance.cat.actionPoint >0)
                         {
@@ -311,9 +311,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                     {
+                        Debug.Log("else는 들어옴?");
                         if(RoundManager.Instance.nowPlayer is Bird bird)
                         {
                             BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[1];
+                            Debug.Log(tempBC.isOver.Count);
+                            Debug.Log(tempBC.curNum);
                             if (tempBC.curNum < tempBC.isOver.Count - 1)
                             {
                                 tempBC.isOver[tempBC.curNum + 1] = true;
@@ -324,10 +327,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 BirdCardAction tempBC3 = Uimanager.Instance.birdUI.birdSlot[3];
                                 if (tempBC2.birdCards.Count > 0)
                                 {
+                                    Debug.Log("테스트1");
                                     tempBC2.isOver[0] = true;
                                 }
                                 else if(tempBC3.birdCards.Count > 0)
                                 {
+                                    Debug.Log("테스트2");
                                     tempBC3.isOver[0] = true;
                                 }
                                 else
@@ -363,6 +368,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     nowTile = buildTile;
                     if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
+                        BuildingManager.Instance.selectedBuilding = BuildingManager.Instance.BuildingDics[Building_TYPE.BIRD_NEST];
                         if (nowTile.isTileCheck == true && RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName) == false)
                         {
                             RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,

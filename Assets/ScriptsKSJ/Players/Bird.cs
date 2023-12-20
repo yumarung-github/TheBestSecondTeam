@@ -21,6 +21,7 @@ public class Bird : Player
     public BirdCardInventory inventory;
     public Building[] birdBuilding;
 
+    public int getCards = 1;
     public int inputCard = 0;
     int spawn = 0;
     int move = 1;
@@ -59,8 +60,20 @@ public class Bird : Player
             }
         }
     }
-
-
+    public int GetCards
+    {
+        get => getCards;
+        set
+        {
+            getCards = value;
+            if (hasBuildingDic.Count < 3)
+                getCards = 1;
+            else if (hasBuildingDic.Count > 2 && hasBuildingDic.Count < 6)
+                getCards = 2;
+            else if (hasBuildingDic.Count >= 6)
+                getCards = 3;
+        }
+    }
 
     private new void Start()
     {
@@ -71,11 +84,6 @@ public class Bird : Player
         particlesParent = RoundManager.Instance.effectParent;
     }
 
-
-    public void ScoreUp()
-    {
-        score += birdBuilding.Length;
-    }
 
     public override GameObject SpawnSoldier(string tileName, Transform targetTransform)
     {
@@ -109,7 +117,7 @@ public class Bird : Player
         return null;
     }
     
-
+    
     public override void SpawnBuilding(string tileName, Transform targetTransform, GameObject building)
     {
         if (hasBuildingDic.ContainsKey(tileName) == false)
