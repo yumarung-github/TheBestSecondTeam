@@ -21,7 +21,6 @@ public class Bird : Player
     public BirdCardInventory inventory;
     public Building[] birdBuilding;
 
-
     public int inputCard = 0;
     int spawn = 0;
     int move = 1;
