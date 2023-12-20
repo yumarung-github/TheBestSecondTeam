@@ -48,7 +48,7 @@ public class PlayerInventory : MonoBehaviour
         for (int j = 0; j < tempCardNum; j++) //카드 갯수만큼
         {
             int a = j; // 0
-            int next = j + 1;
+            int next = a + 1;
             Debug.Log("도는거 체크" + j);
             if (slot[j].card == null) 
             {
@@ -69,7 +69,7 @@ public class PlayerInventory : MonoBehaviour
                     }
                 };
 
-                tempCardNum--; //민정추가
+                //tempCardNum--; //민정추가
                 Debug.Log(j);
 
 

@@ -42,9 +42,9 @@ public class CardManager : SingleTon<CardManager>
             shuffledCards.Add(card);
         }
         cardDeck.Clear();
-        DrawCard(3, RoundManager.Instance.cat);
-        DrawCard(3, RoundManager.Instance.bird);
-        DrawCard(3, RoundManager.Instance.wood);
+        DrawCard(4, RoundManager.Instance.cat);
+        DrawCard(4, RoundManager.Instance.bird);
+        DrawCard(4, RoundManager.Instance.wood);
     }
     private void Update()
     {
