@@ -27,6 +27,7 @@ namespace CustomInterface {
         ////////////////
         BIRD_WAIT,
         BIRD_MORNING,
+        BIRD_MORNING2,
         BIRD_AFTERNOON,
         BIRD_DINNER,
         ////////////////

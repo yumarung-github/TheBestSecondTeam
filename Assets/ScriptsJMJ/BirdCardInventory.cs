@@ -22,12 +22,14 @@ public class BirdCardInventory : MonoBehaviour
         {
 /*            if (birdCardSlot[i].birdCard == null)
                 return;*/
-             if (birdCardSlot[i].birdCards != null)
+             if (birdCardSlot[i].birdCards.Count > 0)
             {
                 //birdCardSlot[i].Use(); //없앤거
                 if (!firstSlotCheck)
                 {
                     firstSlotCheck = true;
+                    Debug.Log(i);
+                    Debug.Log(birdCardSlot[i].birdCards.Count);
                     birdCardSlot[i].isOver[0] = true;
                 }
                 curSlot = i;

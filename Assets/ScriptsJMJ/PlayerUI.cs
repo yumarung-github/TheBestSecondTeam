@@ -11,12 +11,15 @@ using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
+    [Header("턴, 알람")]
     public GameObject AlarmWindow;
     public TextMeshProUGUI turnAlarmText;
     public GameObject battleWindow;
     public Button[] buttons = new Button[2];
     public GameObject soldierMove; //모병시 UI
     public TextMeshProUGUI turnText;    // 현재 플레이어 턴 텍스트
+
+    public GameObject battleCardsWindow;
 
 
     [Header("버튼")]
@@ -82,27 +85,29 @@ public class PlayerUI : MonoBehaviour
                         {
                             Debug.Log(kv.Key);
                             mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key);
+
+                            if (RoundManager.Instance.cat.actionPoint > 0 && RoundManager.Instance.cat.isSpawn == false)
+                            {
+                                RoundManager.Instance.nowPlayer.SpawnSoldier(mem.nodeName,
+                                RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == mem.nodeName).transform);
+                                RoundManager.Instance.SetOffAllEffect();
+                                //RoundManager.Instance.cat.isSpawn = true;                                
+                            }
+                            else if(RoundManager.Instance.cat.actionPoint == 0)
+                            {
+                                Debug.Log("액션포인트 없음");
+                                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                                break;
+                            }                           
+                            RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                         }
                     }
                 }
-
-            if (RoundManager.Instance.cat.actionPoint > 0 && RoundManager.Instance.cat.isSpawn == false)
-                {
-                    RoundManager.Instance.nowPlayer.SpawnSoldier(mem.nodeName,
-                    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == mem.nodeName).transform);
-                    RoundManager.Instance.SetOffAllEffect();
-                    RoundManager.Instance.mapController.catOnAction();
-                    RoundManager.Instance.cat.isSpawn = true;
-                    Uimanager.Instance.playerUI.spawnBtn.enabled = false;
-                }
-                else
-                {
-                    Debug.Log("액션포인트 없음 or 이미 모병함");
-                }
-
-                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-           
-            }
+                Uimanager.Instance.playerUI.spawnBtn.enabled = false;
+                RoundManager.Instance.cat.isSpawn = true;
+                if (RoundManager.Instance.cat.isSpawn == true)
+                RoundManager.Instance.mapController.catOnAction();
+            }           
             else if(RoundManager.Instance.nowPlayer is Wood wood)
             {
                 wood.SetTileEffectSpawn();

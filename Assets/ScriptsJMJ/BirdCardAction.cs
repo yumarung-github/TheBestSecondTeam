@@ -19,11 +19,13 @@ public class BirdCardAction : MonoBehaviour
     public Button resetButton;
     public TextMeshProUGUI[] countAnimals;
 
-    public CARDSLOT_TYPE cardUse_type;
+    [SerializeField]
+    private CARDSLOT_TYPE cardUse_type;
+    public List<Card> copySlot;
     public List<Card> birdCards;
-    List<NodeMember> tiles;
+    public List<bool> isOver = new List<bool>();
+    public List<NodeMember> tiles;
     public int curNum;
-
     int foxCard = 0;
     int rabbitCard = 0;
     int ratCard = 0;
@@ -33,8 +35,6 @@ public class BirdCardAction : MonoBehaviour
     bool isBreakRule;
 
     Coroutine actionCo;
-    public List<bool> isOver = new List<bool>();
-
     private void Awake()
     {
         countAnimals = GetComponentsInChildren<TextMeshProUGUI>();
@@ -42,14 +42,15 @@ public class BirdCardAction : MonoBehaviour
         countAnimals[1].text = "x " + rabbitCard.ToString();
         countAnimals[2].text = "x " + ratCard.ToString();
         countAnimals[3].text = "x " + birdCard.ToString();
-        isOver.Add(false);
         curNum = 0;
     }
 
     private void Start()
     {
-        resetButton.onClick.AddListener(CardReset);
+        resetButton.onClick.AddListener(CopyCardAdd);
         tiles = new List<NodeMember>();
+        copySlot = new List<Card>();
+        Uimanager.Instance.birdUI.nextButton.onClick.AddListener(() => { copySlot.Clear(); });
     }
     public int CurCard
     {
@@ -65,15 +66,20 @@ public class BirdCardAction : MonoBehaviour
     {
         birdCards.Add(card);
         CountAnimals(card.costType);
+        isOver.Add(false);
     }
     public void AddCard(Card card)
     {
         Bird bird = RoundManager.Instance.bird;
-
         birdCards.Add(card);
         CountAnimals(card.costType);
         isOver.Add(false);
+        bird.inputCard++;
+        if(bird.inputCard > 0)
+            Uimanager.Instance.birdUI.nextButton.gameObject.SetActive(true);
+        copySlot.Add(card);
     }    
+
     IEnumerator ActionCoroutine()
     {
         curNum = 0;
@@ -90,30 +96,27 @@ public class BirdCardAction : MonoBehaviour
                 yield return null;
             }
             curNum++;
+            Debug.Log(cardUse_type);
             switch (cardUse_type)
             {
                 case CARDSLOT_TYPE.SPAWN:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetSpawnNode();
                     }
                     break;
                 case CARDSLOT_TYPE.MOVE:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetMoveNode();
                     }
                     break;
 
                 case CARDSLOT_TYPE.BATTLE:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetBattleNode();
                     }
                     break;
                 case CARDSLOT_TYPE.BULID:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetBulidNode();
                     }
                     break;
@@ -121,16 +124,13 @@ public class BirdCardAction : MonoBehaviour
             yield return null;
             
         }
-        Debug.Log("규율 하나 끝");
         curNum = 0;
         yield return null;
     }
     public void StartActionCo()
     {
-        Debug.Log("실행");
         actionCo = RoundManager.Instance.StartCoroutine(ActionCoroutine());
     }
-
     public void SetBattleNode()
     {
         tiles.Clear();
@@ -179,7 +179,6 @@ public class BirdCardAction : MonoBehaviour
     {
         tiles.Clear();
         isBreakRule = false;
-        Debug.Log("빌드");
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
@@ -199,7 +198,6 @@ public class BirdCardAction : MonoBehaviour
         
         if (!isBreakRule)
         {
-            Debug.Log("빌드 브레이킹 룰");
             RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
             RoundManager.Instance.bird.BreakingRule();
         }
@@ -281,7 +279,7 @@ public class BirdCardAction : MonoBehaviour
             RoundManager.Instance.bird.BreakingRule();
         }
     }
-
+    
     public void CardReset()
     {
         for (int i = 0; i < birdCards.Count - 1; i++)
@@ -289,6 +287,45 @@ public class BirdCardAction : MonoBehaviour
             birdCards.RemoveAt(i);
             isOver.Clear();
         }
+    }
+
+    public void CopyCardAdd()
+    {
+
+        for (int i = 0; i < copySlot.Count; i++)
+        {
+            RoundManager.Instance.bird.inven.AddCard(copySlot[i]);
+            switch (copySlot[i].costType)
+            {
+                case ANIMAL_COST_TYPE.FOX:
+                    foxCard--;
+                    countAnimals[0].text = "x " + foxCard.ToString();
+                    break;
+                case ANIMAL_COST_TYPE.RABBIT:
+                    rabbitCard--;
+                    countAnimals[1].text = "x " + rabbitCard.ToString();
+                    break;
+                case ANIMAL_COST_TYPE.RAT:
+                    ratCard--;
+                    countAnimals[2].text = "x " + ratCard.ToString();
+                    break;
+                case ANIMAL_COST_TYPE.BIRD:
+                    birdCard--;
+                    countAnimals[3].text = "x " + birdCard.ToString();
+                    break;
+
+            }
+        }
+        for (int i = 0; i < birdCards.Count; i++)
+        {
+            for (int j = 0; j < copySlot.Count; j++)
+            if (copySlot[j] == birdCards[i])
+            {
+                birdCards.Remove(birdCards[i]);
+            }
+        }
+        copySlot.Clear();
+        RoundManager.Instance.bird.inputCard = 0;
     }
 
     public void CountAnimals(ANIMAL_COST_TYPE cost)

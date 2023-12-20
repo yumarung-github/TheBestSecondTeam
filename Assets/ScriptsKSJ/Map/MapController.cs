@@ -227,6 +227,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             }
                         }
                     }
+                    else if (RoundManager.Instance.nowPlayer is Cat cat)
+                    {
+                        RoundManager.Instance.bird.SetBirdMoveTileEffect(nowTile);
+                        soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName];
+                        Uimanager.Instance.playerUI.MoveSoldier();
+                    }
                     else if (RoundManager.Instance.nowPlayer.hasSoldierDic.ContainsKey(tempTile.nodeName) &&
                         RoundManager.Instance.nowPlayer.hasSoldierDic[tempTile.nodeName].Count > 0)
                     {
@@ -241,7 +247,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             case RoundManager.SoldierTestType.Move:
                 NodeMember finNode = null;               
                 {  
-                    if (RoundManager.Instance.cat is Cat cat)
+                    if (RoundManager.Instance.nowPlayer is Cat cat)
                     {
                         if(RoundManager.Instance.cat.actionPoint >0)
                         {
@@ -305,9 +311,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                     {
+                        Debug.Log("else는 들어옴?");
                         if(RoundManager.Instance.nowPlayer is Bird bird)
                         {
                             BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[1];
+                            Debug.Log(tempBC.isOver.Count);
+                            Debug.Log(tempBC.curNum);
                             if (tempBC.curNum < tempBC.isOver.Count - 1)
                             {
                                 tempBC.isOver[tempBC.curNum + 1] = true;
@@ -318,10 +327,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 BirdCardAction tempBC3 = Uimanager.Instance.birdUI.birdSlot[3];
                                 if (tempBC2.birdCards.Count > 0)
                                 {
+                                    Debug.Log("테스트1");
                                     tempBC2.isOver[0] = true;
                                 }
                                 else if(tempBC3.birdCards.Count > 0)
                                 {
+                                    Debug.Log("테스트2");
                                     tempBC3.isOver[0] = true;
                                 }
                                 else
@@ -357,6 +368,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     nowTile = buildTile;
                     if (RoundManager.Instance.nowPlayer is Bird bird)
                     {
+                        BuildingManager.Instance.selectedBuilding = BuildingManager.Instance.BuildingDics[Building_TYPE.BIRD_NEST];
                         if (nowTile.isTileCheck == true && RoundManager.Instance.bird.hasBuildingDic.ContainsKey(nowTile.nodeName) == false)
                         {
                             RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
@@ -425,6 +437,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 if (miniMapHit.transform.TryGetComponent(out NodeMember battleMem))//nodemember를 찾음.
                 {
                     nowTile = battleMem;
+                    if(RoundManager.Instance.nowPlayer.craftedCards.Exists(//배틀카드 체크하려고
+                        tempCard => tempCard.skillType == CustomInterface.CARD_SKILL_TYPE.BATTLE))//방어도 추가
+                    {
+
+                    }
                     if (RoundManager.Instance.nowPlayer is Bird bird && (nowTile.isTileCheck == true))
                     {
                         Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
@@ -452,9 +469,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                     {
-                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
-                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(false);
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
                     }
+                    /*
                     //if (RoundManager.Instance.nowPlayer is Cat cat)
                     //{
                     //    if (RoundManager.Instance.cat.actionPoint > 0)
@@ -474,7 +492,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     //    Debug.Log(battleMem.nodeName);
                     //    nowTile = battleMem;
                     //    Uimanager.Instance.playerUI.battleWindow.gameObject.SetActive(true);
-                    //}
+                    //}*/
                 }
                 else
                 {
@@ -903,6 +921,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
             yield return new WaitForSeconds(Time.deltaTime * 20f);
             if (RoundManager.Instance.moveOver == false)
             {
+                if(RoundManager.Instance.nowPlayer is Bird)
+                {
+                    break;
+                }
                 if (checkSoldier.agent.remainingDistance < 1f)
                 {
                     checkSoldier.agent.ResetPath();

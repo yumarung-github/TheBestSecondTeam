@@ -16,9 +16,12 @@ public class BirdUI : MonoBehaviour
 
     public Button nextButton;
 
+
     private void Start()
     {
-        nextButton.onClick.AddListener(() => { RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.BIRD_MORNING); });
+        nextButton.gameObject.SetActive(true);
+        nextButton.onClick.AddListener(() => { RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.BIRD_MORNING2); });
+        nextButton.onClick.AddListener(() => { nextButton.gameObject.SetActive(false); });
         nextButton.onClick.AddListener(() => { birdCardBox.SetActive(false); });
     }
 }

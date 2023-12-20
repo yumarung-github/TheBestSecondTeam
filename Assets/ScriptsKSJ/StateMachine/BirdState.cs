@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomInterface;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class BirdWaitState : RmState
 {
@@ -41,9 +42,29 @@ public class BirdMorningState : RmState
     }
     public override void Enter()
     {
+        RoundManager.Instance.bird.inputCard = 0;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침");
-        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING2);
         Uimanager.Instance.birdInven.SetActive(true);
+    }
+    public override void Update()
+    {
+    }
+    public override void Exit()
+    {
+
+    }
+}
+public class BirdMorning2State : RmState
+{
+    public BirdMorning2State()
+    {
+        name = "새아침2";
+    }
+    public override void Enter()
+    {
+        Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침2");
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
     }
     public override void Update()
     {
@@ -70,6 +91,7 @@ public class BirdAfternoonState : RmState
     }
     public override void Update()
     {
+
     }
     public override void Exit()
     {
@@ -85,6 +107,9 @@ public class BirdDinnerState : RmState
     }
     public override void Enter()
     {
+        CardManager.Instance.DrawCard(bird.getCards, bird);
+        bird.Score += bird.hasBuildingDic.Count-1;
+        Debug.Log(bird.Score);
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
     }

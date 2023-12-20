@@ -106,52 +106,74 @@ public class Card : MonoBehaviour
 
     public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
-
-        if (RoundManager.Instance.nowPlayer is Cat)
+        if(Uimanager.Instance.woodUi.cardUseType == WoodUi.CardUseType.BATTLE)
         {
-            cardStrategy.UseCard();
+            RoundManager.Instance.nowPlayer.craftedCards.Remove(this);
+            isUse = true;
+            Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+            Uimanager.Instance.playerUI.battleCardsWindow.SetActive(false);
         }
-        if (RoundManager.Instance.nowPlayer is Bird)
+        else
         {
-            cardStrategy.UseCard();
-        }
-        else if (RoundManager.Instance.nowPlayer is Wood)
-        {
-            switch (Uimanager.Instance.woodUi.cardUseType)
+            if (RoundManager.Instance.nowPlayer is Cat)
             {
-                case WoodUi.CardUseType.NONE:
-                    //cardStrategy.UseCard();
-                    break;
-                case WoodUi.CardUseType.CRAFT:
-                    RoundManager.Instance.nowPlayer.craftedCards.Add(this);
-                    Uimanager.Instance.woodUi.craftCardText.text =
-                        RoundManager.Instance.nowPlayer.craftedCards.Count.ToString();
+                cardStrategy.UseCard();
+            }
+            if (RoundManager.Instance.nowPlayer is Bird)
+            {
+                switch (Uimanager.Instance.woodUi.cardUseType)
+                {
+                    case WoodUi.CardUseType.NONE:
+                        cardStrategy.UseCard();
+                        break;
+                    case WoodUi.CardUseType.CRAFT:
+                        RoundManager.Instance.nowPlayer.craftedCards.Add(this);
+                        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                        Debug.Log("덱확인" + RoundManager.Instance.nowPlayer.cardDecks[costType].Count);
+                        isUse = true;
 
-                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
-                    Debug.Log("덱확인" + RoundManager.Instance.nowPlayer.cardDecks[costType].Count);
-                    isUse = true;
+                        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                        break;
+                }
+            }
+            else if (RoundManager.Instance.nowPlayer is Wood)
+            {
+                switch (Uimanager.Instance.woodUi.cardUseType)
+                {
+                    case WoodUi.CardUseType.NONE:
+                        cardStrategy.UseCard();
+                        break;
+                    case WoodUi.CardUseType.CRAFT:
+                        RoundManager.Instance.nowPlayer.craftedCards.Add(this);
+                        Uimanager.Instance.woodUi.craftCardText.text =
+                            RoundManager.Instance.nowPlayer.craftedCards.Count.ToString();//없애고 뽑는카드 숫자 넣기
 
-                    Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
-                    break;
-                case WoodUi.CardUseType.SUPPORT:
-                    RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
-                    RoundManager.Instance.wood.SetSupportUI(costType);
+                        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                        Debug.Log("덱확인" + RoundManager.Instance.nowPlayer.cardDecks[costType].Count);
+                        isUse = true;                        
+                        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                        break;
+                    case WoodUi.CardUseType.SUPPORT:
+                        RoundManager.Instance.wood.supportVal[costType]++;//지지자추가      
+                        RoundManager.Instance.wood.SetSupportUI(costType);
 
-                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
-                    isUse = true;
+                        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                        isUse = true;
 
-                    Debug.Log(RoundManager.Instance.wood.supportVal[costType]);
-                    Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
-                    break;
-                case WoodUi.CardUseType.OFFICER:
-                    RoundManager.Instance.wood.OfficerNum++;//장교추가
-                    RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
-                    isUse = true;
+                        Debug.Log(RoundManager.Instance.wood.supportVal[costType]);
+                        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                        break;
+                    case WoodUi.CardUseType.OFFICER:
+                        RoundManager.Instance.wood.OfficerNum++;//장교추가
+                        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                        isUse = true;
 
-                    Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
-                    break;
+                        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                        break;
+                }
             }
         }
+        
 
         onActive?.Invoke();
         //Debug.Log("카드 액티브");

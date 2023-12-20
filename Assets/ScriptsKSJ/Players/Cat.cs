@@ -4,6 +4,7 @@ using sihyeon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Cat : Player
@@ -13,11 +14,17 @@ public class Cat : Player
     public bool secondMove = false;
     public bool isSpawn = false;
     private int MaxActionPoint = 4;
+
+
+    public int catSawMillCost = 1;
+    public int catBarrackCost = 1;
+    public int catWorkShopCost = 1;
+
+
+
     // 각 행동은 1의 액션포인트 소모 기본적으로 매턴 2를 가지고 들어간다
     // 예외적으로 카드 하나를 소모후 매고용으로 1포인트 더 
     public NodeMember baseNode;
-
-    
     public int turnAddWoodToken = 0;
 
     [SerializeField]
@@ -96,7 +103,7 @@ public class Cat : Player
         flashCo = FlashCoroutine();
 
         woodProductNum = 8;
-        
+
         remainSawmillNum = 6;
         remainworkshopsNum = 6;
         remainbarracksNum = 6;
@@ -104,7 +111,7 @@ public class Cat : Player
         soldierMaxNum = 25;
         remainSoldierNum = soldierMaxNum;
 
-        RoundManager.Instance.mapController.catOnAction+= () => { UseActionPoint(); };
+        RoundManager.Instance.mapController.catOnAction += () => { UseActionPoint(); };
         RoundManager.Instance.mapController.catEmploy += () => { Employment(); };
 
 
@@ -164,9 +171,9 @@ public class Cat : Player
         if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == newBuilding.type))
         {
             SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
-            
 
-            if(newBuilding.type == Building_TYPE.CAT_SAWMILL)
+
+            if (newBuilding.type == Building_TYPE.CAT_SAWMILL)
             {
                 turnAddWoodToken++;
                 newBuilding.onDestroy += () => { turnAddWoodToken--; };
@@ -177,26 +184,104 @@ public class Cat : Player
         {
             Debug.Log("이미 건설됨");
         }
-
     }
-    
 
+    public List<NodeMember> RuleTile() //타일 판별해서 리턴해주기.
+    {
+        List<NodeMember> ruleNodeMemberList = null;
+
+        foreach (var keyValue in RoundManager.Instance.cat.hasSoldierDic)
+        {
+            bool isCatRule = true;
+            int curNodeCatCount = keyValue.Value.Count;
+            int curNodeWoodCount = RoundManager.Instance.wood.hasSoldierDic[keyValue.Key].Count;
+            int curNodeBirdCount = RoundManager.Instance.bird.hasSoldierDic[keyValue.Key].Count;
+            isCatRule &= (curNodeCatCount > curNodeWoodCount);
+            isCatRule &= (curNodeCatCount > curNodeBirdCount);
+            if (isCatRule)
+            {
+                NodeMember nm = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == keyValue.Key);
+                ruleNodeMemberList.Add(nm);
+            }
+        }
+        return ruleNodeMemberList;
+    }
+    public void costBuilding()// 코스트 설정해주기 건물에 , 건물에 어쩌구저쩌구 추가
+    {
+        int costSaw = 0;
+        int costBarrack = 0;
+        int costWork = 0;
+        foreach (KeyValuePair<string, List<GameObject>> kv in RoundManager.Instance.nowPlayer.hasBuildingDic)
+        {
+            for (int i = 0; i < kv.Value.Count; i++)
+            {
+
+                if (kv.Value[i].GetComponent<Building>().type == Building_TYPE.CAT_BARRACKS)
+                {
+                    costSaw++;
+                }
+                if (kv.Value[i].GetComponent<Building>().type == Building_TYPE.CAT_WORKSHOP)
+                {
+                    costBarrack++;
+                }
+                if (kv.Value[i].GetComponent<Building>().type == Building_TYPE.CAT_SAWMILL)
+                {
+                    costWork++;
+                }
+            }
+        }
+        if (costSaw == 2)
+        {
+            RoundManager.Instance.cat.catSawMillCost = 2;
+        }
+        if (costSaw == 3 || costSaw == 4)
+        {
+            RoundManager.Instance.cat.catSawMillCost = 3;
+        }
+        if (costSaw == 4)
+        {
+            RoundManager.Instance.cat.catSawMillCost = 5;
+        }
+        if (costWork == 2)
+        {
+            RoundManager.Instance.cat.catWorkShopCost = 2;
+        }
+        if (costWork == 3 || costWork == 4)
+        {
+            RoundManager.Instance.cat.catWorkShopCost = 3;
+        }
+        if (costWork == 4)
+        {
+            RoundManager.Instance.cat.catWorkShopCost = 5;
+        }
+        if (costBarrack == 2)
+        {
+            RoundManager.Instance.cat.catBarrackCost = 2;
+        }
+        if (costBarrack == 3 || costBarrack == 4)
+        {
+            RoundManager.Instance.cat.catBarrackCost = 3;
+        }
+        if (costBarrack == 4)
+        {
+            RoundManager.Instance.cat.catBarrackCost = 5;
+        }
+    }
     public void UseActionPoint()
     {
         if (actionPoint > 0)
         {
             actionPoint--;
-            Debug.Log("남은 포인트"+actionPoint);
-           
+            Debug.Log("남은 포인트" + actionPoint);
+
         }
         else
         {
             Debug.Log("포인트없음");
             Debug.Log("남은 포인트" + actionPoint);
-            
+
         }
     }
-
 
     public void Employment() // 매 고용
     {
@@ -204,30 +289,19 @@ public class Cat : Player
         {
             actionPoint++;
             Debug.Log("남은 포인트 : " + actionPoint);
-            
         }
         else
         {
             Debug.Log("매고용못함");
             Debug.Log("남은 포인트 : " + actionPoint);
-            
         }
     }
-
-
-
-
-   // public Dictionary<ANIMAL_COST_TYPE, int> deadSoldierNum = new Dictionary<ANIMAL_COST_TYPE, int>();
-
     public void FieldHospital(Card card)
-    {        
-        for(int i = 0; i< deadSoldierNum[card.costType];i++)
+    {
+        for (int i = 0; i < deadSoldierNum[card.costType]; i++)
         {
-            SpawnSoldier(baseNode.nodeName, baseNode.transform);            
+            SpawnSoldier(baseNode.nodeName, baseNode.transform);
         }
         deadSoldierNum[card.costType] = 0;
     }
-
-
-
 }

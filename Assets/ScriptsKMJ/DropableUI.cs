@@ -29,11 +29,16 @@ public class DropableUI : MonoBehaviour, IDropHandler
             isMove = false;
         if (eventData.pointerDrag != null)
         {
-            if (isMove)
+            if (isMove) 
             {
-                results[1].gameObject.transform.GetChild(0).GetComponent<BirdCardAction>().
-                AddCard(eventData.pointerDrag.GetComponentInParent<Slot>().card);
-                eventData.pointerDrag.GetComponentInParent<Slot>().EmptySlot();
+                if (RoundManager.Instance.bird.inputCard < 2)
+                {
+                    results[1].gameObject.transform.GetChild(0).GetComponent<BirdCardAction>().
+                    AddCard(eventData.pointerDrag.GetComponentInParent<Slot>().card);
+                    eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
+                }
+                else
+                    return;
             }
             else
                 eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();

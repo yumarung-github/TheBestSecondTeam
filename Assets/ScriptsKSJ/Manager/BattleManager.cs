@@ -53,8 +53,14 @@ public class BattleManager : SingleTon<BattleManager>
                     RoundManager.Instance.cat.battleSoldierNum = battleP2Soldiers.Count;
                 }
                 battleP2 = RoundManager.Instance.cat;
-                StartBattle();
-
+                if(!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
+                CustomInterface.CARD_SKILL_TYPE.BATTLE))
+                    StartBattle();
+                else
+                {
+                    Debug.Log("존재");
+                    Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
+                }
             });
             tempNum++;
         }
@@ -72,8 +78,14 @@ public class BattleManager : SingleTon<BattleManager>
                     RoundManager.Instance.bird.battleSoldierNum = battleP2Soldiers.Count;
                 }
                 battleP2 = RoundManager.Instance.bird;
-                StartBattle();
-
+                if (!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
+                CustomInterface.CARD_SKILL_TYPE.BATTLE))
+                    StartBattle();
+                else
+                {
+                    Debug.Log("존재");
+                    Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
+                }
             });
             tempNum++;
         }
@@ -90,8 +102,14 @@ public class BattleManager : SingleTon<BattleManager>
                     RoundManager.Instance.wood.battleSoldierNum = battleP2Soldiers.Count;
                 }
                 battleP2 = RoundManager.Instance.wood;
-                StartBattle();
-
+                if (!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
+                CustomInterface.CARD_SKILL_TYPE.BATTLE))
+                    StartBattle();
+                else
+                {
+                    Debug.Log("존재");
+                    Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
+                }
             });
             tempNum++;
         }//현재 턴이 아닌애들
@@ -102,6 +120,25 @@ public class BattleManager : SingleTon<BattleManager>
         RoundManager.Instance.nowPlayer.battleSoldierNum = battleP1Soldiers.Count;
         int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
         int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
+        int tempNum;
+        if (battleP1 is Wood)
+        {            
+            if(diceP1Num > diceP2Num)
+            {
+                tempNum = diceP1Num;
+                diceP1Num = diceP2Num;
+                diceP2Num = tempNum;
+            }
+        }
+        if(battleP2 is Wood)
+        {
+            if (diceP2Num > diceP1Num)
+            {
+                tempNum = diceP1Num;
+                diceP1Num = diceP2Num;
+                diceP2Num = tempNum;
+            }
+        }
 
         if (battleP1 is Bird bird)
         {        
