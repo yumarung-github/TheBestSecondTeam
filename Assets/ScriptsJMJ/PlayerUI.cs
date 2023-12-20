@@ -85,27 +85,29 @@ public class PlayerUI : MonoBehaviour
                         {
                             Debug.Log(kv.Key);
                             mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == kv.Key);
+
+                            if (RoundManager.Instance.cat.actionPoint > 0 && RoundManager.Instance.cat.isSpawn == false)
+                            {
+                                RoundManager.Instance.nowPlayer.SpawnSoldier(mem.nodeName,
+                                RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == mem.nodeName).transform);
+                                RoundManager.Instance.SetOffAllEffect();
+                                //RoundManager.Instance.cat.isSpawn = true;                                
+                            }
+                            else if(RoundManager.Instance.cat.actionPoint == 0)
+                            {
+                                Debug.Log("액션포인트 없음");
+                                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                                break;
+                            }                           
+                            RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                         }
                     }
                 }
-
-            if (RoundManager.Instance.cat.actionPoint > 0 && RoundManager.Instance.cat.isSpawn == false)
-                {
-                    RoundManager.Instance.nowPlayer.SpawnSoldier(mem.nodeName,
-                    RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == mem.nodeName).transform);
-                    RoundManager.Instance.SetOffAllEffect();
-                    RoundManager.Instance.mapController.catOnAction();
-                    RoundManager.Instance.cat.isSpawn = true;
-                    Uimanager.Instance.playerUI.spawnBtn.enabled = false;
-                }
-                else
-                {
-                    Debug.Log("액션포인트 없음 or 이미 모병함");
-                }
-
-                RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-           
-            }
+                Uimanager.Instance.playerUI.spawnBtn.enabled = false;
+                RoundManager.Instance.cat.isSpawn = true;
+                if (RoundManager.Instance.cat.isSpawn == true)
+                RoundManager.Instance.mapController.catOnAction();
+            }           
             else if(RoundManager.Instance.nowPlayer is Wood wood)
             {
                 wood.SetTileEffectSpawn();

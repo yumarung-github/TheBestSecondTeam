@@ -69,7 +69,6 @@ public class PlayerInventory : MonoBehaviour
                     }
                 };
 
-                tempCardNum--; //민정추가
                 Debug.Log(j);
 
 

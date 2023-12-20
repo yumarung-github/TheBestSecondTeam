@@ -35,7 +35,7 @@ public class DropableUI : MonoBehaviour, IDropHandler
                 {
                     results[1].gameObject.transform.GetChild(0).GetComponent<BirdCardAction>().
                     AddCard(eventData.pointerDrag.GetComponentInParent<Slot>().card);
-                    eventData.pointerDrag.GetComponentInParent<Slot>().EmptySlot();
+                    eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
                 }
                 else
                     return;
