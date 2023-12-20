@@ -14,7 +14,7 @@ public class Cat : Player
     public bool secondMove = false;
     public bool isSpawn = false;
     private int MaxActionPoint = 4;
-
+    
 
     public int catSawMillCost = 1;
     public int catBarrackCost = 1;
@@ -28,16 +28,16 @@ public class Cat : Player
     public int turnAddWoodToken = 0;
 
     [SerializeField]
-    private int woodProductNum;
-    public int WoodProductNum
-    {
-        get { return remainSoldierNum; }
-        set
-        {
-            woodProductNum = value;
-            Uimanager.Instance.catUI.woodProductText.text = woodProductNum.ToString();
-        }
-    }
+    public int woodProductNum;
+    //public int WoodProductNum
+    //{
+    //    get { return remainSoldierNum; }
+    //    set
+    //    {
+    //        woodProductNum = value;
+    //        Uimanager.Instance.catUI.woodProductText.text = woodProductNum.ToString();
+    //    }
+    //}
 
     public int soldierMaxNum;//병사 최대 명수
     private int remainSoldierNum;
@@ -285,9 +285,9 @@ public class Cat : Player
 
     public void Employment() // 매 고용
     {
-        if (actionPoint < 3)
+        if (RoundManager.Instance.cat.actionPoint <= 3)
         {
-            actionPoint++;
+            RoundManager.Instance.cat.actionPoint++;
             Debug.Log("남은 포인트 : " + actionPoint);
         }
         else
