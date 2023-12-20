@@ -108,8 +108,7 @@ public class Card : MonoBehaviour
     {
         if(Uimanager.Instance.woodUi.cardUseType == WoodUi.CardUseType.BATTLE)
         {
-            RoundManager.Instance.nowPlayer.craftedCards.Remove(this);
-            isUse = true;
+            cardStrategy.UseCard();
             Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
             Uimanager.Instance.playerUI.battleCardsWindow.SetActive(false);
         }
@@ -117,14 +116,16 @@ public class Card : MonoBehaviour
         {
             if (RoundManager.Instance.nowPlayer is Cat)
             {
-                cardStrategy.UseCard();
+                RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                isUse = true;
             }
             if (RoundManager.Instance.nowPlayer is Bird)
             {
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
                     case WoodUi.CardUseType.NONE:
-                        cardStrategy.UseCard();
+                        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                        isUse = true;
                         break;
                     case WoodUi.CardUseType.CRAFT:
                         RoundManager.Instance.nowPlayer.craftedCards.Add(this);

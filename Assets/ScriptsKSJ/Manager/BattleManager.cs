@@ -116,6 +116,7 @@ public class BattleManager : SingleTon<BattleManager>
     }
     public void StartBattle()//주사위가 나온사용자가 그 값을 가지게 해놨음 세세한건 나중에 수정
     {
+        RoundManager.Instance.SetOffAllEffect();
         battleP1Soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[RoundManager.Instance.mapController.nowTile.nodeName];
         RoundManager.Instance.nowPlayer.battleSoldierNum = battleP1Soldiers.Count;
         int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
