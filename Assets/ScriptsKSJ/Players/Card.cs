@@ -108,7 +108,7 @@ public class Card : MonoBehaviour
     {
         if(Uimanager.Instance.woodUi.cardUseType == WoodUi.CardUseType.BATTLE)
         {
-            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+            RoundManager.Instance.nowPlayer.craftedCards.Remove(this);
             isUse = true;
             Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
             Uimanager.Instance.playerUI.battleCardsWindow.SetActive(false);
@@ -141,7 +141,7 @@ public class Card : MonoBehaviour
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
                     case WoodUi.CardUseType.NONE:
-                        //cardStrategy.UseCard();
+                        cardStrategy.UseCard();
                         break;
                     case WoodUi.CardUseType.CRAFT:
                         RoundManager.Instance.nowPlayer.craftedCards.Add(this);
@@ -150,8 +150,7 @@ public class Card : MonoBehaviour
 
                         RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
                         Debug.Log("덱확인" + RoundManager.Instance.nowPlayer.cardDecks[costType].Count);
-                        isUse = true;
-
+                        isUse = true;                        
                         Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                         break;
                     case WoodUi.CardUseType.SUPPORT:

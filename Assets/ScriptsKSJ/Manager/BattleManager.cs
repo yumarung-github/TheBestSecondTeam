@@ -58,6 +58,7 @@ public class BattleManager : SingleTon<BattleManager>
                     StartBattle();
                 else
                 {
+                    Debug.Log("존재");
                     Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
                 }
             });
@@ -82,6 +83,7 @@ public class BattleManager : SingleTon<BattleManager>
                     StartBattle();
                 else
                 {
+                    Debug.Log("존재");
                     Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
                 }
             });
@@ -105,6 +107,7 @@ public class BattleManager : SingleTon<BattleManager>
                     StartBattle();
                 else
                 {
+                    Debug.Log("존재");
                     Uimanager.Instance.playerUI.battleCardsWindow.SetActive(true);
                 }
             });
