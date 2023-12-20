@@ -53,8 +53,9 @@ public class BattleManager : SingleTon<BattleManager>
                     RoundManager.Instance.cat.battleSoldierNum = battleP2Soldiers.Count;
                 }
                 battleP2 = RoundManager.Instance.cat;
-                StartBattle();
-
+                if(!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
+                CustomInterface.CARD_SKILL_TYPE.BATTLE))
+                    StartBattle();
             });
             tempNum++;
         }
@@ -72,8 +73,9 @@ public class BattleManager : SingleTon<BattleManager>
                     RoundManager.Instance.bird.battleSoldierNum = battleP2Soldiers.Count;
                 }
                 battleP2 = RoundManager.Instance.bird;
-                StartBattle();
-
+                if (!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
+                CustomInterface.CARD_SKILL_TYPE.BATTLE))
+                    StartBattle();
             });
             tempNum++;
         }
@@ -90,8 +92,9 @@ public class BattleManager : SingleTon<BattleManager>
                     RoundManager.Instance.wood.battleSoldierNum = battleP2Soldiers.Count;
                 }
                 battleP2 = RoundManager.Instance.wood;
-                StartBattle();
-
+                if (!RoundManager.Instance.nowPlayer.craftedCards.Exists(card => card.skillType ==
+                CustomInterface.CARD_SKILL_TYPE.BATTLE))
+                    StartBattle();
             });
             tempNum++;
         }//현재 턴이 아닌애들

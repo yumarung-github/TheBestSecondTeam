@@ -22,6 +22,8 @@ public class BattleCardSlot : MonoBehaviour, IPointerDownHandler
     {
         card.Active();
         //배틀 카드 인벤끄기
+        BattleManager.Instance.StartBattle();
+        Uimanager.Instance.playerUI.battleCardsWindow.SetActive(false);
     }
 
 }
