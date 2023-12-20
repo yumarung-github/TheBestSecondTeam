@@ -62,7 +62,7 @@ public class BirdMorningState2 : RmState
     }
     public override void Enter()
     {
-        Debug.Log("아침2");
+        Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침2");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
     }
     public override void Update()

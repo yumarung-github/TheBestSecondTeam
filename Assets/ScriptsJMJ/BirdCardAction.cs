@@ -48,7 +48,7 @@ public class BirdCardAction : MonoBehaviour
 
     private void Start()
     {
-        resetButton.onClick.AddListener(CardReset);
+        resetButton.onClick.AddListener(CopyCardAdd);
         tiles = new List<NodeMember>();
         copySlot = new List<Card>();
         Uimanager.Instance.birdUI.nextButton.onClick.AddListener(() => { copySlot.Clear(); });
@@ -285,7 +285,7 @@ public class BirdCardAction : MonoBehaviour
             RoundManager.Instance.bird.BreakingRule();
         }
     }
-
+    
     public void CardReset()
     {
         for (int i = 0; i < birdCards.Count - 1; i++)
@@ -293,6 +293,18 @@ public class BirdCardAction : MonoBehaviour
             birdCards.RemoveAt(i);
             isOver.Clear();
         }
+    }
+
+    public void CopyCardAdd()
+    {
+        for(int i = 0; i < copySlot.Count; i++) 
+        {
+            RoundManager.Instance.bird.inven.AddCard(copySlot[i]);
+        
+        }
+        birdCards.Clear();
+        copySlot.Clear();
+        RoundManager.Instance.bird.inputCard = 0;
     }
 
     public void CountAnimals(ANIMAL_COST_TYPE cost)
