@@ -272,7 +272,11 @@ MonoBehaviour:
   resetButton: {fileID: 1132855291}
   countAnimals: []
   cardUse_type: 3
+  copySlot: []
   birdCards: []
+  isOver: 
+  tiles: []
+  curNum: 0
 --- !u!114 &6735043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8268,7 +8272,11 @@ MonoBehaviour:
   resetButton: {fileID: 151083948}
   countAnimals: []
   cardUse_type: 2
+  copySlot: []
   birdCards: []
+  isOver: 
+  tiles: []
+  curNum: 0
 --- !u!114 &680287700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19939,7 +19947,11 @@ MonoBehaviour:
   resetButton: {fileID: 1947206157}
   countAnimals: []
   cardUse_type: 1
+  copySlot: []
   birdCards: []
+  isOver: 
+  tiles: []
+  curNum: 0
 --- !u!1 &1443369445
 GameObject:
   m_ObjectHideFlags: 0
@@ -22762,7 +22774,11 @@ MonoBehaviour:
   resetButton: {fileID: 1929477884}
   countAnimals: []
   cardUse_type: 0
+  copySlot: []
   birdCards: []
+  isOver: 
+  tiles: []
+  curNum: 0
 --- !u!114 &1823138978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23033,6 +23049,7 @@ MonoBehaviour:
   birdCard: {fileID: 1924781419363487819, guid: 41deb7c4d6f7daa4fa935de0be13dca0, type: 3}
   inventory: {fileID: 1146641454}
   birdBuilding: []
+  inputCard: 0
   isFirstCheck: 0
 --- !u!4 &1850166813
 Transform:
