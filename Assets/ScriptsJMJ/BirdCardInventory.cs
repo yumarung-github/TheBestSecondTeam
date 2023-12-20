@@ -6,7 +6,7 @@ public class BirdCardInventory : MonoBehaviour
 {
     public BirdCardAction[] birdCardSlot;
     public int curSlot;
-    bool firstSlotCheck;
+    public bool firstSlotCheck;
 
     public void Start()
     {

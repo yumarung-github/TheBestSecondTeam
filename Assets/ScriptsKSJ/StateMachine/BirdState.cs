@@ -133,6 +133,7 @@ public class BirdDinnerState : RmState
                 }
             }
         }
+        Uimanager.Instance.birdUI.BirdInventory.firstSlotCheck = true;
         bird.isOver = true;
         wood.isOver = false;
         rm.nowPlayer = null;
