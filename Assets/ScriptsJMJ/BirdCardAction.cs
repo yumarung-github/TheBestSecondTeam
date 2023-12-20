@@ -42,14 +42,12 @@ public class BirdCardAction : MonoBehaviour
         countAnimals[1].text = "x " + rabbitCard.ToString();
         countAnimals[2].text = "x " + ratCard.ToString();
         countAnimals[3].text = "x " + birdCard.ToString();
-        //isOver.Add(false);
         curNum = 0;
     }
 
     private void Start()
     {
         resetButton.onClick.AddListener(CopyCardAdd);
-        resetButton.onClick.AddListener(() => { Debug.Log("카피슬롯" + copySlot.Count); });
         tiles = new List<NodeMember>();
         copySlot = new List<Card>();
         Uimanager.Instance.birdUI.nextButton.onClick.AddListener(() => { copySlot.Clear(); });
@@ -102,26 +100,22 @@ public class BirdCardAction : MonoBehaviour
             {
                 case CARDSLOT_TYPE.SPAWN:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetSpawnNode();
                     }
                     break;
                 case CARDSLOT_TYPE.MOVE:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetMoveNode();
                     }
                     break;
 
                 case CARDSLOT_TYPE.BATTLE:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetBattleNode();
                     }
                     break;
                 case CARDSLOT_TYPE.BULID:
                     {
-                        Debug.Log(cardUse_type + "종류" + curNum);
                         SetBulidNode();
                     }
                     break;
@@ -129,13 +123,11 @@ public class BirdCardAction : MonoBehaviour
             yield return null;
             
         }
-        Debug.Log("규율 하나 끝");
         curNum = 0;
         yield return null;
     }
     public void StartActionCo()
     {
-        Debug.Log("실행");
         actionCo = RoundManager.Instance.StartCoroutine(ActionCoroutine());
     }
     public void SetBattleNode()
@@ -186,7 +178,6 @@ public class BirdCardAction : MonoBehaviour
     {
         tiles.Clear();
         isBreakRule = false;
-        Debug.Log("빌드");
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == soldierTileCheck.Key);
@@ -206,7 +197,6 @@ public class BirdCardAction : MonoBehaviour
         
         if (!isBreakRule)
         {
-            Debug.Log("빌드 브레이킹 룰");
             RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
             RoundManager.Instance.bird.BreakingRule();
         }
@@ -300,19 +290,41 @@ public class BirdCardAction : MonoBehaviour
 
     public void CopyCardAdd()
     {
-        Debug.Log(birdCards.Count);
-        
+
+        for (int i = 0; i < copySlot.Count; i++)
+        {
+            RoundManager.Instance.bird.inven.AddCard(copySlot[i]);
+            switch (copySlot[i].costType)
+            {
+                case ANIMAL_COST_TYPE.FOX:
+                    foxCard--;
+                    countAnimals[0].text = "x " + foxCard.ToString();
+                    break;
+                case ANIMAL_COST_TYPE.RABBIT:
+                    rabbitCard--;
+                    countAnimals[1].text = "x " + rabbitCard.ToString();
+                    break;
+                case ANIMAL_COST_TYPE.RAT:
+                    ratCard--;
+                    countAnimals[2].text = "x " + ratCard.ToString();
+                    break;
+                case ANIMAL_COST_TYPE.BIRD:
+                    birdCard--;
+                    countAnimals[3].text = "x " + birdCard.ToString();
+                    break;
+
+            }
+        }
         for (int i = 0; i < birdCards.Count; i++)
         {
-            if (copySlot.Contains(birdCards[i]))
+            for (int j = 0; j < copySlot.Count; j++)
+            if (copySlot[j] == birdCards[i])
             {
-                RoundManager.Instance.bird.inven.AddCard(birdCards[i]);
                 birdCards.Remove(birdCards[i]);
             }
         }
         copySlot.Clear();
         RoundManager.Instance.bird.inputCard = 0;
-        Debug.Log("버드카드" + birdCards.Count);
     }
 
     public void CountAnimals(ANIMAL_COST_TYPE cost)
