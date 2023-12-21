@@ -176,8 +176,8 @@ public class BattleManager : SingleTon<BattleManager>
             {
                 break;
             }
-            GameObject tempObj = battleP2Soldiers[battleP1.battleSoldierNum - 1].gameObject;
-            battleP2Soldiers.RemoveAt(battleP1.battleSoldierNum - 1);
+            GameObject tempObj = battleP2Soldiers[battleP2.battleSoldierNum - 1].gameObject;
+            battleP2Soldiers.RemoveAt(battleP2.battleSoldierNum - 1);
             Destroy(tempObj);
             battleP2.battleSoldierNum--;
             if (battleP2 is Wood wood)
@@ -242,8 +242,8 @@ public class BattleManager : SingleTon<BattleManager>
             Debug.Log(RoundManager.Instance.cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]);
 
         }
-        Debug.Log(diceP1Num);
-        Debug.Log(diceP2Num);
+        Debug.Log("플레이어2가 죽어야하는 수" + diceP1Num);
+        Debug.Log("플레이어1가 죽어야하는 수" + diceP2Num);
         Uimanager.Instance.playerUI.battleWindow.SetActive(false);
         if (battleP1 is Wood)
         {
