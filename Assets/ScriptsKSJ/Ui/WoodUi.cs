@@ -45,7 +45,8 @@ public class WoodUi : MonoBehaviour
         CRAFT,
         SUPPORT,
         OFFICER,
-        BATTLE
+        BATTLE,
+        BIRDUSE
     }
     public CardUseType cardUseType;
 
@@ -62,7 +63,8 @@ public class WoodUi : MonoBehaviour
         agreeBtn.onClick.RemoveAllListeners();
         agreeBtn.onClick.AddListener(() =>
         {
-            if(RoundManager.Instance.wood.tokenNum < 10)
+            RoundManager.Instance.SetOffAllEffect();
+            if (RoundManager.Instance.wood.tokenNum < 10)
             {
                 RoundManager.Instance.wood.SetTileEffectAgree();
                 BuildingManager.Instance.selectedBuilding
@@ -77,6 +79,7 @@ public class WoodUi : MonoBehaviour
         revoitBtn.onClick.RemoveAllListeners();
         revoitBtn.onClick.AddListener(() =>
         {
+            RoundManager.Instance.SetOffAllEffect();
             RoundManager.Instance.wood.SetTileEffectRevoit();
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Revoit;
             //지을 수 있는 곳 표시 추가하기

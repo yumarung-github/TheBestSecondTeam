@@ -14,7 +14,8 @@ namespace CustomInterface {
     public enum CARD_SKILL_TYPE
     {
         BATTLE,
-        PRODUCE,
+        DEFENSE,
+        GETSCORE
     }
     public enum MASTATE_TYPE
     {

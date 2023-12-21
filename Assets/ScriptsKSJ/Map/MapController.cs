@@ -466,6 +466,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 Debug.Log("에러");
                             }
                         }
+                        RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                     }
                     else
                     {
@@ -859,7 +860,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 }
                 break;
             case RoundManager.SoldierTestType.CatExtraWork: // 이부분은 성환이형 스크립트와 이어야함 나중에 .
-                RoundManager.Instance.cat.WoodProductNum += RoundManager.Instance.cat.turnAddWoodToken;
+                RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken;
                 break;
             case RoundManager.SoldierTestType.CatRecruit:
                 catEmploy();

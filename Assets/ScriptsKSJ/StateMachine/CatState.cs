@@ -51,11 +51,14 @@ public class CatMorningState : RmState
         rm.cat.secondMove = false;
         rm.cat.isSpawn = false;
 
-        rm.cat.WoodProductNum += rm.cat.turnAddWoodToken;
+        rm.cat.woodProductNum = rm.cat.woodProductNum += rm.cat.turnAddWoodToken;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
         Uimanager.Instance.playerUI.SpawnSoldier();
         Uimanager.Instance.playerUI.SetBattleBtn();
+        Uimanager.Instance.playerUI.SetCatExtraBtn();
+        Uimanager.Instance.playerUI.SetCatRecruitBtn();
+        
 
         Uimanager.Instance.playerUI.ResetBtn(false);
 

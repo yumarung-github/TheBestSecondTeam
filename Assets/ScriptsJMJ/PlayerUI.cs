@@ -28,6 +28,9 @@ public class PlayerUI : MonoBehaviour
     public Button buildBtn;
     public Button moveBtn;
     public Button nextBtn;
+    public Button catExtraBtn;
+    public Button catRecruitBtn;
+    public Button catFieldHospitalBtn;
     
 
     Player player;
@@ -161,6 +164,21 @@ public class PlayerUI : MonoBehaviour
         spawnBtn.gameObject.SetActive(turn);
         buildBtn.gameObject.SetActive(turn);
     }
+
+    public void SetCatExtraBtn()
+    {
+        catExtraBtn.onClick.RemoveAllListeners();
+        catExtraBtn.onClick.AddListener(() => { RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken; });
+        catExtraBtn.onClick.AddListener(() => { Debug.Log("야근이다"); });
+        
+    }
+    public void SetCatRecruitBtn()
+    {
+        catRecruitBtn.onClick.RemoveAllListeners();
+        catRecruitBtn.onClick.AddListener(() => { RoundManager.Instance.cat.Employment(); });
+        //catRecruitBtn.onClick.AddListener(() => { Debug.Log("매고용"); }) ;
+    }
+
 }
 
 
