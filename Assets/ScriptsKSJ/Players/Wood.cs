@@ -9,6 +9,16 @@ using UnityEngine;
 
 public class Wood : Player
 {
+    private int drawCardNum;
+    public int DrawCardNum
+    {
+        get=> drawCardNum;
+        set
+        {            
+            drawCardNum = value;
+            Uimanager.Instance.woodUi.drawCardText.text = drawCardNum.ToString();
+        }
+    }
     public int tokenNum;
     [SerializeField]
     Transform particlesParent;
@@ -62,11 +72,13 @@ public class Wood : Player
             {
                 Uimanager.Instance.woodUi.foxBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
+                DrawCardNum++;
             }
             else
             {
                 Uimanager.Instance.woodUi.foxBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
+                DrawCardNum--;
             }
             isFoxBuiilding = value;
         }
@@ -82,11 +94,13 @@ public class Wood : Player
             {
                 Uimanager.Instance.woodUi.ratBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
+                DrawCardNum++;
             }
             else
             {
                 Uimanager.Instance.woodUi.ratBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
+                DrawCardNum--;
             }
             isRatBuiilding = value;
         }
@@ -102,11 +116,13 @@ public class Wood : Player
             {
                 Uimanager.Instance.woodUi.rabbitBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
+                DrawCardNum++;
             }
             else
             {
                 Uimanager.Instance.woodUi.rabbitBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
+                DrawCardNum--;
             }
             isRabbitBuiilding = value;
         }
@@ -630,5 +646,13 @@ public class Wood : Player
                 RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.WOOD_AFTERNOON);
             }
         }        
+    }
+    public void DrawWoodCard()
+    {
+        int overCardNum = cardDecks.Count + drawCardNum - 5;
+        if (overCardNum > 0)
+        {
+
+        }
     }
 }

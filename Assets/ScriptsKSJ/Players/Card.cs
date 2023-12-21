@@ -143,8 +143,6 @@ public class Card : MonoBehaviour
         {
             if (RoundManager.Instance.nowPlayer is Cat)
             {
-                RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
-                isUse = true;
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
                     case WoodUi.CardUseType.NONE:
