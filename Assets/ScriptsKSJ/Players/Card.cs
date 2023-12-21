@@ -133,6 +133,10 @@ public class Card : MonoBehaviour
 
     public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
+        if (Uimanager.Instance.woodUi.cardUseType != WoodUi.CardUseType.NONE)
+        {
+            CardManager.Instance.cardDeck.Add(this);
+        }
         if(Uimanager.Instance.woodUi.cardUseType == WoodUi.CardUseType.BATTLE)
         {
             cardStrategy.UseCard();

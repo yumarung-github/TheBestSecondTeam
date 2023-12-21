@@ -12,6 +12,7 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.playerUI.birdInfo.SetActive(true);
         rm.SetOffAllEffect();
         rm.nowPlayer = bird;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n대기");
@@ -125,6 +126,7 @@ public class BirdDinnerState : RmState
     }
     public override void Exit()
     {
+        Uimanager.Instance.playerUI.birdInfo.SetActive(false);
         foreach (BirdCardAction temp in Uimanager.Instance.birdUI.BirdInventory.birdCardSlot)
         {
             for (int i = 0; i < temp.isOver.Count; i++)

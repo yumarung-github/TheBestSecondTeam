@@ -21,6 +21,8 @@ public class PlayerUI : MonoBehaviour
 
     public GameObject battleCardsWindow;
 
+    public GameObject birdInfo;
+
 
     [Header("버튼")]
     public Button spawnBtn;
