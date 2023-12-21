@@ -40,7 +40,13 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void UseCard()
     {
-        if (card != null)
+        if (RoundManager.Instance.nowPlayer is Bird && Uimanager.Instance.dropableUI.isMove == true)
+        {
+            // 성진형 질문
+            card.isUse = true;
+            EmptySlot();
+        }
+        else if (card != null)
         {
             card.Active();
             //if (card.isUse == true)
@@ -49,6 +55,7 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             //}
         }
     }
+
     public void EmptySlot()
     {
         Debug.Log(card.cardName + "비웠음");

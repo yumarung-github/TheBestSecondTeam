@@ -146,8 +146,11 @@ public class Card : MonoBehaviour
                 RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
                 isUse = true;
             }
+            //if (RoundManager.Instance.nowPlayer is Bird && Uimanager.Instance.dropableUI.isMove == true)
+            //    Uimanager.Instance.birdUI.birdSlot[Uimanager.Instance.birdUI.BirdInventory.curSlot].
             if (RoundManager.Instance.nowPlayer is Bird)
             {
+
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
                     case WoodUi.CardUseType.NONE:

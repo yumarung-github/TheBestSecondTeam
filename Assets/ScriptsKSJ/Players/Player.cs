@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    /// <summary>
-    /// 선진
-    /// </summary>
     public PlayerInventory inven;
     public Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
     private Dictionary<ANIMAL_COST_TYPE, int> haveAnimalMoney = new Dictionary<ANIMAL_COST_TYPE, int>();

@@ -10,14 +10,14 @@ public class Sequence : MonoBehaviour
     public Image[] pointImage;
 
     Color color;
-    Color orijinColor;
+    Color originColor;
 
     bool isCheck;
 
     private void Start()
     {
         isCheck = RoundManager.Instance.nowPlayer == RoundManager.Instance.bird;
-        orijinColor = new Color(1f,1f,1f,1f);
+        originColor = new Color(1f,1f,1f,1f);
         color = new Color(1f, 1f, 1f,0f);
 
     }
@@ -26,7 +26,7 @@ public class Sequence : MonoBehaviour
     {
         while(isCheck) 
         {
-            pointImage[i].color = orijinColor;
+            pointImage[i].color = originColor;
             yield return new WaitForSeconds(1);
             pointImage[i].color = color;
             yield return new WaitForSeconds(1);
