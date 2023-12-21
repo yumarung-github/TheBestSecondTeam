@@ -50,11 +50,11 @@ public class BattleCard : CardStrategy
         }
     }
 }
-public class ProduceCard : CardStrategy
+public class DefenseCard : CardStrategy
 {
     private int cost;
     private ANIMAL_COST_TYPE costType;
-    public ProduceCard(Card card) : base(card)
+    public DefenseCard(Card card) : base(card)
     {
         this.cost = card.cost;
         this.costType = card.costType;
@@ -70,6 +70,30 @@ public class ProduceCard : CardStrategy
         {
             RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
             Debug.Log("사용 쌉가능");
+            card.isUse = true;
+        }
+    }
+}
+public class GetScoreCard : CardStrategy
+{
+    private int cost;
+    private ANIMAL_COST_TYPE costType;
+    public GetScoreCard(Card card) : base(card)
+    {
+        this.cost = card.cost;
+        this.costType = card.costType;
+    }
+
+    public override void UseCard()
+    {
+        if (cost > RoundManager.Instance.nowPlayer.HaveAnimalMoney[costType])
+        {
+            Debug.Log("사용 못함");
+        }
+        else
+        {
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
+            Debug.Log("사용 가능");
             card.isUse = true;
         }
     }
@@ -98,8 +122,11 @@ public class Card : MonoBehaviour
             case CARD_SKILL_TYPE.BATTLE:
                 cardStrategy = new BattleCard(this);
                 break;
-            case CARD_SKILL_TYPE.PRODUCE:
-                cardStrategy = new ProduceCard(this);
+            case CARD_SKILL_TYPE.DEFENSE:
+                cardStrategy = new DefenseCard(this);
+                break;
+            case CARD_SKILL_TYPE.GETSCORE:
+                cardStrategy = new GetScoreCard(this);
                 break;
         }
     }
