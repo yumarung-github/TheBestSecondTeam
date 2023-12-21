@@ -45,7 +45,8 @@ public class WoodUi : MonoBehaviour
         CRAFT,
         SUPPORT,
         OFFICER,
-        BATTLE
+        BATTLE,
+        BIRDUSE
     }
     public CardUseType cardUseType;
 

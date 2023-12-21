@@ -41,7 +41,13 @@ public class DropableUI : MonoBehaviour, IDropHandler
                     return;
             }
             else
-                eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
+            {
+                if(Uimanager.Instance.woodUi.cardUseType != WoodUi.CardUseType.BIRDUSE &&
+                   Uimanager.Instance.woodUi.cardUseType != WoodUi.CardUseType.BATTLE)
+                {
+                    eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
+                }
+            }                
         }
     }
 }
