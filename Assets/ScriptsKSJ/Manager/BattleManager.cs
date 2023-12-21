@@ -14,6 +14,8 @@ public class BattleManager : SingleTon<BattleManager>
     public bool isInit;
     public int attackNum;
     public int defenseNum;
+    public int diceP1Num;
+    public int diceP2Num;
 
     public List<Soldier> battleP1Soldiers;
     public List<Soldier> battleP2Soldiers;
@@ -138,8 +140,8 @@ public class BattleManager : SingleTon<BattleManager>
 
         battleP1.battleBuildingNum = battleP1Buildings.Count;
         battleP2.battleBuildingNum = battleP2Buildings.Count;
-        int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
-        int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
+        diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
+        diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
         int tempNum;
         if (battleP1 is Wood)
         {            
