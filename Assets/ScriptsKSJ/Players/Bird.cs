@@ -29,6 +29,7 @@ public class Bird : Player
     int build = 3;
 
     public bool isFirstCheck;
+    public bool isDelete;
     public LEADER_TYPE NowLeader
     {
         get => nowLeader;
@@ -176,5 +177,9 @@ public class Bird : Player
             Uimanager.Instance.playerUI.turnAlarmText.text = "에러";
             roundManager.testType = RoundManager.SoldierTestType.Select;
         }
+    }
+    public void DeleteCard()
+    {
+        isDelete = true;
     }
 }

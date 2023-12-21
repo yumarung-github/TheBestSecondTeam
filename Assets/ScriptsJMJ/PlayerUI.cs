@@ -155,7 +155,6 @@ public class PlayerUI : MonoBehaviour
             
         });
 
-
     }
     public void ResetBtn(bool turn)
     {

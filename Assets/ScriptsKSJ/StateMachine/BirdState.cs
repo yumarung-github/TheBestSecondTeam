@@ -19,10 +19,7 @@ public class BirdWaitState : RmState
         if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
         else
-        {
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(false);
-            Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
-        }
     }
     public override void Update()
     {
@@ -30,8 +27,6 @@ public class BirdWaitState : RmState
     }
     public override void Exit()
     {
-        Uimanager.Instance.playerUI.SpawnSoldier();
-        
     }
 }
 public class BirdMorningState : RmState
@@ -43,6 +38,7 @@ public class BirdMorningState : RmState
     public override void Enter()
     {
         RoundManager.Instance.bird.inputCard = 0;
+        Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
         Uimanager.Instance.playerUI.AlarmWindow.SetActive(true);
         Uimanager.Instance.playerUI.turnAlarmText.text = "규율 제정 턴";
         Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.BIRDUSE;
@@ -55,7 +51,7 @@ public class BirdMorningState : RmState
     }
     public override void Exit()
     {
-
+        Uimanager.Instance.playerUI.SpawnSoldier();
     }
 }
 public class BirdMorning2State : RmState
@@ -118,9 +114,14 @@ public class BirdDinnerState : RmState
         Debug.Log(bird.Score);
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
+        if (bird.inven.slot[5].card != null)
+        {
+            bird.DeleteCard();
+        }
     }
     public override void Update()
     {
+        
     }
     public override void Exit()
     {

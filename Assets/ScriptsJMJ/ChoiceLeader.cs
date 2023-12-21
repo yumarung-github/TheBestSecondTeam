@@ -19,6 +19,6 @@ public class ChoiceLeader : MonoBehaviour
         bird.NowLeader = leaders_type;
         gameObject.SetActive(false);
         Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(false);
-        Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
+        //Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
     }
 }

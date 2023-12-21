@@ -6,10 +6,9 @@ using UnityEngine.UI;
 
 public class DropableUI : MonoBehaviour, IDropHandler
 {
-
     PointerEventData ped = new PointerEventData(null);
     private GraphicRaycaster gr = null;
-    private bool isMove = false;
+    public bool isMove = false;
     List<RaycastResult> results;
 
     private void Start()
@@ -29,7 +28,7 @@ public class DropableUI : MonoBehaviour, IDropHandler
             isMove = false;
         if (eventData.pointerDrag != null)
         {
-            if (isMove) 
+            if (isMove)
             {
                 if (RoundManager.Instance.bird.inputCard < 2)
                 {
@@ -47,7 +46,12 @@ public class DropableUI : MonoBehaviour, IDropHandler
                 {
                     eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
                 }
-            }                
+            }
+            if(RoundManager.Instance.bird.isDelete)
+            {
+                eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
+                RoundManager.Instance.bird.isDelete = false;
+            }
         }
     }
 }

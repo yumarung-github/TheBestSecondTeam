@@ -20,24 +20,24 @@ public class BirdCardInventory : MonoBehaviour
         Debug.Log("유즈슬롯 들어옴");
         for (int i = 0; i <= birdCardSlot.Length - 1; i++)
         {
-/*            if (birdCardSlot[i].birdCard == null)
-                return;*/
-             if (birdCardSlot[i].birdCards.Count > 0)
+            /*if (birdCardSlot[i].birdCard == null)
+                            return;*/
+            for (int j = 0; j <= birdCardSlot[i].birdCards.Count - 1; j++)
             {
-                //birdCardSlot[i].Use(); //없앤거
-                if (!firstSlotCheck)
+                if (birdCardSlot[i].birdCards.Count > 0)
                 {
-                    firstSlotCheck = true;
-                    Debug.Log(i);
-                    Debug.Log(birdCardSlot[i].birdCards.Count);
-                    birdCardSlot[i].isOver[0] = true;
+                    //birdCardSlot[i].Use(); //없앤거
+                    if (!firstSlotCheck)
+                    {
+                        firstSlotCheck = true;
+                        birdCardSlot[i].isOver[j] = true;
+                    }
+                    curSlot = i;
+                    birdCardSlot[i].StartActionCo();
                 }
-                curSlot = i;
-                birdCardSlot[i].StartActionCo();
             }
         }
     }
-
     public void CheckAddMaxCard() //카드가 몇장들어왔는지 확인 하려는 함수
     {
 
