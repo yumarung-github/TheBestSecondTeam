@@ -110,15 +110,17 @@ public class BirdDinnerState : RmState
     }
     public override void Enter()
     {
-        CardManager.Instance.DrawCard(bird.getCards, bird);
+        //CardManager.Instance.DrawCard(bird.getCards, bird);
         bird.Score += bird.hasBuildingDic.Count-1;
         Debug.Log(bird.Score);
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
+        /*
         if (bird.inven.slot[5].card != null)
         {
             bird.DeleteCard();
         }
+        */
     }
     public override void Update()
     {

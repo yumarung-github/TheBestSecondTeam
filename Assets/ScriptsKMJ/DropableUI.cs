@@ -47,11 +47,12 @@ public class DropableUI : MonoBehaviour, IDropHandler
                     eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
                 }
             }
+            /*
             if(RoundManager.Instance.bird.isDelete)
             {
                 eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
                 RoundManager.Instance.bird.isDelete = false;
-            }
+            }*/
         }
     }
 }

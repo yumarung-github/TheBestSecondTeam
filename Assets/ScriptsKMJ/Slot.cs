@@ -40,20 +40,8 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void UseCard()
     {
-        if (RoundManager.Instance.nowPlayer is Bird && Uimanager.Instance.dropableUI.isMove == true)
-        {
-            // 성진형 질문
-            card.isUse = true;
-            EmptySlot();
-        }
-        else if (card != null)
-        {
-            card.Active();
-            //if (card.isUse == true)
-            //{
-            //    EmptySlot();
-            //}
-        }
+        // 성진형 질문
+        card.Active();
     }
 
     public void EmptySlot()
