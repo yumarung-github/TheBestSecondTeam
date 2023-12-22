@@ -49,7 +49,7 @@ public class BirdMorningState : RmState
         Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
         Uimanager.Instance.playerUI.AlarmWindow.SetActive(true);
         Uimanager.Instance.playerUI.turnAlarmText.text = "규율 제정 턴";
-        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.BIRDUSE;
+        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.CRAFT;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING2);
         Uimanager.Instance.birdInven.SetActive(true);
@@ -73,8 +73,8 @@ public class BirdMorning2State : RmState
     {
         Uimanager.Instance.playerUI.AlarmWindow.SetActive(true);
         Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
-        Uimanager.Instance.playerUI.turnAlarmText.text = "카드 제작 턴";
-        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.CRAFT;
+        Uimanager.Instance.playerUI.turnAlarmText.text = "카드 제작 턴";        
+        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.BIRDUSE;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침2");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
     }
