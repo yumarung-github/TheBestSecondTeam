@@ -194,24 +194,28 @@ public class Cat : Player
 
         foreach (var keyValue in RoundManager.Instance.cat.hasSoldierDic)
         {
-            bool isCatRule = true;
-            int curNodeCatCount = keyValue.Value.Count;
-            int curNodeWoodCount = 0;
-            int curNodeBirdCount = 0;
-
-            if (RoundManager.Instance.wood.hasSoldierDic.ContainsKey(keyValue.Key))
-                curNodeWoodCount = RoundManager.Instance.wood.hasSoldierDic[keyValue.Key].Count;
-            if (RoundManager.Instance.bird.hasSoldierDic.ContainsKey(keyValue.Key))
-                curNodeBirdCount = RoundManager.Instance.bird.hasSoldierDic[keyValue.Key].Count;
-            isCatRule &= (curNodeCatCount > curNodeWoodCount);
-            isCatRule &= (curNodeCatCount > curNodeBirdCount);
-            if (isCatRule)
+            Debug.Log(keyValue.Value.Count);
+            if(keyValue.Value.Count > 0)
             {
-                Debug.Log(keyValue.Key);
-                NodeMember nm = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == keyValue.Key);
-                Debug.Log(nm.nodeName);
-                ruleNodeMemberList.Add(nm);
-            }
+                bool isCatRule = true;
+                int curNodeCatCount = keyValue.Value.Count;
+                int curNodeWoodCount = 0;
+                int curNodeBirdCount = 0;
+
+                if (RoundManager.Instance.wood.hasSoldierDic.ContainsKey(keyValue.Key))
+                    curNodeWoodCount = RoundManager.Instance.wood.hasSoldierDic[keyValue.Key].Count;
+                if (RoundManager.Instance.bird.hasSoldierDic.ContainsKey(keyValue.Key))
+                    curNodeBirdCount = RoundManager.Instance.bird.hasSoldierDic[keyValue.Key].Count;
+                isCatRule &= (curNodeCatCount > curNodeWoodCount);
+                isCatRule &= (curNodeCatCount > curNodeBirdCount);
+                if (isCatRule)
+                {
+                    Debug.Log(keyValue.Key);
+                    NodeMember nm = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == keyValue.Key);
+                    Debug.Log(nm.nodeName);
+                    ruleNodeMemberList.Add(nm);
+                }
+            }            
         }
         return ruleNodeMemberList;
     }
