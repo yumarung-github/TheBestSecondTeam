@@ -19,7 +19,7 @@ public class Alarm : MonoBehaviour
         while(image.color.a > 0)
         {
             Color color = image.color;
-            color.a -= Time.deltaTime;
+            color.a -= Time.deltaTime/2.5f;
             image.color = color;
             image1.color = color;
             image2.color = color;

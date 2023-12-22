@@ -127,6 +127,7 @@ public class BattleManager : SingleTon<BattleManager>
     }
     public void StartBattle()//주사위가 나온사용자가 그 값을 가지게 해놨음 세세한건 나중에 수정
     {
+
         if(!isInit)
         {
             attackNum = 0;
@@ -194,6 +195,7 @@ public class BattleManager : SingleTon<BattleManager>
             }
             if (battleP2 is Bird birdTow)
             {
+                Uimanager.Instance.birdUI.birdAlarm.gameObject.SetActive(false);
                 bool isTargetBuilding = battleP2.hasBuildingDic.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName);
                 bool isCheckBuilding = isTargetBuilding && battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName].Count > 0;
                 if(RoundManager.Instance.bird.NowLeader == LEADER_TYPE.TYRANT ||(diceP2Num > battleP2Soldiers.Count && isCheckBuilding))

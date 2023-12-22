@@ -12,19 +12,23 @@ public class BirdUI : MonoBehaviour
     public BirdCardAction[] birdSlot;
     public Sequence sequence;
 
+    public GameObject scoreBord;
+    public GameObject birdAlarm;
     public GameObject birdLeaderSelect;
     public GameObject birdCardBox;
     public GameObject SequenceBox;
 
     public Button nextButton;
     public TextMeshProUGUI soldierCount;
+    public TextMeshProUGUI alarmText;
+    public TextMeshProUGUI inputCardCount;
+    public TextMeshProUGUI scoreUp;
 
     private int hasSoldierCount;
     public int testint;
     private void Start()
     {
-        nextButton.gameObject.SetActive(true);
-        nextButton.onClick.AddListener(() => { RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.BIRD_MORNING2); });
+        nextButton.onClick.AddListener(() => { RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.BIRD_AFTERNOON); });
         nextButton.onClick.AddListener(() => { nextButton.gameObject.SetActive(false); });
         nextButton.onClick.AddListener(() => { birdCardBox.SetActive(false); });
         hasSoldierCount = 20 - RoundManager.Instance.bird.hasSoldierDic.Count;

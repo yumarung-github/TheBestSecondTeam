@@ -25,6 +25,7 @@ public class BirdCardAction : MonoBehaviour
     public List<Card> birdCards;
     public List<bool> isOver = new List<bool>();
     public List<NodeMember> tiles;
+
     public int curNum;
     int foxCard = 0;
     int rabbitCard = 0;
@@ -33,7 +34,7 @@ public class BirdCardAction : MonoBehaviour
     int curCard = 0;
 
     bool isBreakRule;
-
+    public bool isEnd;
     Coroutine actionCo;
 
     private void Awake()
@@ -138,15 +139,13 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetBattleNode()
     {
-        Debug.Log("어디까지 들어옴1");
         tiles.Clear();
-        Debug.Log("어디까지 들어옴2");
         isBreakRule = false;
-        Debug.Log("어디까지 들어옴3");
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "전투를 시작할 적을 선택하세요.";
         foreach (KeyValuePair<string, List<Soldier>> battleTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
-        Debug.Log("어디까지 들어옴4");
-            Debug.Log(isBreakRule);
+            
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == battleTileCheck.Key);
             // 내 병사가 위치한 타일들
             bool isbattlePlayer = RoundManager.Instance.cat.hasSoldierDic.ContainsKey(tile.nodeName) || RoundManager.Instance.wood.hasSoldierDic.ContainsKey(tile.nodeName);
@@ -193,6 +192,8 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetBulidNode()
     {
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "요새를 지을 공터를 선택하세요.";
         tiles.Clear();
         isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
@@ -228,6 +229,8 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetMoveNode()
     {
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "이동할 병사를 선택하세요 선택하세요.";
         tiles.Clear();
         isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
@@ -264,6 +267,8 @@ public class BirdCardAction : MonoBehaviour
 
     public void SetSpawnNode()
     {
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "모병할 공터를 선택하세요 선택하세요.";
         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
         {
             NodeMember tile1 = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == buildingTileCheck.Key);

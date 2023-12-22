@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 using UnityEditor.Experimental.GraphView;
+using CustomInterface;
 
 public class MapController : MonoBehaviour, IPointerDownHandler
 {
@@ -129,6 +130,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
                             {
                                 RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
+                                Uimanager.Instance.birdUI.alarmText.text = "모병완료!";
                             }
                         }
                         BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[0];
@@ -164,6 +166,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                         Debug.Log("1");
                         RoundManager.Instance.bird.SpawnSoldier(nowTile.nodeName, nowTile.transform);
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        Uimanager.Instance.birdUI.alarmText.text = "모병완료!";
                         for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
                         {
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
@@ -195,9 +198,11 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             tempBC.curNum = 0;
                         }
                         Debug.Log(tempBC.curNum);
+
                     }
                     else
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
+                    Uimanager.Instance.birdUI.birdAlarm.gameObject.SetActive(false);
                 }
                 RoundManager.Instance.SetOffAllEffect();
                 break;
@@ -341,6 +346,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 }
                                 else
                                 {
+                                    Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
                                     Debug.Log("에러");
                                 }
                             }
@@ -361,8 +367,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
                         Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                         Uimanager.Instance.playerUI.isOn = true;
-                        
+                        Uimanager.Instance.birdUI.alarmText.text = "이동할 공터를 선택하세요 선택하세요.";
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        Uimanager.Instance.birdUI.birdAlarm.gameObject.SetActive(false);
                         break;
                     }
                 }
@@ -389,6 +396,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             }
                             else
                             {
+                                Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
                                 Debug.Log("에러");
                             }
                         }
@@ -486,6 +494,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             }
                             else
                             {
+                                Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
                                 Debug.Log("에러");
                             }
                         }

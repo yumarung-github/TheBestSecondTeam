@@ -1,3 +1,4 @@
+using CustomInterface;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class BirdCardInventory : MonoBehaviour
         {
             if (birdCardSlot[i].birdCards.Count > 0)
             {
+               
                 //birdCardSlot[i].Use(); //없앤거
                 if (!firstSlotCheck)
                 {
@@ -33,6 +35,7 @@ public class BirdCardInventory : MonoBehaviour
                 birdCardSlot[i].StartActionCo();
             }
         }
+     
     }
     public void CheckAddMaxCard() //카드가 몇장들어왔는지 확인 하려는 함수
     {
