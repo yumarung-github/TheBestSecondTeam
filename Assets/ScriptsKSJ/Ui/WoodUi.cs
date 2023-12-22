@@ -46,7 +46,8 @@ public class WoodUi : MonoBehaviour
         SUPPORT,
         OFFICER,
         BATTLE,
-        BIRDUSE
+        BIRDUSE,
+        HOSPITAL
     }
     public CardUseType cardUseType;
 

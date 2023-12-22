@@ -180,6 +180,12 @@ public class PlayerUI : MonoBehaviour
         //catRecruitBtn.onClick.AddListener(() => { Debug.Log("매고용"); }) ;
     }
 
+    public void SetFieldHospital()
+    {
+        catFieldHospitalBtn.onClick.RemoveAllListeners();
+        catFieldHospitalBtn.onClick.AddListener(() => { Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.HOSPITAL; });
+    }
+
 }
 
 
