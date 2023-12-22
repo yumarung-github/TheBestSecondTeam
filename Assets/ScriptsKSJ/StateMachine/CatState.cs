@@ -65,8 +65,6 @@ public class CatMorningState : RmState
         Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(true);
         Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(true);
         Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(true);
-        
-
         Uimanager.Instance.playerUI.ResetBtn(false);
 
         BattleManager.Instance.InitBattle();
@@ -141,6 +139,8 @@ public class CatDinnerState : RmState
     {
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_WAIT);
+        
+        
 
     }
     public override void Update()
@@ -148,6 +148,9 @@ public class CatDinnerState : RmState
     }
     public override void Exit()
     {
+        cat.SetDrawNumFunc();
+        cat.DrawCard();
+        RoundManager.Instance.cat.GetScore();
         Uimanager.Instance.catUI.profileWindow.SetActive(false);
         rm.mapController.nowTile = null;
         cat.isOver = true;
