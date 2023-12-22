@@ -11,9 +11,11 @@ public class BattleP1 : MonoBehaviour
     public Image[] dices;
     public Image[] soldirs;
     public TextMeshProUGUI playerName;
+    public Canvas battleCanvas;
 
     public void ActionP1()
     {
+        battleCanvas.gameObject.SetActive(true);
         playerName.text = battleManager.battleP1.name;
         for (int i = 0; i < battleManager.battleP1Soldiers.Count; i++)
         {
@@ -49,15 +51,22 @@ public class BattleP1 : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         int dieSoldir = battleManager.battleP1Soldiers.Count - battleManager.diceP1Num;
-        for (int i = battleManager.battleP1Soldiers.Count; i == dieSoldir; i--)
+        for (int a = battleManager.battleP1Soldiers.Count; a == dieSoldir; a--)
         {
-            soldirs[i].gameObject.SetActive(false);
+            soldirs[a].gameObject.SetActive(false);
         }
 
         for (int i = 0; i < dices.Length; i++)
         {
             dices[i].gameObject.SetActive(false);
         }
+
+        for(int j = 0; j < soldirs.Length; j++)
+        {
+            soldirs[j].gameObject.SetActive(false);
+        }
+
+        battleCanvas.gameObject.SetActive(false);
     }
 
 }
