@@ -6,6 +6,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private int drawCardNum;
+    public int DrawCardNum
+    {
+        get => drawCardNum;
+        set
+        {
+            drawCardNum = value;
+            if (this is Wood)
+            {                
+                Uimanager.Instance.woodUi.drawCardText.text = drawCardNum.ToString();
+            }
+            
+        }
+    }
     public PlayerInventory inven;
     public Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
     public List<Card> craftedCards = new List<Card>();
@@ -137,6 +151,28 @@ public class Player : MonoBehaviour
     //{
     //    testSetBtn();
     //}
-
-
+        public void DrawCard()
+    {
+        int tempNum = 0;
+        foreach (KeyValuePair<ANIMAL_COST_TYPE, List<Card>> kv in cardDecks)
+        {
+            tempNum = kv.Value.Count;
+        }
+        Debug.Log(tempNum);
+        int overCardNum = tempNum + drawCardNum - 4;
+        if (overCardNum > 0)
+        {
+            for (int i = 0; i < overCardNum; i++)
+            {
+                CardManager.Instance.cardDeck.Add(cardDecks[inven.slot[0].card.costType][0]);
+                cardDecks[inven.slot[0].card.costType].RemoveAt(0);
+                inven.slot[0].EmptySlot();
+            }
+            CardManager.Instance.DrawCard(drawCardNum, this);
+        }
+        else
+        {
+            CardManager.Instance.DrawCard(drawCardNum, this);
+        }
+    }
 }
