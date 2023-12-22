@@ -64,8 +64,7 @@ public class CatMorningState : RmState
         Uimanager.Instance.playerUI.SetCatRecruitBtn();
         Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(true);
         Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(true);
-        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(true);
-        
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(true);       
 
         Uimanager.Instance.playerUI.ResetBtn(false);
 

@@ -404,27 +404,34 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     {
                         if (RoundManager.Instance.cat.actionPoint > 0)
                         {
+                            
                             RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                             BuildingManager.Instance.selectedBuilding);
                             RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                             if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catSawMillPrefab)
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catSawMillPrefab&& RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catSawMillCost)
                             {
-                                // RoundManager.Instance.cat.RemainSawmillNum--;
+                                RoundManager.Instance.cat.RemainSawmillNum--;                                
                                 RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catSawMillCost;
                                 RoundManager.Instance.cat.costBuilding();
                                 Uimanager.Instance.catUI.sawmillCostText.text = RoundManager.Instance.cat.catSawMillCost.ToString();
+                                Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
                             }
-                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catBarrackPrefab)
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catBarrackPrefab &&RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catBarrackCost)
                             {
-                                // RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainBarracksNum--;
                                 RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catBarrackCost;
                                 RoundManager.Instance.cat.costBuilding();
+                                Uimanager.Instance.catUI.barracksCostText.text = RoundManager.Instance.cat.catBarrackCost.ToString();
+                                Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
                             }
-                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catWorkShopPrefab)
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catWorkShopPrefab && RoundManager.Instance.cat.catWorkShopCost > RoundManager.Instance.cat.catWorkShopCost)
                             {
-                                // RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
                                 RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catWorkShopCost;
                                 RoundManager.Instance.cat.costBuilding();
+                                Uimanager.Instance.catUI.workshopCostText.text = RoundManager.Instance.cat.catWorkShopCost.ToString();
+                                Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
                             }
                             catOnAction();
                             if(RoundManager.Instance.cat.actionPoint == 0)
