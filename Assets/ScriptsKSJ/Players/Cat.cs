@@ -215,6 +215,27 @@ public class Cat : Player
         }
         return ruleNodeMemberList;
     }
+    public void SetDrawNumFunc()
+    {
+        int tempNum = 0;
+        foreach (var tempDic in hasBuildingDic)
+        {
+            List<GameObject> tempList = tempDic.Value.FindAll(gobj => gobj.GetComponent<Building>().type == Building_TYPE.CAT_WORKSHOP);
+            tempNum += tempList.Count;
+        }
+        if (tempNum >= 4)
+        {
+            DrawCardNum = 3;
+        }
+        else if (tempNum >= 2)
+        {
+            DrawCardNum = 2;
+        }
+        else
+        {
+            DrawCardNum = 1;
+        }
+    }
     public void costBuilding()// 코스트 설정해주기 건물에 , 건물에 어쩌구저쩌구 추가
     {
         int costSaw = 0;

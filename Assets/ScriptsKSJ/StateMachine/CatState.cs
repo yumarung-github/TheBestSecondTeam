@@ -148,6 +148,8 @@ public class CatDinnerState : RmState
     }
     public override void Exit()
     {
+        cat.SetDrawNumFunc();
+        cat.DrawCard();
         RoundManager.Instance.cat.GetScore();
         Uimanager.Instance.catUI.profileWindow.SetActive(false);
         rm.mapController.nowTile = null;
