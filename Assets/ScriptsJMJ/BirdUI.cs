@@ -24,6 +24,8 @@ public class BirdUI : MonoBehaviour
     public TextMeshProUGUI alarmText;
     public TextMeshProUGUI inputCardCount;
     public TextMeshProUGUI scoreUp;
+    public TextMeshProUGUI solCount;
+    public TextMeshProUGUI curCard;
 
     private int hasSoldierCount;
     public int testint;
