@@ -128,6 +128,23 @@ public class Bird : Player
             SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
         else
             Debug.Log("이미 건설됨");
+        int temp = 0;
+        foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
+        {
+            temp += kv.Value.Count;
+        }
+        if(temp >= 6)
+        {
+            DrawCardNum = 3;
+        }
+        else if(temp >= 3)
+        {
+            DrawCardNum = 2;
+        }
+        else
+        {
+            DrawCardNum = 1;
+        }
     }
     public override void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {

@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
         }
         cardDecks[cardType].Add(card);
         inven.AddCard(card);
-        //Debug.Log(cardDecks.ContainsKey(cardType));
+        Debug.Log(card.cardName + "뽑은카드");
     }
 
     protected void Start()
@@ -156,7 +156,8 @@ public class Player : MonoBehaviour
         int tempNum = 0;
         foreach (KeyValuePair<ANIMAL_COST_TYPE, List<Card>> kv in cardDecks)
         {
-            tempNum = kv.Value.Count;
+            tempNum += kv.Value.Count;
+            Debug.Log(kv.Key + " " + tempNum);
         }
         Debug.Log("현재 카드 수" + tempNum);
         int overCardNum = tempNum + drawCardNum - 4;

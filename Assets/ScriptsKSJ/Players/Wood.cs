@@ -122,8 +122,9 @@ public class Wood : Player
 
     public int buildCost;
     private new void Start()
-    {
+    {        
         base.Start();
+        DrawCardNum = 1;
         particlesParent = roundManager.effectParent;
         roundManager.wood = this;
         hasNodeNames.Add("여우1");//임의로 가진 타일
