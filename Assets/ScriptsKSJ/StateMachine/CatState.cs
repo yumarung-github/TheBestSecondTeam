@@ -50,7 +50,7 @@ public class CatMorningState : RmState
         rm.cat.firstMove = false;
         rm.cat.secondMove = false;
         rm.cat.isSpawn = false;
-
+        Uimanager.Instance.catUI.profileWindow.SetActive(true);
         rm.cat.woodProductNum = rm.cat.woodProductNum += rm.cat.turnAddWoodToken;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
@@ -58,6 +58,9 @@ public class CatMorningState : RmState
         Uimanager.Instance.playerUI.SetBattleBtn();
         Uimanager.Instance.playerUI.SetCatExtraBtn();
         Uimanager.Instance.playerUI.SetCatRecruitBtn();
+        Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(true);
+        Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(true);
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(true);
         
 
         Uimanager.Instance.playerUI.ResetBtn(false);
@@ -144,10 +147,14 @@ public class CatDinnerState : RmState
     }
     public override void Exit()
     {
+        Uimanager.Instance.catUI.profileWindow.SetActive(false);
         rm.mapController.nowTile = null;
         cat.isOver = true;
         bird.isOver = false;
         rm.nowPlayer = null;
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.ResetBtn(false);
         Uimanager.Instance.catInven.SetActive(false);
         Uimanager.Instance.catUI.profileWindow.SetActive(false);
