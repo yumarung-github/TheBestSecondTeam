@@ -158,8 +158,9 @@ public class Player : MonoBehaviour
         {
             tempNum = kv.Value.Count;
         }
-        Debug.Log(tempNum);
+        Debug.Log("현재 카드 수" + tempNum);
         int overCardNum = tempNum + drawCardNum - 4;
+        Debug.Log("뽑아야하는 수" + overCardNum);
         if (overCardNum > 0)
         {
             for (int i = 0; i < overCardNum; i++)
@@ -172,6 +173,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            Debug.Log(drawCardNum);
             CardManager.Instance.DrawCard(drawCardNum, this);
         }
     }

@@ -140,7 +140,7 @@ public class Wood : Player
         RoundManager.Instance.wood.supportVal.Add(ANIMAL_COST_TYPE.BIRD, 0);
         buildCost = 1;//초기화1
         SetTokenValue();
-        supportVal[ANIMAL_COST_TYPE.RAT] = 1;//테스트용 지울거
+        supportVal[ANIMAL_COST_TYPE.RAT] = 4;//테스트용 지울거
         supportVal[ANIMAL_COST_TYPE.BIRD] = 0;//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거

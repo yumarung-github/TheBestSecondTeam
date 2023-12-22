@@ -79,6 +79,7 @@ public class Bird : Player
     private new void Start()
     {
         Score = 0;
+        DrawCardNum = 1;
         base.Start();
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
