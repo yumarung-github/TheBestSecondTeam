@@ -43,11 +43,12 @@ public class BattleCard : CardStrategy
         {
             Debug.Log(card.cardName + "제작");
             RoundManager.Instance.nowPlayer.craftedCards.Add(card);
+            card.isUse = true;
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
         }
         else
         {
-            Debug.Log("사용못함");
-            
+            Debug.Log("사용못함");            
         }
     }
 }
@@ -75,6 +76,8 @@ public class DefenseCard : CardStrategy
         {
             Debug.Log(card.cardName + "제작");
             RoundManager.Instance.nowPlayer.craftedCards.Add(card);
+            card.isUse = true;
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
         }
         else
         {
@@ -95,6 +98,8 @@ public class GetScoreCard : CardStrategy
 
     public override void UseCard()
     {
+        card.isUse = true;
+        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
         RoundManager.Instance.nowPlayer.Score++;
     }
 }

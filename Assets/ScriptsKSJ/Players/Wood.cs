@@ -9,16 +9,7 @@ using UnityEngine;
 
 public class Wood : Player
 {
-    private int drawCardNum;
-    public int DrawCardNum
-    {
-        get=> drawCardNum;
-        set
-        {            
-            drawCardNum = value;
-            Uimanager.Instance.woodUi.drawCardText.text = drawCardNum.ToString();
-        }
-    }
+    
     public int tokenNum;
     [SerializeField]
     Transform particlesParent;
@@ -647,28 +638,5 @@ public class Wood : Player
             }
         }        
     }
-    public void DrawWoodCard()
-    {
-        int tempNum = 0;
-        foreach ( KeyValuePair<ANIMAL_COST_TYPE, List<Card>> kv in cardDecks)
-        {
-            tempNum = kv.Value.Count;
-        }
-        Debug.Log(tempNum);
-        int overCardNum = tempNum + drawCardNum - 5;
-        if (overCardNum > 0)
-        {
-            for(int i = 0; i < overCardNum; i++)
-            {
-                CardManager.Instance.cardDeck.Add(cardDecks[inven.slot[0].card.costType][0]);
-                cardDecks[inven.slot[0].card.costType].RemoveAt(0);
-                inven.slot[0].EmptySlot();
-            }
-            CardManager.Instance.DrawCard(drawCardNum, this);
-        }
-        else
-        {
-            CardManager.Instance.DrawCard(drawCardNum, this);
-        }
-    }
+    
 }

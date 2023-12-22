@@ -131,6 +131,7 @@ public class BirdDinnerState : RmState
     }
     public override void Exit()
     {
+        bird.DrawCard();
         Uimanager.Instance.playerUI.birdInfo.SetActive(false);
         foreach (BirdCardAction temp in Uimanager.Instance.birdUI.BirdInventory.birdCardSlot)
         {
