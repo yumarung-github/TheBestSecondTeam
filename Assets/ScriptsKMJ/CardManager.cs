@@ -43,7 +43,7 @@ public class CardManager : SingleTon<CardManager>
         }
         cardDeck.Clear();
         DrawCard(3, RoundManager.Instance.cat);
-        DrawCard(3, RoundManager.Instance.bird);
+        DrawCard(3, RoundManager.Instance.bird,ANIMAL_COST_TYPE.BIRD);
         DrawCard(3, RoundManager.Instance.wood);
     }
     private void Update()

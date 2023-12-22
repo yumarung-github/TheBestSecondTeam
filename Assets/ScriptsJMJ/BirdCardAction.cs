@@ -87,6 +87,10 @@ public class BirdCardAction : MonoBehaviour
         curNum = 0;
         while(curNum <= birdCards.Count - 1)
         {
+            if(curNum > birdCards.Count)
+            {
+                break;
+            }
             Debug.Log(curNum + " " + isOver.Count);
             while (true)
             {
@@ -126,7 +130,6 @@ public class BirdCardAction : MonoBehaviour
             yield return null;
             
         }
-        curNum = 0;
         yield return null;
     }
     public void StartActionCo()

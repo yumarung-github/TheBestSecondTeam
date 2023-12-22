@@ -20,21 +20,17 @@ public class BirdCardInventory : MonoBehaviour
         Debug.Log("유즈슬롯 들어옴");
         for (int i = 0; i <= birdCardSlot.Length - 1; i++)
         {
-            /*if (birdCardSlot[i].birdCard == null)
-                            return;*/
-            for (int j = 0; j <= birdCardSlot[i].birdCards.Count - 1; j++)
+            if (birdCardSlot[i].birdCards.Count > 0)
             {
-                if (birdCardSlot[i].birdCards.Count > 0)
+                //birdCardSlot[i].Use(); //없앤거
+                if (!firstSlotCheck)
                 {
-                    //birdCardSlot[i].Use(); //없앤거
-                    if (!firstSlotCheck)
-                    {
-                        firstSlotCheck = true;
-                        birdCardSlot[i].isOver[j] = true;
-                    }
-                    curSlot = i;
-                    birdCardSlot[i].StartActionCo();
+                    firstSlotCheck = true;
+                    birdCardSlot[i].isOver[0] = true;
                 }
+                curSlot = i;
+                Debug.Log(i + "번쨰");
+                birdCardSlot[i].StartActionCo();
             }
         }
     }
