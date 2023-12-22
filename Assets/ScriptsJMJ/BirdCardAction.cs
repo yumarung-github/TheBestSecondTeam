@@ -292,19 +292,28 @@ public class BirdCardAction : MonoBehaviour
             RoundManager.Instance.bird.BreakingRule();
         }
     }
-    
+
     public void CardReset()
     {
-        for (int i = 0; i < birdCards.Count - 1; i++)
+        for (int i = 0; i <= birdCards.Count - 1; i++)
         {
             birdCards.RemoveAt(i);
             isOver.Clear();
+
         }
+        foxCard = 0;
+        birdCard = 0;
+        rabbitCard = 0;
+        ratCard = 0;
+
+        countAnimals[0].text = "x "+foxCard;
+        countAnimals[1].text = "x "+ birdCard;
+        countAnimals[2].text = "x "+ rabbitCard;
+        countAnimals[3].text = "x "+ ratCard;
     }
 
     public void CopyCardAdd()
     {
-
         for (int i = 0; i < copySlot.Count; i++)
         {
             RoundManager.Instance.bird.inven.AddCard(copySlot[i]);
