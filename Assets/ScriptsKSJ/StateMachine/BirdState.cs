@@ -12,11 +12,14 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.birdInfo.SetActive(true);
         rm.SetOffAllEffect();
         rm.nowPlayer = bird;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n대기");
-        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
         if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
         else
@@ -143,6 +146,10 @@ public class BirdDinnerState : RmState
         wood.isOver = false;
         rm.nowPlayer = null;
         Uimanager.Instance.birdInven.SetActive(false);
+        Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
+        Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(true);
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(true);
+        Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(true);
     }
     
 }
