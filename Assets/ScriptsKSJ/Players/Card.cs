@@ -145,7 +145,7 @@ public class Card : MonoBehaviour
         }
         else
         {
-            if (RoundManager.Instance.nowPlayer is Cat)
+            if (RoundManager.Instance.nowPlayer is Cat cat)
             {
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
@@ -153,6 +153,12 @@ public class Card : MonoBehaviour
                         break;
                     case WoodUi.CardUseType.CRAFT:
                         cardStrategy.UseCard();
+                        break;
+                    case WoodUi.CardUseType.HOSPITAL:
+                        cat.FieldHospital(this);
+                        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                        isUse = true;
+                        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
                         break;
                 }
             }
