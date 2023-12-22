@@ -141,6 +141,10 @@ public class PlayerUI : MonoBehaviour
         buildBtn.onClick.AddListener(() => {
             if (RoundManager.Instance.nowPlayer is Cat cat)
             {
+                foreach (NodeMember tempNode in RoundManager.Instance.cat.RuleTile())
+                {
+                    RoundManager.Instance.SetEffect(tempNode);
+                }
                 Uimanager.Instance.catUI.bulidSectionWindow.SetActive(true);
             }
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;

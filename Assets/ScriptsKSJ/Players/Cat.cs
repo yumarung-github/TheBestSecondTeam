@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class Cat : Player
 {
+    public bool isInit;
     public int actionPoint;
     public bool firstMove = false;
     public bool secondMove = false;
@@ -94,6 +95,7 @@ public class Cat : Player
     private new void Start()
     {
         base.Start();
+        isInit = false;
         //Debug.Log(animator.GetLayerIndex("Idle"));
         isOver = false;
         roundManager.cat = this;
@@ -178,7 +180,7 @@ public class Cat : Player
                 turnAddWoodToken++;
                 newBuilding.onDestroy += () => { turnAddWoodToken--; };
                 Debug.Log(newBuilding.type);
-            }
+            }            
         }
         else
         {
