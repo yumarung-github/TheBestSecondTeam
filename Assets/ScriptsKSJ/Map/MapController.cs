@@ -408,7 +408,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                             BuildingManager.Instance.selectedBuilding);
                             RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
-                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catSawMillPrefab)
                             if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catSawMillPrefab&& RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catSawMillCost)
                             {
                                 RoundManager.Instance.cat.RemainSawmillNum--;                                

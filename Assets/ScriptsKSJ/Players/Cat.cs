@@ -314,4 +314,76 @@ public class Cat : Player
         }
         deadSoldierNum[card.costType] = 0;
     }
+
+
+   public void GetScore()
+   {
+        int sawmillScore =0;
+        int barrackScore = 0;
+        int workShopScore= 0;
+       if(remainSawmillNum == 4)
+        {
+            sawmillScore = 1;
+        }
+       if(remainSawmillNum ==3)
+        {
+            sawmillScore= 2;
+        }
+       if(remainSawmillNum==2)
+        {
+            sawmillScore = 3;
+        }
+       if(remainSawmillNum==1)
+        {
+            sawmillScore = 4;
+        }
+       if( remainSawmillNum==0)
+        {
+            sawmillScore = 5;
+        }
+
+       if(remainbarracksNum == 4)
+        {
+            barrackScore = 2;
+        }
+       if(remainbarracksNum == 3)
+        {
+            barrackScore = 2;
+        }
+       if(remainbarracksNum==2)
+        {
+            barrackScore = 3;
+        }
+       if(remainbarracksNum == 1)
+        {
+            barrackScore = 4;
+        }
+       if(remainbarracksNum == 0)
+        {
+            barrackScore = 5;
+        }
+
+       if(remainworkshopsNum == 4)
+        {
+            workShopScore = 1;
+        }
+       if (remainworkshopsNum == 3)
+        {
+            workShopScore= 2;
+        }
+       if(remainworkshopsNum==2)
+        {
+            workShopScore= 3;
+        }
+       if(remainworkshopsNum==1)
+        {
+            workShopScore = 3;
+        }
+       if(remainworkshopsNum ==0)
+        {
+            workShopScore= 4;
+        }
+
+        RoundManager.Instance.cat.Score += workShopScore + sawmillScore + barrackScore;
+   }
 }
