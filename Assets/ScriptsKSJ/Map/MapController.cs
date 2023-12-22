@@ -311,7 +311,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 Uimanager.Instance.playerUI.buildBtn.enabled = false;
                             }
                             else
-                            { 
+                            {
+                                Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                                 Debug.Log("포인트없거나 두번다 이동함");
                                 break;
                             }

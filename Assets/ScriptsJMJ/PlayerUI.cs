@@ -47,8 +47,11 @@ public class PlayerUI : MonoBehaviour
             {
                 foreach(var tempDic in RoundManager.Instance.nowPlayer.hasSoldierDic)
                 {
-                    NodeMember mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempDic.Key);
-                    RoundManager.Instance.SetEffect(mem);
+                    if(tempDic.Value.Count > 0)
+                    {
+                        NodeMember mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempDic.Key);
+                        RoundManager.Instance.SetEffect(mem);
+                    }                    
                 }
             }
         });

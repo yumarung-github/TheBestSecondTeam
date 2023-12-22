@@ -45,6 +45,7 @@ public class CatMorningState : RmState
     }
     public override void Enter()
     {
+        
         Uimanager.Instance.playerUI.spawnBtn.enabled = true;
         Uimanager.Instance.playerUI.buildBtn.enabled = true;
         Uimanager.Instance.playerUI.moveBtn.enabled = true;
@@ -67,6 +68,7 @@ public class CatMorningState : RmState
         Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(true);
         Uimanager.Instance.playerUI.ResetBtn(false);
 
+        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.CRAFT;
         BattleManager.Instance.InitBattle();
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_AFTERNOON);
         Uimanager.Instance.catInven.SetActive(true);
@@ -117,6 +119,7 @@ public class CatAfternoonState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n점심\n이동");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_DINNER);
     }
