@@ -407,6 +407,25 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                             BuildingManager.Instance.selectedBuilding);
                             RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catSawMillPrefab)
+                            {
+                                // RoundManager.Instance.cat.RemainSawmillNum--;
+                                RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catSawMillCost;
+                                RoundManager.Instance.cat.costBuilding();
+                                Uimanager.Instance.catUI.sawmillCostText.text = RoundManager.Instance.cat.catSawMillCost.ToString();
+                            }
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catBarrackPrefab)
+                            {
+                                // RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catBarrackCost;
+                                RoundManager.Instance.cat.costBuilding();
+                            }
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catWorkShopPrefab)
+                            {
+                                // RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catWorkShopCost;
+                                RoundManager.Instance.cat.costBuilding();
+                            }
                             catOnAction();
                             if(RoundManager.Instance.cat.actionPoint == 0)
                             {

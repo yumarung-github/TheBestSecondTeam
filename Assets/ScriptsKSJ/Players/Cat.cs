@@ -265,7 +265,8 @@ public class Cat : Player
         if (costBarrack == 4)
         {
             RoundManager.Instance.cat.catBarrackCost = 5;
-        }
+        }      
+        
     }
     public void UseActionPoint()
     {
