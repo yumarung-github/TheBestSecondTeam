@@ -45,7 +45,7 @@ public class BirdMorningState : RmState
         RoundManager.Instance.bird.inputCard = 0;
         Uimanager.Instance.playerUI.AlarmWindow.SetActive(true);
         Uimanager.Instance.playerUI.turnAlarmText.text = "규율 제정 턴";
-        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.BIRDUSE;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING2);
         Uimanager.Instance.birdInven.SetActive(true);
@@ -133,7 +133,7 @@ public class BirdDinnerState : RmState
                 }
             }
         }
-        Uimanager.Instance.birdUI.BirdInventory.firstSlotCheck = true;
+        Uimanager.Instance.birdUI.BirdInventory.firstSlotCheck = false;
         bird.isOver = true;
         wood.isOver = false;
         rm.nowPlayer = null;

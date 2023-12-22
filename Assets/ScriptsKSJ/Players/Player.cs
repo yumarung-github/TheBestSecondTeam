@@ -11,19 +11,18 @@ public class Player : MonoBehaviour
     /// </summary>
     public PlayerInventory inven;
     public Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
-    private Dictionary<ANIMAL_COST_TYPE, int> haveAnimalMoney = new Dictionary<ANIMAL_COST_TYPE, int>();
     public List<Card> craftedCards = new List<Card>();
 
     public bool isOver;//현재 자기턴이 아니면 false상태
-    public int score;//테스트용 없애도됨
+    [SerializeField]
+    private int score;
     public List<string> hasNodeNames = new List<string>();//어떤 타일을 지배하고 있는지 체크하는 용도
     public GameObject prefabSoldier;
     public int battleSoldierNum;
+    public int battleBuildingNum;
     public Dictionary<string, List<Soldier>> hasSoldierDic = new Dictionary<string, List<Soldier>>();
     //병사를 가지고있는 타일에 병사 리스트를 저장
     //병사명수를 정해서 리스트의 끝부터 하나씩 꺼내서 쓰게 하면됨.
-
-
 
     public Dictionary<string, List<GameObject>> hasBuildingDic = new Dictionary<string, List<GameObject>>();
     //건물 저장해둘 공간 -시현 추가
@@ -52,12 +51,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
-    public Dictionary<ANIMAL_COST_TYPE, int> HaveAnimalMoney
-    {
-        get => haveAnimalMoney;
-        set { haveAnimalMoney = value; }
-    }
     public void AddCard(Card card, ANIMAL_COST_TYPE cardType)
     {
         //Debug.Log(card.gameObject.name);
@@ -70,18 +63,8 @@ public class Player : MonoBehaviour
         //Debug.Log(cardDecks.ContainsKey(cardType));
     }
 
-    public void SetMoney(ANIMAL_COST_TYPE ACT, int money)
-    {
-        haveAnimalMoney[ACT] = money;
-    }
-
     protected void Start()
     {
-        haveAnimalMoney.Add(ANIMAL_COST_TYPE.FOX, 0);
-        haveAnimalMoney.Add(ANIMAL_COST_TYPE.RAT, 0);
-        haveAnimalMoney.Add(ANIMAL_COST_TYPE.RABBIT, 0);
-        haveAnimalMoney.Add(ANIMAL_COST_TYPE.BIRD, 0);
-        SetMoney(ANIMAL_COST_TYPE.FOX, 3);
         roundManager = RoundManager.Instance;
         isOver = true;
     }

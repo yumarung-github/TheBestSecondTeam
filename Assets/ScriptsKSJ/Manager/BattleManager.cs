@@ -1,3 +1,4 @@
+using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -10,8 +11,15 @@ public class BattleManager : SingleTon<BattleManager>
     public Player battleP1;
     public Player battleP2;
 
+    public bool isInit;
+    public int attackNum;
+    public int defenseNum;
+
     public List<Soldier> battleP1Soldiers;
     public List<Soldier> battleP2Soldiers;
+
+    public List<Building> battleP1Buildings;
+    public List<Building> battleP2Buildings;
 
     public TextMeshProUGUI battleP1Text;
     public TextMeshProUGUI battleP2Text;
@@ -29,6 +37,7 @@ public class BattleManager : SingleTon<BattleManager>
     }
     public void InitBattle()
     {
+        isInit = false;
         foreach (Button button in Uimanager.Instance.playerUI.buttons)
         {
             button.onClick.RemoveAllListeners();
@@ -116,9 +125,19 @@ public class BattleManager : SingleTon<BattleManager>
     }
     public void StartBattle()//주사위가 나온사용자가 그 값을 가지게 해놨음 세세한건 나중에 수정
     {
+        if(!isInit)
+        {
+            attackNum = 0;
+            defenseNum = 0;
+            isInit = true;
+        }
         RoundManager.Instance.SetOffAllEffect();
         battleP1Soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[RoundManager.Instance.mapController.nowTile.nodeName];
-        RoundManager.Instance.nowPlayer.battleSoldierNum = battleP1Soldiers.Count;
+        battleP1.battleSoldierNum = battleP1Soldiers.Count;
+        battleP2.battleSoldierNum = battleP2Soldiers.Count;
+
+        battleP1.battleBuildingNum = battleP1Buildings.Count;
+        battleP2.battleBuildingNum = battleP2Buildings.Count;
         int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
         int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
         int tempNum;
@@ -148,30 +167,30 @@ public class BattleManager : SingleTon<BattleManager>
         }
         //더 큰 숫자가 dicep2num에 가야함. (공격)
         Debug.Log("배틀시작");
-        diceP1Num = (diceP1Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP1Num;
+        diceP1Num = (diceP1Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP1Num;//+ + battleP2.battleBuildingNum
         //여기에 플레이어 2번의 버드의 지도자가 데미지 1이면 다이스1num에 1추가
 
         for (int i = 0; i < diceP1Num; i++)
         {
-            if (battleP1.battleSoldierNum == 0)
+            if (battleP2.battleSoldierNum == 0)
             {
                 break;
             }
-            GameObject tempObj = battleP1Soldiers[battleP1.battleSoldierNum - 1].gameObject;
-            battleP1Soldiers.RemoveAt(battleP1.battleSoldierNum - 1);
+            GameObject tempObj = battleP2Soldiers[battleP2.battleSoldierNum - 1].gameObject;
+            battleP2Soldiers.RemoveAt(battleP2.battleSoldierNum - 1);
             Destroy(tempObj);
-            battleP1.battleSoldierNum--;
-            if (battleP1 is Wood wood)
+            battleP2.battleSoldierNum--;
+            if (battleP2 is Wood wood)
             {
                 wood.RemainSoldierNum++;
             }
-            if (battleP1 is Cat cat)
+            if (battleP2 is Cat cat)
             {
                 if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeType))
                     cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeType, 0);
                 cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]++;
             }
-            if (battleP1 is Bird birdTow)
+            if (battleP2 is Bird birdTow)
             {
                 bool isTargetBuilding = battleP2.hasBuildingDic.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName);
                 bool isCheckBuilding = isTargetBuilding && battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName].Count > 0;
@@ -194,23 +213,23 @@ public class BattleManager : SingleTon<BattleManager>
                     
             }
         }
-        diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;
+        diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;// + battleP1.battleBuildingNum
         //여기에 플레이어 1번의 버드의 지도자가 데미지 1이면 다이스2num에 1추가
         for (int i = 0; i < diceP2Num; i++)
         {
-            if (battleP2.battleSoldierNum == 0)
+            if (battleP1.battleSoldierNum == 0)
             {
                 break;
             }
-            GameObject tempObj = battleP2Soldiers[battleP2.battleSoldierNum - 1].gameObject;
-            battleP2Soldiers.RemoveAt(battleP2.battleSoldierNum - 1);
+            GameObject tempObj = battleP1Soldiers[battleP1.battleSoldierNum - 1].gameObject;
+            battleP1Soldiers.RemoveAt(battleP1.battleSoldierNum - 1);
             Destroy(tempObj);
-            battleP2.battleSoldierNum--;
-            if (battleP2 is Wood wood)
+            battleP1.battleSoldierNum--;
+            if (battleP1 is Wood wood)
             {
                 wood.RemainSoldierNum++;
             }
-            if (battleP2 is Cat cat)
+            if (battleP1 is Cat cat)
             {
                 if (!cat.deadSoldierNum.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeType))
                     cat.deadSoldierNum.Add(RoundManager.Instance.mapController.nowTile.nodeType, 0);
@@ -223,8 +242,8 @@ public class BattleManager : SingleTon<BattleManager>
             Debug.Log(RoundManager.Instance.cat.deadSoldierNum[RoundManager.Instance.mapController.nowTile.nodeType]);
 
         }
-        Debug.Log(diceP1Num);
-        Debug.Log(diceP2Num);
+        Debug.Log("플레이어2가 죽어야하는 수" + diceP1Num);
+        Debug.Log("플레이어1가 죽어야하는 수" + diceP2Num);
         Uimanager.Instance.playerUI.battleWindow.SetActive(false);
         if (battleP1 is Wood)
         {
