@@ -45,6 +45,10 @@ public class CatMorningState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.playerUI.spawnBtn.enabled = true;
+        Uimanager.Instance.playerUI.buildBtn.enabled = true;
+        Uimanager.Instance.playerUI.moveBtn.enabled = true;
+        Uimanager.Instance.playerUI.battleBtn.enabled = true;
         rm.nowPlayer = cat;
         rm.cat.actionPoint = 3;
         rm.cat.firstMove = false;
@@ -137,10 +141,7 @@ public class CatDinnerState : RmState
     {
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_WAIT);
-        Uimanager.Instance.playerUI.spawnBtn.enabled = true;
-        Uimanager.Instance.playerUI.buildBtn.enabled = true;
-        Uimanager.Instance.playerUI.moveBtn.enabled = true;
-        Uimanager.Instance.playerUI.battleBtn.enabled = true;
+
     }
     public override void Update()
     {
