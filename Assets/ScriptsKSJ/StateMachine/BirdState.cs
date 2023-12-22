@@ -20,7 +20,7 @@ public class BirdWaitState : RmState
         Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(false);
-        Uimanager.Instance.playerUI.birdInfo.SetActive(true);
+        Uimanager.Instance.birdUI.birdInfo.SetActive(true);
         rm.SetOffAllEffect();
         rm.nowPlayer = bird;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n대기");

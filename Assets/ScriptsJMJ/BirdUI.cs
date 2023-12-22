@@ -12,6 +12,7 @@ public class BirdUI : MonoBehaviour
     public BirdCardAction[] birdSlot;
     public Sequence sequence;
 
+    public GameObject birdInfo;
     public GameObject scoreBord;
     public GameObject birdAlarm;
     public GameObject birdLeaderSelect;
@@ -28,6 +29,7 @@ public class BirdUI : MonoBehaviour
     public int testint;
     private void Start()
     {
+        birdInfo.gameObject.SetActive(false);
         nextButton.onClick.AddListener(() => { RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.BIRD_AFTERNOON); });
         nextButton.onClick.AddListener(() => { nextButton.gameObject.SetActive(false); });
         nextButton.onClick.AddListener(() => { birdCardBox.SetActive(false); });
