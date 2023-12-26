@@ -131,7 +131,7 @@ public class BirdDinnerState : RmState
     {
         //CardManager.Instance.DrawCard(bird.getCards, bird);
         bird.DrawCard();
-        Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
         Uimanager.Instance.birdUI.birdInfo.SetActive(false);
         foreach (BirdCardAction temp in Uimanager.Instance.birdUI.BirdInventory.birdCardSlot)
         {
