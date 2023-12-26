@@ -66,7 +66,6 @@ public class Agent : MonoBehaviour {
 			locomotion.Do(speed, angle);
 		}
 	}
-
     void OnAnimatorMove()
     {
         agent.velocity = animator.deltaPosition / Time.deltaTime;
