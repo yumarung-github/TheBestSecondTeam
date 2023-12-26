@@ -246,7 +246,6 @@ public class BattleManager : SingleTon<BattleManager>
                     Destroy(battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName][0]);
                     battleP2.hasBuildingDic.Remove(RoundManager.Instance.mapController.nowTile.nodeName);
                 }
-                    
             }
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;// + battleP1.battleBuildingNum

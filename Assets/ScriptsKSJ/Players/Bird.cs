@@ -159,7 +159,7 @@ public class Bird : Player
         {
             Uimanager.Instance.birdUI.birdSlot[i].CardReset();
         }
-        Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
+        RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.WOOD_WAIT);
     }
     public void SetBirdMoveTileEffect(NodeMember tempMem)
     {

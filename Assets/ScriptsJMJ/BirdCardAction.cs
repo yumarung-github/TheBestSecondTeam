@@ -25,6 +25,8 @@ public class BirdCardAction : MonoBehaviour
     public List<Card> birdCards;
     public List<bool> isOver = new List<bool>();
     public List<NodeMember> tiles;
+    public List<NodeMember> battleTiles;
+
 
     public int curNum;
     int foxCard = 0;
@@ -139,6 +141,7 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetBattleNode()
     {
+        List<NodeMember> battleTiles = new List<NodeMember>();
         tiles.Clear();
         isBreakRule = false;
         Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
@@ -149,23 +152,27 @@ public class BirdCardAction : MonoBehaviour
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == battleTileCheck.Key);
             // 내 병사가 위치한 타일들
             bool isbattlePlayer = RoundManager.Instance.cat.hasSoldierDic.ContainsKey(tile.nodeName) || RoundManager.Instance.wood.hasSoldierDic.ContainsKey(tile.nodeName);
-            // 고양이 병사들이 위치한 타일들이 내 병사가 위치한 타일들이랑 같거나,
-            // 우드 병사들이 //
+            // 고양이 병사 혹은 우드 병사들이 위치한 타일들이 내 병사가 위치한 타일들이랑 같거나,
             bool isBattletile = birdCards[CurCard].costType == tile.nodeType;
             // 내가 가진 카드의 타입이 내 병사가 위치한 타일의 타입과 같다면
 
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
-                // 내 카드가 새면서 상대방이 있다면
             {
-                tile.isTileCheck = true;
-                RoundManager.Instance.SetEffect(tile);
-                RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
-                isBreakRule = true;
+                Debug.Log("노드 이름 확인" + tile.nodeName);
+                battleTiles.Add(tile);
             }
             else if (isBattletile && isbattlePlayer)
-                // 내가 가진 카드의 타입이 같다면 그 카드는 tiles에 add됨
-            {
                 tiles.Add(tile);
+        }
+        if(battleTiles.Count > 0)
+        {
+            Debug.Log("배틀 타일 카운트" + battleTiles.Count);
+            for (int i = 0; i < battleTiles.Count; i++)
+            {
+                RoundManager.Instance.SetEffect(battleTiles[i]);
+                battleTiles[i].isTileCheck = true;
+                isBreakRule = true;
+                RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
             }
         }
         if (tiles.Count > 0) // 만약 tiles에 내용이 채워져 있다면
