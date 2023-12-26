@@ -11,6 +11,7 @@ public class WoodWaitState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
         Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(false);

@@ -321,7 +321,6 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }
                     else
                     {
-                        Debug.Log("else는 들어옴?");
                         if(RoundManager.Instance.nowPlayer is Bird bird)
                         {
                             BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[1];
@@ -941,6 +940,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName].RemoveAt(soldiers.Count - 1);
                     //원래있던 곳에서 없애줌
                 }
+                    if(RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName].Count == 0)
+                    {
+                        RoundManager.Instance.nowPlayer.hasSoldierDic.Remove(nowTile.nodeName);
+                    }
                 //foreach (Soldier debuging in RoundManager.Instance.nowPlayer.hasSoldierDic[nowTile.nodeName])
                 //{
                 //    Debug.Log(debuging.name + "현재병사");

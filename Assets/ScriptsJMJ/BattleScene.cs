@@ -1,13 +1,13 @@
 using Cinemachine;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BattleScene : MonoBehaviour
 {
     private bool isMove = true;
-    private IEnumerator player1MoveCo;
-    private IEnumerator player2MoveCo;
+    private IEnumerator saveCameraCo;
     
     public CinemachineVirtualCamera[] cinemachines = new CinemachineVirtualCamera[6];
     public Canvas uiCanvas1;
@@ -15,47 +15,46 @@ public class BattleScene : MonoBehaviour
     public Canvas uiCanvas3;
     public Image battleUI;
     public Image battleCardImage;
+    public BattleP1 battlep1;
+    public BattleP2 battlep2;
     public CinemachineVirtualCamera cinemachineCamera;
     public float player1StopNum = 0;
-    public float player2StopNum = 0;
 
-    private void Start()
+    private void Awake()
     {
-        player1MoveCo = Player1MoveCo();
-        player2MoveCo = Player2MoveCo();
-        switch(BattleManager.Instance.battleP1.name)
+        saveCameraCo = CameraCo();
+    }
+
+    public void StartBattle()
+    {
+        player1StopNum = 0;
+        switch (BattleManager.Instance.battleP1.name)
         {
             case "Cat":
                 transform.GetChild(0).gameObject.SetActive(true);
-                StartCoroutine(player1MoveCo);
                 break;
             case "Bird":
                 transform.GetChild(1).gameObject.SetActive(true);
-                StartCoroutine(player1MoveCo);
                 break;
             case "Wood":
                 transform.GetChild(2).gameObject.SetActive(true);
-                StartCoroutine(player1MoveCo);
                 break;
         }
-        switch(BattleManager.Instance.battleP2.name)
+        switch (BattleManager.Instance.battleP2.name)
         {
             case "Cat":
                 transform.GetChild(3).gameObject.SetActive(true);
-                StartCoroutine(player2MoveCo);
                 break;
             case "Bird":
                 transform.GetChild(4).gameObject.SetActive(true);
-                StartCoroutine(player2MoveCo);
                 break;
             case "Wood":
                 transform.GetChild(5).gameObject.SetActive(true);
-                StartCoroutine(player2MoveCo);
                 break;
         }
+        StartCoroutine(CameraCo());
         LookAtCamera();
     }
-
     private void LookAtCamera()
     {
         for(int i = 0; i < 3; i++)
@@ -80,30 +79,32 @@ public class BattleScene : MonoBehaviour
     
     public void UION()
     {
+        Debug.Log("제발 들어와라 예");
+        cinemachineCamera.Priority = 11;
         uiCanvas1.gameObject.SetActive(true);
         uiCanvas2.gameObject.SetActive(true);
         uiCanvas3.gameObject.SetActive(false);
         battleCardImage.gameObject.SetActive(false);
         battleUI.gameObject.SetActive(false);
-        cinemachineCamera.Priority = 11;
+        for(int i = 0;  i < 6; i++) 
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+        for(int i = 0; i < 3; i++)
+        {
+            battlep1.dices[i].gameObject.SetActive(false);
+            battlep2.dices[i].gameObject.SetActive(false);
+        }
     }
-    IEnumerator Player1MoveCo()
+    IEnumerator CameraCo()
     {
         while(player1StopNum < 19.5f)
         {
             player1StopNum += Time.deltaTime;
-            transform.Translate(Vector3.forward * 1.5f * Time.deltaTime);
+            Debug.Log(player1StopNum);
             yield return null;
         }
         UION();
-    }
-    IEnumerator Player2MoveCo()
-    {
-        while (player2StopNum < 19.5f)
-        {
-            player2StopNum += Time.deltaTime;
-            transform.Translate(Vector3.back * 1.5f * Time.deltaTime);
-            yield return null;
-        }
+        player1StopNum = 0;
     }
 }

@@ -147,6 +147,7 @@ public class BattleManager : SingleTon<BattleManager>
         battleOffUI2.gameObject.SetActive(false);
         battleOffUI3.gameObject.SetActive(true);
         battleScene.gameObject.SetActive(true);
+        battleScene.StartBattle();
         if (!isInit)
         {
             attackNum = 0;
@@ -167,7 +168,6 @@ public class BattleManager : SingleTon<BattleManager>
 
         }
         battleP2.battleSoldierNum = battleP2Soldiers.Count;
-        battleP1.battleSoldierNum = battleP1.battleSoldierNum;
         battleP1.battleBuildingNum = battleP1Buildings.Count;
         battleP2.battleBuildingNum = battleP2Buildings.Count;
         Uimanager.Instance.battlep1.ActionP1();
@@ -246,7 +246,6 @@ public class BattleManager : SingleTon<BattleManager>
                     Destroy(battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName][0]);
                     battleP2.hasBuildingDic.Remove(RoundManager.Instance.mapController.nowTile.nodeName);
                 }
-                    
             }
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;// + battleP1.battleBuildingNum

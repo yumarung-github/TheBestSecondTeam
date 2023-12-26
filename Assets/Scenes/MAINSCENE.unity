@@ -14276,9 +14276,10 @@ MonoBehaviour:
   uiCanvas3: {fileID: 1183364030}
   battleUI: {fileID: 0}
   battleCardImage: {fileID: 0}
+  battlep1: {fileID: 0}
+  battlep2: {fileID: 0}
   cinemachineCamera: {fileID: 370164203}
   player1StopNum: 0
-  player2StopNum: 0
 --- !u!1 &751185028
 GameObject:
   m_ObjectHideFlags: 0
@@ -17073,9 +17074,10 @@ MonoBehaviour:
   uiCanvas3: {fileID: 1183364030}
   battleUI: {fileID: 1088428313}
   battleCardImage: {fileID: 397336889}
+  battlep1: {fileID: 1393460458}
+  battlep2: {fileID: 263836153}
   cinemachineCamera: {fileID: 370164203}
   player1StopNum: 0
-  player2StopNum: 0
 --- !u!1 &907706264 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3625900152842981291, guid: a3822e5e7137b25439055e4b5117f3e1, type: 3}
@@ -23456,9 +23458,10 @@ MonoBehaviour:
   uiCanvas3: {fileID: 1183364030}
   battleUI: {fileID: 0}
   battleCardImage: {fileID: 0}
+  battlep1: {fileID: 0}
+  battlep2: {fileID: 0}
   cinemachineCamera: {fileID: 370164203}
   player1StopNum: 0
-  player2StopNum: 0
 --- !u!1 &1165060951
 GameObject:
   m_ObjectHideFlags: 0
@@ -25881,14 +25884,7 @@ MonoBehaviour:
   m_Follow: {fileID: 0}
   m_ShowDebugText: 0
   m_Loop: 0
-  m_ChildCameras:
-  - {fileID: 153645326}
-  - {fileID: 548449852}
-  - {fileID: 1127114613}
-  - {fileID: 1772708401}
-  - {fileID: 45048220}
-  - {fileID: 1621085143}
-  - {fileID: 973196409}
+  m_ChildCameras: []
   m_Instructions:
   - m_VirtualCamera: {fileID: 153645326}
     m_Hold: 1
@@ -37202,9 +37198,10 @@ MonoBehaviour:
   uiCanvas3: {fileID: 1183364030}
   battleUI: {fileID: 0}
   battleCardImage: {fileID: 0}
+  battlep1: {fileID: 0}
+  battlep2: {fileID: 0}
   cinemachineCamera: {fileID: 370164203}
   player1StopNum: 0
-  player2StopNum: 0
 --- !u!1001 &1837911706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41460,9 +41457,10 @@ MonoBehaviour:
   uiCanvas3: {fileID: 1183364030}
   battleUI: {fileID: 0}
   battleCardImage: {fileID: 0}
+  battlep1: {fileID: 0}
+  battlep2: {fileID: 0}
   cinemachineCamera: {fileID: 370164203}
   player1StopNum: 0
-  player2StopNum: 0
 --- !u!1 &2083179538
 GameObject:
   m_ObjectHideFlags: 0
