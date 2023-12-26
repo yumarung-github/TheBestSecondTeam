@@ -230,7 +230,7 @@ public class BirdCardAction : MonoBehaviour
     public void SetMoveNode()
     {
         Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
-        Uimanager.Instance.birdUI.alarmText.text = "이동할 병사를 선택하세요 선택하세요.";
+        Uimanager.Instance.birdUI.alarmText.text = "이동할 병사를 선택하세요.";
         tiles.Clear();
         isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)

@@ -146,6 +146,7 @@ public class Bird : Player
             DrawCardNum = 1;
         }
     }
+    
     public override void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
         hasBuildingDic[tileName].Add(building);
@@ -159,6 +160,7 @@ public class Bird : Player
         {
             Uimanager.Instance.birdUI.birdSlot[i].CardReset();
         }
+        Uimanager.Instance.birdUI.alarmText.text = "규율을 어겨 지도자가 교체 됩니다.";
         RoundManager.Instance.roundSM.SetState(MASTATE_TYPE.WOOD_WAIT);
     }
     public void SetBirdMoveTileEffect(NodeMember tempMem)
