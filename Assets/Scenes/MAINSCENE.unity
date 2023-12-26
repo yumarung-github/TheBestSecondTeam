@@ -5210,11 +5210,11 @@ MonoBehaviour:
   buildWoodBaseBtn: {fileID: 0}
   buildBirdNestBtn: {fileID: 0}
   buildingList: []
-  catBasePrefab: {fileID: 4257552895312696128, guid: 0083a68d2a71b5f4ebb27e50bab60f17, type: 3}
-  catSawMillPrefab: {fileID: 9027382726976467516, guid: 0c8e8d825307a7f4eb1d609b8dd22513, type: 3}
-  catBarrackPrefab: {fileID: 827841190667033740, guid: c8d4ed8dfd9d183489146c96fb1353a7, type: 3}
-  catWorkShopPrefab: {fileID: 160407641998269428, guid: ee616e9dd6d817f4d83fa5b04f629f23, type: 3}
-  birdNestPrefab: {fileID: 3407116560351871788, guid: da67f558871e22046a9711ce6db8755d, type: 3}
+  catBasePrefab: {fileID: 6660214046314355840, guid: 9687a65f7fcdbd54a8088c0d75ee09e2, type: 3}
+  catSawMillPrefab: {fileID: 7545542214727448069, guid: 0f5603b26c4348642be7d0fc1559a669, type: 3}
+  catBarrackPrefab: {fileID: 2227690850860968019, guid: 6690faf4b01a7524fbf948787edd446b, type: 3}
+  catWorkShopPrefab: {fileID: 5083589182592302547, guid: 0c875301017b2ff4698dfb450b78f9a2, type: 3}
+  birdNestPrefab: {fileID: 8409501675053929686, guid: 582aa73460365054ab1831ec81e07d07, type: 3}
   woodTokenPrefab: {fileID: 1193073037529638, guid: 40cad2c64a17589408c944c7501c06ed, type: 3}
   woodFoxBasePrefab: {fileID: 1343920219198514, guid: b788486f0267c054bb3812d57dc8e352, type: 3}
   woodRabbitBasePrefab: {fileID: 1506098538570848, guid: 43e85bde9c957b348b1142b1e223656a, type: 3}
@@ -22942,7 +22942,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1192481429
 RectTransform:
   m_ObjectHideFlags: 0
