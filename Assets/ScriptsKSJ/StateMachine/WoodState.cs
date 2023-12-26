@@ -11,6 +11,9 @@ public class WoodWaitState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(false);
         rm.SetOffAllEffect();
         Uimanager.Instance.woodUi.SetAgreeBtn();
         Uimanager.Instance.woodUi.SetRevoitBtn();
@@ -112,6 +115,7 @@ public class WoodDinnerState : RmState
     }
     public override void Enter()
     {
+        wood.BattleActionNum = 0;
         rm.SetOffAllEffect();
         Uimanager.Instance.playerUI.SetTurnTexts("우드랜드 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_MORNING);
