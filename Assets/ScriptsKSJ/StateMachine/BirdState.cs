@@ -12,6 +12,7 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
         Uimanager.Instance.playerUI.spawnBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.battleBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.buildBtn.gameObject.SetActive(false);
@@ -36,7 +37,12 @@ public class BirdWaitState : RmState
         if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
         else
+        {
+            Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+            Uimanager.Instance.birdUI.alarmText.text = "할 수 있는 행동이 없습니다.";
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(false);
+            Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
+        }
     }
     public override void Update()
     {
