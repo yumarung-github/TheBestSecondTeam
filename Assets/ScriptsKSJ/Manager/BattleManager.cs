@@ -202,6 +202,7 @@ public class BattleManager : SingleTon<BattleManager>
         //더 큰 숫자가 dicep2num에 가야함. (공격)
         Debug.Log("배틀시작");
         diceP1Num = (diceP1Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP1Num;//+ + battleP2.battleBuildingNum
+        diceP1Num = (diceP1Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP1Num;
         //여기에 플레이어 2번의 버드의 지도자가 데미지 1이면 다이스1num에 1추가
 
         for (int i = 0; i < diceP1Num; i++)
@@ -249,6 +250,7 @@ public class BattleManager : SingleTon<BattleManager>
             }
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;// + battleP1.battleBuildingNum
+        diceP2Num = (diceP2Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP2Num;// + battleP1.battleBuildingNum
         //여기에 플레이어 1번의 버드의 지도자가 데미지 1이면 다이스2num에 1추가
         for (int i = 0; i < diceP2Num; i++)
         {
