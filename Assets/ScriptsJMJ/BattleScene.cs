@@ -1,80 +1,109 @@
 using Cinemachine;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
-public enum PLAYER
-{
-    p1,
-    p2,
-}
+using UnityEngine.UI;
 
 public class BattleScene : MonoBehaviour
 {
-    public PLAYER playertype;
     private bool isMove = true;
-    int p1number;
-    int p2number;
+    private IEnumerator player1MoveCo;
+    private IEnumerator player2MoveCo;
+    
     public CinemachineVirtualCamera[] cinemachines = new CinemachineVirtualCamera[6];
+    public Canvas uiCanvas1;
+    public Canvas uiCanvas2;
+    public Canvas uiCanvas3;
+    public Image battleUI;
+    public Image battleCardImage;
+    public CinemachineVirtualCamera cinemachineCamera;
+    public float player1StopNum = 0;
+    public float player2StopNum = 0;
+
     private void Start()
     {
-        //PlayerSetting(1, 2);
-        switch (playertype)
+        player1MoveCo = Player1MoveCo();
+        player2MoveCo = Player2MoveCo();
+        switch(BattleManager.Instance.battleP1.name)
         {
-            case PLAYER.p1:
-                Invoke("StopObj", 5.5f);
-                Invoke("Player1SetActiveFalse", 8f);
-                transform.GetChild(p1number).gameObject.SetActive(true);
-                for (int i = 0; i < 3; i++)
-                {
-                    cinemachines[i].LookAt = transform.GetChild(p1number).gameObject.transform;
-                }
+            case "Cat":
+                transform.GetChild(0).gameObject.SetActive(true);
+                StartCoroutine(player1MoveCo);
                 break;
-            case PLAYER.p2:
-                this.gameObject.SetActive(false);
-                Invoke("StartP2", 7.5f);
-                Invoke("StopObj", 13f);
-                Invoke("Player2SetActiveFalse", 15f);
-                for (int i = 3; i < 6; i++)
-                {
-                    cinemachines[i].LookAt = transform.GetChild(p2number).gameObject.transform;
-                }
+            case "Bird":
+                transform.GetChild(1).gameObject.SetActive(true);
+                StartCoroutine(player1MoveCo);
+                break;
+            case "Wood":
+                transform.GetChild(2).gameObject.SetActive(true);
+                StartCoroutine(player1MoveCo);
                 break;
         }
+        switch(BattleManager.Instance.battleP2.name)
+        {
+            case "Cat":
+                transform.GetChild(3).gameObject.SetActive(true);
+                StartCoroutine(player2MoveCo);
+                break;
+            case "Bird":
+                transform.GetChild(4).gameObject.SetActive(true);
+                StartCoroutine(player2MoveCo);
+                break;
+            case "Wood":
+                transform.GetChild(5).gameObject.SetActive(true);
+                StartCoroutine(player2MoveCo);
+                break;
+        }
+        LookAtCamera();
     }
 
-    private void Player1SetActiveFalse()
+    private void LookAtCamera()
     {
-        transform.GetChild(p1number).gameObject.SetActive(false);
-        this.gameObject.SetActive(false);
+        for(int i = 0; i < 3; i++)
+        {
+            if(transform.GetChild(i).gameObject.activeSelf == true)
+            {
+                cinemachines[0].LookAt = transform.GetChild(i).gameObject.transform;
+                cinemachines[1].LookAt = transform.GetChild(i).gameObject.transform;
+                cinemachines[2].LookAt = transform.GetChild(i).gameObject.transform;
+            }
+        }
+        for(int j = 3; j < 6; j++)
+        {
+            if (transform.GetChild(j).gameObject.activeSelf == true)
+            {
+                cinemachines[3].LookAt = transform.GetChild(j).gameObject.transform;
+                cinemachines[4].LookAt = transform.GetChild(j).gameObject.transform;
+                cinemachines[5].LookAt = transform.GetChild(j).gameObject.transform;
+            }
+        }
     }
-    private void Player2SetActiveFalse()
+    
+    public void UION()
     {
-        transform.GetChild(p2number).gameObject.SetActive(false);
-        this.gameObject.SetActive(false);
+        uiCanvas1.gameObject.SetActive(true);
+        uiCanvas2.gameObject.SetActive(true);
+        uiCanvas3.gameObject.SetActive(false);
+        battleCardImage.gameObject.SetActive(false);
+        battleUI.gameObject.SetActive(false);
+        cinemachineCamera.Priority = 11;
     }
-    void StopObj()
+    IEnumerator Player1MoveCo()
     {
-        isMove = false;
+        while(player1StopNum < 19.5f)
+        {
+            player1StopNum += Time.deltaTime;
+            transform.Translate(Vector3.forward * 1.5f * Time.deltaTime);
+            yield return null;
+        }
+        UION();
     }
-    private void StartP2()
+    IEnumerator Player2MoveCo()
     {
-        this.gameObject.SetActive(true);
-        transform.GetChild(p2number).gameObject.SetActive(true);
-    }
-    private void Update()
-    {
-        if (isMove)
-            transform.Translate(Vector3.forward * 3f * Time.deltaTime, Space.Self);
-    }
-    public void PlayerAction()
-    {
-        transform.position += (Vector3.forward * 1.5f);
-    }
-    public void PlayerSetting(int p1num, int p2num)
-    {
-        p1number = p1num;
-        p2number = p2num;
+        while (player2StopNum < 19.5f)
+        {
+            player2StopNum += Time.deltaTime;
+            transform.Translate(Vector3.back * 1.5f * Time.deltaTime);
+            yield return null;
+        }
     }
 }

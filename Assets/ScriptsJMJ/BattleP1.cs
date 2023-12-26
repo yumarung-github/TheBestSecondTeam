@@ -11,25 +11,23 @@ public class BattleP1 : MonoBehaviour
     public Image[] dices;
     public Image[] soldirs;
     public TextMeshProUGUI playerName;
-    public Canvas battleCanvas;
 
+    
     public void ActionP1()
     {
-        battleCanvas.gameObject.SetActive(true);
         playerName.text = battleManager.battleP1.name;
-        for (int i = 0; i < battleManager.battleP1Soldiers.Count; i++)
+        for (int i = 0; i < battleManager.battleP1.battleSoldierNum; i++)
         {
-            soldirs[i].gameObject.SetActive(true);
+            soldirs[soldirs.Length - (1 + i)].gameObject.SetActive(true);
         }
         StartCoroutine(RandomDice());
     }
 
     IEnumerator RandomDice()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(17);
         switch (battleManager.diceP2Num)
         {
-
             case 0:
                 dices[0].gameObject.SetActive(true);
                 break;
@@ -45,7 +43,6 @@ public class BattleP1 : MonoBehaviour
             case 3:
                 dices[3].gameObject.SetActive(true);
                 break;
-
         }
 
         yield return new WaitForSeconds(3);
@@ -65,8 +62,6 @@ public class BattleP1 : MonoBehaviour
         {
             soldirs[j].gameObject.SetActive(false);
         }
-
-        battleCanvas.gameObject.SetActive(false);
     }
 
 }
