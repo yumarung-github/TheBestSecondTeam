@@ -25,6 +25,7 @@ public class BirdCardAction : MonoBehaviour
     public List<Card> birdCards;
     public List<bool> isOver = new List<bool>();
     public List<NodeMember> tiles;
+
     public int curNum;
     int foxCard = 0;
     int rabbitCard = 0;
@@ -33,8 +34,9 @@ public class BirdCardAction : MonoBehaviour
     int curCard = 0;
 
     bool isBreakRule;
-
+    public bool isEnd;
     Coroutine actionCo;
+
     private void Awake()
     {
         countAnimals = GetComponentsInChildren<TextMeshProUGUI>();
@@ -78,6 +80,7 @@ public class BirdCardAction : MonoBehaviour
         if(bird.inputCard > 0)
             Uimanager.Instance.birdUI.nextButton.gameObject.SetActive(true);
         copySlot.Add(card);
+        resetButton.gameObject.SetActive(true);
     }    
 
     IEnumerator ActionCoroutine()
@@ -85,6 +88,10 @@ public class BirdCardAction : MonoBehaviour
         curNum = 0;
         while(curNum <= birdCards.Count - 1)
         {
+            if(curNum > birdCards.Count)
+            {
+                break;
+            }
             Debug.Log(curNum + " " + isOver.Count);
             while (true)
             {
@@ -124,7 +131,6 @@ public class BirdCardAction : MonoBehaviour
             yield return null;
             
         }
-        curNum = 0;
         yield return null;
     }
     public void StartActionCo()
@@ -135,25 +141,34 @@ public class BirdCardAction : MonoBehaviour
     {
         tiles.Clear();
         isBreakRule = false;
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "전투를 시작할 적을 선택하세요.";
         foreach (KeyValuePair<string, List<Soldier>> battleTileCheck in RoundManager.Instance.bird.hasSoldierDic)
         {
+            
             NodeMember tile = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == battleTileCheck.Key);
+            // 내 병사가 위치한 타일들
             bool isbattlePlayer = RoundManager.Instance.cat.hasSoldierDic.ContainsKey(tile.nodeName) || RoundManager.Instance.wood.hasSoldierDic.ContainsKey(tile.nodeName);
+            // 고양이 병사들이 위치한 타일들이 내 병사가 위치한 타일들이랑 같거나,
+            // 우드 병사들이 //
             bool isBattletile = birdCards[CurCard].costType == tile.nodeType;
+            // 내가 가진 카드의 타입이 내 병사가 위치한 타일의 타입과 같다면
 
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
+                // 내 카드가 새면서 상대방이 있다면
             {
                 tile.isTileCheck = true;
                 RoundManager.Instance.SetEffect(tile);
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
                 isBreakRule = true;
             }
-            else if (isBattletile)
+            else if (isBattletile && isbattlePlayer)
+                // 내가 가진 카드의 타입이 같다면 그 카드는 tiles에 add됨
             {
                 tiles.Add(tile);
             }
         }
-        if (tiles != null)
+        if (tiles.Count > 0) // 만약 tiles에 내용이 채워져 있다면
         {
             for (int i = 0; i < tiles.Count; i++)
             {
@@ -161,13 +176,13 @@ public class BirdCardAction : MonoBehaviour
                 tiles[i].isTileCheck = true;
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
                 isBreakRule = true;
-            }
-
-            if (tiles.Contains(RoundManager.Instance.mapController.nowTile))
+            if (tiles[i] == RoundManager.Instance.mapController.nowTile)
             {
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
                 isBreakRule = true;
             }
+            }
+
         }
         else if (!isBreakRule)
         {
@@ -177,6 +192,8 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetBulidNode()
     {
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "요새를 지을 공터를 선택하세요.";
         tiles.Clear();
         isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
@@ -212,6 +229,8 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetMoveNode()
     {
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "이동할 병사를 선택하세요 선택하세요.";
         tiles.Clear();
         isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
@@ -248,6 +267,8 @@ public class BirdCardAction : MonoBehaviour
 
     public void SetSpawnNode()
     {
+        Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+        Uimanager.Instance.birdUI.alarmText.text = "모병할 공터를 선택하세요 선택하세요.";
         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
         {
             NodeMember tile1 = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == buildingTileCheck.Key);
@@ -279,19 +300,28 @@ public class BirdCardAction : MonoBehaviour
             RoundManager.Instance.bird.BreakingRule();
         }
     }
-    
+
     public void CardReset()
     {
-        for (int i = 0; i < birdCards.Count - 1; i++)
+        for (int i = 0; i <= birdCards.Count - 1; i++)
         {
             birdCards.RemoveAt(i);
             isOver.Clear();
+
         }
+        foxCard = 0;
+        birdCard = 0;
+        rabbitCard = 0;
+        ratCard = 0;
+
+        countAnimals[0].text = "x "+foxCard;
+        countAnimals[1].text = "x "+ birdCard;
+        countAnimals[2].text = "x "+ rabbitCard;
+        countAnimals[3].text = "x "+ ratCard;
     }
 
     public void CopyCardAdd()
     {
-
         for (int i = 0; i < copySlot.Count; i++)
         {
             RoundManager.Instance.bird.inven.AddCard(copySlot[i]);
@@ -325,6 +355,7 @@ public class BirdCardAction : MonoBehaviour
             }
         }
         copySlot.Clear();
+        resetButton.gameObject.SetActive(false);
         RoundManager.Instance.bird.inputCard = 0;
     }
 

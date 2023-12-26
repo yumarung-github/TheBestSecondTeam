@@ -40,15 +40,10 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     }
     public void UseCard()
     {
-        if (card != null)
-        {
-            card.Active();
-            //if (card.isUse == true)
-            //{
-            //    EmptySlot();
-            //}
-        }
+        // 성진형 질문
+        card.Active();
     }
+
     public void EmptySlot()
     {
         Debug.Log(card.cardName + "비웠음");

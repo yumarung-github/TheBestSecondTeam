@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
 using UnityEditor.Experimental.GraphView;
+using CustomInterface;
 
 public class MapController : MonoBehaviour, IPointerDownHandler
 {
@@ -129,12 +130,13 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
                             {
                                 RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
+                                Uimanager.Instance.birdUI.alarmText.text = "모병완료!";
                             }
                         }
                         BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[0];
-                        if (tempBC.curNum < tempBC.isOver.Count - 1)
+                        if (tempBC.curNum < tempBC.isOver.Count)
                         {
-                            tempBC.isOver[tempBC.curNum + 1] = true;
+                            tempBC.isOver[tempBC.curNum] = true;
                         }
                         else
                         {
@@ -161,19 +163,22 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     }                    
                     else if (temp.isTileCheck == true)
                     {
+                        Debug.Log("1");
                         RoundManager.Instance.bird.SpawnSoldier(nowTile.nodeName, nowTile.transform);
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        Uimanager.Instance.birdUI.alarmText.text = "모병완료!";
                         for (int k = 0; k < RoundManager.Instance.mapExtra.mapTiles.Count; k++)
                         {
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                         }
                         BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[0];
-                        if (tempBC.curNum < tempBC.isOver.Count - 1)
+                        if (tempBC.curNum < tempBC.isOver.Count)
                         {
-                            tempBC.isOver[tempBC.curNum + 1] = true;
+                            tempBC.isOver[tempBC.curNum] = true;
                         }
                         else
                         {
+                            Debug.Log("왜안되는데");
                             BirdCardAction tempBC1 = Uimanager.Instance.birdUI.birdSlot[1];
                             BirdCardAction tempBC2 = Uimanager.Instance.birdUI.birdSlot[2];
                             BirdCardAction tempBC3 = Uimanager.Instance.birdUI.birdSlot[3];
@@ -189,11 +194,15 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             {
                                 tempBC3.isOver[0] = true;
                             }
+
+                            tempBC.curNum = 0;
                         }
                         Debug.Log(tempBC.curNum);
+
                     }
                     else
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.BirdSpawn;
+                    Uimanager.Instance.birdUI.birdAlarm.gameObject.SetActive(false);
                 }
                 RoundManager.Instance.SetOffAllEffect();
                 break;
@@ -302,7 +311,8 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 Uimanager.Instance.playerUI.buildBtn.enabled = false;
                             }
                             else
-                            { 
+                            {
+                                Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                                 Debug.Log("포인트없거나 두번다 이동함");
                                 break;
                             }
@@ -317,9 +327,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[1];
                             Debug.Log(tempBC.isOver.Count);
                             Debug.Log(tempBC.curNum);
-                            if (tempBC.curNum < tempBC.isOver.Count - 1)
+                            if (tempBC.curNum < tempBC.isOver.Count)
                             {
-                                tempBC.isOver[tempBC.curNum + 1] = true;
+                                tempBC.isOver[tempBC.curNum] = true;
                             }
                             else
                             {
@@ -337,6 +347,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 }
                                 else
                                 {
+                                    Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
                                     Debug.Log("에러");
                                 }
                             }
@@ -357,8 +368,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
                         Uimanager.Instance.playerUI.soldierMove.SetActive(false);
                         Uimanager.Instance.playerUI.isOn = true;
-                        
+                        Uimanager.Instance.birdUI.alarmText.text = "이동할 공터를 선택하세요 선택하세요.";
                         RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                        Uimanager.Instance.birdUI.birdAlarm.gameObject.SetActive(false);
                         break;
                     }
                 }
@@ -379,12 +391,13 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                             }
                             BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[3];
-                            if (tempBC.curNum < tempBC.isOver.Count - 1)
+                            if (tempBC.curNum < tempBC.isOver.Count)
                             {
-                                tempBC.isOver[tempBC.curNum + 1] = true;
+                                tempBC.isOver[tempBC.curNum] = true;
                             }
                             else
                             {
+                                Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
                                 Debug.Log("에러");
                             }
                         }
@@ -400,9 +413,34 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     {
                         if (RoundManager.Instance.cat.actionPoint > 0)
                         {
+                            
                             RoundManager.Instance.nowPlayer.SpawnBuilding(nowTile.nodeName, nowTile.transform,
                             BuildingManager.Instance.selectedBuilding);
                             RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catSawMillPrefab&& RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catSawMillCost)
+                            {
+                                RoundManager.Instance.cat.RemainSawmillNum--;                                
+                                RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catSawMillCost;
+                                RoundManager.Instance.cat.costBuilding();
+                                Uimanager.Instance.catUI.sawmillCostText.text = RoundManager.Instance.cat.catSawMillCost.ToString();
+                                Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                            }
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catBarrackPrefab &&RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catBarrackCost)
+                            {
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catBarrackCost;
+                                RoundManager.Instance.cat.costBuilding();
+                                Uimanager.Instance.catUI.barracksCostText.text = RoundManager.Instance.cat.catBarrackCost.ToString();
+                                Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                            }
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catWorkShopPrefab && RoundManager.Instance.cat.catWorkShopCost > RoundManager.Instance.cat.catWorkShopCost)
+                            {
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catWorkShopCost;
+                                RoundManager.Instance.cat.costBuilding();
+                                Uimanager.Instance.catUI.workshopCostText.text = RoundManager.Instance.cat.catWorkShopCost.ToString();
+                                Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                            }
                             catOnAction();
                             if(RoundManager.Instance.cat.actionPoint == 0)
                             {
@@ -450,9 +488,9 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.mapExtra.mapTiles[k].isTileCheck = false;
                         }
                         BirdCardAction tempBC = Uimanager.Instance.birdUI.birdSlot[2];
-                        if (tempBC.curNum < tempBC.isOver.Count - 1)
+                        if (tempBC.curNum < tempBC.isOver.Count)
                         {
-                            tempBC.isOver[tempBC.curNum + 1] = true;
+                            tempBC.isOver[tempBC.curNum] = true;
                         }
                         else
                         {
@@ -463,6 +501,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             }
                             else
                             {
+                                Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
                                 Debug.Log("에러");
                             }
                         }

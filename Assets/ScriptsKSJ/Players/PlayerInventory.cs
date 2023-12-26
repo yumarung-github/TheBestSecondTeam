@@ -58,6 +58,7 @@ public class PlayerInventory : MonoBehaviour
                 slot[next].card = null;
                 slot[next].image.sprite = null;
 
+                Debug.Log(a);
                 slot[a].card.onActive = null;
                 Debug.Log(a + "왜");
                 slot[a].card.onActive += () =>

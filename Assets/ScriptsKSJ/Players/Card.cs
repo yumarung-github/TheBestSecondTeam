@@ -43,11 +43,12 @@ public class BattleCard : CardStrategy
         {
             Debug.Log(card.cardName + "제작");
             RoundManager.Instance.nowPlayer.craftedCards.Add(card);
+            card.isUse = true;
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
         }
         else
         {
-            Debug.Log("사용못함");
-            
+            Debug.Log("사용못함");            
         }
     }
 }
@@ -75,6 +76,8 @@ public class DefenseCard : CardStrategy
         {
             Debug.Log(card.cardName + "제작");
             RoundManager.Instance.nowPlayer.craftedCards.Add(card);
+            card.isUse = true;
+            RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
         }
         else
         {
@@ -95,6 +98,8 @@ public class GetScoreCard : CardStrategy
 
     public override void UseCard()
     {
+        card.isUse = true;
+        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(card);
         RoundManager.Instance.nowPlayer.Score++;
     }
 }
@@ -133,6 +138,10 @@ public class Card : MonoBehaviour
 
     public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
     {
+        if (Uimanager.Instance.woodUi.cardUseType != WoodUi.CardUseType.NONE)
+        {
+            CardManager.Instance.cardDeck.Add(this);
+        }
         if(Uimanager.Instance.woodUi.cardUseType == WoodUi.CardUseType.BATTLE)
         {
             cardStrategy.UseCard();
@@ -141,10 +150,8 @@ public class Card : MonoBehaviour
         }
         else
         {
-            if (RoundManager.Instance.nowPlayer is Cat)
+            if (RoundManager.Instance.nowPlayer is Cat cat)
             {
-                RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
-                isUse = true;
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
                     case WoodUi.CardUseType.NONE:
@@ -152,10 +159,19 @@ public class Card : MonoBehaviour
                     case WoodUi.CardUseType.CRAFT:
                         cardStrategy.UseCard();
                         break;
+                    case WoodUi.CardUseType.HOSPITAL:
+                        cat.FieldHospital(this);
+                        RoundManager.Instance.nowPlayer.cardDecks[costType].Remove(this);
+                        isUse = true;
+                        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
+                        break;
                 }
             }
+            //if (RoundManager.Instance.nowPlayer is Bird && Uimanager.Instance.dropableUI.isMove == true)
+            //    Uimanager.Instance.birdUI.birdSlot[Uimanager.Instance.birdUI.BirdInventory.curSlot].
             if (RoundManager.Instance.nowPlayer is Bird)
             {
+
                 switch (Uimanager.Instance.woodUi.cardUseType)
                 {
                     case WoodUi.CardUseType.NONE:                        

@@ -14,6 +14,8 @@ public class BattleManager : SingleTon<BattleManager>
     public bool isInit;
     public int attackNum;
     public int defenseNum;
+    public int diceP1Num;
+    public int diceP2Num;
 
     public List<Soldier> battleP1Soldiers;
     public List<Soldier> battleP2Soldiers;
@@ -125,6 +127,7 @@ public class BattleManager : SingleTon<BattleManager>
     }
     public void StartBattle()//주사위가 나온사용자가 그 값을 가지게 해놨음 세세한건 나중에 수정
     {
+
         if(!isInit)
         {
             attackNum = 0;
@@ -138,8 +141,8 @@ public class BattleManager : SingleTon<BattleManager>
 
         battleP1.battleBuildingNum = battleP1Buildings.Count;
         battleP2.battleBuildingNum = battleP2Buildings.Count;
-        int diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
-        int diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
+        diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
+        diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
         int tempNum;
         if (battleP1 is Wood)
         {            
@@ -192,6 +195,7 @@ public class BattleManager : SingleTon<BattleManager>
             }
             if (battleP2 is Bird birdTow)
             {
+                Uimanager.Instance.birdUI.birdAlarm.gameObject.SetActive(false);
                 bool isTargetBuilding = battleP2.hasBuildingDic.ContainsKey(RoundManager.Instance.mapController.nowTile.nodeName);
                 bool isCheckBuilding = isTargetBuilding && battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName].Count > 0;
                 if(RoundManager.Instance.bird.NowLeader == LEADER_TYPE.TYRANT ||(diceP2Num > battleP2Soldiers.Count && isCheckBuilding))

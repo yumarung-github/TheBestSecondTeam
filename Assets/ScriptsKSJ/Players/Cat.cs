@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class Cat : Player
 {
+    public bool isInit;
     public int actionPoint;
     public bool firstMove = false;
     public bool secondMove = false;
@@ -94,6 +95,7 @@ public class Cat : Player
     private new void Start()
     {
         base.Start();
+        isInit = false;
         //Debug.Log(animator.GetLayerIndex("Idle"));
         isOver = false;
         roundManager.cat = this;
@@ -178,7 +180,7 @@ public class Cat : Player
                 turnAddWoodToken++;
                 newBuilding.onDestroy += () => { turnAddWoodToken--; };
                 Debug.Log(newBuilding.type);
-            }
+            }            
         }
         else
         {
@@ -188,23 +190,55 @@ public class Cat : Player
 
     public List<NodeMember> RuleTile() //타일 판별해서 리턴해주기.
     {
-        List<NodeMember> ruleNodeMemberList = null;
+        List<NodeMember> ruleNodeMemberList = new List<NodeMember>();
 
         foreach (var keyValue in RoundManager.Instance.cat.hasSoldierDic)
         {
-            bool isCatRule = true;
-            int curNodeCatCount = keyValue.Value.Count;
-            int curNodeWoodCount = RoundManager.Instance.wood.hasSoldierDic[keyValue.Key].Count;
-            int curNodeBirdCount = RoundManager.Instance.bird.hasSoldierDic[keyValue.Key].Count;
-            isCatRule &= (curNodeCatCount > curNodeWoodCount);
-            isCatRule &= (curNodeCatCount > curNodeBirdCount);
-            if (isCatRule)
+            Debug.Log(keyValue.Value.Count);
+            if(keyValue.Value.Count > 0)
             {
-                NodeMember nm = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == keyValue.Key);
-                ruleNodeMemberList.Add(nm);
-            }
+                bool isCatRule = true;
+                int curNodeCatCount = keyValue.Value.Count;
+                int curNodeWoodCount = 0;
+                int curNodeBirdCount = 0;
+
+                if (RoundManager.Instance.wood.hasSoldierDic.ContainsKey(keyValue.Key))
+                    curNodeWoodCount = RoundManager.Instance.wood.hasSoldierDic[keyValue.Key].Count;
+                if (RoundManager.Instance.bird.hasSoldierDic.ContainsKey(keyValue.Key))
+                    curNodeBirdCount = RoundManager.Instance.bird.hasSoldierDic[keyValue.Key].Count;
+                isCatRule &= (curNodeCatCount > curNodeWoodCount);
+                isCatRule &= (curNodeCatCount > curNodeBirdCount);
+                if (isCatRule)
+                {
+                    Debug.Log(keyValue.Key);
+                    NodeMember nm = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == keyValue.Key);
+                    Debug.Log(nm.nodeName);
+                    ruleNodeMemberList.Add(nm);
+                }
+            }            
         }
         return ruleNodeMemberList;
+    }
+    public void SetDrawNumFunc()
+    {
+        int tempNum = 0;
+        foreach (var tempDic in hasBuildingDic)
+        {
+            List<GameObject> tempList = tempDic.Value.FindAll(gobj => gobj.GetComponent<Building>().type == Building_TYPE.CAT_WORKSHOP);
+            tempNum += tempList.Count;
+        }
+        if (tempNum >= 4)
+        {
+            DrawCardNum = 3;
+        }
+        else if (tempNum >= 2)
+        {
+            DrawCardNum = 2;
+        }
+        else
+        {
+            DrawCardNum = 1;
+        }
     }
     public void costBuilding()// 코스트 설정해주기 건물에 , 건물에 어쩌구저쩌구 추가
     {
@@ -265,7 +299,8 @@ public class Cat : Player
         if (costBarrack == 4)
         {
             RoundManager.Instance.cat.catBarrackCost = 5;
-        }
+        }      
+        
     }
     public void UseActionPoint()
     {
@@ -304,4 +339,76 @@ public class Cat : Player
         }
         deadSoldierNum[card.costType] = 0;
     }
+
+
+   public void GetScore()
+   {
+        int sawmillScore =0;
+        int barrackScore = 0;
+        int workShopScore= 0;
+       if(remainSawmillNum == 4)
+        {
+            sawmillScore = 1;
+        }
+       if(remainSawmillNum ==3)
+        {
+            sawmillScore= 2;
+        }
+       if(remainSawmillNum==2)
+        {
+            sawmillScore = 3;
+        }
+       if(remainSawmillNum==1)
+        {
+            sawmillScore = 4;
+        }
+       if( remainSawmillNum==0)
+        {
+            sawmillScore = 5;
+        }
+
+       if(remainbarracksNum == 4)
+        {
+            barrackScore = 2;
+        }
+       if(remainbarracksNum == 3)
+        {
+            barrackScore = 2;
+        }
+       if(remainbarracksNum==2)
+        {
+            barrackScore = 3;
+        }
+       if(remainbarracksNum == 1)
+        {
+            barrackScore = 4;
+        }
+       if(remainbarracksNum == 0)
+        {
+            barrackScore = 5;
+        }
+
+       if(remainworkshopsNum == 4)
+        {
+            workShopScore = 1;
+        }
+       if (remainworkshopsNum == 3)
+        {
+            workShopScore= 2;
+        }
+       if(remainworkshopsNum==2)
+        {
+            workShopScore= 3;
+        }
+       if(remainworkshopsNum==1)
+        {
+            workShopScore = 3;
+        }
+       if(remainworkshopsNum ==0)
+        {
+            workShopScore= 4;
+        }
+
+        RoundManager.Instance.cat.Score += workShopScore + sawmillScore + barrackScore;
+   }
 }

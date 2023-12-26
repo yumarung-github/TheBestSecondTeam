@@ -29,6 +29,7 @@ public class Bird : Player
     int build = 3;
 
     public bool isFirstCheck;
+    public bool isDelete;
     public LEADER_TYPE NowLeader
     {
         get => nowLeader;
@@ -78,6 +79,7 @@ public class Bird : Player
     private new void Start()
     {
         Score = 0;
+        DrawCardNum = 1;
         base.Start();
         hasNodeNames.Add("생쥐1");
         NowLeader = LEADER_TYPE.NONE;
@@ -126,6 +128,23 @@ public class Bird : Player
             SetHasBuildingNode(tileName, targetTransform, building); // 리스트에 넣고
         else
             Debug.Log("이미 건설됨");
+        int temp = 0;
+        foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
+        {
+            temp += kv.Value.Count;
+        }
+        if(temp >= 6)
+        {
+            DrawCardNum = 3;
+        }
+        else if(temp >= 3)
+        {
+            DrawCardNum = 2;
+        }
+        else
+        {
+            DrawCardNum = 1;
+        }
     }
     public override void SetHasBuildingNode(string tileName, Transform targetTransform, GameObject building)
     {
@@ -136,11 +155,11 @@ public class Bird : Player
     {
         Debug.LogWarning("룰을 어김");
         RoundManager.Instance.bird.NowLeader = LEADER_TYPE.NONE;
-        Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
         for (int i = 0; i < 4; i++) 
         {
             Uimanager.Instance.birdUI.birdSlot[i].CardReset();
         }
+        Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
     }
     public void SetBirdMoveTileEffect(NodeMember tempMem)
     {
@@ -176,5 +195,9 @@ public class Bird : Player
             Uimanager.Instance.playerUI.turnAlarmText.text = "에러";
             roundManager.testType = RoundManager.SoldierTestType.Select;
         }
+    }
+    public void DeleteCard()
+    {
+        isDelete = true;
     }
 }

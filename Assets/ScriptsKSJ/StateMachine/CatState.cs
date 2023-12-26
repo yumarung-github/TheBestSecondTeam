@@ -45,12 +45,17 @@ public class CatMorningState : RmState
     }
     public override void Enter()
     {
+        
+        Uimanager.Instance.playerUI.spawnBtn.enabled = true;
+        Uimanager.Instance.playerUI.buildBtn.enabled = true;
+        Uimanager.Instance.playerUI.moveBtn.enabled = true;
+        Uimanager.Instance.playerUI.battleBtn.enabled = true;
         rm.nowPlayer = cat;
         rm.cat.actionPoint = 3;
         rm.cat.firstMove = false;
         rm.cat.secondMove = false;
         rm.cat.isSpawn = false;
-
+        Uimanager.Instance.catUI.profileWindow.SetActive(true);
         rm.cat.woodProductNum = rm.cat.woodProductNum += rm.cat.turnAddWoodToken;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
@@ -58,10 +63,12 @@ public class CatMorningState : RmState
         Uimanager.Instance.playerUI.SetBattleBtn();
         Uimanager.Instance.playerUI.SetCatExtraBtn();
         Uimanager.Instance.playerUI.SetCatRecruitBtn();
-        
-
+        Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(true);
+        Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(true);
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(true);
         Uimanager.Instance.playerUI.ResetBtn(false);
 
+        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.CRAFT;
         BattleManager.Instance.InitBattle();
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_AFTERNOON);
         Uimanager.Instance.catInven.SetActive(true);
@@ -112,6 +119,7 @@ public class CatAfternoonState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n점심\n이동");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.CAT_DINNER);
     }
@@ -134,20 +142,26 @@ public class CatDinnerState : RmState
     {
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_WAIT);
-        Uimanager.Instance.playerUI.spawnBtn.enabled = true;
-        Uimanager.Instance.playerUI.buildBtn.enabled = true;
-        Uimanager.Instance.playerUI.moveBtn.enabled = true;
-        Uimanager.Instance.playerUI.battleBtn.enabled = true;
+        
+        
+
     }
     public override void Update()
     {
     }
     public override void Exit()
     {
+        cat.SetDrawNumFunc();
+        cat.DrawCard();
+        RoundManager.Instance.cat.GetScore();
+        Uimanager.Instance.catUI.profileWindow.SetActive(false);
         rm.mapController.nowTile = null;
         cat.isOver = true;
         bird.isOver = false;
         rm.nowPlayer = null;
+        Uimanager.Instance.playerUI.catRecruitBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(false);
+        Uimanager.Instance.playerUI.catExtraBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.ResetBtn(false);
         Uimanager.Instance.catInven.SetActive(false);
         Uimanager.Instance.catUI.profileWindow.SetActive(false);

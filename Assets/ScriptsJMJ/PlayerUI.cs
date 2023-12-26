@@ -21,6 +21,8 @@ public class PlayerUI : MonoBehaviour
 
     public GameObject battleCardsWindow;
 
+   
+
 
     [Header("버튼")]
     public Button spawnBtn;
@@ -39,7 +41,20 @@ public class PlayerUI : MonoBehaviour
     private void Start()
     {
         player = RoundManager.Instance.nowPlayer;
-        moveBtn.onClick.AddListener(() => { RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect; });
+        moveBtn.onClick.AddListener(() => { 
+            RoundManager.Instance.testType = RoundManager.SoldierTestType.MoveSelect; 
+            if(RoundManager.Instance.nowPlayer.hasSoldierDic.Count > 0)
+            {
+                foreach(var tempDic in RoundManager.Instance.nowPlayer.hasSoldierDic)
+                {
+                    if(tempDic.Value.Count > 0)
+                    {
+                        NodeMember mem = RoundManager.Instance.mapExtra.mapTiles.Find(node => node.nodeName == tempDic.Key);
+                        RoundManager.Instance.SetEffect(mem);
+                    }                    
+                }
+            }
+        });
         isOn = true;
         //buttons = battleWindow.transform.GetComponentsInChildren<Button>();
     }
@@ -139,6 +154,10 @@ public class PlayerUI : MonoBehaviour
         buildBtn.onClick.AddListener(() => {
             if (RoundManager.Instance.nowPlayer is Cat cat)
             {
+                foreach (NodeMember tempNode in RoundManager.Instance.cat.RuleTile())
+                {
+                    RoundManager.Instance.SetEffect(tempNode);
+                }
                 Uimanager.Instance.catUI.bulidSectionWindow.SetActive(true);
             }
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Build;
@@ -154,7 +173,6 @@ public class PlayerUI : MonoBehaviour
             RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
             
         });
-
 
     }
     public void ResetBtn(bool turn)
@@ -177,6 +195,12 @@ public class PlayerUI : MonoBehaviour
         catRecruitBtn.onClick.RemoveAllListeners();
         catRecruitBtn.onClick.AddListener(() => { RoundManager.Instance.cat.Employment(); });
         //catRecruitBtn.onClick.AddListener(() => { Debug.Log("매고용"); }) ;
+    }
+
+    public void SetFieldHospital()
+    {
+        catFieldHospitalBtn.onClick.RemoveAllListeners();
+        catFieldHospitalBtn.onClick.AddListener(() => { Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.HOSPITAL; });
     }
 
 }

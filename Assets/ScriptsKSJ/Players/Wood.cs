@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class Wood : Player
 {
+    
     public int tokenNum;
     [SerializeField]
     Transform particlesParent;
@@ -62,11 +63,13 @@ public class Wood : Player
             {
                 Uimanager.Instance.woodUi.foxBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
+                DrawCardNum++;
             }
             else
             {
                 Uimanager.Instance.woodUi.foxBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
+                DrawCardNum--;
             }
             isFoxBuiilding = value;
         }
@@ -82,11 +85,13 @@ public class Wood : Player
             {
                 Uimanager.Instance.woodUi.ratBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
+                DrawCardNum++;
             }
             else
             {
                 Uimanager.Instance.woodUi.ratBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
+                DrawCardNum--;
             }
             isRatBuiilding = value;
         }
@@ -102,11 +107,13 @@ public class Wood : Player
             {
                 Uimanager.Instance.woodUi.rabbitBuildImage.SetActive(false);
                 OfficerNum++;//기지가 생기면 장교1명추가
+                DrawCardNum++;
             }
             else
             {
                 Uimanager.Instance.woodUi.rabbitBuildImage.SetActive(true);
                 OfficerNum--;//기지가 부숴지면 장교1명감소
+                DrawCardNum--;
             }
             isRabbitBuiilding = value;
         }
@@ -115,8 +122,9 @@ public class Wood : Player
 
     public int buildCost;
     private new void Start()
-    {
+    {        
         base.Start();
+        DrawCardNum = 1;
         particlesParent = roundManager.effectParent;
         roundManager.wood = this;
         hasNodeNames.Add("여우1");//임의로 가진 타일
@@ -134,7 +142,7 @@ public class Wood : Player
         buildCost = 1;//초기화1
         SetTokenValue();
         supportVal[ANIMAL_COST_TYPE.RAT] = 4;//테스트용 지울거
-        supportVal[ANIMAL_COST_TYPE.BIRD] = 1;//테스트용 지울거
+        supportVal[ANIMAL_COST_TYPE.BIRD] = 0;//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.RAT);//테스트용 지울거
         SetSupportUI(ANIMAL_COST_TYPE.BIRD);//테스트용 지울거
     }
@@ -233,20 +241,30 @@ public class Wood : Player
                     {
                         for (int i = 0; i < RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
                         {
+                            if (RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Count == 0)
+                            {
+                                break;
+                            }
                             Soldier tempSol = RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName][i];
                             Debug.Log(tempSol.name);
                             RoundManager.Instance.cat.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
                             Destroy(tempSol.gameObject);
+                            i--;
                         }
                     }                    
                     if (RoundManager.Instance.bird.hasSoldierDic.ContainsKey(tempMem.nodeName))
                     {
                         for (int i = 0; i < RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Count; i++)//병사 다 없애는거
                         {
+                            if(RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Count == 0)
+                            {
+                                break;
+                            }
                             Soldier tempSol = RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName][i];
                             Debug.Log(tempSol.name);
                             RoundManager.Instance.bird.hasSoldierDic[tempMem.nodeName].Remove(tempSol);
                             Destroy(tempSol.gameObject);
+                            i--;
                         }
                     }                    
                 }
@@ -458,7 +476,7 @@ public class Wood : Player
             {
                 Debug.Log(costMem.nodeName);
                 //코스트 체크하고 add체크멤
-                if(supportVal[costMem.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 2)//코스트 병사 계산
+                if(supportVal[costMem.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= 2 + FindSoldierCost(costMem))//코스트 병사 계산
                 {
                     Debug.Log("d" + costMem.nodeName);
                     checkMem.Add(costMem);
@@ -529,7 +547,7 @@ public class Wood : Player
                 Debug.Log(seedMem[0]);
             }
         }
-        
+        Debug.Log(seedMem.Count);
         if(seedMem.Count > 0)
         {
             int tempNum = seedMem.Count;
@@ -556,13 +574,17 @@ public class Wood : Player
             {
                 seedMem.Remove(tempName);
             }
+            Debug.Log(seedMem.Count);
             for (int i = 0; i < seedMem.Count; i++)
             {
                 Debug.Log(tempNum);
                 Debug.Log(i);
                 Debug.Log(roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]));
                 NodeMember temp = roundManager.mapExtra.mapTiles.Find(node => node.nodeName == seedMem[i]);
-                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] < tokenCostDic[tokenNum])
+                Debug.Log(temp.nodeName);
+                Debug.Log(FindSoldierCost(temp));
+                Debug.Log(tokenCostDic[tokenNum]);
+                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] < tokenCostDic[tokenNum] + FindSoldierCost(temp))
                 {
                     seedMem.Remove(temp.nodeName);
                     Debug.Log("제거됨" + temp.nodeName);
@@ -591,7 +613,7 @@ public class Wood : Player
             List<NodeMember> buildingExist = new List<NodeMember>();
             foreach (NodeMember temp in RoundManager.Instance.mapExtra.mapTiles)
             {
-                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= tokenCostDic[tokenNum])//코스트 계산 필요 위에도
+                if (supportVal[temp.nodeType] + supportVal[ANIMAL_COST_TYPE.BIRD] >= tokenCostDic[tokenNum] + FindSoldierCost(temp))//코스트 계산 필요 위에도
                     buildingExist.Add(temp);
             }
             foreach (KeyValuePair<string, List<GameObject>> kv in hasBuildingDic)
@@ -617,4 +639,5 @@ public class Wood : Player
             }
         }        
     }
+    
 }

@@ -29,7 +29,7 @@ public class WoodUi : MonoBehaviour
     [Header("[값]")]
     public TextMeshProUGUI remainSolText;
     public TextMeshProUGUI officerText;
-    public TextMeshProUGUI craftCardText;
+    public TextMeshProUGUI drawCardText;
     public TextMeshProUGUI foxSupportNumText;
     public TextMeshProUGUI ratSupportNumText;
     public TextMeshProUGUI rabbitSupportNumText;
@@ -46,7 +46,8 @@ public class WoodUi : MonoBehaviour
         SUPPORT,
         OFFICER,
         BATTLE,
-        BIRDUSE
+        BIRDUSE,
+        HOSPITAL
     }
     public CardUseType cardUseType;
 

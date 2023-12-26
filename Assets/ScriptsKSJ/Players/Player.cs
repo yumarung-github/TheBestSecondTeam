@@ -6,9 +6,20 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    /// <summary>
-    /// 선진
-    /// </summary>
+    private int drawCardNum;
+    public int DrawCardNum
+    {
+        get => drawCardNum;
+        set
+        {
+            drawCardNum = value;
+            if (this is Wood)
+            {                
+                Uimanager.Instance.woodUi.drawCardText.text = drawCardNum.ToString();
+            }
+            
+        }
+    }
     public PlayerInventory inven;
     public Dictionary<ANIMAL_COST_TYPE, List<Card>> cardDecks = new Dictionary<ANIMAL_COST_TYPE, List<Card>>();
     public List<Card> craftedCards = new List<Card>();
@@ -60,7 +71,7 @@ public class Player : MonoBehaviour
         }
         cardDecks[cardType].Add(card);
         inven.AddCard(card);
-        //Debug.Log(cardDecks.ContainsKey(cardType));
+        Debug.Log(card.cardName + "뽑은카드");
     }
 
     protected void Start()
@@ -140,6 +151,31 @@ public class Player : MonoBehaviour
     //{
     //    testSetBtn();
     //}
-
-
+        public void DrawCard()
+    {
+        int tempNum = 0;
+        foreach (KeyValuePair<ANIMAL_COST_TYPE, List<Card>> kv in cardDecks)
+        {
+            tempNum += kv.Value.Count;
+            Debug.Log(kv.Key + " " + tempNum);
+        }
+        Debug.Log("현재 카드 수" + tempNum);
+        int overCardNum = tempNum + drawCardNum - 4;
+        Debug.Log("뽑아야하는 수" + overCardNum);
+        if (overCardNum > 0)
+        {
+            for (int i = 0; i < overCardNum; i++)
+            {
+                CardManager.Instance.cardDeck.Add(cardDecks[inven.slot[0].card.costType][0]);
+                cardDecks[inven.slot[0].card.costType].RemoveAt(0);
+                inven.slot[0].EmptySlot();
+            }
+            CardManager.Instance.DrawCard(drawCardNum, this);
+        }
+        else
+        {
+            Debug.Log(drawCardNum);
+            CardManager.Instance.DrawCard(drawCardNum, this);
+        }
+    }
 }
