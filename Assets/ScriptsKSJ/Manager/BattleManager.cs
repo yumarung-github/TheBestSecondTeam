@@ -1,3 +1,4 @@
+using Cinemachine;
 using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,9 @@ public class BattleManager : SingleTon<BattleManager>
 
     public TextMeshProUGUI battleP1Text;
     public TextMeshProUGUI battleP2Text;
+    public CinemachineVirtualCamera battleVirtualCamera;
+    public Canvas battleOffUI;
+    public Canvas battleOffUI2;
 
     private new void Awake()
     {
@@ -127,7 +131,9 @@ public class BattleManager : SingleTon<BattleManager>
     }
     public void StartBattle()//주사위가 나온사용자가 그 값을 가지게 해놨음 세세한건 나중에 수정
     {
-
+        battleVirtualCamera.Priority = 9;
+        battleOffUI.gameObject.SetActive(false);
+        battleOffUI2.gameObject.SetActive(false);
         if(!isInit)
         {
             attackNum = 0;
