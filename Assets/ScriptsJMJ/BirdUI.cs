@@ -40,13 +40,13 @@ public class BirdUI : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            foreach(KeyValuePair<string,List<Soldier>> asd in RoundManager.Instance.bird.hasSoldierDic)
+            foreach (KeyValuePair<string, List<Soldier>> asd in RoundManager.Instance.bird.hasSoldierDic)
             {
                 testint += asd.Value.Count;
             }
-            Debug.Log("testint"+testint);
+            Debug.Log("testint" + testint);
         }
     }
 }

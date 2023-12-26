@@ -75,7 +75,6 @@ public class Bird : Player
                 getCards = 3;
         }
     }
-
     private new void Start()
     {
         Score = 0;

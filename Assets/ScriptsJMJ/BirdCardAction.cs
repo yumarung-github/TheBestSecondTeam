@@ -109,22 +109,26 @@ public class BirdCardAction : MonoBehaviour
                 case CARDSLOT_TYPE.SPAWN:
                     {
                         SetSpawnNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(0);
                     }
                     break;
                 case CARDSLOT_TYPE.MOVE:
                     {
                         SetMoveNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(1);
                     }
                     break;
 
                 case CARDSLOT_TYPE.BATTLE:
                     {
                         SetBattleNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(2);
                     }
                     break;
                 case CARDSLOT_TYPE.BULID:
                     {
                         SetBulidNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(3);
                     }
                     break;
             }
