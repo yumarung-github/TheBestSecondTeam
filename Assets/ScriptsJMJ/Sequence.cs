@@ -21,6 +21,7 @@ public class Sequence : MonoBehaviour
         color = new Color(1f, 1f, 1f,0f);
 
     }
+
     
     public IEnumerator PointCo(int i)
     {

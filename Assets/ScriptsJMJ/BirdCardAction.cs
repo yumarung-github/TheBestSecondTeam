@@ -139,6 +139,7 @@ public class BirdCardAction : MonoBehaviour
     }
     public void SetBattleNode()
     {
+        
         tiles.Clear();
         isBreakRule = false;
         Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
@@ -267,6 +268,7 @@ public class BirdCardAction : MonoBehaviour
 
     public void SetSpawnNode()
     {
+
         Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
         Uimanager.Instance.birdUI.alarmText.text = "모병할 공터를 선택하세요 선택하세요.";
         foreach (KeyValuePair<string, List<GameObject>> buildingTileCheck in RoundManager.Instance.bird.hasBuildingDic)
