@@ -6,10 +6,12 @@ using UnityEngine.UI;
 
 public class DropableUI : MonoBehaviour, IDropHandler
 {
-    PointerEventData ped = new PointerEventData(null);
+    private PointerEventData ped = new PointerEventData(null);
     private GraphicRaycaster gr = null;
+    private List<RaycastResult> results;
+
+    public Image cardInfoWindow;
     public bool isMove = false;
-    List<RaycastResult> results;
 
     private void Start()
     {
@@ -46,12 +48,7 @@ public class DropableUI : MonoBehaviour, IDropHandler
                     eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
                 }
             }
-            /*
-            if(RoundManager.Instance.bird.isDelete)
-            {
-                eventData.pointerDrag.GetComponentInParent<Slot>().UseCard();
-                RoundManager.Instance.bird.isDelete = false;
-            }*/
+            cardInfoWindow.gameObject.SetActive(false);
         }
     }
 }

@@ -12,7 +12,7 @@ public class BattleP2 : MonoBehaviour
     public Image[] soldirs;
     public TextMeshProUGUI playerName;
 
-    public void ActionP1()
+    public void ActionP2()
     {
         playerName.text = battleManager.battleP2.name;
         for (int i = 0; i < battleManager.battleP2Soldiers.Count; i++)
@@ -24,7 +24,7 @@ public class BattleP2 : MonoBehaviour
 
     IEnumerator RandomDice()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(17);
         switch (battleManager.diceP1Num)
         {
 
