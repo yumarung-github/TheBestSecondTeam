@@ -1738,7 +1738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 0}
-  scenesname: SelectCharacter
+  scenesname: MAINSCENE
 --- !u!95 &1239908361
 Animator:
   serializedVersion: 5
