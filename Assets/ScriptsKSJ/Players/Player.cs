@@ -1,7 +1,6 @@
 using CustomInterface;
 using sihyeon;
 using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class Player : MonoBehaviour
