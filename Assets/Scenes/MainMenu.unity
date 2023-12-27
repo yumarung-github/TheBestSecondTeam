@@ -1353,7 +1353,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1071462357}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 804085515}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1071462357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1563,7 +1575,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1126889408}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1126889404}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1126889408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2240,7 +2264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 0}
-  popUp: {fileID: 0}
+  popUp: {fileID: 289378075}
 --- !u!95 &1489335888
 Animator:
   serializedVersion: 5
@@ -3108,7 +3132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clip: {fileID: 0}
-  popUp: {fileID: 0}
+  popUp: {fileID: 804085515}
 --- !u!114 &1985761100
 MonoBehaviour:
   m_ObjectHideFlags: 0
