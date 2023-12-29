@@ -12,6 +12,7 @@ public class BirdWaitState : RmState
     }
     public override void Enter()
     {
+        Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_MORNING);
         Uimanager.Instance.playerUI.spawnBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.battleBtn.gameObject.SetActive(false);
         Uimanager.Instance.playerUI.buildBtn.gameObject.SetActive(false);
@@ -36,7 +37,12 @@ public class BirdWaitState : RmState
         if (RoundManager.Instance.bird.NowLeader == LEADER_TYPE.NONE)
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(true);
         else
+        {
+            Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
+            Uimanager.Instance.birdUI.alarmText.text = "할 수 있는 행동이 없습니다.";
             Uimanager.Instance.birdUI.birdLeaderSelect.SetActive(false);
+            Uimanager.Instance.playerUI.nextBtn.gameObject.SetActive(true);
+        }
     }
     public override void Update()
     {
@@ -82,7 +88,7 @@ public class BirdMorning2State : RmState
     {
         Uimanager.Instance.playerUI.AlarmWindow.SetActive(true);
         Uimanager.Instance.birdUI.birdCardBox.SetActive(true);
-        Uimanager.Instance.playerUI.turnAlarmText.text = "카드 제작 턴";        
+        Uimanager.Instance.playerUI.turnAlarmText.text = "카드 제작 턴";
         Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.BIRDUSE;
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n아침2");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_AFTERNOON);
@@ -106,7 +112,7 @@ public class BirdAfternoonState : RmState
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n점심");
         Uimanager.Instance.birdUI.SequenceBox.SetActive(true);
         Uimanager.Instance.birdUI.BirdInventory.UseSlot();
-       // Uimanager.Instance.playerUI.ResetBtn(true);
+        Uimanager.Instance.playerUI.ResetBtn(true);
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.BIRD_DINNER);
         BattleManager.Instance.InitBattle();
     }
@@ -145,13 +151,13 @@ public class BirdDinnerState : RmState
         Uimanager.Instance.birdUI.scoreBord.SetActive(true);
         Uimanager.Instance.birdUI.inputCardCount.text = RoundManager.Instance.bird.DrawCardNum.ToString();
         int tempNum = 0;
-        foreach(var tempDic in RoundManager.Instance.bird.hasBuildingDic) 
+        foreach (var tempDic in RoundManager.Instance.bird.hasBuildingDic)
         {
             tempNum += tempDic.Value.Count;
         }
 
         Uimanager.Instance.birdUI.scoreUp.text = tempNum.ToString();
-        bird.Score += bird.hasBuildingDic.Count-1;
+        bird.Score += bird.hasBuildingDic.Count - 1;
         Debug.Log(bird.Score);
         Uimanager.Instance.playerUI.SetTurnTexts("이어리 왕조 \n저녁");
         Uimanager.Instance.playerUI.SetNextBtn(MASTATE_TYPE.WOOD_WAIT);
@@ -164,11 +170,11 @@ public class BirdDinnerState : RmState
     }
     public override void Update()
     {
-        
+
     }
     public override void Exit()
     {
-       
+
         Uimanager.Instance.birdUI.BirdInventory.firstSlotCheck = false;
         bird.isOver = true;
         wood.isOver = false;
@@ -180,5 +186,5 @@ public class BirdDinnerState : RmState
         Uimanager.Instance.playerUI.catFieldHospitalBtn.gameObject.SetActive(true);
         Uimanager.Instance.birdUI.scoreBord.SetActive(false);
     }
-    
+
 }

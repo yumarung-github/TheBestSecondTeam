@@ -6,7 +6,10 @@ public class SoundManager : SingleTon<SoundManager>
 {
     List<AudioClip> bgmList;
     List<AudioClip> effectSoundList;
-    GameObject soundPlayer;
+    GameObject btnSoundPlayer;
+    GameObject bgmSoundPlayer;
+    GameObject battleSoundPlayer;
+   
 
 
     [Header("bgm목록들")]
@@ -43,6 +46,30 @@ public class SoundManager : SingleTon<SoundManager>
         effectSoundList.Add(moveSound);
         effectSoundList.Add(turnEndSound);
         effectSoundList.Add(clickSound);
+
+        BgmAudio();
+
+
     }
 
+
+    public void BgmAudio()
+    {
+        bgmSoundPlayer.GetComponent<AudioSource>().clip = bgmList[0];
+        bgmSoundPlayer.GetComponent<AudioSource>().loop = bgmList[0];
+        bgmSoundPlayer.GetComponent<AudioSource>().Play();
+        
+    }
+
+    public void BtnAudio()
+    {
+        btnSoundPlayer.GetComponent<AudioSource>().clip = btnSound;
+        btnSoundPlayer.GetComponent<AudioSource>().Play();
+    }
+    public void BattleAudio()
+    {
+        battleSoundPlayer.GetComponent<AudioSource>().clip = battleSound;
+        battleSoundPlayer.GetComponent<AudioSource>().Play();
+    }
+    
 }

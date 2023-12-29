@@ -212,8 +212,7 @@ public class Wood : Player
             {
                 hasBuildingDic.Add(tileName, new List<GameObject>());
             }
-            if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == building.GetComponent<Building>().type) &&
-                CostTypeCheck(tempMem.nodeType) == false)//지어지지않은 기지면
+            if (!hasBuildingDic[tileName].Exists(temp => temp.GetComponent<Building>().type == building.GetComponent<Building>().type))//지어지지않은 기지면
             {
                 SetHasBuildingNode(tileName, targetTransform, building);
                 if(supportVal[tempMem.nodeType] < buildCost + soldierCost)//병사 코스트와 건물코스트 새줄여주기
@@ -224,7 +223,7 @@ public class Wood : Player
                 }
                 else
                     supportVal[tempMem.nodeType] -= buildCost + soldierCost;//새까지 필요없을떄
-                if(buildCost == 2)//반란이면
+                if(buildCost == 2 && CostTypeCheck(tempMem.nodeType) == false)//반란이면
                 {
                     Debug.Log(buildCost);
                     Debug.Log(buildCost + soldierCost);

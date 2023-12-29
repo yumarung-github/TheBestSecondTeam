@@ -2,6 +2,7 @@ using Cinemachine;
 using sihyeon;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -9,9 +10,9 @@ using UnityEngine.UI;
 
 public class BattleManager : SingleTon<BattleManager>
 {
+    public string saveNodeTileName;
     public Player battleP1;
     public Player battleP2;
-
     public bool isInit;
     public int attackNum;
     public int defenseNum;
@@ -29,6 +30,8 @@ public class BattleManager : SingleTon<BattleManager>
     public CinemachineVirtualCamera battleVirtualCamera;
     public Canvas battleOffUI;
     public Canvas battleOffUI2;
+    public Canvas battleOffUI3;
+    public BattleScene battleScene;
 
     private new void Awake()
     {
@@ -40,6 +43,14 @@ public class BattleManager : SingleTon<BattleManager>
         {
             Debug.Log(RoundManager.Instance.bird.NowLeader);
         }
+        foreach(KeyValuePair<string,List<Soldier>> keyValuePair in RoundManager.Instance.bird.hasSoldierDic)
+        {
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                Debug.Log(keyValuePair.Key);
+            }
+        }
+        
     }
     public void InitBattle()
     {
@@ -134,7 +145,10 @@ public class BattleManager : SingleTon<BattleManager>
         battleVirtualCamera.Priority = 9;
         battleOffUI.gameObject.SetActive(false);
         battleOffUI2.gameObject.SetActive(false);
-        if(!isInit)
+        battleOffUI3.gameObject.SetActive(true);
+        battleScene.gameObject.SetActive(true);
+        battleScene.StartBattle();
+        if (!isInit)
         {
             attackNum = 0;
             defenseNum = 0;
@@ -142,11 +156,22 @@ public class BattleManager : SingleTon<BattleManager>
         }
         RoundManager.Instance.SetOffAllEffect();
         battleP1Soldiers = RoundManager.Instance.nowPlayer.hasSoldierDic[RoundManager.Instance.mapController.nowTile.nodeName];
-        battleP1.battleSoldierNum = battleP1Soldiers.Count;
-        battleP2.battleSoldierNum = battleP2Soldiers.Count;
+        Debug.Log("찍은 타일" + RoundManager.Instance.mapController.nowTile.nodeName);
+        Debug.Log("나우 플레이어" + RoundManager.Instance.nowPlayer);
+        foreach(KeyValuePair<string,List<Soldier>> keyValuePair in RoundManager.Instance.nowPlayer.hasSoldierDic)
+        {
+            if(keyValuePair.Key == RoundManager.Instance.mapController.nowTile.nodeName)
+            {
+                Debug.Log("제발 나와라" + keyValuePair.Value.Count);
+                battleP1.battleSoldierNum = keyValuePair.Value.Count;
+            }
 
+        }
+        battleP2.battleSoldierNum = battleP2Soldiers.Count;
         battleP1.battleBuildingNum = battleP1Buildings.Count;
         battleP2.battleBuildingNum = battleP2Buildings.Count;
+        Uimanager.Instance.battlep1.ActionP1();
+        Uimanager.Instance.battlep2.ActionP2();
         diceP1Num = Random.Range(0, 4);//p2가 나온숫자 p1의 병사가 죽어야하는 숫자
         diceP2Num = Random.Range(0, 4);//p1이 나온숫자 p2의 병사가 죽어야하는 숫자
         int tempNum;
@@ -177,6 +202,7 @@ public class BattleManager : SingleTon<BattleManager>
         //더 큰 숫자가 dicep2num에 가야함. (공격)
         Debug.Log("배틀시작");
         diceP1Num = (diceP1Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP1Num;//+ + battleP2.battleBuildingNum
+        diceP1Num = (diceP1Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP1Num;
         //여기에 플레이어 2번의 버드의 지도자가 데미지 1이면 다이스1num에 1추가
 
         for (int i = 0; i < diceP1Num; i++)
@@ -220,10 +246,10 @@ public class BattleManager : SingleTon<BattleManager>
                     Destroy(battleP2.hasBuildingDic[RoundManager.Instance.mapController.nowTile.nodeName][0]);
                     battleP2.hasBuildingDic.Remove(RoundManager.Instance.mapController.nowTile.nodeName);
                 }
-                    
             }
         }
         diceP2Num = (diceP2Num > battleP1.battleSoldierNum) ? battleP1.battleSoldierNum : diceP2Num;// + battleP1.battleBuildingNum
+        diceP2Num = (diceP2Num > battleP2.battleSoldierNum) ? battleP2.battleSoldierNum : diceP2Num;// + battleP1.battleBuildingNum
         //여기에 플레이어 1번의 버드의 지도자가 데미지 1이면 다이스2num에 1추가
         for (int i = 0; i < diceP2Num; i++)
         {

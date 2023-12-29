@@ -29,6 +29,7 @@ public class DragableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("a");
         rectTrans.position = previousParent.GetComponent<RectTransform>().position;
         canvasGroup.alpha = 1f;
     }

@@ -60,13 +60,13 @@ public class RoundManager : SingleTon<RoundManager>
     {
         //상태머신에 상태들 추가한것
         moveOver = true;
-        testType = SoldierTestType.Select;
+        testType = SoldierTestType.Select;             
+
         roundSM.AddStateDic(MASTATE_TYPE.CAT_WAIT, new CatWaitState());
         roundSM.AddStateDic(MASTATE_TYPE.CAT_MORNING, new CatMorningState());
         roundSM.AddStateDic(MASTATE_TYPE.CAT_AFTERNOON, new CatAfternoonState());
         roundSM.AddStateDic(MASTATE_TYPE.CAT_DINNER, new CatDinnerState());
-        roundSM.SetState(MASTATE_TYPE.CAT_WAIT);
-
+        
         roundSM.AddStateDic(MASTATE_TYPE.BIRD_WAIT, new BirdWaitState());
         roundSM.AddStateDic(MASTATE_TYPE.BIRD_MORNING, new BirdMorningState());
         roundSM.AddStateDic(MASTATE_TYPE.BIRD_MORNING2, new BirdMorning2State());
@@ -79,13 +79,7 @@ public class RoundManager : SingleTon<RoundManager>
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_AFTERNOON, new WoodAfternoonState());
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_DINNER, new WoodDinnerState());
 
-        List<Effect> list = effectParent.GetComponentsInChildren<Effect>().ToList();
-        foreach (Effect p in list)
-        {
-            particles.Add(p.gameObject);
-            p.gameObject.SetActive(false);
-        }
-
+        roundSM.SetState(MASTATE_TYPE.CAT_WAIT);
     }
     private void Update()
     {
@@ -95,7 +89,6 @@ public class RoundManager : SingleTon<RoundManager>
     public void SetEffect(NodeMember mem)
     {
         mem.transform.GetChild(0).GetComponent<Effect>().gameObject.SetActive(true);
-        Debug.Log(mem.nodeName + "이펙트킴");
     }
     public void SetOffAllEffect()
     {

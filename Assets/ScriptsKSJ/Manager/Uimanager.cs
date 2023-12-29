@@ -32,6 +32,9 @@ public class Uimanager : SingleTon<Uimanager>
     public GameObject catInven;
     public GameObject birdInven;
     public GameObject woodInven;
+
+    public BattleP1 battlep1;
+    public BattleP2 battlep2;
     private new void Awake()
     {
         base.Awake();

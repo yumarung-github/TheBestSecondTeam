@@ -109,22 +109,26 @@ public class BirdCardAction : MonoBehaviour
                 case CARDSLOT_TYPE.SPAWN:
                     {
                         SetSpawnNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(0);
                     }
                     break;
                 case CARDSLOT_TYPE.MOVE:
                     {
                         SetMoveNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(1);
                     }
                     break;
 
                 case CARDSLOT_TYPE.BATTLE:
                     {
                         SetBattleNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(2);
                     }
                     break;
                 case CARDSLOT_TYPE.BULID:
                     {
                         SetBulidNode();
+                        Uimanager.Instance.birdUI.sequence.CoroutineMethod(3);
                     }
                     break;
             }
@@ -155,12 +159,13 @@ public class BirdCardAction : MonoBehaviour
             // 내가 가진 카드의 타입이 내 병사가 위치한 타일의 타입과 같다면
 
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
-                // 내 카드가 새면서 상대방이 있다면
+            // 내 카드가 새면서 상대방이 있다면
             {
                 tile.isTileCheck = true;
                 RoundManager.Instance.SetEffect(tile);
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
                 isBreakRule = true;
+
             }
             else if (isBattletile && isbattlePlayer)
                 // 내가 가진 카드의 타입이 같다면 그 카드는 tiles에 add됨
@@ -230,7 +235,7 @@ public class BirdCardAction : MonoBehaviour
     public void SetMoveNode()
     {
         Uimanager.Instance.birdUI.birdAlarm.SetActive(true);
-        Uimanager.Instance.birdUI.alarmText.text = "이동할 병사를 선택하세요 선택하세요.";
+        Uimanager.Instance.birdUI.alarmText.text = "이동할 병사를 선택하세요.";
         tiles.Clear();
         isBreakRule = false;
         foreach (KeyValuePair<string, List<Soldier>> soldierTileCheck in RoundManager.Instance.bird.hasSoldierDic)
