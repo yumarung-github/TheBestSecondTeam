@@ -159,12 +159,13 @@ public class BirdCardAction : MonoBehaviour
             // 내가 가진 카드의 타입이 내 병사가 위치한 타일의 타입과 같다면
 
             if (birdCards[CurCard].costType == ANIMAL_COST_TYPE.BIRD && isbattlePlayer)
-                // 내 카드가 새면서 상대방이 있다면
+            // 내 카드가 새면서 상대방이 있다면
             {
                 tile.isTileCheck = true;
                 RoundManager.Instance.SetEffect(tile);
                 RoundManager.Instance.testType = RoundManager.SoldierTestType.Battle;
                 isBreakRule = true;
+
             }
             else if (isBattletile && isbattlePlayer)
                 // 내가 가진 카드의 타입이 같다면 그 카드는 tiles에 add됨
