@@ -80,6 +80,7 @@ public class RoundManager : SingleTon<RoundManager>
         roundSM.AddStateDic(MASTATE_TYPE.WOOD_DINNER, new WoodDinnerState());
 
         roundSM.SetState(MASTATE_TYPE.CAT_WAIT);
+
     }
     private void Update()
     {

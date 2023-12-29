@@ -279,30 +279,26 @@ public class AsAlgo
         visitPQ.Enqueue(startNode, roadCostDic[startNodeName]);
         while (visitPQ.Count > 0)
         {
-            //방문할 정점(노드)를 꺼냄, 우선순위 큐이므로 당연히 비용이 낮은거부터 꺼냄
+            //방문할 정점(노드)를 꺼냄, 우선순위 큐이므로 비용이 낮은거부터 꺼냄
             Node curVisitNode = visitPQ.Dequeue();
 
             visited[curVisitNode.name] = true;
             if (curVisitNode.name == endNodeName)
             {
                 string tempName = endNodeName;
-                Debug.Log(tempName);
                 while (tempName != startNodeName)
                 {
                     returnList.Add(tempName);
-                    Debug.Log("부모이름" + tempName);
                     tempName = graph.nodeList.Find(node => node.name == tempName).parent.name;
                 }
                 returnList.Add(startNodeName);
                 returnList.Reverse();
                 return returnList;
             }
-            //Debug.Log(curVisitNode.edgesInNode.Count);
             for (int i = 0; i < curVisitNode.edgesInNode.Count; i++)
             {
                 Edge nowEdge = curVisitNode.edgesInNode[i];
                 Node nowNode;
-                //Debug.Log(curVisitNode.edgesInNode[i].sNode + "/머/" + curVisitNode.edgesInNode[i].eNode);
                 if (curVisitNode.edgesInNode[i].sNode != curVisitNode)
                 {
                     Node tempNode = curVisitNode.edgesInNode[i].sNode;
@@ -319,7 +315,6 @@ public class AsAlgo
                 int cost = roadCostDic[curVisitNode.name] + nowEdge.cost;
                 if (roadCostDic[nowNode.name] > cost)
                 {
-                    //Debug.Log(curVisitNode.name + " " + nowNode.name);
                     nowNode.parent = curVisitNode;
                     roadCostDic[nowNode.name] = cost;
                     visitPQ.Enqueue(nowNode, roadCostDic[nowNode.name]);
@@ -358,15 +353,6 @@ public class MapExtra : MonoBehaviour
             nodeDic.Add(nodeMem.nodeName, nodeMem.node);
             nodeNameList.Add(nodeMem.nodeName);
         }
-        /*
-        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[1]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[1]], nodeDic[nodeNameList[2]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[2]], nodeDic[nodeNameList[6]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[3]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[3]], nodeDic[nodeNameList[4]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[4]], nodeDic[nodeNameList[5]], 1);
-        graph.AddEdge(nodeDic[nodeNameList[5]], nodeDic[nodeNameList[6]], 1);*/
-        //디버깅용
         graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[1]], 1);
         graph.AddEdge(nodeDic[nodeNameList[0]], nodeDic[nodeNameList[3]], 1);//여우2
         graph.AddEdge(nodeDic[nodeNameList[3]], nodeDic[nodeNameList[6]], 1);

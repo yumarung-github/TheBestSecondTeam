@@ -27,11 +27,13 @@ public class MapController : MonoBehaviour, IPointerDownHandler
 
     public Action catOnAction;
     public event Action catEmploy;
+    public Dictionary<RoundManager.SoldierTestType, Control> controlDic = new Dictionary<RoundManager.SoldierTestType, Control>();
 
     private void Start()
     {
         mapExtra = RoundManager.Instance.mapExtra;
         soldierNum = 0;
+        controlDic.Add(RoundManager.SoldierTestType.Move, new ControlMove());
     }
     public void CursorCal(PointerEventData eventData)
     {
@@ -99,7 +101,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
     //클릭할 떄 enum변수에 따라서 이벤트가 달라짐.
     void SetSoldier(RaycastHit miniMapHit)
     {
-        switch (RoundManager.Instance.testType)//나중에 스위치문 전체를 nodemember있는지 체크하는거로 바꾸고 통일함
+        //controlDic[RoundManager.Instance.testType].Active(miniMapHit);
+
+
+        switch (RoundManager.Instance.testType)
         {
             case RoundManager.SoldierTestType.None:
                 break;
