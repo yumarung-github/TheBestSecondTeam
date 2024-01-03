@@ -55,6 +55,11 @@ public class RoundManager : SingleTon<RoundManager>
         base.Awake();
         roundSM = new ManagerStateMahchine<RoundManager>(this);
         mapExtra = transform.GetComponent<MapExtra>();
+        List<Effect> tempList = effectParent.GetComponentsInChildren<Effect>().ToList();
+        foreach (Effect effect in tempList)
+        {
+            particles.Add(effect.gameObject);
+        }
     }
     void Start()
     {

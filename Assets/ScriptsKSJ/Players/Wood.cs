@@ -10,9 +10,7 @@ using UnityEngine;
 public class Wood : Player
 {
     
-    public int tokenNum;
-    [SerializeField]
-    Transform particlesParent;
+    public int tokenNum;    
     public Dictionary<int,int> tokenScoreDic = new Dictionary<int,int>();
     public Dictionary<int, int> tokenCostDic = new Dictionary<int, int>();
     public int soldierMaxNum;//병사 최대 명수
@@ -125,7 +123,6 @@ public class Wood : Player
     {        
         base.Start();
         DrawCardNum = 1;
-        particlesParent = roundManager.effectParent;
         roundManager.wood = this;
         hasNodeNames.Add("여우1");//임의로 가진 타일
         isFoxBuiilding = false;
