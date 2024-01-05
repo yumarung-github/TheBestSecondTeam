@@ -659,11 +659,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     //이유 발견 딕셔너리 생성이 안되있음 조건바꿔야함.
                     //- 딕셔너리가 1개만 생성되있음
                     //조건 바꿔야함.// 해결 - 12.17 시현
-                    nowTile = settingTileA;
-                    
-                    {
-                        //이경우에만 건설할수있게 직접 연결된 노드들만 즉 최소값만 각 노드의 엣지의 최솟값들 "1";
-                    }
+                    nowTile = settingTileA;                    
                     if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1")) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
                     {
                         if (nowTile.nodeName == "토끼1")
