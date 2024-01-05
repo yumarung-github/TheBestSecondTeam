@@ -16297,7 +16297,6 @@ MonoBehaviour:
   battleSoldierNum: 0
   battleBuildingNum: 0
   tokenNum: 0
-  particlesParent: {fileID: 934557085}
   soldierMaxNum: 0
   officerNum: 0
   battleActionNum: 0
@@ -54835,7 +54834,6 @@ RectTransform:
   - {fileID: 1373813597}
   - {fileID: 927601349}
   - {fileID: 1336524479}
-  - {fileID: 4462897286902247993}
   - {fileID: 4634256996454802916}
   - {fileID: 570259327}
   - {fileID: 1258244414155515485}
@@ -54847,6 +54845,7 @@ RectTransform:
   - {fileID: 1560328418}
   - {fileID: 798391741}
   - {fileID: 1263629833}
+  - {fileID: 4462897286902247993}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -136,7 +136,7 @@ public class Card : MonoBehaviour
         }
     }
 
-    public void Active()//김성진 수정함 카드 사용하면 사라지고 패에서 소트되는거 해야함
+    public void Active()//카드 사용하면 사라지고 패에서 소트
     {
         if (Uimanager.Instance.woodUi.cardUseType != WoodUi.CardUseType.NONE)
         {
@@ -148,7 +148,7 @@ public class Card : MonoBehaviour
             Uimanager.Instance.woodUi.cardUseType = WoodUi.CardUseType.NONE;
             Uimanager.Instance.playerUI.battleCardsWindow.SetActive(false);
         }
-        else
+        else//배틀중이 아닐 때
         {
             if (RoundManager.Instance.nowPlayer is Cat cat)
             {
@@ -167,8 +167,6 @@ public class Card : MonoBehaviour
                         break;
                 }
             }
-            //if (RoundManager.Instance.nowPlayer is Bird && Uimanager.Instance.dropableUI.isMove == true)
-            //    Uimanager.Instance.birdUI.birdSlot[Uimanager.Instance.birdUI.BirdInventory.curSlot].
             if (RoundManager.Instance.nowPlayer is Bird)
             {
 

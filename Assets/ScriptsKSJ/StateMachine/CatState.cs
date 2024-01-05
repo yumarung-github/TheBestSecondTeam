@@ -57,6 +57,9 @@ public class CatMorningState : RmState
         rm.cat.isSpawn = false;
         Uimanager.Instance.catUI.profileWindow.SetActive(true);
         rm.cat.woodProductNum = rm.cat.woodProductNum += rm.cat.turnAddWoodToken;
+
+        Uimanager.Instance.woodUi.craftBtn.gameObject.SetActive(true);
+
         Uimanager.Instance.playerUI.SetTurnTexts("고양이 후작\n아침\n선택");
         Uimanager.Instance.playerUI.SetBuildBtn();
         Uimanager.Instance.playerUI.SpawnSoldier();
@@ -109,6 +112,7 @@ public class CatMorningState : RmState
     public override void Exit()
     {
         Uimanager.Instance.playerUI.ResetBtn(true);
+        Uimanager.Instance.woodUi.craftBtn.gameObject.SetActive(false);
     }
 }
 public class CatAfternoonState : RmState
