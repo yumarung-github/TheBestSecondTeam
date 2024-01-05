@@ -660,6 +660,10 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     //- 딕셔너리가 1개만 생성되있음
                     //조건 바꿔야함.// 해결 - 12.17 시현
                     nowTile = settingTileA;
+                    
+                    {
+                        //이경우에만 건설할수있게 직접 연결된 노드들만 즉 최소값만 각 노드의 엣지의 최솟값들 "1";
+                    }
                     if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1")) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
                     {
                         if (nowTile.nodeName == "토끼1")
@@ -679,7 +683,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
                             RoundManager.Instance.cat.RemainSawmillNum--;
                             RoundManager.Instance.cat.costBuilding();
-                        }
+                        }                       
                     }
                     else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우4")) //여우4는 생쥐2,3 토끼 2                       
                     {
@@ -1026,7 +1030,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 }
                 break;
             case RoundManager.SoldierTestType.CatExtraWork: // 이부분은 성환이형 스크립트와 이어야함 나중에 .
-                RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken;
+                //if (RoundManager.Instance.cat.isWorked == false)
+                //{
+                //    RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken;
+                //    Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                //    RoundManager.Instance.cat.isWorked = true;
+                //}
                 break;
             case RoundManager.SoldierTestType.CatRecruit:
                 catEmploy();

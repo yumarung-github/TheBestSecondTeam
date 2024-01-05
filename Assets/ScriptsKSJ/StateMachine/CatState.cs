@@ -50,6 +50,7 @@ public class CatMorningState : RmState
         Uimanager.Instance.playerUI.buildBtn.enabled = true;
         Uimanager.Instance.playerUI.moveBtn.enabled = true;
         Uimanager.Instance.playerUI.battleBtn.enabled = true;
+        RoundManager.Instance.cat.isWorked = false;
         rm.nowPlayer = cat;
         rm.cat.actionPoint = 3;
         rm.cat.firstMove = false;

@@ -186,7 +186,13 @@ public class PlayerUI : MonoBehaviour
     public void SetCatExtraBtn()
     {
         catExtraBtn.onClick.RemoveAllListeners();
-        catExtraBtn.onClick.AddListener(() => { RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken; });
+        catExtraBtn.onClick.AddListener(() => {
+            if(RoundManager.Instance.cat.isWorked == false)
+                RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken; 
+            RoundManager.Instance.cat.isWorked = true;
+            Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+
+        });
         catExtraBtn.onClick.AddListener(() => { Debug.Log("야근이다"); });
         
     }

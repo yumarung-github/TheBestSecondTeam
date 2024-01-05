@@ -15,7 +15,7 @@ public class Cat : Player
     public bool secondMove = false;
     public bool isSpawn = false;
     private int MaxActionPoint = 4;
-    
+    public bool isWorked = false;
 
     public int catSawMillCost = 1;
     public int catBarrackCost = 1;
