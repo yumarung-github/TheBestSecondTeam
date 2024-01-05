@@ -420,27 +420,33 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                             RoundManager.Instance.testType = RoundManager.SoldierTestType.Select;
                             if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catSawMillPrefab&& RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catSawMillCost)
                             {
-                                RoundManager.Instance.cat.RemainSawmillNum--;                                
+                                Debug.Log("1111111111");
+                                Debug.Log(RoundManager.Instance.cat.RemainSawmillNum);
+                                RoundManager.Instance.cat.RemainSawmillNum -=1;
+                                Debug.Log(RoundManager.Instance.cat.RemainSawmillNum);
                                 RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catSawMillCost;
                                 RoundManager.Instance.cat.costBuilding();
                                 Uimanager.Instance.catUI.sawmillCostText.text = RoundManager.Instance.cat.catSawMillCost.ToString();
                                 Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                                Uimanager.Instance.catUI.bulidSectionSawmillCostText.text = RoundManager.Instance.cat.catSawMillCost.ToString();
                             }
                             if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catBarrackPrefab &&RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catBarrackCost)
                             {
-                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainBarracksNum -=1;
                                 RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catBarrackCost;
                                 RoundManager.Instance.cat.costBuilding();
                                 Uimanager.Instance.catUI.barracksCostText.text = RoundManager.Instance.cat.catBarrackCost.ToString();
                                 Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                                Uimanager.Instance.catUI.bulidSectionBarracksCostText.text = RoundManager.Instance.cat.catBarrackCost.ToString();
                             }
-                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catWorkShopPrefab && RoundManager.Instance.cat.catWorkShopCost > RoundManager.Instance.cat.catWorkShopCost)
+                            if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catWorkShopPrefab && RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catWorkShopCost)
                             {
-                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum -=1;
                                 RoundManager.Instance.cat.woodProductNum -= RoundManager.Instance.cat.catWorkShopCost;
                                 RoundManager.Instance.cat.costBuilding();
                                 Uimanager.Instance.catUI.workshopCostText.text = RoundManager.Instance.cat.catWorkShopCost.ToString();
                                 Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                                Uimanager.Instance.catUI.bulidSectionWorkshopCostText.text = RoundManager.Instance.cat.catWorkShopCost.ToString();
                             }
                             catOnAction();
                             if(RoundManager.Instance.cat.actionPoint == 0)
@@ -653,43 +659,90 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                     //이유 발견 딕셔너리 생성이 안되있음 조건바꿔야함.
                     //- 딕셔너리가 1개만 생성되있음
                     //조건 바꿔야함.// 해결 - 12.17 시현
-                    nowTile = settingTileA;
+                    nowTile = settingTileA;                    
                     if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우1")) //여우 1 이면 토끼1,여우2,생쥐2에 건설할수있어야함   여우 1이 0;
                     {
                         if (nowTile.nodeName == "토끼1")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "여우2")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "생쥐2")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }                       
                     }
                     else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우4")) //여우4는 생쥐2,3 토끼 2                       
                     {
                         if (nowTile.nodeName == "생쥐2")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
-
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "생쥐4")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "토끼2")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                     }
                     else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐1"))//토 1,3 여2                        
                     {
                         if (nowTile.nodeName == "토끼1")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "토끼3")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "여우2")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                     }
                     else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐4"))// 토 34 여 3                        
                     {
                         if (nowTile.nodeName == "토끼3")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "토끼4")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                         else if (nowTile.nodeName == "여우3")
+                        {
                             RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catSawMillPrefab);
+                            RoundManager.Instance.cat.RemainSawmillNum--;
+                            RoundManager.Instance.cat.costBuilding();
+                        }
                     }
                     else
                         break;
@@ -711,12 +764,19 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[4];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
+
                             }
                             else if (nowTile.nodeName == "생쥐2")
                             {
                                 extraNode = mapExtra.mapTiles[3];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우2"))
@@ -726,12 +786,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[4];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "생쥐2")
                             {
                                 extraNode = mapExtra.mapTiles[1];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐2"))
@@ -741,12 +807,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[3];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "여우2")
                             {
                                 extraNode = mapExtra.mapTiles[1];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                     }
@@ -759,12 +831,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[5];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "토끼2")
                             {
                                 extraNode = mapExtra.mapTiles[7];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("생쥐3"))
@@ -774,12 +852,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[5];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "토끼2")
                             {
                                 extraNode = mapExtra.mapTiles[4];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼2"))
@@ -789,12 +873,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[4];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "생쥐2")
                             {
                                 extraNode = mapExtra.mapTiles[9];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                     }
@@ -807,12 +897,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[3];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "여우2")
                             {
                                 extraNode = mapExtra.mapTiles[7];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼3"))
@@ -822,12 +918,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[3];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "여우2")
                             {
                                 extraNode = mapExtra.mapTiles[1];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우2"))
@@ -837,12 +939,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[1];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "토끼1")
                             {
                                 extraNode = mapExtra.mapTiles[7];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                     }
@@ -855,12 +963,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[6];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "여우3")
                             {
                                 extraNode = mapExtra.mapTiles[10];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("토끼4"))
@@ -870,12 +984,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[6];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "여우3")
                             {
                                 extraNode = mapExtra.mapTiles[7];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }
                         else if (RoundManager.Instance.cat.hasBuildingDic.ContainsKey("여우3"))
@@ -885,12 +1005,18 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 extraNode = mapExtra.mapTiles[10];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                             else if (nowTile.nodeName == "토끼4")
                             {
                                 extraNode = mapExtra.mapTiles[7];
                                 RoundManager.Instance.cat.SpawnBuilding(nowTile.nodeName, nowTile.transform, BuildingManager.Instance.catWorkShopPrefab);
                                 RoundManager.Instance.cat.SpawnBuilding(extraNode.nodeName, extraNode.transform, BuildingManager.Instance.catBarrackPrefab);
+                                RoundManager.Instance.cat.RemainBarracksNum--;
+                                RoundManager.Instance.cat.RemainWorkshopsNum--;
+                                RoundManager.Instance.cat.costBuilding();
                             }
                         }                       
                     }
@@ -900,7 +1026,12 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                 }
                 break;
             case RoundManager.SoldierTestType.CatExtraWork: // 이부분은 성환이형 스크립트와 이어야함 나중에 .
-                RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken;
+                //if (RoundManager.Instance.cat.isWorked == false)
+                //{
+                //    RoundManager.Instance.cat.woodProductNum += RoundManager.Instance.cat.turnAddWoodToken;
+                //    Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                //    RoundManager.Instance.cat.isWorked = true;
+                //}
                 break;
             case RoundManager.SoldierTestType.CatRecruit:
                 catEmploy();
