@@ -12,12 +12,12 @@ public class Slot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Uimanager.Instance.cardWindow.SetActive(true);
         if(card != null )
         {
-            Uimanager.Instance.cardName.text = "TEST 카드 이름 : " + card.cardName;
+            Uimanager.Instance.cardName.text = "카드 이름 : " + card.cardName;
             Uimanager.Instance.cardInfo.text = "카드 정보 \n" + card.cardInfo;
         }
         else
         {
-            Uimanager.Instance.cardName.text = "TEST 카드 이름 : " ;
+            Uimanager.Instance.cardName.text = "카드 이름 : " ;
             Uimanager.Instance.cardInfo.text = "카드 정보 \n";
         }
     }
