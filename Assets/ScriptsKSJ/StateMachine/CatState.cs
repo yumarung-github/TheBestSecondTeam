@@ -45,7 +45,7 @@ public class CatMorningState : RmState
     }
     public override void Enter()
     {
-        
+        Uimanager.Instance.catUI.actionNum.SetActive(true);
         Uimanager.Instance.playerUI.spawnBtn.enabled = true;
         Uimanager.Instance.playerUI.buildBtn.enabled = true;
         Uimanager.Instance.playerUI.moveBtn.enabled = true;
@@ -166,5 +166,6 @@ public class CatDinnerState : RmState
         Uimanager.Instance.catInven.SetActive(false);
         Uimanager.Instance.catUI.profileWindow.SetActive(false);
         Uimanager.Instance.catUI.bulidSectionWindow.SetActive(false);
+        Uimanager.Instance.catUI.actionNum.SetActive(true);
     }
 }

@@ -307,6 +307,7 @@ public class Cat : Player
         if (actionPoint > 0)
         {
             actionPoint--;
+            Uimanager.Instance.catUI.actionNumText.text = RoundManager.Instance.cat.actionPoint.ToString();
             Debug.Log("남은 포인트" + actionPoint);
 
         }
@@ -323,6 +324,7 @@ public class Cat : Player
         if (RoundManager.Instance.cat.actionPoint <= 3)
         {
             RoundManager.Instance.cat.actionPoint++;
+            Uimanager.Instance.catUI.actionNumText.text = RoundManager.Instance.cat.actionPoint.ToString();
             Debug.Log("남은 포인트 : " + actionPoint);
         }
         else

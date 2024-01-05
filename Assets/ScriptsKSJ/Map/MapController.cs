@@ -428,6 +428,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 RoundManager.Instance.cat.costBuilding();
                                 Uimanager.Instance.catUI.sawmillCostText.text = RoundManager.Instance.cat.catSawMillCost.ToString();
                                 Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                                Uimanager.Instance.catUI.bulidSectionSawmillCostText.text = RoundManager.Instance.cat.catSawMillCost.ToString();
                             }
                             if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catBarrackPrefab &&RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catBarrackCost)
                             {
@@ -436,6 +437,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 RoundManager.Instance.cat.costBuilding();
                                 Uimanager.Instance.catUI.barracksCostText.text = RoundManager.Instance.cat.catBarrackCost.ToString();
                                 Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                                Uimanager.Instance.catUI.bulidSectionBarracksCostText.text = RoundManager.Instance.cat.catBarrackCost.ToString();
                             }
                             if (BuildingManager.Instance.selectedBuilding == BuildingManager.Instance.catWorkShopPrefab && RoundManager.Instance.cat.woodProductNum > RoundManager.Instance.cat.catWorkShopCost)
                             {
@@ -444,6 +446,7 @@ public class MapController : MonoBehaviour, IPointerDownHandler
                                 RoundManager.Instance.cat.costBuilding();
                                 Uimanager.Instance.catUI.workshopCostText.text = RoundManager.Instance.cat.catWorkShopCost.ToString();
                                 Uimanager.Instance.catUI.woodProductText.text = RoundManager.Instance.cat.woodProductNum.ToString();
+                                Uimanager.Instance.catUI.bulidSectionWorkshopCostText.text = RoundManager.Instance.cat.catWorkShopCost.ToString();
                             }
                             catOnAction();
                             if(RoundManager.Instance.cat.actionPoint == 0)
